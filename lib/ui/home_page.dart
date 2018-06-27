@@ -13,26 +13,24 @@ class MyHomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: buildAppBar(context, "flutter Bloc!"),
-      body: Column(children: [
-        Flexible(child: buildStreamList(movieBloc))
-      ]),
+      body: Column(children: [Flexible(child: buildStreamList(movieBloc))]),
     );
   }
 
   StreamBuilder<List<Movie>> buildStreamList(MovieBloc movieBloc) {
     return StreamBuilder(
-            stream: movieBloc.movies,
-            initialData: movieBloc.getNowPlayingList(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return buildErrorWidget(snapshot.error);
-              }
-              if (!snapshot.hasData) {
-                return buildLoadingWidget();
-              }
-              return buildListView(snapshot);
-            },
-          );
+      stream: movieBloc.movies,
+      initialData: movieBloc.getNowPlayingList(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return buildErrorWidget(snapshot.error);
+        }
+        if (!snapshot.hasData) {
+          return buildLoadingWidget();
+        }
+        return buildListView(snapshot);
+      },
+    );
   }
 
   ListView buildListView(AsyncSnapshot<List<Movie>> snapshot) {
@@ -42,11 +40,5 @@ class MyHomePage extends StatelessWidget {
           print(index);
           return MovieRow(snapshot.data[index]);
         });
-  }
-
-  FlatButton buildDownloadButton(MovieBloc movieBloc) {
-    return FlatButton.icon(
-          onPressed: () => movieBloc.getNowPlayingList(),
-          icon: Icon(Icons.cloud_download), label: Text("donwload"));
   }
 }

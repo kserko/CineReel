@@ -73,10 +73,16 @@ class MovieRow extends StatelessWidget {
         fallbackWidget: SizedBox(height: 300.0));
   }
 
-  String backdropImagePath(Movie movie) => ImageHelper.getBackdropImagePath(movie.backdropPath, BACKTROP_SIZES['medium']);
+  String backdropImagePath(Movie movie) => ImageHelper.getBackdropImagePath(movie.backdropPath, BACKTROP_SIZES['small']);
 
   Widget buildMovieBackdrop(Movie movie) {
-    return Container(
-        child: getAdvancedNetworkImage(movie));
+    return Column(
+      //makes the image stretch to fill the screen width
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Image.network(backdropImagePath(movie),fit: BoxFit.contain),
+      ],
+    );
   }
+
 }

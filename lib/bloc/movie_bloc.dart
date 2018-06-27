@@ -13,7 +13,7 @@ class MovieBloc {
   Stream<List<Movie>> get movies => streamController.stream;
 
 
-  MovieBloc(this.api);
+  MovieBloc(this.api) {}
 
   void getDiscoverList() {
     streamController.addStream(api.discoverMovies(page: 1).then((MoviesResponse
