@@ -4,6 +4,7 @@ import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MovieRow extends StatelessWidget {
   final Movie movie;
@@ -69,20 +70,40 @@ class MovieRow extends StatelessWidget {
 
   Widget getAdvancedNetworkImage(Movie movie){
     return new TransitionToImage(
-      AdvancedNetworkImage(backdropImagePath(movie)), useReload: false,
+        AdvancedNetworkImage(backdropImagePath(movie)),
+        placeholder: LinearProgressIndicator(),
+        useReload: false,
         fallbackWidget: SizedBox(height: 300.0));
   }
 
-  String backdropImagePath(Movie movie) => ImageHelper.getBackdropImagePath(movie.backdropPath, BACKTROP_SIZES['small']);
+  String backdropImagePath(Movie movie) => ImageHelper.getBackdropImagePath
+    (movie.backdropPath, BACKTROP_SIZES['small']);
 
   Widget buildMovieBackdrop(Movie movie) {
     return Column(
       //makes the image stretch to fill the screen width
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Image.network(backdropImagePath(movie),fit: BoxFit.contain),
+        Image.network(backdropImagePath(movie),
+        fit: BoxFit.fill),
       ],
     );
   }
 
+  Widget buildMovieBackdrop2(Movie movie) {
+    return Column(
+      //makes the image stretch to fill the screen width
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Container(
+          color: Colors.red,
+          child: FadeInImage.memoryNetwork(
+            placeholder: kTransparentImage,
+            image: backdropImagePath(movie),
+            fit: BoxFit.fill,
+          ),
+        )
+      ],
+    );
+  }
 }
