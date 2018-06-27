@@ -17,25 +17,25 @@ class MovieRow extends StatelessWidget {
   }
 
   void showSnackbar(BuildContext context, String overview) {
-    final snackBar = SnackBar(content: Text(overview), duration: Duration(seconds: 3));
+    final snackBar =
+        SnackBar(content: Text(overview), duration: Duration(seconds: 3));
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
   BoxDecoration textDecoration() {
-    return const BoxDecoration(
-        boxShadow: <BoxShadow>[
-          const BoxShadow(
-            offset: const Offset(0.0, 0.0),
-            blurRadius: 40.0,
-            color: Colors.black,
-          )
-        ]);
+    return const BoxDecoration(boxShadow: <BoxShadow>[
+      const BoxShadow(
+        offset: const Offset(0.0, 0.0),
+        blurRadius: 40.0,
+        color: Colors.black,
+      )
+    ]);
   }
 
   Widget buildMovieRow(Movie movie, BuildContext context) {
     return GestureDetector(
         onTap: () {
-          showSnackbar(context, movie.overview);
+//          showSnackbar(context, movie.overview);
         },
         child: DefaultTextStyle(
           style: new TextStyle(color: Colors.white),
@@ -61,31 +61,46 @@ class MovieRow extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Text(movie.title, style: TextStyle(fontSize: 30.0, color: Colors.white)),
+            buildExpansionTile(movie),
           ],
         ),
       ),
     );
   }
 
-  Widget getAdvancedNetworkImage(Movie movie){
-    return new TransitionToImage(
-        AdvancedNetworkImage(backdropImagePath(movie)),
+  ExpansionTile buildExpansionTile(Movie movie) {
+    return ExpansionTile(
+              title: Text(movie.title,
+                  style: TextStyle(fontSize: 30.0, color: Colors.white)),
+              children: [
+                SizedBox(
+                  height: 100.0,
+                  child: ListTile(
+                      title: SingleChildScrollView(
+                        child: Text(movie.overview,
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.white)),
+                      )),
+                )
+              ]);
+  }
+
+  Widget getAdvancedNetworkImage(Movie movie) {
+    return new TransitionToImage(AdvancedNetworkImage(backdropImagePath(movie)),
         placeholder: LinearProgressIndicator(),
         useReload: false,
         fallbackWidget: SizedBox(height: 300.0));
   }
 
-  String backdropImagePath(Movie movie) => ImageHelper.getBackdropImagePath
-    (movie.backdropPath, BACKTROP_SIZES['small']);
+  String backdropImagePath(Movie movie) => ImageHelper.getBackdropImagePath(
+      movie.backdropPath, BACKTROP_SIZES['small']);
 
   Widget buildMovieBackdrop(Movie movie) {
     return Column(
       //makes the image stretch to fill the screen width
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Image.network(backdropImagePath(movie),
-        fit: BoxFit.fill),
+        Image.network(backdropImagePath(movie), fit: BoxFit.fill),
       ],
     );
   }

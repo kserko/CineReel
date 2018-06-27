@@ -14,6 +14,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context, "flutter Bloc!"),
       body: Column(children: [Flexible(child: buildStreamList(movieBloc))]),
+//    body: expansionTile(),
     );
   }
 
@@ -40,5 +41,15 @@ class MyHomePage extends StatelessWidget {
           print(index);
           return MovieRow(snapshot.data[index]);
         });
+  }
+
+  Widget expansionTile() {
+    return ExpansionTile(
+      title: Text("title"),
+      children: <Widget>[
+        Text("child1"),
+        Text('child2')
+      ],
+    );
   }
 }
