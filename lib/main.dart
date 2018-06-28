@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MovieProvider(
-          child: MyHomePage()),
+          child: HomePage()),
     );
   }
 }

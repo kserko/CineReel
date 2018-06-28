@@ -6,15 +6,58 @@ import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/ui/movie_row.dart';
 
-class MyHomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({Key key}) : super(key: key);
+
+  @override
+  _MyTabbedPageState createState() => new _MyTabbedPageState();
+}
+
+// ignore: mixin_inherits_from_not_object
+class _MyTabbedPageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  final List<Tab> myTabs = <Tab>[
+    new Tab(text: 'Now Playing'),
+    new Tab(text: 'RIGHT'),
+  ];
+
+  TabController _tabController;
+  var _selectedTab;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = new TabController(vsync: this, length: myTabs.length);
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      return;
+    }
+    _selectedTab = _tabController.index;
+    print("Changed tab to: ${_selectedTab.toString()}");
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final movieBloc = MovieProvider.of(context);
 
-    return Scaffold(
-      appBar: buildAppBar(context, "flutter Bloc!"),
-      body: Column(children: [Flexible(child: buildStreamList(movieBloc))]),
-//    body: expansionTile(),
+    return new Scaffold(
+      appBar: buildAppBar(context, "flutter Bloc!", myTabs, _tabController),
+      body: TabBarView(controller: _tabController, children: [
+        Column(children: [Flexible(child: buildStreamList(movieBloc))]),
+        Center(
+            child: Container(
+          color: Colors.green,
+        ))
+      ]),
     );
   }
 
@@ -41,15 +84,5 @@ class MyHomePage extends StatelessWidget {
           print(index);
           return MovieRow(snapshot.data[index]);
         });
-  }
-
-  Widget expansionTile() {
-    return ExpansionTile(
-      title: Text("title"),
-      children: <Widget>[
-        Text("child1"),
-        Text('child2')
-      ],
-    );
   }
 }

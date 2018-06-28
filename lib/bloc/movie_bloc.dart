@@ -7,11 +7,9 @@ import 'package:flutter_bloc_movies/models/MoviesResponse.dart';
 class MovieBloc {
   TMDBApi api;
 
-  StreamController<List<Movie>> streamController = StreamController<
-      List<Movie>>();
+  StreamController<List<Movie>> streamController = StreamController<List<Movie>>();
 
   Stream<List<Movie>> get movies => streamController.stream;
-
 
   MovieBloc(this.api) {}
 
