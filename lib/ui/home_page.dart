@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
@@ -13,12 +12,10 @@ class HomePage extends StatefulWidget {
   _MyTabbedPageState createState() => new _MyTabbedPageState();
 }
 
-// ignore: mixin_inherits_from_not_object
-class _MyTabbedPageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin { // ignore: mixin_inherits_from_not_object
   final List<Tab> myTabs = <Tab>[
     new Tab(text: 'Now Playing'),
-    new Tab(text: 'RIGHT'),
+    new Tab(text: 'Top Rated'),
   ];
 
   TabController _tabController;
@@ -47,24 +44,22 @@ class _MyTabbedPageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    final movieBloc = MovieProvider.of(context);
 
     return new Scaffold(
       appBar: buildAppBar(context, "flutter Bloc!", myTabs, _tabController),
       body: TabBarView(controller: _tabController, children: [
-        Column(children: [Flexible(child: buildStreamList(movieBloc))]),
-        Center(
-            child: Container(
-          color: Colors.green,
-        ))
+        Column(children: [Flexible(child: buildStreamList(0))]),
+				Column(children: [Flexible(child: buildStreamList(1))]),
       ]),
     );
   }
 
-  StreamBuilder<List<Movie>> buildStreamList(MovieBloc movieBloc) {
-    return StreamBuilder(
-      stream: movieBloc.movies,
-      initialData: movieBloc.getNowPlayingList(),
+  StreamBuilder<List<Movie>> buildStreamList(int tabIndex) {
+		final movieBloc = MovieProvider.of(context);
+
+		return StreamBuilder(
+      stream: movieBloc.getStreamForTab(tabIndex),
+      initialData: movieBloc.getPageData(tabIndex),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return buildErrorWidget(snapshot.error);

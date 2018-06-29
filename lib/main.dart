@@ -13,8 +13,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MovieProvider(
-          child: HomePage()),
+      home: MovieProvider(child: HomePage()),
     );
   }
 }

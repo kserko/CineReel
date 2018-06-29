@@ -12,7 +12,11 @@ class MovieProvider extends InheritedWidget {
       (context.inheritFromWidgetOfExactType(MovieProvider) as MovieProvider)
           .movieBloc;
 
-  MovieProvider({Key key, MovieBloc movieBloc, Widget child})
-      : this.movieBloc = movieBloc ?? MovieBloc(TMDBApi()),
+  MovieProvider({
+    Key key,
+    MovieBloc movieBloc,
+    Widget child
+  }):
+				this.movieBloc = movieBloc ?? MovieBloc(TMDBApi()),
         super(child: child, key: key);
 }

@@ -3,31 +3,71 @@ import 'dart:async';
 import 'package:flutter_bloc_movies/api/api.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/models/MoviesResponse.dart';
+import 'package:rxdart/rxdart.dart';
+
+class MovieListState {
+  List<Movie> movies = [];
+  int page = 1;
+
+  MovieListState({this.movies, this.page});
+}
 
 class MovieBloc {
   TMDBApi api;
 
-  StreamController<List<Movie>> streamController = StreamController<List<Movie>>();
+  // This is the internal object whose stream/sink is provided by this component
+  final _nowPlayingMovies = ReplaySubject<List<Movie>>();
+	final _topRatedMovies = ReplaySubject<List<Movie>>();
 
-  Stream<List<Movie>> get movies => streamController.stream;
+  // This is the stream of movies. Use this to show the contents
+  Stream<List<Movie>> get nowPlayingMovies => _nowPlayingMovies.stream;
+	Stream<List<Movie>> get topRatedMovies => _topRatedMovies.stream;
 
   MovieBloc(this.api) {}
 
-  void getDiscoverList() {
-    streamController.addStream(api.discoverMovies(page: 1).then((MoviesResponse
-    moviesResponse) {
-      return moviesResponse.results;
-    }).asStream());
-  }
-
   getNowPlayingList() {
-    streamController.addStream(api.nowPlayingMovies(page: 1)
-        .then((MoviesResponse moviesResponse) {
+    _nowPlayingMovies.addStream(
+        api.nowPlayingMovies(page: 1).then((MoviesResponse moviesResponse) {
       if (moviesResponse.hasResults()) {
         return moviesResponse.results;
       }
       if (moviesResponse.hasErrors()) {
-        throw(moviesResponse.errors[0]);
-      }}).asStream());
+        throw (moviesResponse.errors[0]);
+      }
+    }).asStream());
   }
+
+  getTopRatedList() {
+    _topRatedMovies
+        .addStream(api.topRated(page: 1).then((MoviesResponse moviesResponse) {
+      if (moviesResponse.hasResults()) {
+        return moviesResponse.results;
+      }
+      if (moviesResponse.hasErrors()) {
+        throw (moviesResponse.errors[0]);
+      }
+    }).asStream());
+  }
+
+  getPageData(int tabIndex) {
+    switch (tabIndex) {
+      case 0:
+        getNowPlayingList();
+        break;
+      case 1:
+        getTopRatedList();
+        break;
+    }
+  }
+
+  getStreamForTab(int tabIndex) {
+  	switch (tabIndex) {
+			case 0:
+				return nowPlayingMovies;
+				break;
+			case 1:
+				return topRatedMovies;
+				break;
+		}
+	}
 }
