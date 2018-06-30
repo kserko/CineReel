@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
-import 'package:flutter_bloc_movies/models/Movie.dart';
+import 'package:flutter_bloc_movies/state/MovieListState.dart';
 import 'package:flutter_bloc_movies/ui/movie_row.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,11 +56,11 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 		);
 	}
 
-	StreamBuilder<List<Movie>> buildStreamList(int tabIndex) {
+	StreamBuilder<MovieListState> buildStreamList(int tabIndex) {
 		final movieBloc = MovieProvider.of(context);
 
 		return StreamBuilder(
-			stream: movieBloc.getStreamForTab(tabIndex),
+			stream: movieBloc.nowPlayingMoviesState,
 			initialData: movieBloc.getPageData(tabIndex),
 			builder: (context, snapshot) {
 				if (snapshot.hasError) {
@@ -83,17 +83,17 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 		);
 	}
 
-	Widget buildListView(AsyncSnapshot<List<Movie>> snapshot, MovieBloc
+	Widget buildListView(AsyncSnapshot<MovieListState> snapshot, MovieBloc
 	movieBloc, int tabIndex) {
 		return ListView.builder(
-				itemCount: snapshot.data.length,
+				itemCount: snapshot.data.movies.length,
 				itemBuilder: (context, index) {
-					print("$index of ${snapshot.data.length}");
-					if (index == snapshot.data.length - 2) {
-						print('approaching end of list');
+//					print("$index of ${snapshot.data.movies.length}");
+//					if (index == snapshot.data.movies.length - 2) {
+//						print('approaching end of list');
 //          	movieBloc.nextPage.add(tabIndex);
-					}
-					return MovieRow(snapshot.data[index]);
+//					}
+					return MovieRow(snapshot.data.movies[index]);
 				});
 	}
 
