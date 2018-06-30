@@ -7,7 +7,8 @@ class Endpoints {
       '/discover/movie?api_key='
       '$TMDB_API_TOKEN'
       '&language=en-US&sort_by=popularity'
-      '.desc&include_adult=false&include_video=false&page=$page';
+      '.desc&include_adult=false&include_video=false&language=en-US&page'
+      '=$page';
   }
 
 
@@ -15,14 +16,14 @@ class Endpoints {
     return '$BASE_API_URL'
         '/movie/now_playing?api_key='
         '$TMDB_API_TOKEN'
-        '&include_adult=false&page=$page';
+        '&include_adult=false&language=en-US&page=$page';
   }
 
   static String topRatedUrl(int page) {
     return '$BASE_API_URL'
         '/movie/top_rated?api_key='
         '$TMDB_API_TOKEN'
-        '&include_adult=false&page=$page';
+        '&include_adult=false&language=en-US&page=$page';
   }
 
 }

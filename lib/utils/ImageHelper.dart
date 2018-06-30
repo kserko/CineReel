@@ -7,7 +7,6 @@ class ImageHelper {
     if (path != null) {
       fullPath = BASE_IMAGE_URL + size + path;
     }
-    print(fullPath);
     return fullPath;
   }
 }
