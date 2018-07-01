@@ -11,17 +11,17 @@ class MovieBloc {
   TMDBApi api;
 
   // This is the internal object whose stream/sink is provided by this component
-  final _nowPlayingMoviesState = BehaviorSubject<MovieListState>(
+  final _nowPlayingSubject = BehaviorSubject<MovieListState>(
       seedValue: new MovieListState(tab[TabKey.kNowPlaying]));
 
-	final _topRatedMoviesState = BehaviorSubject<MovieListState>(
+	final _topRatedSubject = BehaviorSubject<MovieListState>(
 			seedValue: new MovieListState(tab[TabKey.kTopRated]));
 
   final _nextPageController = StreamController<int>();
 
   // This is the stream of movies. Use this to show the contents
-  Stream<MovieListState> get nowPlayingMoviesState => _nowPlayingMoviesState.stream;
-	Stream<MovieListState> get topRatedMoviesState => _topRatedMoviesState.stream;
+  Stream<MovieListState> get nowPlayingMoviesState => _nowPlayingSubject.stream;
+	Stream<MovieListState> get topRatedMoviesState => _topRatedSubject.stream;
 
   Sink<int> get nextPage => _nextPageController.sink;
 
@@ -29,7 +29,7 @@ class MovieBloc {
     _nextPageController.stream.listen(_handleNewPageRequest);
   }
 
-  loadDataFromApi(Function apiCall, TabKey tabKey) {
+  _loadDataFromApi(Function apiCall, TabKey tabKey) {
 		apiCall().then((MoviesResponse moviesResponse) {
 			if (moviesResponse.hasResults()) {
 				_handleResults(moviesResponse.results, tabKey);
@@ -57,7 +57,7 @@ class MovieBloc {
 				break;
 		}
 		//make the call
-		loadDataFromApi(apiCall, tabKey);
+		_loadDataFromApi(apiCall, tabKey);
 	}
 
 	/*
@@ -71,7 +71,7 @@ class MovieBloc {
     var movieListState = getStateFor(tab[tabKey]);
     movieListState.movies.addAll(results);
     movieListState.page += 1;
-    getPrivateStreamForTab(tabKey).add(movieListState);
+    _updateStateForTab(tabKey, movieListState);
   }
 
   void _handleError(List<String> errors) {
@@ -89,15 +89,17 @@ class MovieBloc {
     }
   }
 
-	getPrivateStreamForTab(TabKey tabKey) {
+	_updateStateForTab(TabKey tabKey, MovieListState movieListState) {
+		var behaviorSubject;
 		switch (tabKey) {
 			case TabKey.kNowPlaying:
-				return _nowPlayingMoviesState;
+				behaviorSubject = _nowPlayingSubject;
 				break;
 			case TabKey.kTopRated:
-				return _topRatedMoviesState;
+				behaviorSubject = _topRatedSubject;
 				break;
 		}
+		behaviorSubject.add(movieListState);;
 	}
 
   void _handleNewPageRequest(int tab) {
