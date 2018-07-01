@@ -22,7 +22,10 @@ class MovieListState {
 		}
 	}
 
-//	update({List<Movie> movies, int page}) {
-//		return this..movies.addAll(movies)
-//				..page
+	update({List<Movie> newMovies, int newPage, bool loading}) {
+		return this
+			..movies.addAll(newMovies)
+			..page = newPage ?? this.page
+			..isLoading = loading ?? this.isLoading;
+	}
 }

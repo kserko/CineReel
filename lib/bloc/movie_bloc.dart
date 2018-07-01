@@ -69,8 +69,10 @@ class MovieBloc {
 
   void _handleResults(List<Movie> results, TabKey tabKey) {
     var movieListState = getStateFor(tab[tabKey]);
-    movieListState.movies.addAll(results);
-    movieListState.page += 1;
+    movieListState.update(newMovies: results, newPage: movieListState.page+1,
+				loading: false);
+//    movieListState.movies.addAll(results);
+//    movieListState.page += 1;
     _updateStateForTab(tabKey, movieListState);
   }
 
