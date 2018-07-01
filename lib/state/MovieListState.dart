@@ -3,7 +3,7 @@ import 'package:flutter_bloc_movies/models/Movie.dart';
 class MovieListState {
 	List<Movie> movies;
 	bool isLoading;
-	int page = 1;
+	int page = 0;
 
 	static final Map<String, MovieListState> _cache = <String, MovieListState>{};
 
@@ -21,4 +21,8 @@ class MovieListState {
 			return movieListState;
 		}
 	}
+
+//	update({List<Movie> movies, int page}) {
+//		return this..movies.addAll(movies)
+//				..page
 }
