@@ -11,11 +11,9 @@ class MovieBloc {
   TMDBApi api;
 
   // This is the internal object whose stream/sink is provided by this component
-  final _nowPlayingSubject = BehaviorSubject<MovieListState>(
-      seedValue: new MovieListState(tab[TabKey.kNowPlaying]));
+  final _nowPlayingSubject = BehaviorSubject<MovieListState>();
 
-	final _topRatedSubject = BehaviorSubject<MovieListState>(
-			seedValue: new MovieListState(tab[TabKey.kTopRated]));
+	final _topRatedSubject = BehaviorSubject<MovieListState>();
 
   final _nextPageController = StreamController<int>();
 
@@ -92,7 +90,7 @@ class MovieBloc {
   }
 
 	_updateStateForTab(TabKey tabKey, MovieListState movieListState) {
-		var behaviorSubject;
+		BehaviorSubject<MovieListState> behaviorSubject;
 		switch (tabKey) {
 			case TabKey.kNowPlaying:
 				behaviorSubject = _nowPlayingSubject;
@@ -101,7 +99,7 @@ class MovieBloc {
 				behaviorSubject = _topRatedSubject;
 				break;
 		}
-		behaviorSubject.add(movieListState);;
+		behaviorSubject.add(movieListState);
 	}
 
   void _handleNewPageRequest(int tab) {
