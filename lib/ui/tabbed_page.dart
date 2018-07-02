@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/state/MovieListState.dart';
@@ -70,34 +69,10 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                FlatButton.icon(
-                    onPressed: () => onDownloadTap(movieBloc, tabKey),
-                    icon: Icon(Icons.pages),
-                    label: Text("Next page")),
-                Expanded(child: buildListView(snapshot, movieBloc, tabKey)),
+              children: <Widget>[Expanded(child: buildListView(snapshot, movieBloc, tabKey)),
               ],
             );
         });
-  }
-
-//  Widget buildListView(AsyncSnapshot<MovieListState> snapshot,
-//      MovieBloc movieBloc, TabKey tabKey) {
-//    return ListView.builder(
-//			controller: _scrollController,
-//        itemCount: snapshot.data.movies.length,
-//        itemBuilder: (context, index) {
-//        	//when approaching end of list, load next page
-//					if (index == snapshot.data.movies.length - 2) {
-//          	movieBloc.nextPage.add(tabKey);
-//					}
-//          return MovieRow(snapshot.data.movies[index], index);
-//        });
-//  }
-
-  onDownloadTap(MovieBloc movieBloc, TabKey tabKey) {
-    print('get next page');
-    movieBloc.fetchNextPageForTab(tabKey);
   }
 }
 
