@@ -2,12 +2,14 @@ import 'package:flutter_bloc_movies/models/Movie.dart';
 
 class MovieListState {
 	List<Movie> movies;
+	List<String> errors;
 	bool isLoading;
 	int page = 0;
 
 	static final Map<String, MovieListState> _cache = <String, MovieListState>{};
 
-	MovieListState.internal({this.movies, this.page, this.isLoading});
+	MovieListState.internal({this.movies, this.page, this.errors, this
+			.isLoading});
 
 	factory MovieListState(String name) {
 		if (_cache.containsKey(name)) {
@@ -15,17 +17,24 @@ class MovieListState {
 		} else {
 			final movieListState = MovieListState.internal(
 					movies: [],
+					errors: [],
 					page: 0,
-					isLoading: false);
+					isLoading: true);
 			_cache[name] = movieListState;
 			return movieListState;
 		}
 	}
 
-	update({List<Movie> newMovies, int newPage, bool loading}) {
+  bool get hasErrors => errors != null && errors.length > 0;
+
+  bool get hasMovies => movies != null && movies.length > 0;
+
+	update({List<Movie> newMovies, int newPage, List<String> errors, bool
+	isLoading}) {
 		return this
-			..movies.addAll(newMovies)
+			..movies.addAll(newMovies ?? this.movies)
 			..page = newPage ?? this.page
-			..isLoading = loading ?? this.isLoading;
+			..errors = errors ?? this.errors
+			..isLoading = isLoading ?? this.isLoading;
 	}
 }

@@ -18,6 +18,9 @@ Widget buildLoadingWidget() {
 
 Widget buildErrorWidget(String error) {
   return Center(
-    child: Text(error),
+    child: Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Text('Api returned with an error "$error"'),
+    ),
   );
 }

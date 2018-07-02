@@ -11,9 +11,10 @@ class MovieBloc {
   TMDBApi api;
 
   // This is the internal object whose stream/sink is provided by this component
-  final _nowPlayingSubject = BehaviorSubject<MovieListState>();
+  final _nowPlayingSubject = BehaviorSubject<MovieListState>(seedValue: MovieListState(tab[TabKey.kNowPlaying]));
 
-	final _topRatedSubject = BehaviorSubject<MovieListState>();
+	final _topRatedSubject = BehaviorSubject<MovieListState>(seedValue:
+	MovieListState(tab[TabKey.kTopRated]));
 
   final _nextPageController = StreamController<int>();
 
@@ -33,9 +34,15 @@ class MovieBloc {
 				_handleResults(moviesResponse.results, tabKey);
 			}
 			if (moviesResponse.hasErrors()) {
-				_handleError(moviesResponse.errors);
+				_handleError(moviesResponse.errors, tabKey);
 			}
 		});
+	}
+
+	MovieListState getInitialData(TabKey tabKey) {
+  	fetchNextPageForTab(tabKey);
+		return MovieListState(tab[tabKey]); // return an empty MovieListState as
+		// initial data
 	}
 
 	fetchNextPageForTab(TabKey tabKey) {
@@ -68,14 +75,14 @@ class MovieBloc {
   void _handleResults(List<Movie> results, TabKey tabKey) {
     var movieListState = getStateFor(tab[tabKey]);
     movieListState.update(newMovies: results, newPage: movieListState.page+1,
-				loading: false);
-//    movieListState.movies.addAll(results);
-//    movieListState.page += 1;
+				isLoading: false);
     _updateStateForTab(tabKey, movieListState);
   }
 
-  void _handleError(List<String> errors) {
-    throw (errors[0]);
+  void _handleError(List<String> errors, TabKey tabKey) {
+		var movieListState = getStateFor(tab[tabKey]);
+		movieListState.update(newMovies: [], errors: errors, isLoading: false);
+    _updateStateForTab(tabKey, movieListState);
   }
 
   getStreamForTab(TabKey tabKey) {
