@@ -13,16 +13,15 @@ class MovieBloc {
   // This is the internal object whose stream/sink is provided by this component
   final _nowPlayingSubject = BehaviorSubject<MovieListState>(seedValue: MovieListState(tab[TabKey.kNowPlaying]));
 
-	final _topRatedSubject = BehaviorSubject<MovieListState>(seedValue:
-	MovieListState(tab[TabKey.kTopRated]));
+	final _topRatedSubject = BehaviorSubject<MovieListState>(seedValue: MovieListState(tab[TabKey.kTopRated]));
 
-  final _nextPageController = StreamController<int>();
+  final _nextPageController = StreamController<TabKey>();
 
   // This is the stream of movies. Use this to show the contents
   Stream<MovieListState> get nowPlayingMoviesState => _nowPlayingSubject.stream;
 	Stream<MovieListState> get topRatedMoviesState => _topRatedSubject.stream;
 
-  Sink<int> get nextPage => _nextPageController.sink;
+  Sink<TabKey> get nextPage => _nextPageController.sink;
 
   MovieBloc(this.api) {
     _nextPageController.stream.listen(_handleNewPageRequest);
@@ -46,6 +45,7 @@ class MovieBloc {
 	}
 
 	fetchNextPageForTab(TabKey tabKey) {
+  	updateMovieStateToLoading(tabKey);
   	//get the state
   	var state = getStateFor(tab[tabKey]);
   	//increment the page
@@ -74,8 +74,7 @@ class MovieBloc {
 
   void _handleResults(List<Movie> results, TabKey tabKey) {
     var movieListState = getStateFor(tab[tabKey]);
-    movieListState.update(newMovies: results, newPage: movieListState.page+1,
-				isLoading: false);
+    movieListState.update(newMovies: results, newPage: movieListState.page+1, isLoading: false);
     _updateStateForTab(tabKey, movieListState);
   }
 
@@ -109,10 +108,9 @@ class MovieBloc {
 		behaviorSubject.add(movieListState);
 	}
 
-  void _handleNewPageRequest(int tab) {
-    print('should get new page for tab $tab');
-//    page += 1;
-//    getPageData(tab);
+  void _handleNewPageRequest(TabKey tabKey) {
+    print('should get new page for tab $tabKey');
+    fetchNextPageForTab(tabKey);
   }
 
   void dispose() {
@@ -122,4 +120,11 @@ class MovieBloc {
   printSomething() {
     print('completed');
   }
+
+  void updateMovieStateToLoading(TabKey tabKey) {
+//		var movieListState = getStateFor(tab[tabKey]);
+//		movieListState.setToLoading();
+//		_updateStateForTab(tabKey, movieListState);
+
+	}
 }

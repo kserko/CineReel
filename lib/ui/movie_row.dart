@@ -8,8 +8,9 @@ import 'package:transparent_image/transparent_image.dart';
 
 class MovieRow extends StatelessWidget {
   final Movie movie;
+  final int index;
 
-  MovieRow(this.movie);
+  MovieRow(this.movie, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +71,7 @@ class MovieRow extends StatelessWidget {
 
   ExpansionTile buildExpansionTile(Movie movie) {
     return ExpansionTile(
-              title: Text(movie.title,
+              title: Text("$index: ${movie.title}",
                   style: TextStyle(fontSize: 30.0, color: Colors.white)),
               children: [
                 SizedBox(
@@ -96,13 +97,17 @@ class MovieRow extends StatelessWidget {
       movie.backdropPath, BACKTROP_SIZES['small']);
 
   Widget buildMovieBackdrop(Movie movie) {
-    return Column(
-      //makes the image stretch to fill the screen width
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Image.network(backdropImagePath(movie), fit: BoxFit.fill),
-      ],
-    );
+  	if (movie.backdropPath != null && movie.backdropPath.isNotEmpty) {
+			return Column(
+				//makes the image stretch to fill the screen width
+				crossAxisAlignment: CrossAxisAlignment.stretch,
+				children: <Widget>[
+					Image.network(backdropImagePath(movie), fit: BoxFit.fill),
+				],
+			);
+		} else {
+  		return SizedBox(height: 200.0);
+		}
   }
 
   Widget buildMovieBackdrop2(Movie movie) {

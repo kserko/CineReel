@@ -29,6 +29,14 @@ class MovieListState {
 
   bool get hasMovies => movies != null && movies.length > 0;
 
+	setToLoading() {
+		return this..isLoading = true;
+	}
+
+	setToNotLoading() {
+		return this..isLoading = false;
+	}
+
 	update({List<Movie> newMovies, int newPage, List<String> errors, bool
 	isLoading}) {
 		return this

@@ -16,14 +16,15 @@ class HomePage extends StatefulWidget {
 
 // ignore: mixin_inherits_from_not_object
 class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin {
-  // ignore: mixin_inherits_from_not_object
   final List<Tab> myTabs = <Tab>[
     new Tab(text: tab[TabKey.kNowPlaying]),
     new Tab(text: tab[TabKey.kTopRated]),
   ];
 
   TabController _tabController;
-  var _selectedTab;
+  ScrollController _scrollController = new ScrollController(
+		initialScrollOffset: 0.0
+	);
 
   @override
   void initState() {
@@ -36,8 +37,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     if (_tabController.indexIsChanging) {
       return;
     }
-    _selectedTab = _tabController.index;
-    print("Changed tab to: ${_selectedTab.toString()}");
+    print("Changed tab to: ${_tabController.index.toString()}");
   }
 
   @override
@@ -87,14 +87,14 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   Widget buildListView(AsyncSnapshot<MovieListState> snapshot,
       MovieBloc movieBloc, TabKey tabKey) {
     return ListView.builder(
+			controller: _scrollController,
         itemCount: snapshot.data.movies.length,
         itemBuilder: (context, index) {
-//					print("$index of ${snapshot.data.movies.length}");
-//					if (index == snapshot.data.movies.length - 2) {
-//						print('approaching end of list');
-//          	movieBloc.nextPage.add(tabIndex);
-//					}
-          return MovieRow(snapshot.data.movies[index]);
+        	//when approaching end of list, load next page
+					if (index == snapshot.data.movies.length - 2) {
+          	movieBloc.nextPage.add(tabKey);
+					}
+          return MovieRow(snapshot.data.movies[index], index);
         });
   }
 
@@ -103,3 +103,4 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     movieBloc.fetchNextPageForTab(tabKey);
   }
 }
+
