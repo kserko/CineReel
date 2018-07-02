@@ -4,7 +4,7 @@ import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/state/MovieListState.dart';
-import 'package:flutter_bloc_movies/ui/movie_row.dart';
+import 'package:flutter_bloc_movies/ui/movies_list.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,9 +22,6 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   ];
 
   TabController _tabController;
-  ScrollController _scrollController = new ScrollController(
-		initialScrollOffset: 0.0
-	);
 
   @override
   void initState() {
@@ -51,13 +48,13 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     return new Scaffold(
       appBar: buildAppBar(context, "flutter Bloc!", myTabs, _tabController),
       body: TabBarView(controller: _tabController, children: [
-        Column(children: [Flexible(child: buildMovieList(TabKey.kNowPlaying))]),
-        Column(children: [Flexible(child: buildMovieList(TabKey.kTopRated))]),
+        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kNowPlaying))]),
+        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated))]),
       ]),
     );
   }
 
-  StreamBuilder<MovieListState> buildMovieList(TabKey tabKey) {
+  StreamBuilder<MovieListState> buildStreamBuilder(TabKey tabKey) {
     final movieBloc = MovieProvider.of(context);
 
     return StreamBuilder(
@@ -84,19 +81,19 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
         });
   }
 
-  Widget buildListView(AsyncSnapshot<MovieListState> snapshot,
-      MovieBloc movieBloc, TabKey tabKey) {
-    return ListView.builder(
-			controller: _scrollController,
-        itemCount: snapshot.data.movies.length,
-        itemBuilder: (context, index) {
-        	//when approaching end of list, load next page
-					if (index == snapshot.data.movies.length - 2) {
-          	movieBloc.nextPage.add(tabKey);
-					}
-          return MovieRow(snapshot.data.movies[index], index);
-        });
-  }
+//  Widget buildListView(AsyncSnapshot<MovieListState> snapshot,
+//      MovieBloc movieBloc, TabKey tabKey) {
+//    return ListView.builder(
+//			controller: _scrollController,
+//        itemCount: snapshot.data.movies.length,
+//        itemBuilder: (context, index) {
+//        	//when approaching end of list, load next page
+//					if (index == snapshot.data.movies.length - 2) {
+//          	movieBloc.nextPage.add(tabKey);
+//					}
+//          return MovieRow(snapshot.data.movies[index], index);
+//        });
+//  }
 
   onDownloadTap(MovieBloc movieBloc, TabKey tabKey) {
     print('get next page');
