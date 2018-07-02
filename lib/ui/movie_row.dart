@@ -4,7 +4,6 @@ import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class MovieRow extends StatelessWidget {
   final Movie movie;
@@ -12,7 +11,10 @@ class MovieRow extends StatelessWidget {
 
   MovieRow(this.movie, this.index);
 
-  @override
+	var defaultStyle = TextStyle(
+			fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold);
+
+	@override
   Widget build(BuildContext context) {
     return buildMovieRow(movie, context);
   }
@@ -39,15 +41,31 @@ class MovieRow extends StatelessWidget {
 //          showSnackbar(context, movie.overview);
         },
         child: DefaultTextStyle(
-          style: new TextStyle(color: Colors.white),
+          style: defaultStyle,
           child: Card(
             elevation: 0.0,
             child: Stack(
               children: <Widget>[
                 buildMovieBackdrop(movie),
                 buildTitle(movie),
+                buildRating(movie)
               ],
             ),
+          ),
+        ));
+  }
+
+  Positioned buildRating(Movie movie) {
+    return Positioned(
+        top: 10.0,
+        right: 10.0,
+        child: Container(
+          decoration: textDecoration(),
+          child: Row(
+            children: <Widget>[
+              Text("${movie.voteAverage}", style: defaultStyle.copyWith(color: Colors.yellow)),
+              Text("/10", style: defaultStyle),
+            ],
           ),
         ));
   }
@@ -71,19 +89,18 @@ class MovieRow extends StatelessWidget {
 
   ExpansionTile buildExpansionTile(Movie movie) {
     return ExpansionTile(
-              title: Text("$index: ${movie.title}",
-                  style: TextStyle(fontSize: 30.0, color: Colors.white)),
-              children: [
-                SizedBox(
-                  height: 100.0,
-                  child: ListTile(
-                      title: SingleChildScrollView(
-                        child: Text(movie.overview,
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.white)),
-                      )),
-                )
-              ]);
+        title: Text("${movie.title}",
+            style: TextStyle(fontSize: 30.0, color: Colors.white)),
+        children: [
+          SizedBox(
+            height: 100.0,
+            child: ListTile(
+                title: SingleChildScrollView(
+              child: Text(movie.overview,
+                  style: TextStyle(fontSize: 16.0, color: Colors.white)),
+            )),
+          )
+        ]);
   }
 
   Widget getAdvancedNetworkImage(Movie movie) {
@@ -97,33 +114,16 @@ class MovieRow extends StatelessWidget {
       movie.backdropPath, BACKTROP_SIZES['small']);
 
   Widget buildMovieBackdrop(Movie movie) {
-  	if (movie.backdropPath != null && movie.backdropPath.isNotEmpty) {
-			return Column(
-				//makes the image stretch to fill the screen width
-				crossAxisAlignment: CrossAxisAlignment.stretch,
-				children: <Widget>[
-					Image.network(backdropImagePath(movie), fit: BoxFit.fill),
-				],
-			);
-		} else {
-  		return SizedBox(height: 200.0);
-		}
-  }
-
-  Widget buildMovieBackdrop2(Movie movie) {
-    return Column(
-      //makes the image stretch to fill the screen width
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Container(
-          color: Colors.red,
-          child: FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image: backdropImagePath(movie),
-            fit: BoxFit.fill,
-          ),
-        )
-      ],
-    );
+    if (movie.backdropPath != null && movie.backdropPath.isNotEmpty) {
+      return Column(
+        //makes the image stretch to fill the screen width
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Image.network(backdropImagePath(movie), fit: BoxFit.fill),
+        ],
+      );
+    } else {
+      return SizedBox(height: 200.0);
+    }
   }
 }
