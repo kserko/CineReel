@@ -17,8 +17,8 @@ class HomePage extends StatefulWidget {
 class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
     new Tab(text: tab[TabKey.kNowPlaying]),
-    new Tab(text: tab[TabKey.kTopRated]),
-    new Tab(text: tab[TabKey.kPopular]),
+//    new Tab(text: tab[TabKey.kTopRated]),
+//    new Tab(text: tab[TabKey.kPopular]),
   ];
 
   TabController _tabController;
@@ -48,13 +48,9 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     return new Scaffold(
       appBar: buildAppBar(context, "flutter Bloc!", myTabs, _tabController),
       body: TabBarView(controller: _tabController, children: [
-        Column(children: [
-          Flexible(child: buildStreamBuilder(TabKey.kNowPlaying))
-        ]),
-        Column(
-            children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated))]),
-        Column(
-            children: [Flexible(child: buildStreamBuilder(TabKey.kPopular))]),
+        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kNowPlaying))]),
+//        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated))]),
+//        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kPopular))]),
       ]),
     );
   }
