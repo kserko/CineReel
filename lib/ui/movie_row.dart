@@ -42,15 +42,12 @@ class MovieRow extends StatelessWidget {
         },
         child: DefaultTextStyle(
           style: defaultStyle,
-          child: Card(
-            elevation: 0.0,
-            child: Stack(
-              children: <Widget>[
-                buildMovieBackdrop(movie),
-                buildTitle(movie),
-                buildRating(movie)
-              ],
-            ),
+          child: Stack(
+            children: <Widget>[
+              buildMovieBackdrop(movie),
+              buildTitle(movie),
+              buildRating(movie)
+            ],
           ),
         ));
   }
@@ -89,7 +86,7 @@ class MovieRow extends StatelessWidget {
 
   ExpansionTile buildExpansionTile(Movie movie) {
     return ExpansionTile(
-        title: Text("${movie.title}",
+        title: Text("$index ${movie.title}",
             style: TextStyle(fontSize: 30.0, color: Colors.white)),
         children: [
           SizedBox(
@@ -111,7 +108,7 @@ class MovieRow extends StatelessWidget {
   }
 
   String backdropImagePath(Movie movie) => ImageHelper.getBackdropImagePath(
-      movie.backdropPath, BACKTROP_SIZES['small']);
+      movie.backdropPath, BACKTROP_SIZES['medium']);
 
   Widget buildMovieBackdrop(Movie movie) {
     if (movie.backdropPath != null && movie.backdropPath.isNotEmpty) {

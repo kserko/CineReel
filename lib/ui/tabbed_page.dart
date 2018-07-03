@@ -18,6 +18,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   final List<Tab> myTabs = <Tab>[
     new Tab(text: tab[TabKey.kNowPlaying]),
     new Tab(text: tab[TabKey.kTopRated]),
+    new Tab(text: tab[TabKey.kPopular]),
   ];
 
   TabController _tabController;
@@ -47,8 +48,13 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     return new Scaffold(
       appBar: buildAppBar(context, "flutter Bloc!", myTabs, _tabController),
       body: TabBarView(controller: _tabController, children: [
-        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kNowPlaying))]),
-        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated))]),
+        Column(children: [
+          Flexible(child: buildStreamBuilder(TabKey.kNowPlaying))
+        ]),
+        Column(
+            children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated))]),
+        Column(
+            children: [Flexible(child: buildStreamBuilder(TabKey.kPopular))]),
       ]),
     );
   }
@@ -56,23 +62,31 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   StreamBuilder<MovieListState> buildStreamBuilder(TabKey tabKey) {
     final movieBloc = MovieProvider.of(context);
 
+    var stream = movieBloc.getStreamForTab(tabKey);
+    var initialDataForStream = movieBloc.getInitialData(tabKey);
+    var state = movieBloc.getStateFor(tabKey);
+
     return StreamBuilder(
-        stream: movieBloc.getStreamForTab(tabKey),
-        initialData: movieBloc.getInitialData(tabKey),
+        stream: stream,
+        initialData: initialDataForStream,
         builder: (context, snapshot) {
-					if (snapshot.data.isLoading) {
-						return buildLoadingWidget();
-					}
-          else if (snapshot.data.hasErrors) {
+          if (snapshot.data.movies.isEmpty) {
+            return buildLoadingWidget();
+          } else if (snapshot.data.hasErrors) {
             return buildErrorWidget(snapshot.data.errors[0]);
           }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[Expanded(child: buildListView(snapshot, movieBloc, tabKey)),
-              ],
-            );
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                  child: MoviesList(
+											state: state,
+                      snapshot: snapshot,
+                      movieBloc: movieBloc,
+                      tabKey: tabKey)),
+            ],
+          );
         });
   }
 }
-

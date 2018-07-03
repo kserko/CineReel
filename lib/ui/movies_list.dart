@@ -4,21 +4,34 @@ import 'package:flutter_bloc_movies/state/MovieListState.dart';
 import 'package:flutter_bloc_movies/ui/movie_row.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
-ScrollController _scrollController = new ScrollController(
-		initialScrollOffset: 0.0
-);
+class MoviesList extends StatelessWidget {
+  final AsyncSnapshot<MovieListState> snapshot;
+  final MovieBloc movieBloc;
+  final TabKey tabKey;
+  MovieListState state;
 
-Widget buildListView(AsyncSnapshot<MovieListState> snapshot,
-		MovieBloc movieBloc, TabKey tabKey) {
-	return ListView.builder(
-			controller: _scrollController,
-			itemCount: snapshot.data.movies.length,
-			itemBuilder: (context, index) {
-				//when approaching end of list, load next page
-				if (index == snapshot.data.movies.length - 2) {
-					movieBloc.nextPage.add(tabKey);
-				}
-				return MovieRow(snapshot.data.movies[index], index);
-			});
+  ScrollController _scrollController;
+
+  MoviesList({this.snapshot, this.movieBloc, this.state, this.tabKey}) {
+    _scrollController = ScrollController(initialScrollOffset: 0.0)
+      ..addListener(_scrollListener);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        controller: _scrollController,
+        itemCount: snapshot.data.movies.length,
+        itemBuilder: (context, index) {
+          return MovieRow(snapshot.data.movies[index], index);
+        });
+  }
+
+  void _scrollListener() {
+  	print(state.isLoading);
+		print(_scrollController.position.extentAfter);
+    if (_scrollController.position.extentAfter < 500 && !state.isLoading) {
+      movieBloc.nextPage.add(tabKey);
+    }
+  }
 }
-

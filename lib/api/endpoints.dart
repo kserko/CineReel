@@ -11,7 +11,6 @@ class Endpoints {
       '=$page';
   }
 
-
   static String nowPlayingMoviesUrl(int page) {
     return '$BASE_API_URL'
         '/movie/now_playing?api_key='
@@ -25,5 +24,13 @@ class Endpoints {
         '$TMDB_API_TOKEN'
         '&include_adult=false&language=en-US&page=$page';
   }
+
+  static String popularMoviesUrl(int page) {
+    return '$BASE_API_URL'
+        '/movie/popular?api_key='
+        '$TMDB_API_TOKEN'
+        '&include_adult=false&language=en-US&page=$page';
+  }
+
 
 }

@@ -23,6 +23,11 @@ class TMDBApi {
     return MoviesResponse.fromJson(json.decode(response.body));
   }
 
+  Future<MoviesResponse> popularMovies({int page}) async {
+    final response = await _makeRequest(Endpoints.popularMoviesUrl(page));
+    return MoviesResponse.fromJson(json.decode(response.body));
+  }
+
   Future<http.Response> _makeRequest(String url) async {
     print("calling -> " + url);
     return await http.get(url);
