@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc_movies/api/api.dart';
 import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
+import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/ui/stream_component.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
@@ -49,7 +51,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     return new Scaffold(
       appBar: buildAppBar(context, "flutter Bloc!", myTabs, _tabController),
       body: TabBarView(controller: _tabController, children: [
-        MovieProvider(child: StreamComponent()),
+        MovieProvider(child: StreamComponent(), movieBloc: NowPlayingBloc(TMDBApi())),
 //        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated, TabKey.kTopRated.index))]),
 //        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kPopular, TabKey.kPopular.index))])
       ]),
