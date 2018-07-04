@@ -25,13 +25,13 @@ class MovieBloc {
 //
 //  Stream<MovieListState> get popularMoviesState => _popularSubject.stream;
 
-	final _nowPlaying = PublishSubject<MoviesState>();
+	final _nowPlaying = BehaviorSubject<MoviesState>();
 	Stream<MoviesState> get nowPlayingStream => _nowPlaying.stream;
 
-	final _popular= PublishSubject<MoviesState>();
+	final _popular= BehaviorSubject<MoviesState>();
 	Stream<MoviesState> get popularStream => _popular.stream;
 
-	final _topRated = PublishSubject<MoviesState>();
+	final _topRated = BehaviorSubject<MoviesState>();
 	Stream<MoviesState> get topRatedStream => _topRated.stream;
 
   Sink<TabKey> get nextPage => _nextPageController.sink;
@@ -63,23 +63,36 @@ class MovieBloc {
 //  	//increment the page
 //  	var page = state.page + 1;
 //
-//  	//determine the correct api call based on the tab we're on
-//  	var apiCall;
-//
-//  	switch (tabKey) {
-//			case TabKey.kNowPlaying:
-//				apiCall = () => api.nowPlayingMovies(page: page);
-//				break;
-//			case TabKey.kTopRated:
-//				apiCall = () => api.topRated(page: page);
-//				break;
-//			case TabKey.kPopular:
-//				apiCall = () => api.popularMovies(page: page);
-//				break;
-//		}
+  	//determine the correct api call based on the tab we're on
+  	var apiCall;
+
+  	switch (tabKey) {
+			case TabKey.kNowPlaying:
+				apiCall = () => api.nowPlayingMovies(page: 1);
+				break;
+			case TabKey.kTopRated:
+				apiCall = () => api.topRated(page: 1);
+				break;
+			case TabKey.kPopular:
+				apiCall = () => api.popularMovies(page: 1);
+				break;
+		}
     //make the call
 //		_loadDataFromApi(apiCall, tabKey);
-    _nowPlaying.addStream(_search());
+		BehaviorSubject<MoviesState> streamSubject;
+    switch (tabKey) {
+      case TabKey.kNowPlaying:
+        streamSubject = _nowPlaying;
+        break;
+      case TabKey.kTopRated:
+        streamSubject = _topRated;
+        break;
+      case TabKey.kPopular:
+        streamSubject = _popular;
+        break;
+    }
+
+		streamSubject.addStream(_search(apiCall));
   }
 
   /*
@@ -102,19 +115,19 @@ class MovieBloc {
 //    _updateStateForTab(tabKey, movieListState);
 //  }
 
-//  getStreamForTab(TabKey tabKey) {
-//    switch (tabKey) {
-//      case TabKey.kNowPlaying:
-//        return nowPlayingMoviesState;
-//        break;
-//      case TabKey.kTopRated:
-//        return topRatedMoviesState;
-//        break;
-//      case TabKey.kPopular:
-//        return popularMoviesState;
-//        break;
-//    }
-//  }
+  getStreamForTab(TabKey tabKey) {
+    switch (tabKey) {
+      case TabKey.kNowPlaying:
+        return nowPlayingStream;
+        break;
+      case TabKey.kTopRated:
+        return topRatedStream;
+        break;
+      case TabKey.kPopular:
+        return popularStream;
+        break;
+    }
+  }
 
 //  _updateStateForTab(TabKey tabKey, MovieListState movieListState) {
 //    BehaviorSubject<MovieListState> behaviorSubject;
@@ -156,13 +169,13 @@ class MovieBloc {
 //    _updateStateForTab(tabKey, movieListState);
 //  }
 
-  Stream<MoviesState> _search() async* {
+  Stream<MoviesState> _search(Function apiCall) async* {
     print("_in search");
 //    yield SearchLoading();
 
     try {
-      final result = await api.nowPlayingMovies(page: 0);
-			print("result ${result?.results?.length}");
+      final result = await apiCall();
+			print("${result?.results?.length} results");
       if (result.isEmpty) {
         yield MoviesEmpty();
       } else {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
-import 'package:flutter_bloc_movies/ui/results_page.dart';
+import 'package:flutter_bloc_movies/ui/movies_results_page.dart';
 
 void main() => runApp(new MyApp());
 

@@ -4,9 +4,9 @@ import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/state/search_state.dart';
 import 'package:flutter_bloc_movies/ui/empty_result_widget.dart';
-import 'package:flutter_bloc_movies/ui/search_error_widget.dart';
-import 'package:flutter_bloc_movies/ui/search_loading_widget.dart';
-import 'package:flutter_bloc_movies/ui/search_result_widget.dart';
+import 'package:flutter_bloc_movies/ui/movies_error_widget.dart';
+import 'package:flutter_bloc_movies/ui/movies_loading_widget.dart';
+import 'package:flutter_bloc_movies/ui/movies_result_widget.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
     new Tab(text: tab[TabKey.kNowPlaying]),
-//    new Tab(text: tab[TabKey.kTopRated]),
+    new Tab(text: tab[TabKey.kTopRated]),
 //    new Tab(text: tab[TabKey.kPopular]),
   ];
 
@@ -58,7 +58,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
               child: buildStreamBuilder(
                   TabKey.kNowPlaying, TabKey.kNowPlaying.index))
         ]),
-//        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated, TabKey.kTopRated.index))]),
+        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated, TabKey.kTopRated.index))]),
 //        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kPopular, TabKey.kPopular.index))])
       ]),
     );
@@ -72,7 +72,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 //		var state = movieBloc.getStateFor(tabKey);
 
     return StreamBuilder(
-        stream: movieBloc.nowPlayingStream,
+        stream: movieBloc.getStreamForTab(tabKey),
         initialData: movieBloc.fetchNextPageForTab(tabKey),
         builder: (context, snapshot) {
           final data = snapshot.data;

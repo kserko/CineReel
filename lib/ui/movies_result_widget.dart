@@ -14,7 +14,7 @@ class SearchResultWidget extends StatelessWidget {
 		@override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 800),
       opacity: visible ? 1.0 : 0.0,
       child: ListView.builder(
         itemCount: items.length,
