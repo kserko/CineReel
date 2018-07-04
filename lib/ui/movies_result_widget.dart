@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/ui/movie_row.dart';
 
-class SearchResultWidget extends StatelessWidget {
+class MoviesResultWidget extends StatelessWidget {
   final List<Movie> items;
   final bool visible;
 
-	SearchResultWidget({Key key, @required this.items, bool visible})
+	MoviesResultWidget({Key key, @required this.items, bool visible})
 			: this.visible = visible ?? items.isNotEmpty, super(key: key) {
 
 	}

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SearchErrorWidget extends StatelessWidget {
+class MoviesErrorWidget extends StatelessWidget {
   final bool visible;
 
   final error;
 
-  const SearchErrorWidget({Key key, this.visible, this.error}) : super(key:
+  const MoviesErrorWidget({Key key, this.visible, this.error}) : super(key:
   key);
 
   @override

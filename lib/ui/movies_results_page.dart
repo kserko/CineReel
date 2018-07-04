@@ -88,15 +88,15 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 
                     // Fade in a loading screen when results are being fetched
                     // from Github
-                    LoadingWidget(visible: data is MoviesLoading),
+                    MoviesLoadingWidget(visible: data is MoviesLoading),
 
                     // Fade in an error if something went wrong when fetching
                     // the results
-                    SearchErrorWidget(visible: data is MoviesError, error:
+                    MoviesErrorWidget(visible: data is MoviesError, error:
 										data is MoviesError ? data.error : ""),
 
                     // Fade in the Result if available
-                    SearchResultWidget(items: data is MoviesPopulated ? data.result : [],
+                    MoviesResultWidget(items: data is MoviesPopulated ? data.result : [],
                     ),
                   ],
                 ),

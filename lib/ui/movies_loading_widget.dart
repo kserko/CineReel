@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class LoadingWidget extends StatelessWidget {
+class MoviesLoadingWidget extends StatelessWidget {
   final bool visible;
 
-  const LoadingWidget({Key key, this.visible}) : super(key: key);
+  const MoviesLoadingWidget({Key key, this.visible}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
