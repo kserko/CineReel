@@ -1,26 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/ui/movie_row.dart';
+import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class MoviesResultWidget extends StatelessWidget {
   final List<Movie> items;
   final bool visible;
+  ScrollController _scrollController;
+  MovieBloc movieBloc;
+  TabKey tabKey;
 
-	MoviesResultWidget({Key key, @required this.items, bool visible})
-			: this.visible = visible ?? items.isNotEmpty, super(key: key) {
+  MoviesResultWidget({Key key,
+		@required this.items,
+		@required this.movieBloc,
+		@required this.tabKey,
+		bool visible})
+      : this.visible = visible ?? items.isNotEmpty,
+        super(key: key) {
+    _scrollController = ScrollController(initialScrollOffset: 0.0)
+      ..addListener(_scrollListener);
+  }
 
-	}
+  void _scrollListener() {
+//    print("isLoading = ${state.isLoading}, extentAfter ${_scrollController
+//				.position.extentAfter}");
+//    if (_scrollController.position.extentAfter < 1000) {
+//      movieBloc.nextPage.add(tabKey);
+//    }
+  }
 
-		@override
+  @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       duration: Duration(milliseconds: 800),
       opacity: visible ? 1.0 : 0.0,
       child: ListView.builder(
+				controller: _scrollController,
         itemCount: items.length,
         itemBuilder: (context, index) {
           final item = items[index];
-					return MovieRow(item, index);
+          return MovieRow(item, index);
 //          return InkWell(
 ////            onTap: () => showItem(context, item),
 //            child: Container(

@@ -10,9 +10,13 @@
 // Stream<String>. We call this Stream the onTextChanged "intent".
 import 'package:flutter_bloc_movies/models/Movie.dart';
 
-class MoviesState {}
+class MoviesState {
+	MoviesState();
+}
 
-class MoviesLoading extends MoviesState {}
+class MoviesLoading extends MoviesState {
+
+}
 
 class MoviesError extends MoviesState {
   final error;
@@ -21,10 +25,19 @@ class MoviesError extends MoviesState {
 
 class MoviesNoResults extends MoviesState {}
 
+
 class MoviesPopulated extends MoviesState {
-  final List<Movie> result;
-  MoviesPopulated(this.result);
+
+	final List<Movie> movies;
+
+	update({List<Movie> newMovies}) {
+		return this
+			..movies.addAll(newMovies ?? this.movies);
+	}
+
+	MoviesPopulated(this.movies);
 }
+
 
 class MoviesEmpty extends MoviesState {
 }

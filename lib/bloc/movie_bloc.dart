@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/api.dart';
 import 'package:flutter_bloc_movies/state/movie_state.dart';
-import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class MovieBloc {
@@ -16,19 +15,25 @@ abstract class MovieBloc {
 	// This is the stream of movies. Use this to show the contents
 	Stream<MoviesState> get stream => streamController.stream;
 
-	final _nextPageController = StreamController<TabKey>();
-	Sink<TabKey> get nextPage => _nextPageController.sink;
+	final _nextPageController = StreamController();
+	Sink get nextPage => _nextPageController.sink;
 
 	MovieBloc(this.api) {
-		_nextPageController.stream.listen((TabKey tabKey) => print('next page for $tabKey'));
-		fetchNextPage();
+		_nextPageController.stream.listen(fetchNextPage);
+		init();
+	}
+
+	void init() {
+		if (page == 0) {
+			fetchNextPage();
+		}
 	}
 
 	void dispose() {
 		streamController.close();
 	}
 
-	fetchNextPage() {
+	fetchNextPage([event]) {
 		streamController.addStream(fetchMoviesFromNetwork());
 	}
 

@@ -6,6 +6,7 @@ import 'package:flutter_bloc_movies/state/movie_state.dart';
 
 class NowPlayingBloc extends MovieBloc {
   NowPlayingBloc(TMDBApi api) : super(api);
+  MoviesPopulated moviesPopulated = MoviesPopulated([]);
 
   @override
 	Stream<MoviesState> fetchMoviesFromNetwork() async* {
@@ -18,7 +19,7 @@ class NowPlayingBloc extends MovieBloc {
 			if (result.isEmpty) {
 				yield MoviesEmpty();
 			} else {
-				yield MoviesPopulated(result.results);
+				yield moviesPopulated.update(newMovies: result.results);
 			}
 		} catch (e) {
 			print('error $e');
