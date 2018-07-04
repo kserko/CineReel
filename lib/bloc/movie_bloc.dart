@@ -1,43 +1,36 @@
 import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/api.dart';
-import 'package:flutter_bloc_movies/state/movie_list_state.dart';
 import 'package:flutter_bloc_movies/state/movie_state.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 import 'package:rxdart/rxdart.dart';
 
-class MovieBloc {
+abstract class MovieBloc {
   TMDBApi api;
+  int page = 0;
 
-  // This is the internal object whose stream/sink is provided by this component
-//  final _nowPlayingSubject = BehaviorSubject<MovieListState>(seedValue: MovieListState(tab[TabKey.kNowPlaying]));
-//  final _topRatedSubject = BehaviorSubject<MovieListState>(
-//      seedValue: MovieListState(tab[TabKey.kTopRated]));
-//  final _popularSubject = BehaviorSubject<MovieListState>(
-//      seedValue: MovieListState(tab[TabKey.kPopular]));
+	Stream<MoviesState> fetchMoviesFromNetwork();
 
-  final _nextPageController = StreamController<TabKey>();
+	// This is the internal object whose stream/sink is provided by this component
+	final streamController = BehaviorSubject<MoviesState>();
+	// This is the stream of movies. Use this to show the contents
+	Stream<MoviesState> get stream => streamController.stream;
 
-  // This is the stream of movies. Use this to show the contents
-//  Stream<MovieListState> get nowPlayingMoviesState => _nowPlayingSubject.stream;
-//
-//  Stream<MovieListState> get topRatedMoviesState => _topRatedSubject.stream;
-//
-//  Stream<MovieListState> get popularMoviesState => _popularSubject.stream;
+	final _nextPageController = StreamController<TabKey>();
+	Sink<TabKey> get nextPage => _nextPageController.sink;
 
-	final _nowPlaying = BehaviorSubject<MoviesState>();
-	Stream<MoviesState> get nowPlayingStream => _nowPlaying.stream;
+	MovieBloc(this.api) {
+		_nextPageController.stream.listen((TabKey tabKey) => print('next page for $tabKey'));
+		fetchNextPage();
+	}
 
-	final _popular= BehaviorSubject<MoviesState>();
-	Stream<MoviesState> get popularStream => _popular.stream;
+	void dispose() {
+		streamController.close();
+	}
 
-	final _topRated = BehaviorSubject<MoviesState>();
-	Stream<MoviesState> get topRatedStream => _topRated.stream;
-
-  Sink<TabKey> get nextPage => _nextPageController.sink;
-
-  MovieBloc(this.api);
-//    _nextPageController.stream.listen(_handleNewPageRequest);
+	fetchNextPage() {
+		streamController.addStream(fetchMoviesFromNetwork());
+	}
 
 //  _loadDataFromApi(Function apiCall, TabKey tabKey) {
 //    apiCall().then((MoviesResponse moviesResponse) {
@@ -50,56 +43,18 @@ class MovieBloc {
 //    });
 //  }
 
-  MovieListState getInitialData(TabKey tabKey) {
-    fetchNextPageForTab(tabKey);
-    return MovieListState(tab[tabKey]); // return an empty MovieListState as
-    // initial data
-  }
+//  MovieListState getInitialData(TabKey tabKey) {
+//    fetchNextPageForTab(tabKey);
+//    return MovieListState(tab[tabKey]); // return an empty MovieListState as
+//    // initial data
+//  }
 
-  fetchNextPageForTab(TabKey tabKey) {
-//  	updateMovieStateToLoading(tabKey);
-//  	//get the state
-//  	var state = getStateFor(tabKey);
-//  	//increment the page
-//  	var page = state.page + 1;
-//
-  	//determine the correct api call based on the tab we're on
-  	var apiCall;
-
-  	switch (tabKey) {
-			case TabKey.kNowPlaying:
-				apiCall = () => api.nowPlayingMovies(page: 1);
-				break;
-			case TabKey.kTopRated:
-				apiCall = () => api.topRated(page: 1);
-				break;
-			case TabKey.kPopular:
-				apiCall = () => api.popularMovies(page: 1);
-				break;
-		}
-
-		BehaviorSubject<MoviesState> streamSubject;
-    switch (tabKey) {
-      case TabKey.kNowPlaying:
-        streamSubject = _nowPlaying;
-        break;
-      case TabKey.kTopRated:
-        streamSubject = _topRated;
-        break;
-      case TabKey.kPopular:
-        streamSubject = _popular;
-        break;
-    }
-
-		streamSubject.addStream(_fetchMoviesFromNetwork(apiCall));
-  }
-
-  /*
+/*
 	get a movieListState for the given name. It will either return a new or cached instance
 	 */
-  MovieListState getStateFor(TabKey tabKey) {
-    return MovieListState(tab[tabKey]);
-  }
+//  MovieListState getStateFor(TabKey tabKey) {
+//    return MovieListState(tab[tabKey]);
+//  }
 
 //  void _handleResults(List<Movie> results, TabKey tabKey) {
 //    var movieListState = getStateFor(tabKey);
@@ -114,19 +69,19 @@ class MovieBloc {
 //    _updateStateForTab(tabKey, movieListState);
 //  }
 
-  getStreamForTab(TabKey tabKey) {
-    switch (tabKey) {
-      case TabKey.kNowPlaying:
-        return nowPlayingStream;
-        break;
-      case TabKey.kTopRated:
-        return topRatedStream;
-        break;
-      case TabKey.kPopular:
-        return popularStream;
-        break;
-    }
-  }
+//  getStreamForTab(TabKey tabKey) {
+//    switch (tabKey) {
+//      case TabKey.kNowPlaying:
+//        return nowPlayingStream;
+//        break;
+//      case TabKey.kTopRated:
+//        return topRatedStream;
+//        break;
+//      case TabKey.kPopular:
+//        return popularStream;
+//        break;
+//    }
+//  }
 
 //  _updateStateForTab(TabKey tabKey, MovieListState movieListState) {
 //    BehaviorSubject<MovieListState> behaviorSubject;
@@ -152,9 +107,7 @@ class MovieBloc {
 //    fetchNextPageForTab(tabKey);
 //  }
 
-  void dispose() {
-    //
-  }
+
 
 //  void updateMovieStateToLoading(TabKey tabKey) {
 //    var movieListState = getStateFor(tabKey);
@@ -168,20 +121,20 @@ class MovieBloc {
 //    _updateStateForTab(tabKey, movieListState);
 //  }
 
-  Stream<MoviesState> _fetchMoviesFromNetwork(Function apiCall) async* {
-    print("_in search");
-//    yield SearchLoading();
 
-    try {
-      final result = await apiCall();
-      if (result.isEmpty) {
-        yield MoviesEmpty();
-      } else {
-        yield MoviesPopulated(result.results);
-      }
-    } catch (e) {
-    	print('error $e');
-      yield MoviesError(e);
-		}
-  }
+//    print("_in search");
+////    yield SearchLoading();
+//
+//    try {
+//      final result = await apiCall();
+//      if (result.isEmpty) {
+//        yield MoviesEmpty();
+//      } else {
+//        yield MoviesPopulated(result.results);
+//      }
+//    } catch (e) {
+//    	print('error $e');
+//      yield MoviesError(e);
+//		}
+//  }
 }

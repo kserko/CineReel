@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/api/api.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
+import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 
 class MovieProvider extends InheritedWidget {
   final MovieBloc movieBloc;
@@ -17,6 +18,6 @@ class MovieProvider extends InheritedWidget {
     MovieBloc movieBloc,
     Widget child
   }):
-				this.movieBloc = movieBloc ?? MovieBloc(TMDBApi()),
+				this.movieBloc = movieBloc ?? NowPlayingBloc(TMDBApi()),
         super(child: child, key: key);
 }

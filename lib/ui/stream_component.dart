@@ -26,8 +26,7 @@ class StreamComponent extends StatelessWidget {
 //		var state = movieBloc.getStateFor(tabKey);
 
 		return StreamBuilder(
-				stream: movieBloc.getStreamForTab(tabKey),
-				initialData: movieBloc.fetchNextPageForTab(tabKey),
+				stream: movieBloc.stream,
 				builder: (context, snapshot) {
 					final data = snapshot.data;
 					return Flex(
