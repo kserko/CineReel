@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
-import 'package:flutter_bloc_movies/state/MovieListState.dart';
-import 'package:flutter_bloc_movies/ui/movie_row.dart';
+import 'package:flutter_bloc_movies/state/movie_list_state.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class MoviesList extends StatelessWidget {
@@ -23,14 +22,14 @@ class MoviesList extends StatelessWidget {
         controller: _scrollController,
         itemCount: snapshot.data.movies.length,
         itemBuilder: (context, index) {
-          return MovieRow(snapshot.data.movies[index], index);
+//        	return SearchResultWidget(items: snapshot.data.movies, visible: true);
+//          return MovieRow(snapshot.data.movies[index], index);
         });
   }
 
   void _scrollListener() {
-  	print(state.isLoading);
-		print(_scrollController.position.extentAfter);
-    if (_scrollController.position.extentAfter < 500 && !state.isLoading) {
+  	print("isLoading = ${state.isLoading}, extentAfter ${_scrollController.position.extentAfter}");
+    if (_scrollController.position.extentAfter < 1000 && !state.isLoading) {
       movieBloc.nextPage.add(tabKey);
     }
   }

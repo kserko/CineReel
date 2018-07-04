@@ -13,6 +13,8 @@ class MoviesResponse extends Object with _$MoviesResponseSerializerMixin {
 
   MoviesResponse({this.page, this.totalResults, this.totalPages, this.results, this.errors});
 
+  bool get isEmpty => !hasResults();
+
   hasResults() {
     return results != null && results.length > 0;
   }
