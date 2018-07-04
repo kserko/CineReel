@@ -4,12 +4,25 @@ import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/ui/movie_row.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
+class MyScrollController extends ScrollController {
+
+  bool _pause;
+
+	bool get isPaused => _pause == true;
+
+	pause() => _pause = true;
+	unPause() => _pause = false;
+
+	MyScrollController() : super(initialScrollOffset: 0.0);
+
+}
+
 class MoviesResultWidget extends StatelessWidget {
   final List<Movie> items;
   final bool visible;
-  ScrollController _scrollController;
-  MovieBloc movieBloc;
-  TabKey tabKey;
+  MyScrollController _scrollController;
+  final MovieBloc movieBloc;
+  final TabKey tabKey;
 
   MoviesResultWidget({Key key,
 		@required this.items,
@@ -18,16 +31,17 @@ class MoviesResultWidget extends StatelessWidget {
 		bool visible})
       : this.visible = visible ?? items.isNotEmpty,
         super(key: key) {
-    _scrollController = ScrollController(initialScrollOffset: 0.0)
-      ..addListener(_scrollListener);
+		print('new MoviesResultWidget created $this');
+    _scrollController = MyScrollController()..addListener(_scrollListener);
   }
 
   void _scrollListener() {
-//    print("isLoading = ${state.isLoading}, extentAfter ${_scrollController
-//				.position.extentAfter}");
-//    if (_scrollController.position.extentAfter < 1000) {
-//      movieBloc.nextPage.add(tabKey);
-//    }
+    print("isPaused= ${_scrollController.isPaused}, extentAfter ${_scrollController.position.extentAfter}");
+    if (_scrollController.position.extentAfter < 1000 && !_scrollController
+				.isPaused) {
+      movieBloc.nextPage.add(tabKey);
+      _scrollController.pause();
+    }
   }
 
   @override

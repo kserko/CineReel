@@ -9,9 +9,9 @@ import 'package:flutter_bloc_movies/ui/movies_list_widget.dart';
 import 'package:flutter_bloc_movies/ui/movies_loading_widget.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
+// ignore: must_be_immutable
 class StreamComponent extends StatelessWidget {
   MovieBloc movieBloc;
-
 
 	@override
 	Widget build(BuildContext context) {
@@ -40,7 +40,6 @@ class StreamComponent extends StatelessWidget {
 					    			EmptyWidget(visible: data is MoviesEmpty),
 
 					    			// Fade in a loading screen when results are being fetched
-					    			// from Github
 					    			MoviesLoadingWidget(visible: data is MoviesLoading),
 
 					    			// Fade in an error if something went wrong when fetching
