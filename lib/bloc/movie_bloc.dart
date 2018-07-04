@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/api.dart';
 import 'package:flutter_bloc_movies/state/movie_list_state.dart';
-import 'package:flutter_bloc_movies/state/search_state.dart';
+import 'package:flutter_bloc_movies/state/movie_state.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -77,8 +77,7 @@ class MovieBloc {
 				apiCall = () => api.popularMovies(page: 1);
 				break;
 		}
-    //make the call
-//		_loadDataFromApi(apiCall, tabKey);
+
 		BehaviorSubject<MoviesState> streamSubject;
     switch (tabKey) {
       case TabKey.kNowPlaying:
@@ -92,7 +91,7 @@ class MovieBloc {
         break;
     }
 
-		streamSubject.addStream(_search(apiCall));
+		streamSubject.addStream(_fetchMoviesFromNetwork(apiCall));
   }
 
   /*
@@ -169,13 +168,12 @@ class MovieBloc {
 //    _updateStateForTab(tabKey, movieListState);
 //  }
 
-  Stream<MoviesState> _search(Function apiCall) async* {
+  Stream<MoviesState> _fetchMoviesFromNetwork(Function apiCall) async* {
     print("_in search");
 //    yield SearchLoading();
 
     try {
       final result = await apiCall();
-			print("${result?.results?.length} results");
       if (result.isEmpty) {
         yield MoviesEmpty();
       } else {

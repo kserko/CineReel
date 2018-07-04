@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
-import 'package:flutter_bloc_movies/state/search_state.dart';
+import 'package:flutter_bloc_movies/state/movie_state.dart';
 import 'package:flutter_bloc_movies/ui/empty_result_widget.dart';
 import 'package:flutter_bloc_movies/ui/movies_error_widget.dart';
 import 'package:flutter_bloc_movies/ui/movies_loading_widget.dart';
