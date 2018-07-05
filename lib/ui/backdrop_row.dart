@@ -19,12 +19,6 @@ class MovieRow extends StatelessWidget {
     return buildMovieRow(movie, context);
   }
 
-  void showSnackbar(BuildContext context, String overview) {
-    final snackBar =
-        SnackBar(content: Text(overview), duration: Duration(seconds: 3));
-    Scaffold.of(context).showSnackBar(snackBar);
-  }
-
   BoxDecoration textDecoration() {
     return const BoxDecoration(boxShadow: <BoxShadow>[
       const BoxShadow(
@@ -36,20 +30,16 @@ class MovieRow extends StatelessWidget {
   }
 
   Widget buildMovieRow(Movie movie, BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-//          showSnackbar(context, movie.overview);
-        },
-        child: DefaultTextStyle(
-          style: defaultStyle,
-          child: Stack(
-            children: <Widget>[
-              buildMovieBackdrop(movie),
-              buildTitle(movie),
-              buildRating(movie)
-            ],
-          ),
-        ));
+    return DefaultTextStyle(
+      style: defaultStyle,
+      child: Stack(
+        children: <Widget>[
+          buildMovieBackdrop(movie),
+          buildTitle(movie),
+          buildRating(movie)
+        ],
+      ),
+    );
   }
 
   Positioned buildRating(Movie movie) {
@@ -68,6 +58,7 @@ class MovieRow extends StatelessWidget {
   }
 
   Positioned buildTitle(Movie movie) {
+		print("building $index ${movie.title}");
     return Positioned(
       right: 0.0,
       left: 10.0,
@@ -107,7 +98,7 @@ class MovieRow extends StatelessWidget {
         fallbackWidget: SizedBox(height: 300.0));
   }
 
-  String backdropImagePath(Movie movie) => ImageHelper.getBackdropImagePath(
+  String backdropImagePath(Movie movie) => ImageHelper.getImagePath(
       movie.backdropPath, BACKTROP_SIZES['medium']);
 
   Widget buildMovieBackdrop(Movie movie) {

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
-import 'package:flutter_bloc_movies/ui/movie_row.dart';
+import 'package:flutter_bloc_movies/ui/poster_row.dart';
 import 'package:flutter_bloc_movies/ui/scroll_controller/list_controller.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
@@ -32,10 +32,8 @@ class MyListState extends State<MovieListStatefulWidget> {
 	}
 
 	void _scrollListener() {
-		print("${_scrollController.position.extentAfter}");
 		if (_scrollController.position.extentAfter < 2000 && !_scrollController
 				.isPaused) {
-			print('new page');
 			this.widget.movieBloc.nextPage.add(this.widget.tabKey);
 			_scrollController.pause();
 		}
@@ -51,8 +49,8 @@ class MyListState extends State<MovieListStatefulWidget> {
 				controller: _scrollController,
         itemCount: this.widget.movies.length,
         itemBuilder: (context, index) {
-          final item = this.widget.movies[index];
-          return MovieRow(item, index);
+					final item = this.widget.movies[index];
+          return MovieRow2(item, index);
         },
       ),
     );
