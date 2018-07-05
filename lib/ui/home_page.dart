@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/api/api.dart';
 import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
 import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
+import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
+import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/ui/stream_component.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
@@ -18,8 +20,8 @@ class HomePage extends StatefulWidget {
 class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin {
   final List<Tab> myTabs = <Tab>[
     new Tab(text: tab[TabKey.kNowPlaying]),
-//    new Tab(text: tab[TabKey.kTopRated]),
-//    new Tab(text: tab[TabKey.kPopular]),
+    new Tab(text: tab[TabKey.kTopRated]),
+    new Tab(text: tab[TabKey.kPopular]),
   ];
 
   TabController _tabController;
@@ -52,6 +54,10 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
       appBar: buildAppBar(context, "flutter Bloc!", myTabs, _tabController),
       body: TabBarView(controller: _tabController, children: [
         MovieProvider(child: StreamComponent(), movieBloc: NowPlayingBloc(TMDBApi())),
+				MovieProvider(child: StreamComponent(), movieBloc: TopRatedBloc(TMDBApi())),
+				MovieProvider(child: StreamComponent(), movieBloc: PopularBloc(TMDBApi())),
+
+
 //        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated, TabKey.kTopRated.index))]),
 //        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kPopular, TabKey.kPopular.index))])
       ]),
