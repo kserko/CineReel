@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/ui/movie_row.dart';
+import 'package:flutter_bloc_movies/ui/scroll_controller/list_controller.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 //As a stateful widget this will be created once and subsequent calls to
@@ -22,13 +23,32 @@ class MovieListStatefulWidget extends StatefulWidget {
 }
 
 class MyListState extends State<MovieListStatefulWidget> {
+  ListController _scrollController;
 
-  @override
+	@override
+	void initState() {
+		super.initState();
+		_scrollController = ListController()..addListener(_scrollListener);
+	}
+
+	void _scrollListener() {
+		print("${_scrollController.position.extentAfter}");
+		if (_scrollController.position.extentAfter < 2000 && !_scrollController
+				.isPaused) {
+			print('new page');
+			this.widget.movieBloc.nextPage.add(this.widget.tabKey);
+			_scrollController.pause();
+		}
+	}
+
+	@override
   Widget build(BuildContext context) {
+		_scrollController.unPause();
     return AnimatedOpacity(
       duration: Duration(milliseconds: 800),
       opacity: this.widget.movies.isNotEmpty ? 1.0 : 0.0,
       child: ListView.builder(
+				controller: _scrollController,
         itemCount: this.widget.movies.length,
         itemBuilder: (context, index) {
           final item = this.widget.movies[index];
