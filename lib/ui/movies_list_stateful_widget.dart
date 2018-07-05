@@ -42,6 +42,7 @@ class MyListState extends State<MovieListStatefulWidget> {
 	@override
   Widget build(BuildContext context) {
 		_scrollController.unPause();
+
     return AnimatedOpacity(
       duration: Duration(milliseconds: 800),
       opacity: this.widget.movies.isNotEmpty ? 1.0 : 0.0,
