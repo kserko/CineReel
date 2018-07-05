@@ -18,7 +18,7 @@ class MyScrollController extends ScrollController {
 }
 
 class MoviesResultWidget extends StatelessWidget {
-  final List<Movie> items;
+  List<Movie> items;
   final bool visible;
   MyScrollController _scrollController;
   final MovieBloc movieBloc;
@@ -35,8 +35,12 @@ class MoviesResultWidget extends StatelessWidget {
     _scrollController = MyScrollController()..addListener(_scrollListener);
   }
 
+  updateItems(List<Movie> newItems) {
+  	items.addAll(newItems);
+	}
+
   void _scrollListener() {
-    print("isPaused= ${_scrollController.isPaused}, extentAfter ${_scrollController.position.extentAfter}");
+//    print("isPaused= ${_scrollController.isPaused}, extentAfter ${_scrollController.position.extentAfter}");
     if (_scrollController.position.extentAfter < 1000 && !_scrollController
 				.isPaused) {
       movieBloc.nextPage.add(tabKey);
@@ -70,9 +74,8 @@ class MoviesResultWidget extends StatelessWidget {
 //                      child: ClipOval(
 //                        child: Image.network(
 //                          ImageHelper.getBackdropImagePath(
-//                            item.backdropPath, BACKTROP_SIZES['medium']),
-//                          width: 56.0,
-//                          height: 56.0,
+//                            item.backdropPath, BACKTROP_SIZES['small']),
+//													width: 100.0,
 //                        ),
 //                      ),
 //                    ),
