@@ -30,24 +30,21 @@ class PosterRow extends StatelessWidget {
   }
 
   Widget buildMovieRow(Movie movie, BuildContext context) {
-    return Card(
-      elevation: 0.0,
-      child: DefaultTextStyle(
-        style: defaultStyle,
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Stack(
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                	buildPoster(movie),
+    return DefaultTextStyle(
+      style: defaultStyle,
+      child: Container(
+        padding: const EdgeInsets.all(10.0),
+        child: Stack(
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+              	buildPoster(movie),
 									buildHeader(movie)],
-              ),
-              buildReleaseDate(movie)
-            ],
-          ),
+            ),
+            buildReleaseDate(movie)
+          ],
         ),
       ),
     );

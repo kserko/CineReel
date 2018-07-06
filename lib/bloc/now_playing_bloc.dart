@@ -20,7 +20,6 @@ class NowPlayingBloc extends MovieBloc {
 		try {
 			final result = await api.nowPlayingMovies(page: page);
 			print("${result.results.length}");
-
 			if (result.isEmpty) {
 				yield MoviesEmpty();
 			} else {
