@@ -67,7 +67,6 @@ class PosterRow extends StatelessWidget {
           Text("${movie.voteAverage}",
               style:
                   defaultStyle.copyWith(color: Colors.yellow, fontSize: 17.0)),
-          Text(" / 10", style: defaultStyle.copyWith(fontSize: 17.0)),
         ],
       ),
     );
