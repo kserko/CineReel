@@ -5,13 +5,13 @@ import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
 
-class MovieRow2 extends StatelessWidget {
+class PosterRow extends StatelessWidget {
   final Movie movie;
   final int index;
 
-  MovieRow2(this.movie, this.index);
+  PosterRow(this.movie, this.index);
 
-  var defaultStyle = TextStyle(
+  final defaultStyle = TextStyle(
       fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
 
   @override
@@ -30,16 +30,24 @@ class MovieRow2 extends StatelessWidget {
   }
 
   Widget buildMovieRow(Movie movie, BuildContext context) {
-    return DefaultTextStyle(
-      style: defaultStyle,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            leftSection(movie),
-            rightSection(movie),
-          ],
+    return Card(
+      elevation: 0.0,
+      child: DefaultTextStyle(
+        style: defaultStyle,
+        child: Container(
+          padding: const EdgeInsets.all(10.0),
+          child: Stack(
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                	buildPoster(movie),
+									buildHeader(movie)],
+              ),
+              buildReleaseDate(movie)
+            ],
+          ),
         ),
       ),
     );
@@ -51,45 +59,59 @@ class MovieRow2 extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-        	Container(
-						width: 40.0,
-							height: 40.0,
-							margin: const EdgeInsets.only(right: 10.0),
-							child: Image(image: AssetImage("assets/tmdb_icon.png"))),
-          Text("${movie.voteAverage}", style: defaultStyle.copyWith(color: Colors.yellow, fontSize: 17.0)),
+          Container(
+              width: 40.0,
+              height: 40.0,
+              margin: const EdgeInsets.only(right: 10.0),
+              child: Image(image: AssetImage("assets/tmdb_icon.png"))),
+          Text("${movie.voteAverage}",
+              style:
+                  defaultStyle.copyWith(color: Colors.yellow, fontSize: 17.0)),
           Text(" / 10", style: defaultStyle.copyWith(fontSize: 17.0)),
         ],
       ),
     );
   }
 
-  Widget rightSection(Movie movie) {
+  Widget buildHeader(Movie movie) {
     return Expanded(
-      child: Padding(
+      flex: 1,
+      child: Container(
         padding: const EdgeInsets.only(left: 8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(movie.title, style: defaultStyle),
-            buildRating(movie)
-          ],
-        ),
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(movie.title, style: defaultStyle),
+              buildRating(movie),
+            ]),
+      ),
+    );
+  }
+
+  Widget buildReleaseDate(Movie movie) {
+    return Positioned(
+			bottom: 0.0,
+      right: 0.0,
+      child: Container(
+        child:
+						//extract the year
+            Text(movie.releaseDate.split("-")[0], style: defaultStyle.copyWith
+							(fontSize:
+						14.0)),
       ),
     );
   }
 
   Widget getAdvancedNetworkImage(Movie movie) {
     return new TransitionToImage(AdvancedNetworkImage(posterImagePath(movie)),
-        placeholder: LinearProgressIndicator(),
-        useReload: false,
-        fallbackWidget: SizedBox(height: 300.0));
+        useReload: false, fallbackWidget: SizedBox(height: 300.0));
   }
 
   String posterImagePath(Movie movie) =>
       ImageHelper.getImagePath(movie.posterPath, POSTER_SIZES['small']);
 
-  Widget leftSection(Movie movie) {
+  Widget buildPoster(Movie movie) {
     return getAdvancedNetworkImage(movie);
   }
 }

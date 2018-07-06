@@ -42,7 +42,7 @@ class MyListState extends State<MovieListStatefulWidget> {
 	@override
   Widget build(BuildContext context) {
 		_scrollController.unPause();
-
+		printMoviesTitles();
     return AnimatedOpacity(
       duration: Duration(milliseconds: 800),
       opacity: this.widget.movies.isNotEmpty ? 1.0 : 0.0,
@@ -51,9 +51,18 @@ class MyListState extends State<MovieListStatefulWidget> {
         itemCount: this.widget.movies.length,
         itemBuilder: (context, index) {
 					final item = this.widget.movies[index];
-          return MovieRow2(item, index);
+					print('build ${item.title}');
+          return PosterRow(item, index);
         },
       ),
     );
   }
+
+  void printMoviesTitles() {
+		print("MOViES IN LIST ${this.widget.movies.length}");
+		for (Movie movie in this.widget.movies) {
+			print("${movie.title}");
+		}
+		print("MOIVES IN LIST END");
+	}
 }

@@ -33,7 +33,6 @@ class PageStreamBuilder extends StatelessWidget {
           final data = snapshot.data;
           return Column(
             children: <Widget>[
-              FlatButton(onPressed: getNextPage, child: Text("GET NEXT PAGE")),
               Expanded(
                 child: Stack(
                   children: <Widget>[
