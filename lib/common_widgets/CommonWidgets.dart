@@ -9,18 +9,3 @@ AppBar buildAppBar(BuildContext context, String title, List<Tab> myTabs, TabCont
         tabs:myTabs)
   );
 }
-
-Widget buildLoadingWidget() {
-  return Center(
-    child: CircularProgressIndicator(),
-  );
-}
-
-Widget buildErrorWidget(String error) {
-  return Center(
-    child: Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Text('Api returned with an error "$error"'),
-    ),
-  );
-}

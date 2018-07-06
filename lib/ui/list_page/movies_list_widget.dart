@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
-import 'package:flutter_bloc_movies/ui/poster_row.dart';
+import 'package:flutter_bloc_movies/ui/movie_row/poster_row.dart';
 import 'package:flutter_bloc_movies/ui/scroll_controller/list_controller.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
-//As a stateful widget this will be created once and subsequent calls to
-//create the widget in the same context (i.e in page_stream_builder)
-// will only call the build method of the state object
-class MovieListStatefulWidget extends StatefulWidget {
+//As a stateful widget the state of this widget will be created once and
+// subsequent calls to create the widget in the same context
+// (i.e in page_stream_builder)
+// will only call the build method of the state object and
+class MovieListWidget extends StatefulWidget {
   final List<Movie> movies;
   final TabKey tabKey;
   final MovieBloc movieBloc;
 
-  MovieListStatefulWidget({Key key, this.movies, this.tabKey, this.movieBloc})
+  MovieListWidget({Key key, this.movies, this.tabKey, this.movieBloc})
       : super(key: key);
 
   @override
@@ -23,7 +24,7 @@ class MovieListStatefulWidget extends StatefulWidget {
   }
 }
 
-class MyListState extends State<MovieListStatefulWidget> {
+class MyListState extends State<MovieListWidget> {
   ListController _scrollController;
 
   @override

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
+import 'package:flutter_bloc_movies/common_widgets/empty_result_widget.dart';
+import 'package:flutter_bloc_movies/common_widgets/movies_error_widget.dart';
+import 'package:flutter_bloc_movies/common_widgets/movies_loading_widget.dart';
 import 'package:flutter_bloc_movies/state/movie_state.dart';
-import 'package:flutter_bloc_movies/ui/empty_result_widget.dart';
-import 'package:flutter_bloc_movies/ui/movies_error_widget.dart';
-import 'package:flutter_bloc_movies/ui/movies_list_stateful_widget.dart';
-import 'package:flutter_bloc_movies/ui/movies_loading_widget.dart';
+import 'package:flutter_bloc_movies/ui/list_page/movies_list_widget.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 // ignore: must_be_immutable
@@ -50,7 +50,7 @@ class PageStreamBuilder extends StatelessWidget {
                         error: data is MoviesError ? data.error : ""),
 
                     // Fade in the Result if available
-                    MovieListStatefulWidget(
+                    MovieListWidget(
                         movieBloc: movieBloc,
                         tabKey: tabKey,
                         movies: data is MoviesPopulated ? data.movies : []),

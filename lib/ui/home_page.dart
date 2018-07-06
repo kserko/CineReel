@@ -6,7 +6,7 @@ import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
-import 'package:flutter_bloc_movies/ui/page_stream_builder.dart';
+import 'package:flutter_bloc_movies/ui/list_page/page_stream_builder.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class HomePage extends StatefulWidget {
