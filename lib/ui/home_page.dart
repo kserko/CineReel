@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/api/api.dart';
-import 'package:flutter_bloc_movies/bloc/movie_provider.dart';
 import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
+import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
 import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/ui/page_stream_builder.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';

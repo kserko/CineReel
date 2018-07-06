@@ -12,6 +12,10 @@ class NowPlayingBloc extends MovieBloc {
 
   @override
 	Stream<MoviesState> fetchMoviesFromNetwork() async* {
+  	if (moviesPopulated.movies.isEmpty) {
+			yield MoviesLoading();
+		}
+
   	page+=1;
 		try {
 			final result = await api.nowPlayingMovies(page: page);
