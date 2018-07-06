@@ -10,10 +10,12 @@ import 'package:flutter_bloc_movies/ui/page_stream_builder.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  final String title;
+
+  const HomePage({Key key, this.title}) : super(key: key);
 
   @override
-  _MyTabbedPageState createState() => new _MyTabbedPageState();
+  _MyTabbedPageState createState() => new _MyTabbedPageState(title);
 }
 
 // ignore: mixin_inherits_from_not_object
@@ -26,6 +28,10 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 
   TabController _tabController;
   int activeTab = 0;
+
+  var title;
+
+  _MyTabbedPageState(this.title);
 
   @override
   void initState() {
@@ -51,7 +57,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: buildAppBar(context, "flutter Bloc!", myTabs, _tabController),
+      appBar: buildAppBar(context, title, myTabs, _tabController),
       body: TabBarView(controller: _tabController, children: [
         MovieProvider(child: PageStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi())),
 				MovieProvider(child: PageStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi())),
