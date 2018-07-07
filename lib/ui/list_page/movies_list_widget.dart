@@ -26,6 +26,7 @@ class MovieListWidget extends StatefulWidget {
 
 class MyListState extends State<MovieListWidget> {
   ListController _scrollController;
+  bool expansionTilesEnabled = false;
 
   @override
   void initState() {
@@ -44,7 +45,7 @@ class MyListState extends State<MovieListWidget> {
   @override
   Widget build(BuildContext context) {
     _scrollController.unPause();
-//		printMoviesTitles();
+
     return AnimatedOpacity(
       duration: Duration(milliseconds: 800),
       opacity: this.widget.movies.isNotEmpty ? 1.0 : 0.0,
@@ -53,14 +54,18 @@ class MyListState extends State<MovieListWidget> {
         itemCount: this.widget.movies.length,
         itemBuilder: (context, index) {
           final movie = this.widget.movies[index];
-          print('build ${movie.title}');
-          return ExpansionTile(children: [
-            Container(
-							padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical:
-							8.0),
-								child: Text(movie.overview, style: TextStyle(fontSize: 13.0),
-										textAlign: TextAlign.justify))
-          ], title: PosterRow(movie, index));
+          if (expansionTilesEnabled) {
+            return ExpansionTile(children: [
+              Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 25.0, vertical: 8.0),
+                  child: Text(movie.overview,
+                      style: TextStyle(fontSize: 13.0),
+                      textAlign: TextAlign.justify))
+            ], title: PosterRow(movie, index));
+          } else {
+          	return PosterRow(movie, index);
+					}
         },
       ),
     );

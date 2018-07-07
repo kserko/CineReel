@@ -17,12 +17,15 @@ class TMDBApi {
   Future<MoviesResponse> nowPlayingMovies({int page}) async {
     final response = await _makeRequest(Endpoints.nowPlayingMoviesUrl(page));
     var moviesResponse = MoviesResponse.fromJson(json.decode(response.body));
+		return moviesResponse;
+  }
+
+  void printMovieResponse(MoviesResponse moviesResponse) {
     print("/start of movie response ${moviesResponse.results.length}");
     for (Movie movie in moviesResponse.results) {
     	print("${movie.title}");
-		}
-		print("movie response /end");
-		return moviesResponse;
+    		}
+    		print("movie response /end");
   }
 
   Future<MoviesResponse> topRated({int page}) async {

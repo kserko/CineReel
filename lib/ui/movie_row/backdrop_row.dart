@@ -58,7 +58,6 @@ class MovieRow extends StatelessWidget {
   }
 
   Positioned buildTitle(Movie movie) {
-		print("building $index ${movie.title}");
     return Positioned(
       right: 0.0,
       left: 10.0,
