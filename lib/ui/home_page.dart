@@ -5,7 +5,7 @@ import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
-import 'package:flutter_bloc_movies/common_widgets/CommonWidgets.dart';
+import 'package:flutter_bloc_movies/ui/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/ui/list_page/page_stream_builder.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
@@ -57,7 +57,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: buildAppBar(context, title, myTabs, _tabController),
+      appBar: buildAppBarWithTabBar(context, title, myTabs, _tabController),
       body: TabBarView(controller: _tabController, children: [
         MovieProvider(child: PageStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi())),
 				MovieProvider(child: PageStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi())),

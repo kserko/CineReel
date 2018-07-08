@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
-import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
-import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
+import 'package:flutter_bloc_movies/navigation/SlideRoute.dart';
+import 'package:flutter_bloc_movies/ui/common_widgets/movie_image_widget.dart';
+import 'package:flutter_bloc_movies/ui/details_page/movie_details.dart';
 
 class PosterRow extends StatelessWidget {
   final Movie movie;
@@ -16,7 +16,16 @@ class PosterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return buildMovieRow(movie, context);
+    return InkWell(
+        onTap: () {
+          Navigator.push(context, SlideRoute(widget: MovieDetails(movie)));
+//					Navigator.of(context).push(
+//                MaterialPageRoute(
+//									maintainState: true,
+//										builder: (context) => MovieDetails(movie)));
+					},
+//			  return Navigator.push(context, MyCustomRoute(builder: (context) => MovieDetails(movie)));
+        child: buildMovieRow(movie, context));
   }
 
   BoxDecoration textDecoration() {
@@ -40,8 +49,12 @@ class PosterRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-              	buildPoster(movie),
-									buildHeader(movie)],
+                MovieImage(
+                    movie: movie,
+                    imageType: IMAGE_TYPE.POSTER,
+                    size: POSTER_SIZES['small']),
+                buildHeader(movie)
+              ],
             ),
             buildReleaseDate(movie)
           ],
@@ -87,27 +100,14 @@ class PosterRow extends StatelessWidget {
 
   Widget buildReleaseDate(Movie movie) {
     return Positioned(
-			bottom: 0.0,
+      bottom: 0.0,
       right: 0.0,
       child: Container(
         child:
-						//extract the year
-            Text(movie.releaseDate.split("-")[0], style: defaultStyle.copyWith
-							(fontSize:
-						14.0)),
+            //extract the year
+            Text(movie.releaseDate.split("-")[0],
+                style: defaultStyle.copyWith(fontSize: 14.0)),
       ),
     );
-  }
-
-  Widget getAdvancedNetworkImage(Movie movie) {
-    return new TransitionToImage(AdvancedNetworkImage(posterImagePath(movie)),
-        useReload: false, fallbackWidget: SizedBox(height: 300.0));
-  }
-
-  String posterImagePath(Movie movie) =>
-      ImageHelper.getImagePath(movie.posterPath, POSTER_SIZES['small']);
-
-  Widget buildPoster(Movie movie) {
-    return getAdvancedNetworkImage(movie);
   }
 }

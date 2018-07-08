@@ -98,7 +98,7 @@ class MovieRow extends StatelessWidget {
   }
 
   String backdropImagePath(Movie movie) => ImageHelper.getImagePath(
-      movie.backdropPath, BACKTROP_SIZES['medium']);
+      movie.backdropPath, BACKDROP_SIZES['medium']);
 
   Widget buildMovieBackdrop(Movie movie) {
     if (movie.backdropPath != null && movie.backdropPath.isNotEmpty) {
