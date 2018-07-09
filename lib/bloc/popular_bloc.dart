@@ -15,7 +15,6 @@ class PopularBloc extends MovieBloc {
   	page+=1;
 		try {
 			final result = await api.popularMovies(page: page);
-			print("${result.results.length}");
 
 			if (result.isEmpty) {
 				yield MoviesEmpty();

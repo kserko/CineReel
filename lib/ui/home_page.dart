@@ -33,11 +33,21 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 
   _MyTabbedPageState(this.title);
 
+  var tabBarView;
+
   @override
   void initState() {
     super.initState();
     _tabController = new TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_handleTabSelection);
+    tabBarView = TabBarView(controller: _tabController, children: [
+      MovieProvider(
+          child: PageStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi())),
+      MovieProvider(
+          child: PageStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi())),
+      MovieProvider(
+          child: PageStreamBuilder(), movieBloc: PopularBloc(TMDBApi()))
+    ]);
   }
 
   void _handleTabSelection() {
@@ -58,15 +68,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: buildAppBarWithTabBar(context, title, myTabs, _tabController),
-      body: TabBarView(controller: _tabController, children: [
-        MovieProvider(child: PageStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi())),
-				MovieProvider(child: PageStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi())),
-				MovieProvider(child: PageStreamBuilder(), movieBloc: PopularBloc(TMDBApi())),
-
-
-//        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kTopRated, TabKey.kTopRated.index))]),
-//        Column(children: [Flexible(child: buildStreamBuilder(TabKey.kPopular, TabKey.kPopular.index))])
-      ]),
+      body: tabBarView,
     );
   }
 }

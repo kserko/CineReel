@@ -16,7 +16,6 @@ class MovieDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//			appBar: buildAppBar(context, movie.title),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -53,21 +52,19 @@ class MovieDetails extends StatelessWidget {
 
   Widget buildDetails(BuildContext context) {
     return Container(
-			margin: const EdgeInsets.only(top:40.0),
+      margin: const EdgeInsets.only(top: 45.0),
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-				crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-						mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Text(
-                movie.title,
-                style: TextStyle(fontSize: 44.0),
-              ),
-            ],
+          Expanded(
+            child: Text(
+              movie.title,
+              style: TextStyle(fontSize: 24.0),
+            ),
           ),
-			],
+        ],
       ),
     );
   }

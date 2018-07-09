@@ -15,7 +15,6 @@ class TopRatedBloc extends MovieBloc {
   	page+=1;
 		try {
 			final result = await api.topRated(page: page);
-			print("${result.results.length}");
 
 			if (result.isEmpty) {
 				yield MoviesEmpty();
