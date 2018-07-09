@@ -5,30 +5,34 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
 import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
+import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
+import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
 
-class MovieDetails extends StatelessWidget {
+class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
+  MovieDetailsBloc movieDetailsBloc;
 
-  MovieDetails(Movie this.movie);
+  MovieDetailsPage(Movie this.movie);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(child: buildMainContent(context)),
-//                child: MovieImage(
-//                    movie: movie,
-//                    imageType: IMAGE_TYPE.POSTER,
-//                    size: POSTER_SIZES['small'])),
-          ],
-        ),
-      ),
+    movieDetailsBloc = MovieDetailsProvider.of(context);
+		return Scaffold(
+      body: StreamBuilder(
+          stream: movieDetailsBloc.stream,
+          builder: (context, snapshot) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(child: buildMainContent(context)),
+                ],
+              ),
+            );
+          }),
     );
   }
 

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
+import 'package:flutter_bloc_movies/api/api.dart';
+import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
+import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/navigation/SlideRoute.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/movie_image_widget.dart';
-import 'package:flutter_bloc_movies/ui/details_page/movie_details.dart';
+import 'package:flutter_bloc_movies/ui/details_page/movie_details_page.dart';
 
 class PosterRow extends StatelessWidget {
   final Movie movie;
@@ -18,7 +21,9 @@ class PosterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.push(context, SlideRoute(widget: MovieDetails(movie)));
+          Navigator.push(context, SlideRoute(widget: MovieDetailsProvider(
+						movieDetailsBloc: MovieDetailsBloc(TMDBApi(), movie.id),
+							child: MovieDetailsPage(movie))));
 //					Navigator.of(context).push(
 //                MaterialPageRoute(
 //									maintainState: true,

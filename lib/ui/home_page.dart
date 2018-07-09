@@ -6,7 +6,7 @@ import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/CommonWidgets.dart';
-import 'package:flutter_bloc_movies/ui/list_page/page_stream_builder.dart';
+import 'package:flutter_bloc_movies/ui/list_page/movie_list_stream_builder.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class HomePage extends StatefulWidget {
@@ -42,11 +42,11 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     _tabController.addListener(_handleTabSelection);
     tabBarView = TabBarView(controller: _tabController, children: [
       MovieProvider(
-          child: PageStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi())),
+          child: MovieListStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi())),
       MovieProvider(
-          child: PageStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi())),
+          child: MovieListStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi())),
       MovieProvider(
-          child: PageStreamBuilder(), movieBloc: PopularBloc(TMDBApi()))
+          child: MovieListStreamBuilder(), movieBloc: PopularBloc(TMDBApi()))
     ]);
   }
 

@@ -10,10 +10,8 @@ import 'package:flutter_bloc_movies/ui/list_page/movies_list_widget.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 // ignore: must_be_immutable
-class PageStreamBuilder extends StatelessWidget {
+class MovieListStreamBuilder extends StatelessWidget {
   MovieBloc movieBloc;
-
-//  var moviesList = new MovieListStatefulWidget();
 
   @override
   Widget build(BuildContext context) {

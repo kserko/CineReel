@@ -13,10 +13,10 @@ abstract class MovieBloc {
 	Stream<MoviesState> fetchMoviesFromNetwork();
 
 	// This is the internal object whose stream/sink is provided by this component
-	final streamController = BehaviorSubject<MoviesState>();
+	final _streamController = BehaviorSubject<MoviesState>();
 
 	// This is the stream of movies. Use this to show the contents
-	Stream<MoviesState> get stream => streamController.stream;
+	Stream<MoviesState> get stream => _streamController.stream;
 
 	final _nextPageController = StreamController();
 	Sink get nextPage => _nextPageController.sink;
@@ -33,10 +33,10 @@ abstract class MovieBloc {
 	}
 
 	void dispose() {
-		streamController.close();
+		_streamController.close();
 	}
 
 	fetchNextPage([event]) {
-		streamController.addStream(fetchMoviesFromNetwork());
+		_streamController.addStream(fetchMoviesFromNetwork());
 	}
 }

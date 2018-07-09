@@ -31,4 +31,8 @@ class Endpoints {
         '$TMDB_API_TOKEN'
         '&include_adult=false&page=$page';
   }
+
+  static String movieDetailsUrl(int movieId) {
+	return '$BASE_API_URL/movie/$movieId?api_key=$TMDB_API_TOKEN';
+	}
 }
