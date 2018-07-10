@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/api.dart';
-import 'package:flutter_bloc_movies/state/movie_state.dart';
+import 'package:flutter_bloc_movies/ui/list_page/movie_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class MovieBloc {

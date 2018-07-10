@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/api.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
-import 'package:flutter_bloc_movies/state/movie_state.dart';
+import 'package:flutter_bloc_movies/ui/list_page/movie_state.dart';
 
 class TopRatedBloc extends MovieBloc {
 	TopRatedBloc(TMDBApi api) : super(api);

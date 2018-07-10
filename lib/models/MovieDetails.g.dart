@@ -47,10 +47,12 @@ MovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) {
       json['title'] as String,
       json['video'] as bool,
       (json['voteAverage'] as num)?.toDouble(),
-      json['voteCount'] as int);
+      json['voteCount'] as int,
+      json['status_message'] as String);
 }
 
 abstract class _$MovieDetailsSerializerMixin {
+  String get status_message;
   bool get adult;
   String get backdropPath;
   Object get belongsToCollection;
@@ -77,6 +79,7 @@ abstract class _$MovieDetailsSerializerMixin {
   double get voteAverage;
   int get voteCount;
   Map<String, dynamic> toJson() => <String, dynamic>{
+        'status_message': status_message,
         'adult': adult,
         'backdropPath': backdropPath,
         'belongsToCollection': belongsToCollection,

@@ -6,7 +6,7 @@ import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/navigation/SlideRoute.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/movie_image_widget.dart';
-import 'package:flutter_bloc_movies/ui/details_page/movie_details_page.dart';
+import 'package:flutter_bloc_movies/ui/details_page/movie_details_stream_builder.dart';
 
 class PosterRow extends StatelessWidget {
   final Movie movie;
@@ -23,7 +23,7 @@ class PosterRow extends StatelessWidget {
         onTap: () {
           Navigator.push(context, SlideRoute(widget: MovieDetailsProvider(
 						movieDetailsBloc: MovieDetailsBloc(TMDBApi(), movie.id),
-							child: MovieDetailsPage(movie))));
+							child: MovieDetailsStreamBuilder(movie))));
 //					Navigator.of(context).push(
 //                MaterialPageRoute(
 //									maintainState: true,

@@ -2,8 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/api.dart';
-import 'package:flutter_bloc_movies/models/MovieDetails.dart';
-import 'package:flutter_bloc_movies/state/movie_state.dart';
+import 'package:flutter_bloc_movies/ui/details_page/movie_details_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieDetailsBloc {
@@ -15,13 +14,26 @@ class MovieDetailsBloc {
 		_streamController.addStream(_fetchMovieDetails(movieId));
 	}
 
-	Stream<MovieDetails> _fetchMovieDetails(int movieId) async* {
-		final result = await api.movieDetails(movieId: movieId);
-		yield movieDetailsLoaded.movieDetails = result;
-	}
-
 	//the internal object whose sink/stream we can use
-	final _streamController = BehaviorSubject<MovieDetails>();
+	final _streamController = BehaviorSubject<MovieDetailsState>();
 	//the stream of movie details. use this to show the details
-	Stream<MovieDetails> get stream => _streamController.stream;
+	Stream<MovieDetailsState> get stream => _streamController.stream;
+
+	Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
+		if (movieDetailsLoaded.movieDetails == null) {
+			yield MovieDetailsLoading();
+		}
+
+		try {
+		  final result = await api.movieDetails(movieId: movieId);
+		  if(result.hasErrors()) {
+		  	yield MovieDetailsError(result.status_message);
+			} else {
+				yield movieDetailsLoaded.update(result);
+			}
+		} catch (e) {
+		  print('error $e');
+		  yield MovieDetailsError(e);
+		}
+	}
 }

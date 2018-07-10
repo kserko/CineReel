@@ -9,7 +9,6 @@
 // The State Stream responds to input from the View by accepting a
 // Stream<String>. We call this Stream the onTextChanged "intent".
 import 'package:flutter_bloc_movies/models/Movie.dart';
-import 'package:flutter_bloc_movies/models/MovieDetails.dart';
 
 class MoviesState {
 	MoviesState();
@@ -24,7 +23,6 @@ class MoviesError extends MoviesState {
 
 class MoviesNoResults extends MoviesState {}
 
-
 class MoviesPopulated extends MoviesState {
 
 	final List<Movie> movies;
@@ -37,11 +35,4 @@ class MoviesPopulated extends MoviesState {
 	MoviesPopulated(this.movies);
 }
 
-class MoviesEmpty extends MoviesState {
-}
-
-class MovieDetailsLoaded extends MoviesState {
-	MovieDetails movieDetails;
-
-	MovieDetailsLoaded([this.movieDetails]);
-}
+class MoviesEmpty extends MoviesState {}
