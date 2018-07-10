@@ -21,10 +21,13 @@ class PosterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.push(context, RouteTransition(widget: MovieDetailsProvider(
-						movieDetailsBloc: MovieDetailsBloc(TMDBApi(), movie.id),
-							child: MovieDetailsStreamBuilder(movie))));
-					},
+          Navigator.push(
+              context,
+              RouteTransition(
+                  widget: MovieDetailsProvider(
+                      movieDetailsBloc: MovieDetailsBloc(TMDBApi(), movie.id),
+                      child: MovieDetailsStreamBuilder(movie))));
+        },
         child: buildMovieRow(movie, context));
   }
 
@@ -49,12 +52,11 @@ class PosterRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Hero(
-                  child: MovieImage(
-                      imagePath: movie.posterPath,
-                      imageType: IMAGE_TYPE.POSTER,
-                      size: POSTER_SIZES['small']), tag: "${movie.id}",
-                ),
+                MovieImage(
+                    isBlurred: false,
+                    imagePath: movie.posterPath,
+                    imageType: IMAGE_TYPE.POSTER,
+                    size: POSTER_SIZES['small']),
                 buildHeader(movie)
               ],
             ),
@@ -93,7 +95,11 @@ class PosterRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(movie.title, style: defaultStyle),
+              Hero(
+                  child: Material(
+                      color: Colors.transparent,
+                      child: Text(movie.title, style: defaultStyle)),
+                  tag: "${movie.id}-${movie.title}"),
               buildRating(movie),
             ]),
       ),
