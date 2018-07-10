@@ -5,7 +5,6 @@ import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/CommonWidgets.dart';
 import 'package:flutter_bloc_movies/ui/list_page/movie_list_stream_builder.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
@@ -42,7 +41,8 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     _tabController.addListener(_handleTabSelection);
     tabBarView = TabBarView(controller: _tabController, children: [
       MovieProvider(
-          child: MovieListStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi())),
+          child: MovieListStreamBuilder(),
+          movieBloc: NowPlayingBloc(TMDBApi())),
       MovieProvider(
           child: MovieListStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi())),
       MovieProvider(
@@ -67,7 +67,11 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: buildAppBarWithTabBar(context, title, myTabs, _tabController),
+      appBar: AppBar(
+          title: new Text(title),
+          elevation:
+              Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 3.0,
+          bottom: TabBar(controller: _tabController, tabs: myTabs)),
       body: tabBarView,
     );
   }

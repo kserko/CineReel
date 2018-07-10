@@ -9,8 +9,8 @@ part of 'MovieDetails.dart';
 MovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) {
   return new MovieDetails(
       json['adult'] as bool,
-      json['backdropPath'] as String,
-      json['belongsToCollection'],
+      json['backdrop_path'] as String,
+      json['belongs_to_collection'],
       json['budget'] as int,
       (json['genres'] as List)
           ?.map((e) =>
@@ -18,93 +18,93 @@ MovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) {
           ?.toList(),
       json['homepage'],
       json['id'] as int,
-      json['imdbId'] as String,
-      json['originalLanguage'] as String,
-      json['originalTitle'] as String,
+      json['imdb_id'] as String,
+      json['original_language'] as String,
+      json['original_title'] as String,
       json['overview'] as String,
       (json['popularity'] as num)?.toDouble(),
-      json['posterPath'] as String,
-      (json['productionCompanies'] as List)
+      json['poster_path'] as String,
+      (json['production_companies'] as List)
           ?.map((e) => e == null
               ? null
               : new ProductionCompany.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      (json['productionCountries'] as List)
+      (json['production_countries'] as List)
           ?.map((e) => e == null
               ? null
               : new ProductionCountry.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      json['releaseDate'] as String,
+      json['release_date'] as String,
       json['revenue'] as int,
       json['runtime'] as int,
-      (json['spokenLanguages'] as List)
+      (json['spoken_languages'] as List)
           ?.map((e) => e == null
               ? null
               : new SpokenLanguage.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['status'] as String,
-      json['tagline'] as String,
+      json['tag_line'] as String,
       json['title'] as String,
       json['video'] as bool,
-      (json['voteAverage'] as num)?.toDouble(),
-      json['voteCount'] as int,
+      (json['vote_average'] as num)?.toDouble(),
+      json['vote_count'] as int,
       json['status_message'] as String);
 }
 
 abstract class _$MovieDetailsSerializerMixin {
   String get status_message;
-  bool get adult;
   String get backdropPath;
   Object get belongsToCollection;
-  int get budget;
-  List<Genre> get genres;
-  Object get homepage;
-  int get id;
   String get imdbId;
   String get originalLanguage;
   String get originalTitle;
-  String get overview;
-  double get popularity;
   String get posterPath;
   List<ProductionCompany> get productionCompanies;
   List<ProductionCountry> get productionCountries;
   String get releaseDate;
-  int get revenue;
-  int get runtime;
   List<SpokenLanguage> get spokenLanguages;
-  String get status;
   String get tagline;
-  String get title;
-  bool get video;
   double get voteAverage;
   int get voteCount;
+  String get overview;
+  bool get adult;
+  int get budget;
+  List<Genre> get genres;
+  Object get homepage;
+  int get id;
+  double get popularity;
+  int get revenue;
+  int get runtime;
+  String get status;
+  String get title;
+  bool get video;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'status_message': status_message,
+        'backdrop_path': backdropPath,
+        'belongs_to_collection': belongsToCollection,
+        'imdb_id': imdbId,
+        'original_language': originalLanguage,
+        'original_title': originalTitle,
+        'poster_path': posterPath,
+        'production_companies': productionCompanies,
+        'production_countries': productionCountries,
+        'release_date': releaseDate,
+        'spoken_languages': spokenLanguages,
+        'tag_line': tagline,
+        'vote_average': voteAverage,
+        'vote_count': voteCount,
+        'overview': overview,
         'adult': adult,
-        'backdropPath': backdropPath,
-        'belongsToCollection': belongsToCollection,
         'budget': budget,
         'genres': genres,
         'homepage': homepage,
         'id': id,
-        'imdbId': imdbId,
-        'originalLanguage': originalLanguage,
-        'originalTitle': originalTitle,
-        'overview': overview,
         'popularity': popularity,
-        'posterPath': posterPath,
-        'productionCompanies': productionCompanies,
-        'productionCountries': productionCountries,
-        'releaseDate': releaseDate,
         'revenue': revenue,
         'runtime': runtime,
-        'spokenLanguages': spokenLanguages,
         'status': status,
-        'tagline': tagline,
         'title': title,
-        'video': video,
-        'voteAverage': voteAverage,
-        'voteCount': voteCount
+        'video': video
       };
 }
 

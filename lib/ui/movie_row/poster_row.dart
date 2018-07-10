@@ -21,15 +21,10 @@ class PosterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.push(context, SlideRoute(widget: MovieDetailsProvider(
+          Navigator.push(context, RouteTransition(widget: MovieDetailsProvider(
 						movieDetailsBloc: MovieDetailsBloc(TMDBApi(), movie.id),
 							child: MovieDetailsStreamBuilder(movie))));
-//					Navigator.of(context).push(
-//                MaterialPageRoute(
-//									maintainState: true,
-//										builder: (context) => MovieDetails(movie)));
 					},
-//			  return Navigator.push(context, MyCustomRoute(builder: (context) => MovieDetails(movie)));
         child: buildMovieRow(movie, context));
   }
 
@@ -54,10 +49,12 @@ class PosterRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                MovieImage(
-                    movie: movie,
-                    imageType: IMAGE_TYPE.POSTER,
-                    size: POSTER_SIZES['small']),
+                Hero(
+                  child: MovieImage(
+                      imagePath: movie.posterPath,
+                      imageType: IMAGE_TYPE.POSTER,
+                      size: POSTER_SIZES['small']), tag: "${movie.id}",
+                ),
                 buildHeader(movie)
               ],
             ),

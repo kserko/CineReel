@@ -5,31 +5,31 @@ part "MovieDetails.g.dart";
 @JsonSerializable()
 class MovieDetails extends Object with _$MovieDetailsSerializerMixin {
 	@JsonKey(name: "status_message") String status_message;
+  @JsonKey(name:"backdrop_path") String backdropPath;
+	@JsonKey(name:"belongs_to_collection") Object belongsToCollection;
+	@JsonKey(name:"imdb_id") String imdbId;
+	@JsonKey(name:"original_language") String originalLanguage;
+	@JsonKey(name:"original_title") String originalTitle;
+	@JsonKey(name:"poster_path") String posterPath;
+	@JsonKey(name:"production_companies") List<ProductionCompany>productionCompanies = null;
+	@JsonKey(name:"production_countries") List<ProductionCountry>productionCountries = null;
+	@JsonKey(name:"release_date") String releaseDate;
+	@JsonKey(name:"spoken_languages") List<SpokenLanguage> spokenLanguages = null;
+	@JsonKey(name:"tag_line") String tagline;
+	@JsonKey(name:"vote_average") double voteAverage;
+	@JsonKey(name:"vote_count") int voteCount;String overview;
 	bool adult;
-  String backdropPath;
-  Object belongsToCollection;
-  int budget;
-  List<Genre> genres = null;
-  Object homepage;
-  int id;
-  String imdbId;
-  String originalLanguage;
-  String originalTitle;
-  String overview;
+	int budget;
+	List<Genre> genres = null;
+	Object homepage;
+	int id;
   double popularity;
-  String posterPath;
-  List<ProductionCompany> productionCompanies = null;
-  List<ProductionCountry> productionCountries = null;
-  String releaseDate;
   int revenue;
   int runtime;
-  List<SpokenLanguage> spokenLanguages = null;
   String status;
-  String tagline;
   String title;
   bool video;
-  double voteAverage;
-  int voteCount;
+
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) =>
       _$MovieDetailsFromJson(json);

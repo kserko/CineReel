@@ -6,9 +6,7 @@ import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/empty_result_widget.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_loading_widget.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_state.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_widget.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
@@ -32,16 +30,15 @@ class MovieDetailsStreamBuilder extends StatelessWidget {
 								Expanded(
 									child: Stack(
 										children: <Widget>[
-											EmptyWidget(visible: data is MovieDetailsEmpty),
+//											EmptyWidget(visible: data is MovieDetailsEmpty),
 
-											MoviesLoadingWidget(visible: data is MovieDetailsLoading),
 											MoviesErrorWidget(
 													visible: data is MovieDetailsError,
 													error: data is MovieDetailsError ? data.error : ""),
-//
+
 											MovieDetailsWidget(
-													movieDetails: data is MovieDetailsLoaded ? data
-															.movieDetails : null)
+													movieDetails: data is MovieDetailsLoaded ? data.movieDetails : null,
+													movie: movie )
 
 										],
 									),

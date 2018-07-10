@@ -2,11 +2,14 @@
 import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/api.dart';
+import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieDetailsBloc {
 	TMDBApi api;
+
+  Movie movie;
 
 	MovieDetailsLoaded movieDetailsLoaded = MovieDetailsLoaded();
 
@@ -20,9 +23,6 @@ class MovieDetailsBloc {
 	Stream<MovieDetailsState> get stream => _streamController.stream;
 
 	Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
-		if (movieDetailsLoaded.movieDetails == null) {
-			yield MovieDetailsLoading();
-		}
 
 		try {
 		  final result = await api.movieDetails(movieId: movieId);
