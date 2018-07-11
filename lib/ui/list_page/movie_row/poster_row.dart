@@ -5,8 +5,8 @@ import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/navigation/SlideRoute.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movie_image_widget.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_stream_builder.dart';
+import 'package:flutter_bloc_movies/ui/list_page/movie_row/movie_image_for_poster_row.dart';
 
 class PosterRow extends StatelessWidget {
   final Movie movie;
@@ -52,8 +52,7 @@ class PosterRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                MovieImage(
-                    isBlurred: false,
+                MovieImageForRow(
                     imagePath: movie.posterPath,
                     imageType: IMAGE_TYPE.POSTER,
                     size: POSTER_SIZES['small']),
