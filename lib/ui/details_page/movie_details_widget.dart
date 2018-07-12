@@ -3,8 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/models/MovieDetails.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movie_image_widget.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_content.dart';
+import 'package:flutter_bloc_movies/ui/details_page/movie_poster_full_screen_widget.dart';
 
 class MovieDetailsWidget extends StatelessWidget {
   final MovieDetails movieDetails;
@@ -36,7 +36,7 @@ class MovieDetailsWidget extends StatelessWidget {
     return Container(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
           child: MovieImageFullScreen(

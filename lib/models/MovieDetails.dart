@@ -30,6 +30,21 @@ class MovieDetails extends Object with _$MovieDetailsSerializerMixin {
   String title;
   bool video;
 
+  String getFormattedRunningTime() {
+  	if (runtime != null) {
+			String hours = (runtime / 60).floor().toString();
+			String hourLabel = hours == 1 ? "hr" : "hrs";
+			String minutes = (runtime % 60).toString();
+
+			return "$hours $hourLabel $minutes mins";
+		}
+		return "";
+	}
+
+	String getFormattedReleaseDate() {
+  	String year = releaseDate?.split('-')[0];
+  	return year != null ? "$year" : "";
+	}
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) =>
       _$MovieDetailsFromJson(json);

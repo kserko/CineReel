@@ -11,7 +11,7 @@ class AppBarWidget extends StatelessWidget {
 
 	@override
   Widget build(BuildContext context) {
-			AppBar(
+			return AppBar(
 				title: new Text(title),
 				elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 3.0,
 				bottom: TabBar(

@@ -5,6 +5,7 @@ import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/navigation/SlideRoute.dart';
+import 'package:flutter_bloc_movies/ui/common_widgets/rating_widget.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_stream_builder.dart';
 import 'package:flutter_bloc_movies/ui/list_page/movie_row/movie_image_for_poster_row.dart';
 
@@ -66,25 +67,6 @@ class PosterRow extends StatelessWidget {
     );
   }
 
-  Widget buildRating(Movie movie) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 18.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-              width: 40.0,
-              height: 40.0,
-              margin: const EdgeInsets.only(right: 10.0),
-              child: Image(image: AssetImage("assets/tmdb_icon.png"))),
-          Text("${movie.voteAverage}",
-              style:
-                  defaultStyle.copyWith(color: Colors.yellow, fontSize: 17.0)),
-        ],
-      ),
-    );
-  }
-
   Widget buildHeader(Movie movie) {
     return Expanded(
       flex: 1,
@@ -99,7 +81,7 @@ class PosterRow extends StatelessWidget {
                       color: Colors.transparent,
                       child: Text(movie.title, style: defaultStyle)),
                   tag: "${movie.id}-${movie.title}"),
-              buildRating(movie),
+              RatingWidget(movie),
             ]),
       ),
     );

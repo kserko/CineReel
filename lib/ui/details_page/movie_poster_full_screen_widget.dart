@@ -6,14 +6,13 @@ import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart
 import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 
 class MovieImageFullScreen extends StatelessWidget {
   final IMAGE_TYPE imageType;
   final String size;
   final String imagePath;
-  Widget overlayContent;
+  final Widget overlayContent;
 
   MovieImageFullScreen({this.imagePath, this.imageType, this.size, Widget this.overlayContent});
 
@@ -21,13 +20,6 @@ class MovieImageFullScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 		return Hero(child: getBlurredImage(), tag: imagePath);
 	}
-
-  Widget getFadeInImage() {
-    return FadeInImage.memoryNetwork(
-        placeholder: kTransparentImage,
-        image: ImageHelper.getImagePath(imagePath, size),
-        fit: BoxFit.fitWidth);
-  }
 
   Widget getBlurredImage() {
     return Container(
@@ -38,7 +30,7 @@ class MovieImageFullScreen extends StatelessWidget {
               fit: BoxFit.fitHeight)),
       child: new BackdropFilter(
         //applying a blur filter on the image
-        filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        filter: new ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
         child: new Container(
           decoration: new BoxDecoration(color: Colors.black.withOpacity(0.2)),
 		child: overlayContent,
