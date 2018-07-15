@@ -5,7 +5,7 @@ class ImageHelper {
   static String getImagePath(String path, String size) {
     String fullPath = "";
     if (path != null) {
-      fullPath = BASE_IMAGE_URL + size + path;
+      fullPath = TMDB_BASE_IMAGE_URL + size + path;
     }
     return fullPath;
   }
