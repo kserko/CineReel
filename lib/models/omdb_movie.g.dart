@@ -8,35 +8,35 @@ part of 'omdb_movie.dart';
 
 OMDBMovie _$OMDBMovieFromJson(Map<String, dynamic> json) {
   return new OMDBMovie(
-      json['title'] as String,
-      json['year'] as String,
-      json['rated'] as String,
-      json['released'] as String,
-      json['runtime'] as String,
-      json['genre'] as String,
-      json['director'] as String,
-      json['writer'] as String,
-      json['actors'] as String,
-      json['plot'] as String,
-      json['language'] as String,
-      json['country'] as String,
-      json['awards'] as String,
-      json['poster'] as String,
-      (json['ratings'] as List)
+      json['Title'] as String,
+      json['Year'] as String,
+      json['Rated'] as String,
+      json['Released'] as String,
+      json['Runtime'] as String,
+      json['Genre'] as String,
+      json['Director'] as String,
+      json['Writer'] as String,
+      json['Actors'] as String,
+      json['Plot'] as String,
+      json['Language'] as String,
+      json['Country'] as String,
+      json['Awards'] as String,
+      json['Poster'] as String,
+      (json['Ratings'] as List)
           ?.map((e) => e == null
               ? null
               : new OMDBRating.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      json['metascore'] as String,
+      json['Metascore'] as String,
       json['imdbRating'] as String,
       json['imdbVotes'] as String,
       json['imdbID'] as String,
-      json['type'] as String,
-      json['dVD'] as String,
-      json['boxOffice'] as String,
-      json['production'] as String,
-      json['website'] as String,
-      json['response'] as String);
+      json['Type'] as String,
+      json['DVD'] as String,
+      json['BoxOffice'] as String,
+      json['Production'] as String,
+      json['Website'] as String,
+      json['Response'] as String);
 }
 
 abstract class _$OMDBMovieSerializerMixin {
@@ -60,47 +60,47 @@ abstract class _$OMDBMovieSerializerMixin {
   String get imdbVotes;
   String get imdbID;
   String get type;
-  String get dVD;
+  String get dvd;
   String get boxOffice;
   String get production;
   String get website;
   String get response;
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'title': title,
-        'year': year,
-        'rated': rated,
-        'released': released,
-        'runtime': runtime,
-        'genre': genre,
-        'director': director,
-        'writer': writer,
-        'actors': actors,
-        'plot': plot,
-        'language': language,
-        'country': country,
-        'awards': awards,
-        'poster': poster,
-        'ratings': ratings,
-        'metascore': metascore,
+        'Title': title,
+        'Year': year,
+        'Rated': rated,
+        'Released': released,
+        'Runtime': runtime,
+        'Genre': genre,
+        'Director': director,
+        'Writer': writer,
+        'Actors': actors,
+        'Plot': plot,
+        'Language': language,
+        'Country': country,
+        'Awards': awards,
+        'Poster': poster,
+        'Ratings': ratings,
+        'Metascore': metascore,
         'imdbRating': imdbRating,
         'imdbVotes': imdbVotes,
         'imdbID': imdbID,
-        'type': type,
-        'dVD': dVD,
-        'boxOffice': boxOffice,
-        'production': production,
-        'website': website,
-        'response': response
+        'Type': type,
+        'DVD': dvd,
+        'BoxOffice': boxOffice,
+        'Production': production,
+        'Website': website,
+        'Response': response
       };
 }
 
 OMDBRating _$OMDBRatingFromJson(Map<String, dynamic> json) {
-  return new OMDBRating(json['source'] as String, json['value'] as String);
+  return new OMDBRating(json['Source'] as String, json['Value'] as String);
 }
 
 abstract class _$OMDBRatingSerializerMixin {
   String get source;
   String get value;
   Map<String, dynamic> toJson() =>
-      <String, dynamic>{'source': source, 'value': value};
+      <String, dynamic>{'Source': source, 'Value': value};
 }

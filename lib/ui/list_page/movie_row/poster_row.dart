@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
+import 'package:flutter_bloc_movies/api/omdb_api.dart';
 import 'package:flutter_bloc_movies/api/tmdb_api.dart';
 import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
@@ -26,7 +27,10 @@ class PosterRow extends StatelessWidget {
               context,
               RouteTransition(
                   widget: MovieDetailsProvider(
-                      movieDetailsBloc: MovieDetailsBloc(TMDBApi(), movie.id),
+                      movieDetailsBloc: MovieDetailsBloc(
+													tmdb: TMDBApi(),
+													omdb: OMDBApi(),
+													movie: movie),
                       child: MovieDetailsStreamBuilder(movie))));
         },
         child: buildMovieRow(movie, context));
