@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'MovieDetails.dart';
+part of 'tmdb_movie_details.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TMDBMovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) {
+TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
   return new TMDBMovieDetails(
       json['adult'] as bool,
       json['backdrop_path'] as String,
@@ -51,7 +51,7 @@ TMDBMovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) {
       json['status_message'] as String);
 }
 
-abstract class _$MovieDetailsSerializerMixin {
+abstract class _$TMDBMovieDetailsSerializerMixin {
   String get status_message;
   String get backdropPath;
   Object get belongsToCollection;

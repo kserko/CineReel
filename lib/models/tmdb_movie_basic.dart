@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'Movie.g.dart';
+part 'tmdb_movie_basic.g.dart';
 
 @JsonSerializable()
-class TMDBMovieBasic extends Object with _$MovieSerializerMixin {
+class TMDBMovieBasic extends Object with _$TMDBMovieBasicSerializerMixin {
   int id;
   bool video;
   String title;
@@ -35,5 +35,6 @@ class TMDBMovieBasic extends Object with _$MovieSerializerMixin {
       this.overview,
       this.releaseDate});
 
-  factory TMDBMovieBasic.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
+  factory TMDBMovieBasic.fromJson(Map<String, dynamic> json) =>
+			_$TMDBMovieBasicFromJson(json);
 }

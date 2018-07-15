@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
-import 'package:flutter_bloc_movies/models/Movie.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
 import 'package:flutter_bloc_movies/ui/list_page/movie_row/poster_row.dart';
 import 'package:flutter_bloc_movies/ui/scroll_controller/list_controller.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';

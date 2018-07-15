@@ -2,7 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/api.dart';
-import 'package:flutter_bloc_movies/models/Movie.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_state.dart';
 import 'package:rxdart/rxdart.dart';
 

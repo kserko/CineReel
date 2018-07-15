@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part "MovieDetails.g.dart";
+part "tmdb_movie_details.g.dart";
 
 @JsonSerializable()
-class TMDBMovieDetails extends Object with _$MovieDetailsSerializerMixin {
+class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	@JsonKey(name: "status_message") String status_message;
   @JsonKey(name:"backdrop_path") String backdropPath;
 	@JsonKey(name:"belongs_to_collection") Object belongsToCollection;
@@ -47,7 +47,7 @@ class TMDBMovieDetails extends Object with _$MovieDetailsSerializerMixin {
 	}
 
   factory TMDBMovieDetails.fromJson(Map<String, dynamic> json) =>
-      _$MovieDetailsFromJson(json);
+      _$TMDBMovieDetailsFromJson(json);
 
   TMDBMovieDetails(
       this.adult,

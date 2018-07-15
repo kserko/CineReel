@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Movie.dart';
+part of 'tmdb_movie_basic.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TMDBMovieBasic _$MovieFromJson(Map<String, dynamic> json) {
+TMDBMovieBasic _$TMDBMovieBasicFromJson(Map<String, dynamic> json) {
   return new TMDBMovieBasic(
       voteCount: json['vote_count'] as int,
       id: json['id'] as int,
@@ -24,7 +24,7 @@ TMDBMovieBasic _$MovieFromJson(Map<String, dynamic> json) {
       releaseDate: json['release_date'] as String);
 }
 
-abstract class _$MovieSerializerMixin {
+abstract class _$TMDBMovieBasicSerializerMixin {
   int get id;
   bool get video;
   String get title;

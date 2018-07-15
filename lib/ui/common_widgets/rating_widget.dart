@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/models/Movie.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
 
 class RatingWidget extends StatelessWidget {
 	final TMDBMovieBasic movie;

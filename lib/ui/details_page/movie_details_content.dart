@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_movies/models/Movie.dart';
-import 'package:flutter_bloc_movies/models/MovieDetails.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/comon_widgets.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/rating_widget.dart';
 

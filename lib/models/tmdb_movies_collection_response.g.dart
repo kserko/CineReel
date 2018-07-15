@@ -1,24 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'MoviesResponse.dart';
+part of 'tmdb_movies_collection_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MoviesResponse _$MoviesResponseFromJson(Map<String, dynamic> json) {
-  return new MoviesResponse(
+TMDBMoviesCollectionResponse _$TMDBMoviesCollectionResponseFromJson(
+    Map<String, dynamic> json) {
+  return new TMDBMoviesCollectionResponse(
       page: json['page'] as int,
       totalResults: json['total_results'] as int,
       totalPages: json['total_pages'] as int,
       results: (json['results'] as List)
-          ?.map((e) =>
-              e == null ? null : new TMDBMovieBasic.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null
+              ? null
+              : new TMDBMovieBasic.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       errors: (json['errors'] as List)?.map((e) => e as String)?.toList());
 }
 
-abstract class _$MoviesResponseSerializerMixin {
+abstract class _$TMDBMoviesCollectionResponseSerializerMixin {
   int get page;
   List<TMDBMovieBasic> get results;
   int get totalResults;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
-import 'package:flutter_bloc_movies/models/Movie.dart';
-import 'package:flutter_bloc_movies/models/MovieDetails.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_content.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_poster_full_screen_widget.dart';
 

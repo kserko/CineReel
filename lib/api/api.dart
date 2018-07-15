@@ -2,30 +2,30 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_bloc_movies/api/endpoints.dart';
-import 'package:flutter_bloc_movies/models/MovieDetails.dart';
-import 'package:flutter_bloc_movies/models/MoviesResponse.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movies_collection_response.dart';
 import 'package:http/http.dart' as http;
 
 class TMDBApi {
 
-  Future<MoviesResponse> discoverMovies({int page}) async {
+  Future<TMDBMoviesCollectionResponse> discoverMovies({int page}) async {
     final response = await _makeRequest(Endpoints.discoverMoviesUrl(page));
-    return MoviesResponse.fromJson(json.decode(response.body));
+    return TMDBMoviesCollectionResponse.fromJson(json.decode(response.body));
   }
 
-  Future<MoviesResponse> nowPlayingMovies({int page}) async {
+  Future<TMDBMoviesCollectionResponse> nowPlayingMovies({int page}) async {
     final response = await _makeRequest(Endpoints.nowPlayingMoviesUrl(page));
-		return MoviesResponse.fromJson(json.decode(response.body));
+		return TMDBMoviesCollectionResponse.fromJson(json.decode(response.body));
   }
 
-  Future<MoviesResponse> topRated({int page}) async {
+  Future<TMDBMoviesCollectionResponse> topRated({int page}) async {
     final response = await _makeRequest(Endpoints.topRatedUrl(page));
-    return MoviesResponse.fromJson(json.decode(response.body));
+    return TMDBMoviesCollectionResponse.fromJson(json.decode(response.body));
   }
 
-  Future<MoviesResponse> popularMovies({int page}) async {
+  Future<TMDBMoviesCollectionResponse> popularMovies({int page}) async {
     final response = await _makeRequest(Endpoints.popularMoviesUrl(page));
-    return MoviesResponse.fromJson(json.decode(response.body));
+    return TMDBMoviesCollectionResponse.fromJson(json.decode(response.body));
   }
 
   Future<TMDBMovieDetails> movieDetails({int movieId}) async {
