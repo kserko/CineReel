@@ -27,7 +27,7 @@ class MovieDetailsBloc {
 	Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
 
 		try {
-		  final result = await tmdb.movieDetails(movieId: movieId)
+		  final result = await tmdb.movieDetails(movieId: movieId);
 		  if(result.hasErrors()) {
 		  	yield MovieDetailsError(result.status_message);
 			} else {
