@@ -35,4 +35,8 @@ class Endpoints {
   static String movieDetailsUrl(int movieId) {
 	return '$BASE_TMDB_URL/movie/$movieId?api_key=$TMDB_API_KEY';
 	}
+
+	static String omdbMovieByTitleAndYear(String title, String year) {
+  	return "$BASE_OMDB_URL/?t=$title&y=$year&apikey=$OMDB_API_KEY";
+	}
 }

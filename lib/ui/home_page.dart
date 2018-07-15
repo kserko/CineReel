@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/api/api.dart';
+import 'package:flutter_bloc_movies/api/tmdb_api.dart';
 import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
