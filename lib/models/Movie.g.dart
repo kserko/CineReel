@@ -6,8 +6,8 @@ part of 'Movie.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Movie _$MovieFromJson(Map<String, dynamic> json) {
-  return new Movie(
+TMDBMovieBasic _$MovieFromJson(Map<String, dynamic> json) {
+  return new TMDBMovieBasic(
       voteCount: json['vote_count'] as int,
       id: json['id'] as int,
       video: json['video'] as bool,

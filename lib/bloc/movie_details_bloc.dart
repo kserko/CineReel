@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 class MovieDetailsBloc {
 	TMDBApi api;
 
-  Movie movie;
+  TMDBMovieBasic movie;
 
 	MovieDetailsLoaded movieDetailsLoaded = MovieDetailsLoaded();
 

@@ -6,7 +6,7 @@ part 'MoviesResponse.g.dart';
 @JsonSerializable()
 class MoviesResponse extends Object with _$MoviesResponseSerializerMixin {
   int page;
-  List<Movie> results;
+  List<TMDBMovieBasic> results;
   @JsonKey(name: "total_results") int totalResults;
   @JsonKey(name: "total_pages") int totalPages;
   @JsonKey(name: "errors") List<String> errors;

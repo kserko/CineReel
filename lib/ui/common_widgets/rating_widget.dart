@@ -3,11 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/models/Movie.dart';
 
 class RatingWidget extends StatelessWidget {
-	final Movie movie;
+	final TMDBMovieBasic movie;
 	final defaultStyle = TextStyle(
 			fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
 
-	RatingWidget(Movie this.movie);
+	RatingWidget(TMDBMovieBasic this.movie);
 
 	@override
 	Widget build(BuildContext context) {

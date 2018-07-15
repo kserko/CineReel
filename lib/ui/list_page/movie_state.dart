@@ -25,9 +25,9 @@ class MoviesNoResults extends MoviesState {}
 
 class MoviesPopulated extends MoviesState {
 
-	final List<Movie> movies;
+	final List<TMDBMovieBasic> movies;
 
-	update({List<Movie> newMovies}) {
+	update({List<TMDBMovieBasic> newMovies}) {
 		return this
 			..movies.addAll(newMovies ?? this.movies);
 	}

@@ -7,8 +7,8 @@ import 'package:flutter_bloc_movies/ui/details_page/movie_details_content.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_poster_full_screen_widget.dart';
 
 class MovieDetailsWidget extends StatelessWidget {
-  final MovieDetails movieDetails;
-  final Movie movie;
+  final TMDBMovieDetails movieDetails;
+  final TMDBMovieBasic movie;
 
   MovieDetailsWidget({@required this.movieDetails, @required this.movie});
 

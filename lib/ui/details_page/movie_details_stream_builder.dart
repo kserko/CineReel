@@ -13,10 +13,10 @@ import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
 
 // ignore: must_be_immutable
 class MovieDetailsStreamBuilder extends StatelessWidget {
-  final Movie movie;
+  final TMDBMovieBasic movie;
   MovieDetailsBloc movieDetailsBloc;
 
-  MovieDetailsStreamBuilder(Movie this.movie);
+  MovieDetailsStreamBuilder(TMDBMovieBasic this.movie);
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +50,14 @@ class MovieDetailsStreamBuilder extends StatelessWidget {
 	}
 }
 
-Widget getAdvancedNetworkImage(Movie movie) {
+Widget getAdvancedNetworkImage(TMDBMovieBasic movie) {
   return new TransitionToImage(AdvancedNetworkImage(posterImagePath(movie)),
       useReload: false, fallbackWidget: SizedBox(height: 300.0));
 }
 
-String posterImagePath(Movie movie) =>
+String posterImagePath(TMDBMovieBasic movie) =>
     ImageHelper.getImagePath(movie.posterPath, POSTER_SIZES['small']);
 
-Widget buildPoster(Movie movie) {
+Widget buildPoster(TMDBMovieBasic movie) {
   return getAdvancedNetworkImage(movie);
 }

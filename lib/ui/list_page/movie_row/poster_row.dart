@@ -10,7 +10,7 @@ import 'package:flutter_bloc_movies/ui/details_page/movie_details_stream_builder
 import 'package:flutter_bloc_movies/ui/list_page/movie_row/movie_image_for_poster_row.dart';
 
 class PosterRow extends StatelessWidget {
-  final Movie movie;
+  final TMDBMovieBasic movie;
   final int index;
 
   PosterRow(this.movie, this.index);
@@ -42,7 +42,7 @@ class PosterRow extends StatelessWidget {
     ]);
   }
 
-  Widget buildMovieRow(Movie movie, BuildContext context) {
+  Widget buildMovieRow(TMDBMovieBasic movie, BuildContext context) {
     return DefaultTextStyle(
       style: defaultStyle,
       child: Container(
@@ -67,7 +67,7 @@ class PosterRow extends StatelessWidget {
     );
   }
 
-  Widget buildHeader(Movie movie) {
+  Widget buildHeader(TMDBMovieBasic movie) {
     return Expanded(
       flex: 1,
       child: Container(
@@ -87,7 +87,7 @@ class PosterRow extends StatelessWidget {
     );
   }
 
-  Widget buildReleaseDate(Movie movie) {
+  Widget buildReleaseDate(TMDBMovieBasic movie) {
     return Positioned(
       bottom: 0.0,
       right: 0.0,

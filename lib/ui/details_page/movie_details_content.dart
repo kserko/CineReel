@@ -5,10 +5,10 @@ import 'package:flutter_bloc_movies/ui/common_widgets/comon_widgets.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/rating_widget.dart';
 
 class MovieDetailsContent extends StatelessWidget {
-  final MovieDetails movieDetails;
-  final Movie movie;
+  final TMDBMovieDetails movieDetails;
+  final TMDBMovieBasic movie;
 
-  MovieDetailsContent(Movie this.movie, MovieDetails this.movieDetails);
+  MovieDetailsContent(TMDBMovieBasic this.movie, TMDBMovieDetails this.movieDetails);
 
   @override
   Widget build(BuildContext context) {
@@ -26,25 +26,35 @@ class MovieDetailsContent extends StatelessWidget {
             children: <Widget>[
               buildTitle(defaultStyle),
               buildHorizontalDivider(),
-              AnimatedOpacity(
-                child: Row(
-                  children: <Widget>[
-                    buildRunningTime(),
-                    getDotSeparator(),
-                    buildReleaseDate(),
-                  ],
-                ),
-                duration: Duration(milliseconds: 300),
-                opacity: movieDetails == null ? 0.0 : 1.0,
-              ),
               buildOverview(),
               buildHorizontalDivider(),
-              RatingWidget(movie)
+							Row(
+								mainAxisAlignment: MainAxisAlignment.spaceBetween,
+							  crossAxisAlignment: CrossAxisAlignment.end,
+							  children: <Widget>[
+									buildRunningTimeAndReleaseDate(),
+									RatingWidget(movie),
+							  ],
+							)
             ],
           ),
         ),
       ],
     );
+  }
+
+  AnimatedOpacity buildRunningTimeAndReleaseDate() {
+    return AnimatedOpacity(
+              child: Row(
+                children: <Widget>[
+                  buildRunningTime(),
+                  getDotSeparator(),
+                  buildReleaseDate(),
+                ],
+              ),
+              duration: Duration(milliseconds: 300),
+              opacity: movieDetails == null ? 0.0 : 1.0,
+            );
   }
 
   Widget buildOverview() {

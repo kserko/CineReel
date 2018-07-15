@@ -6,8 +6,8 @@ part of 'MovieDetails.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) {
-  return new MovieDetails(
+TMDBMovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) {
+  return new TMDBMovieDetails(
       json['adult'] as bool,
       json['backdrop_path'] as String,
       json['belongs_to_collection'],

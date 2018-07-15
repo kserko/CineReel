@@ -16,5 +16,5 @@ Widget getAppBar({title, context, tabController, myTabs}) {
 }
 
 Widget buildHorizontalDivider() {
-	return Divider(height: 42.0);
+	return Divider(height: 22.0);
 }

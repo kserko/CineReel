@@ -6,7 +6,7 @@ import 'package:flutter_bloc_movies/models/Movie.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
 
 class MovieRow extends StatelessWidget {
-  final Movie movie;
+  final TMDBMovieBasic movie;
   final int index;
 
   MovieRow(this.movie, this.index);
@@ -29,7 +29,7 @@ class MovieRow extends StatelessWidget {
     ]);
   }
 
-  Widget buildMovieRow(Movie movie, BuildContext context) {
+  Widget buildMovieRow(TMDBMovieBasic movie, BuildContext context) {
     return DefaultTextStyle(
       style: defaultStyle,
       child: Stack(
@@ -42,7 +42,7 @@ class MovieRow extends StatelessWidget {
     );
   }
 
-  Positioned buildRating(Movie movie) {
+  Positioned buildRating(TMDBMovieBasic movie) {
     return Positioned(
         top: 10.0,
         right: 10.0,
@@ -57,7 +57,7 @@ class MovieRow extends StatelessWidget {
         ));
   }
 
-  Positioned buildTitle(Movie movie) {
+  Positioned buildTitle(TMDBMovieBasic movie) {
     return Positioned(
       right: 0.0,
       left: 10.0,
@@ -74,7 +74,7 @@ class MovieRow extends StatelessWidget {
     );
   }
 
-  ExpansionTile buildExpansionTile(Movie movie) {
+  ExpansionTile buildExpansionTile(TMDBMovieBasic movie) {
     return ExpansionTile(
         title: Text("$index ${movie.title}",
             style: TextStyle(fontSize: 30.0, color: Colors.white)),
@@ -90,17 +90,17 @@ class MovieRow extends StatelessWidget {
         ]);
   }
 
-  Widget getAdvancedNetworkImage(Movie movie) {
+  Widget getAdvancedNetworkImage(TMDBMovieBasic movie) {
     return new TransitionToImage(AdvancedNetworkImage(backdropImagePath(movie)),
         placeholder: LinearProgressIndicator(),
         useReload: false,
         fallbackWidget: SizedBox(height: 300.0));
   }
 
-  String backdropImagePath(Movie movie) => ImageHelper.getImagePath(
+  String backdropImagePath(TMDBMovieBasic movie) => ImageHelper.getImagePath(
       movie.backdropPath, BACKDROP_SIZES['medium']);
 
-  Widget buildMovieBackdrop(Movie movie) {
+  Widget buildMovieBackdrop(TMDBMovieBasic movie) {
     if (movie.backdropPath != null && movie.backdropPath.isNotEmpty) {
       return Column(
         //makes the image stretch to fill the screen width

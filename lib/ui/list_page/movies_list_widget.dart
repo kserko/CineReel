@@ -11,7 +11,7 @@ import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 // (i.e in page_stream_builder)
 // will only call the build method of the state object and
 class MovieListWidget extends StatefulWidget {
-  final List<Movie> movies;
+  final List<TMDBMovieBasic> movies;
   final TabKey tabKey;
   final MovieBloc movieBloc;
 
@@ -73,7 +73,7 @@ class MyListState extends State<MovieListWidget> {
 
   void printMoviesTitles() {
     print("MOViES IN LIST ${this.widget.movies.length}");
-    for (Movie movie in this.widget.movies) {
+    for (TMDBMovieBasic movie in this.widget.movies) {
       print("${movie.title}");
     }
     print("MOIVES IN LIST END");

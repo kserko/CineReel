@@ -26,11 +26,11 @@ class MoviesDetailsNoResults extends MovieDetailsState {}
 class MovieDetailsEmpty extends MovieDetailsState {}
 
 class MovieDetailsLoaded extends MovieDetailsState {
-  MovieDetails movieDetails;
+  TMDBMovieDetails movieDetails;
 
   MovieDetailsLoaded([this.movieDetails]);
 
-  update(MovieDetails movieDetails) {
+  update(TMDBMovieDetails movieDetails) {
     return this..movieDetails = movieDetails;
   }
 }

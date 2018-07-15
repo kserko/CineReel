@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 //			},
       title: title,
       theme: new ThemeData(
-				dividerColor: Colors.blueGrey,
+				dividerColor: Colors.white,
         brightness: Brightness.dark,
         primarySwatch: Colors.blueGrey,
 				accentColor: Colors.deepOrange,

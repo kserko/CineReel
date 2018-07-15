@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'Movie.g.dart';
 
 @JsonSerializable()
-class Movie extends Object with _$MovieSerializerMixin {
+class TMDBMovieBasic extends Object with _$MovieSerializerMixin {
   int id;
   bool video;
   String title;
@@ -19,7 +19,7 @@ class Movie extends Object with _$MovieSerializerMixin {
   @JsonKey(name: "genre_ids") List<int> genreIds;
   @JsonKey(name: "backdrop_path") String backdropPath;
 
-  Movie(
+  TMDBMovieBasic(
       {this.voteCount,
       this.id,
       this.video,
@@ -35,5 +35,5 @@ class Movie extends Object with _$MovieSerializerMixin {
       this.overview,
       this.releaseDate});
 
-  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
+  factory TMDBMovieBasic.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 }

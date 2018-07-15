@@ -13,14 +13,14 @@ MoviesResponse _$MoviesResponseFromJson(Map<String, dynamic> json) {
       totalPages: json['total_pages'] as int,
       results: (json['results'] as List)
           ?.map((e) =>
-              e == null ? null : new Movie.fromJson(e as Map<String, dynamic>))
+              e == null ? null : new TMDBMovieBasic.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       errors: (json['errors'] as List)?.map((e) => e as String)?.toList());
 }
 
 abstract class _$MoviesResponseSerializerMixin {
   int get page;
-  List<Movie> get results;
+  List<TMDBMovieBasic> get results;
   int get totalResults;
   int get totalPages;
   List<String> get errors;
