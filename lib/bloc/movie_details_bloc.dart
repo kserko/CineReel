@@ -32,9 +32,8 @@ class MovieDetailsBloc {
 		yield movieDetailsLoaded;
 
 		(Future.wait([
-			tmdb.movieDetails(movieId: movieId),
-			omdb.getMovieByTitleAndYear(title: movie.title,
-					year: year)
+			tmdbMovieDetailsCall(movieId),
+			omdbMovieByTitleAndYearCall(year)
 		]).
 		then((List responses) {
 			TMDBMovieDetails tmdbMovieDetails = responses.first;
@@ -53,4 +52,11 @@ class MovieDetailsBloc {
 		}));
 
 	}
+
+	Future<OMDBMovie> omdbMovieByTitleAndYearCall(String year) {
+	  return omdb.getMovieByTitleAndYear(title: movie.title,
+					year: year);
+	}
+
+	Future<TMDBMovieDetails> tmdbMovieDetailsCall(int movieId) => tmdb.movieDetails(movieId: movieId);
 }
