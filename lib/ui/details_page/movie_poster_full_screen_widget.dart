@@ -13,12 +13,14 @@ class MovieImageFullScreen extends StatelessWidget {
   final String size;
   final String imagePath;
   final Widget overlayContent;
+  final int movieId;
 
-  MovieImageFullScreen({this.imagePath, this.imageType, this.size, Widget this.overlayContent});
+  MovieImageFullScreen({int this.movieId, this.imagePath, this.imageType, this
+			.size, Widget this.overlayContent});
 
   @override
   Widget build(BuildContext context) {
-		return Hero(child: getBlurredImage(), tag: imagePath);
+		return Hero(child: getBlurredImage(), tag: "$movieId-imagePath");
 	}
 
   Widget getBlurredImage() {

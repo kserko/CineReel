@@ -32,13 +32,12 @@ class Endpoints {
   }
 
   static String movieDetailsUrl(int movieId) {
-    return '$BASE_TMDB_URL/movie/$movieId?api_key=$TMDB_API_KEY';
+    return '$BASE_TMDB_URL/movie/$movieId?api_key=$TMDB_API_KEY&append_to_response=credits';
   }
 
   static String movieReviewsUrl(int movieId, int page) {
 		return '$BASE_TMDB_URL/movie/$movieId/reviews?api_key=$TMDB_API_KEY'
 				'&language=en-US&page=$page';
-
 	}
 
   static String omdbMovieByTitleAndYearUrl(String title, String year) {

@@ -20,17 +20,18 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	@JsonKey(name:"tag_line") String tagline;
 	@JsonKey(name:"vote_average") double voteAverage;
 	@JsonKey(name:"vote_count") int voteCount;String overview;
-	bool adult;
-	int budget;
-	List<Genre> genres = null;
-	Object homepage;
-	int id;
-  double popularity;
-  int revenue;
-  int runtime;
-  String status;
-  String title;
-  bool video;
+	@JsonKey(name: "adult") bool adult;
+	@JsonKey(name: "budget") int budget;
+	@JsonKey(name: "genres") List<Genre> genres = null;
+	@JsonKey(name: "homepage") String homepage;
+	@JsonKey(name: "id") int id;
+  @JsonKey(name: "popularity") double popularity;
+  @JsonKey(name: "revenue") int revenue;
+  @JsonKey(name: "runtime") int runtime;
+  @JsonKey(name: "status") String status;
+  @JsonKey(name: "title") String title;
+  @JsonKey(name: "video") bool video;
+	@JsonKey(name: "credits") Credits credits;
 	List<OMDBRating> omdbRatings = [];
 	List<TMDBReview> movieReviews = [];
 
@@ -130,4 +131,45 @@ class Genre extends Object with _$GenreSerializerMixin {
   Genre(this.id, this.name);
 
   factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+}
+
+/*
+"credits": {
+        "cast": [
+            {
+                "cast_id": 34,
+                "character": "Thomas Anderson / Neo",
+                "credit_id": "52fe425bc3a36847f80181c1",
+                "gender": 2,
+                "id": 6384,
+                "name": "Keanu Reeves",
+                "order": 0,
+                "profile_path": "/bOlYWhVuOiU6azC4Bw6zlXZ5QTC.jpg"
+            },
+ */
+
+@JsonSerializable()
+class Credits extends Object with _$CreditsSerializerMixin {
+	List<Cast> cast;
+
+	Credits(this.cast);
+
+	factory Credits.fromJson(Map<String, dynamic> json) => _$CreditsFromJson
+		(json);
+}
+
+@JsonSerializable()
+class Cast extends Object with _$CastSerializerMixin {
+	@JsonKey(name: "cast_id") int castId;
+	@JsonKey(name: "character") String character;
+	@JsonKey(name: "credit_id") String creditId;
+	@JsonKey(name: "id") int id;
+	@JsonKey(name: "name") String name;
+	@JsonKey(name: "profile_path") String profilePath;
+
+
+	Cast(this.castId, this.character, this.creditId, this.id, this.name,
+			this.profilePath);
+
+	factory Cast.fromJson(Map<String, dynamic> json) => _$CastFromJson(json);
 }

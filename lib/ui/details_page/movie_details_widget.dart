@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
-import 'package:flutter_bloc_movies/models/tmdb_reviews_response.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_content.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_poster_full_screen_widget.dart';
 
@@ -16,11 +15,11 @@ class MovieDetailsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   	print("build details $movieDetails");
-  	if (movieDetails != null && movieDetails.movieReviews.isNotEmpty) {
-  		for (TMDBReview review in movieDetails.movieReviews) {
-  			print(review.content);
-			}
-		}
+//  	if (movieDetails != null) {
+//  		for (Cast cast in movieDetails.credits.cast) {
+//  			print(cast.name);
+//			}
+//		}
     return Scaffold(
         body: Center(
       child: Column(
@@ -48,6 +47,7 @@ class MovieDetailsWidget extends StatelessWidget {
         Expanded(
           child: MovieImageFullScreen(
               overlayContent: MovieDetailsContent(movie, movieDetails),
+              movieId: movie.id,
               imagePath: movie.posterPath,
               imageType: IMAGE_TYPE.POSTER,
               size: POSTER_SIZES['small']),

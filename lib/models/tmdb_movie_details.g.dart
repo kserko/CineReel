@@ -16,7 +16,7 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
           ?.map((e) =>
               e == null ? null : new Genre.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      json['homepage'],
+      json['homepage'] as String,
       json['id'] as int,
       json['imdb_id'] as String,
       json['original_language'] as String,
@@ -49,10 +49,18 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       (json['vote_average'] as num)?.toDouble(),
       json['vote_count'] as int,
       json['status_message'] as String)
+    ..credits = json['credits'] == null
+        ? null
+        : new Credits.fromJson(json['credits'] as Map<String, dynamic>)
     ..omdbRatings = (json['omdbRatings'] as List)
         ?.map((e) => e == null
             ? null
             : new OMDBRating.fromJson(e as Map<String, dynamic>))
+        ?.toList()
+    ..movieReviews = (json['movieReviews'] as List)
+        ?.map((e) => e == null
+            ? null
+            : new TMDBReview.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
@@ -75,7 +83,7 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
   bool get adult;
   int get budget;
   List<Genre> get genres;
-  Object get homepage;
+  String get homepage;
   int get id;
   double get popularity;
   int get revenue;
@@ -83,7 +91,9 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
   String get status;
   String get title;
   bool get video;
+  Credits get credits;
   List<OMDBRating> get omdbRatings;
+  List<TMDBReview> get movieReviews;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'status_message': status_message,
         'backdrop_path': backdropPath,
@@ -111,7 +121,9 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
         'status': status,
         'title': title,
         'video': video,
-        'omdbRatings': omdbRatings
+        'credits': credits,
+        'omdbRatings': omdbRatings,
+        'movieReviews': movieReviews
       };
 }
 
@@ -164,4 +176,43 @@ abstract class _$GenreSerializerMixin {
   int get id;
   String get name;
   Map<String, dynamic> toJson() => <String, dynamic>{'id': id, 'name': name};
+}
+
+Credits _$CreditsFromJson(Map<String, dynamic> json) {
+  return new Credits((json['cast'] as List)
+      ?.map((e) =>
+          e == null ? null : new Cast.fromJson(e as Map<String, dynamic>))
+      ?.toList());
+}
+
+abstract class _$CreditsSerializerMixin {
+  List<Cast> get cast;
+  Map<String, dynamic> toJson() => <String, dynamic>{'cast': cast};
+}
+
+Cast _$CastFromJson(Map<String, dynamic> json) {
+  return new Cast(
+      json['cast_id'] as int,
+      json['character'] as String,
+      json['credit_id'] as String,
+      json['id'] as int,
+      json['name'] as String,
+      json['profile_path'] as String);
+}
+
+abstract class _$CastSerializerMixin {
+  int get castId;
+  String get character;
+  String get creditId;
+  int get id;
+  String get name;
+  String get profilePath;
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'cast_id': castId,
+        'character': character,
+        'credit_id': creditId,
+        'id': id,
+        'name': name,
+        'profile_path': profilePath
+      };
 }

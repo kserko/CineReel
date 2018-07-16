@@ -11,12 +11,13 @@ class MovieImageForRow extends StatelessWidget {
   final String size;
   final String imagePath;
   final bool isBlurred;
+  final int movieId;
 
-  MovieImageForRow({this.imagePath, this.imageType, this.size});
+  MovieImageForRow({this.movieId, this.imagePath, this.imageType, this.size});
 
   @override
   Widget build(BuildContext context) {
-		return Hero(child: getFadeInImage(), tag: imagePath);
+		return Hero(child: getFadeInImage(), tag: "$movieId-imagePath");
   }
 
   Widget getFadeInImage() {

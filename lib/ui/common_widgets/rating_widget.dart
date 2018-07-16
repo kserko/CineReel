@@ -15,8 +15,7 @@ class RatingWidget extends StatelessWidget {
 	Widget build(BuildContext context) {
 		return Column(
 		  children: <Widget>[
-				Text(movieDetails != null ? "${movieDetails.omdbRatings[0]
-						.source} - ${movieDetails.omdbRatings[0].value}" : ""),
+				Text(movieDetails != null ? "${movieDetails.omdbRatings[0].source} - ${movieDetails.omdbRatings[0].value}" : ""),
 				Hero(
 		      child: Padding(
 		      	padding: const EdgeInsets.only(top: 18.0),

@@ -9,4 +9,12 @@ class ImageHelper {
     }
     return fullPath;
   }
+
+  static String getCastFullProfilePath(String path, String size) {
+  	String fullPath = "";
+		if (path != null) {
+			fullPath = TMDB_BASE_IMAGE_URL + size + path;
+		}
+		return fullPath;
+	}
 }

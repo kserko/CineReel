@@ -58,6 +58,7 @@ class PosterRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 MovieImageForRow(
+									movieId: movie.id,
                     imagePath: movie.posterPath,
                     imageType: IMAGE_TYPE.POSTER,
                     size: POSTER_SIZES['small']),
