@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter_bloc_movies/api/endpoints.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movies_collection_response.dart';
+import 'package:flutter_bloc_movies/models/tmdb_reviews_response.dart';
 import 'package:http/http.dart' as http;
 
 class TMDBApi {
@@ -31,6 +32,11 @@ class TMDBApi {
   Future<TMDBMovieDetails> movieDetails({int movieId}) async {
   	final response = await _makeRequest(Endpoints.movieDetailsUrl(movieId));
   	return TMDBMovieDetails.fromJson(json.decode(response.body));
+	}
+
+	Future<TMDBReviewsResponse> movieReviews({int movieId, int page}) async {
+  	final response = await _makeRequest((Endpoints.movieReviewsUrl(movieId, page)));
+  	return TMDBReviewsResponse.fromJson(json.decode(response.body));
 	}
 
   Future<http.Response> _makeRequest(String url) async {

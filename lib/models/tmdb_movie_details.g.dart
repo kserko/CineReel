@@ -48,7 +48,12 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       json['video'] as bool,
       (json['vote_average'] as num)?.toDouble(),
       json['vote_count'] as int,
-      json['status_message'] as String);
+      json['status_message'] as String)
+    ..omdbRatings = (json['omdbRatings'] as List)
+        ?.map((e) => e == null
+            ? null
+            : new OMDBRating.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 abstract class _$TMDBMovieDetailsSerializerMixin {
@@ -78,6 +83,7 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
   String get status;
   String get title;
   bool get video;
+  List<OMDBRating> get omdbRatings;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'status_message': status_message,
         'backdrop_path': backdropPath,
@@ -104,7 +110,8 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
         'runtime': runtime,
         'status': status,
         'title': title,
-        'video': video
+        'video': video,
+        'omdbRatings': omdbRatings
       };
 }
 

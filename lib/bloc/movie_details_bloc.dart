@@ -5,6 +5,7 @@ import 'package:flutter_bloc_movies/api/tmdb_api.dart';
 import 'package:flutter_bloc_movies/models/omdb_movie.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
+import 'package:flutter_bloc_movies/models/tmdb_reviews_response.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_state.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -33,17 +34,23 @@ class MovieDetailsBloc {
 
 		(Future.wait([
 			tmdbMovieDetailsCall(movieId),
+			tmdbMovieReviewsCall(movieId, 1),
 			omdbMovieByTitleAndYearCall(year)
 		]).
 		then((List responses) {
-			TMDBMovieDetails tmdbMovieDetails = responses.first;
-			OMDBMovie omdbMovie = responses.last;
+			TMDBMovieDetails tmdbMovieDetails = responses[0];
+			TMDBReviewsResponse tmdbReviewsResponse = responses[1];
+			OMDBMovie omdbMovie = responses[2];
 
 			try {
 				if (tmdbMovieDetails.hasErrors()) {
 					_streamController.add(MovieDetailsError(tmdbMovieDetails.status_message));
 				} else {
-					_streamController.add(movieDetailsLoaded.update(tmdbMovieDetails, omdbMovie));
+					_streamController.add(
+							movieDetailsLoaded.update(
+							movieDetails: tmdbMovieDetails,
+							reviews: tmdbReviewsResponse.results,
+							omdbMovie: omdbMovie));
 				}
 			} catch (e) {
 				print('error $e');
@@ -59,4 +66,7 @@ class MovieDetailsBloc {
 	}
 
 	Future<TMDBMovieDetails> tmdbMovieDetailsCall(int movieId) => tmdb.movieDetails(movieId: movieId);
+
+	Future<TMDBReviewsResponse> tmdbMovieReviewsCall(int movieId, int page) =>
+			tmdb.movieReviews(movieId: movieId, page: page);
 }

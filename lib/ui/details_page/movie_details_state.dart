@@ -9,6 +9,7 @@
 // Stream<String>. We call this Stream the onTextChanged "intent".
 import 'package:flutter_bloc_movies/models/omdb_movie.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
+import 'package:flutter_bloc_movies/models/tmdb_reviews_response.dart';
 
 class MovieDetailsState {
   MovieDetailsState();
@@ -31,9 +32,11 @@ class MovieDetailsLoaded extends MovieDetailsState {
 
   MovieDetailsLoaded([this.movieDetails]);
 
-  update(TMDBMovieDetails movieDetails, OMDBMovie omdbMovie) {
+  update({TMDBMovieDetails movieDetails, List<TMDBReview> reviews, OMDBMovie
+	omdbMovie}) {
     return this
       ..movieDetails = movieDetails
+			..movieDetails.movieReviews = reviews
       ..movieDetails.omdbRatings = omdbMovie.ratings;
   }
 }

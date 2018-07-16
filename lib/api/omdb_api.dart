@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class OMDBApi {
 
   Future<OMDBMovie> getMovieByTitleAndYear({String title, String year}) async {
-    final response = await _makeRequest(Endpoints.omdbMovieByTitleAndYear
+    final response = await _makeRequest(Endpoints.omdbMovieByTitleAndYearUrl
 			(title, year));
     return OMDBMovie.fromJson(json.decode(response.body));
   }
