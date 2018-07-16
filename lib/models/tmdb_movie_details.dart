@@ -1,3 +1,4 @@
+import 'package:flutter_bloc_movies/models/omdb_movie.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part "tmdb_movie_details.g.dart";
@@ -29,6 +30,7 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
   String status;
   String title;
   bool video;
+	List<OMDBRating> omdbRatings = [];
 
   String getFormattedRunningTime() {
   	if (runtime != null) {

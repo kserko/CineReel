@@ -1,9 +1,10 @@
-
 import 'dart:async';
 
 import 'package:flutter_bloc_movies/api/omdb_api.dart';
 import 'package:flutter_bloc_movies/api/tmdb_api.dart';
+import 'package:flutter_bloc_movies/models/omdb_movie.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_state.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -11,7 +12,7 @@ class MovieDetailsBloc {
 	TMDBApi tmdb;
 	OMDBApi omdb;
 
-  TMDBMovieBasic movie;
+	TMDBMovieBasic movie;
 
 	MovieDetailsLoaded movieDetailsLoaded = MovieDetailsLoaded();
 
@@ -21,30 +22,35 @@ class MovieDetailsBloc {
 
 	//the internal object whose sink/stream we can use
 	final _streamController = BehaviorSubject<MovieDetailsState>();
+
 	//the stream of movie details. use this to show the details
 	Stream<MovieDetailsState> get stream => _streamController.stream;
 
+
 	Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
-
-		try {
-		  final result = await tmdb.movieDetails(movieId: movieId);
-		  if(result.hasErrors()) {
-		  	yield MovieDetailsError(result.status_message);
-			} else {
-				yield movieDetailsLoaded.update(result);
-			}
-		} catch (e) {
-		  print('error $e');
-		  yield MovieDetailsError(e);
-		}
-
-		//omdb trial
 		String year = movie.releaseDate?.split('-')[0];
-		final omdbResult = await omdb.getMovieByTitleAndYear(title: movie.title,
-				year: year);
-		if (omdbResult != null) {
-			print("Got OMDB response");
-			print (omdbResult.imdbRating);
-		}
+		yield movieDetailsLoaded;
+
+		(Future.wait([
+			tmdb.movieDetails(movieId: movieId),
+			omdb.getMovieByTitleAndYear(title: movie.title,
+					year: year)
+		]).
+		then((List responses) {
+			TMDBMovieDetails tmdbMovieDetails = responses.first;
+			OMDBMovie omdbMovie = responses.last;
+
+			try {
+				if (tmdbMovieDetails.hasErrors()) {
+					_streamController.add(MovieDetailsError(tmdbMovieDetails.status_message));
+				} else {
+					_streamController.add(movieDetailsLoaded.update(tmdbMovieDetails, omdbMovie));
+				}
+			} catch (e) {
+				print('error $e');
+				_streamController.add(MovieDetailsError(e));
+			}
+		}));
+
 	}
 }

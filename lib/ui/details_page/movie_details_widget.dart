@@ -14,6 +14,7 @@ class MovieDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  	print("build details $movieDetails");
     return Scaffold(
         body: Center(
       child: Column(

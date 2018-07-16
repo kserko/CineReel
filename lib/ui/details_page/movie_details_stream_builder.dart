@@ -37,8 +37,8 @@ class MovieDetailsStreamBuilder extends StatelessWidget {
 													error: data is MovieDetailsError ? data.error : ""),
 
 											MovieDetailsWidget(
-													movieDetails: data is MovieDetailsLoaded ? data.movieDetails : null,
-													movie: movie )
+												movieDetails: data is MovieDetailsLoaded ? data.movieDetails : null,
+												movie: movie, )
 
 										],
 									),

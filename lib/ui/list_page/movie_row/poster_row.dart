@@ -85,7 +85,7 @@ class PosterRow extends StatelessWidget {
                       color: Colors.transparent,
                       child: Text(movie.title, style: defaultStyle)),
                   tag: "${movie.id}-${movie.title}"),
-              RatingWidget(movie),
+              RatingWidget(movie, null),
             ]),
       ),
     );

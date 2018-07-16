@@ -33,7 +33,7 @@ class MovieDetailsContent extends StatelessWidget {
 							  crossAxisAlignment: CrossAxisAlignment.end,
 							  children: <Widget>[
 									buildRunningTimeAndReleaseDate(),
-									RatingWidget(movie),
+									RatingWidget(movie, movieDetails),
 							  ],
 							)
             ],
