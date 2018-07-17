@@ -30,6 +30,7 @@ class MovieDetailsContent extends StatelessWidget {
               buildOverview(),
               buildHorizontalDivider(),
               CastWidget(movieDetails: movieDetails),
+//							RatingWidget(movie, movieDetails),
             ],
           ),
         ),
