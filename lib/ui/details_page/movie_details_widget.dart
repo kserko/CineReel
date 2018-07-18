@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
+import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_content.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_poster_full_screen_widget.dart';
 
 class MovieDetailsWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
-  final TMDBMovieBasic movie;
+  final MovieDetailsBloc movieDetailsBloc;
 
-  MovieDetailsWidget({@required this.movieDetails, @required this.movie});
+  MovieDetailsWidget({@required this.movieDetails, @required MovieDetailsBloc this.movieDetailsBloc});
 
   @override
   Widget build(BuildContext context) {
-  	print("build details $movieDetails");
-//  	if (movieDetails != null) {
-//  		for (Cast cast in movieDetails.credits.cast) {
-//  			print(cast.name);
-//			}
-//		}
-    return Scaffold(
+  	return Scaffold(
         body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -46,9 +40,9 @@ class MovieDetailsWidget extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: MovieImageFullScreen(
-              overlayContent: MovieDetailsContent(movie, movieDetails),
-              movieId: movie.id,
-              imagePath: movie.posterPath,
+              overlayContent: MovieDetailsContent(movieDetails, movieDetailsBloc),
+              movieId: movieDetails.movieBasic.id,
+              imagePath: movieDetails.movieBasic.posterPath,
               imageType: IMAGE_TYPE.POSTER,
               size: POSTER_SIZES['small']),
         ),

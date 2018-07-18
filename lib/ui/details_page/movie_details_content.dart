@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
+import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/comon_widgets.dart';
-import 'package:flutter_bloc_movies/ui/details_page/cast_widget.dart';
+import 'package:flutter_bloc_movies/ui/details_page/movie_details_container.dart';
 
 class MovieDetailsContent extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
-  final TMDBMovieBasic movie;
+  final MovieDetailsBloc movieDetailsBloc;
 
-  MovieDetailsContent(
-      TMDBMovieBasic this.movie, TMDBMovieDetails this.movieDetails);
+  MovieDetailsContent(this.movieDetails, this.movieDetailsBloc);
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +28,10 @@ class MovieDetailsContent extends StatelessWidget {
               buildHorizontalDivider(),
               buildOverview(),
               buildHorizontalDivider(),
-              CastWidget(movieDetails: movieDetails),
-//							RatingWidget(movie, movieDetails),
-            ],
+							MovieDetailsContainer(
+									movieDetails: movieDetails,
+									movieDetailsBloc: movieDetailsBloc),
+						],
           ),
         ),
       ],
@@ -58,7 +58,7 @@ class MovieDetailsContent extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Text(
-          movie.overview,
+          movieDetails.getOverview,
           textAlign: TextAlign.justify,
           style: TextStyle(fontSize: 14.0),
         ),
@@ -73,11 +73,11 @@ class MovieDetailsContent extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: Text(
-          movie.title,
+          movieDetails.getTitle,
           style: defaultStyle,
         ),
       ),
-      tag: "${movie.id}-${movie.title}",
+      tag: "${movieDetails.getId}-${movieDetails.getTitle}",
     );
   }
 
@@ -85,7 +85,7 @@ class MovieDetailsContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
-          movieDetails != null ? movieDetails.getFormattedRunningTime() : "",
+          movieDetails.isLoaded ? movieDetails.getFormattedRunningTime() : "",
           style: TextStyle(fontSize: 13.0)),
     );
   }
@@ -94,7 +94,7 @@ class MovieDetailsContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
-          movieDetails != null ? movieDetails.getFormattedReleaseDate() : "",
+          movieDetails.isLoaded ? movieDetails.getFormattedReleaseDate() : "",
           style: TextStyle(fontSize: 13.0)),
     );
   }

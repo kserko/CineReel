@@ -20,7 +20,7 @@ class CastWidget extends StatelessWidget {
             color: Colors.transparent,
             child: Text("Cast", style: TextStyle(fontSize: 20.0))),
         AnimatedCrossFade(
-          crossFadeState: movieDetails != null
+          crossFadeState: movieDetails.isLoaded
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
           duration: Duration(milliseconds: 300),
@@ -38,7 +38,7 @@ class CastWidget extends StatelessWidget {
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount:
-              movieDetails != null ? movieDetails.credits.cast.length : 8,
+              movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
 					itemBuilder: (BuildContext context, int index) {
             return _avatar(index);
           },
@@ -70,7 +70,8 @@ class CastWidget extends StatelessWidget {
   }
 
   Padding _avatar(int index) {
-  	Cast actor = movieDetails != null ? movieDetails.credits.cast[index] : null;
+  	Cast actor = movieDetails.isLoaded ? movieDetails.credits.cast[index] :
+		null;
     return Padding(
       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
       child: Column(

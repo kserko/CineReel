@@ -1,4 +1,5 @@
 import 'package:flutter_bloc_movies/models/omdb_movie.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
 import 'package:flutter_bloc_movies/models/tmdb_reviews_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -19,7 +20,8 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	@JsonKey(name:"spoken_languages") List<SpokenLanguage> spokenLanguages = null;
 	@JsonKey(name:"tag_line") String tagline;
 	@JsonKey(name:"vote_average") double voteAverage;
-	@JsonKey(name:"vote_count") int voteCount;String overview;
+	@JsonKey(name:"vote_count") int voteCount;
+	@JsonKey(name: "overview") String overview;
 	@JsonKey(name: "adult") bool adult;
 	@JsonKey(name: "budget") int budget;
 	@JsonKey(name: "genres") List<Genre> genres = null;
@@ -34,6 +36,12 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	@JsonKey(name: "credits") Credits credits;
 	List<OMDBRating> omdbRatings = [];
 	List<TMDBReview> movieReviews = [];
+	TMDBMovieBasic movieBasic = null;
+	bool isLoaded;
+
+	String get getOverview => movieBasic.overview;
+	String get getTitle => movieBasic.title;
+	int get getId => movieBasic.id;
 
 	String getFormattedRunningTime() {
   	if (runtime != null) {
@@ -54,7 +62,7 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
   factory TMDBMovieDetails.fromJson(Map<String, dynamic> json) =>
       _$TMDBMovieDetailsFromJson(json);
 
-  TMDBMovieDetails(
+  TMDBMovieDetails([
       this.adult,
       this.backdropPath,
       this.belongsToCollection,
@@ -80,7 +88,7 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
       this.video,
       this.voteAverage,
       this.voteCount,
-			this.status_message);
+			this.status_message]);
 
 	hasErrors() {
 		return status_message != null;

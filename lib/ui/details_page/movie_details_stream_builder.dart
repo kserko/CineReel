@@ -6,6 +6,7 @@ import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_state.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_widget.dart';
@@ -23,6 +24,7 @@ class MovieDetailsStreamBuilder extends StatelessWidget {
 		movieDetailsBloc = MovieDetailsProvider.of(context);
 		return StreamBuilder(
 				stream: movieDetailsBloc.stream,
+				initialData: movieDetailsBloc.initialData(),
 				builder: (context, snapshot) {
 					final data = snapshot.data;
 						return Column(
@@ -37,8 +39,9 @@ class MovieDetailsStreamBuilder extends StatelessWidget {
 													error: data is MovieDetailsError ? data.error : ""),
 
 											MovieDetailsWidget(
-												movieDetails: data is MovieDetailsLoaded ? data.movieDetails : null,
-												movie: movie, )
+												movieDetailsBloc: movieDetailsBloc,
+												movieDetails: data != null ? data.movieDetails : TMDBMovieDetails()
+											)
 
 										],
 									),

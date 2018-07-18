@@ -8,13 +8,12 @@
 // The State Stream responds to input from the View by accepting a
 // Stream<String>. We call this Stream the onTextChanged "intent".
 import 'package:flutter_bloc_movies/models/omdb_movie.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 
 class MovieDetailsState {
   MovieDetailsState();
 }
-
-class MovieDetailsLoading extends MovieDetailsState {}
 
 class MovieDetailsError extends MovieDetailsState {
   final error;
@@ -22,19 +21,18 @@ class MovieDetailsError extends MovieDetailsState {
   MovieDetailsError(this.error);
 }
 
-class MoviesDetailsNoResults extends MovieDetailsState {}
-
-class MovieDetailsEmpty extends MovieDetailsState {}
-
 class MovieDetailsLoaded extends MovieDetailsState {
   TMDBMovieDetails movieDetails;
 
-  MovieDetailsLoaded([this.movieDetails]);
+  MovieDetailsLoaded({this.movieDetails});
 
-  update({TMDBMovieDetails movieDetails, OMDBMovie
-	omdbMovie}) {
+  update({TMDBMovieDetails movieDetails, TMDBMovieBasic movieBasic, OMDBMovie
+	omdbMovie, bool hasDetailsLoaded}) {
     return this
-      ..movieDetails = movieDetails
-      ..movieDetails.omdbRatings = omdbMovie.ratings;
+      ..movieDetails = movieDetails ?? this.movieDetails
+			..movieDetails.isLoaded = hasDetailsLoaded
+			..movieDetails.movieBasic = movieBasic ?? this.movieDetails.movieBasic
+      ..movieDetails.omdbRatings = omdbMovie?.ratings ?? this.movieDetails
+					.omdbRatings;
   }
 }
