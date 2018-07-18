@@ -32,7 +32,6 @@ class MovieDetailsLoaded extends MovieDetailsState {
       ..movieDetails = movieDetails ?? this.movieDetails
 			..movieDetails.isLoaded = hasDetailsLoaded
 			..movieDetails.movieBasic = movieBasic ?? this.movieDetails.movieBasic
-      ..movieDetails.omdbRatings = omdbMovie?.ratings ?? this.movieDetails
-					.omdbRatings;
+			..movieDetails.omdbMovie = omdbMovie;
   }
 }

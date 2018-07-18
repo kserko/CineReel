@@ -5,6 +5,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part "tmdb_movie_details.g.dart";
 
+enum RATING_SOURCE { IMDB, ROTTEN_TOMATOES, METACRITIC }
+
 @JsonSerializable()
 class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	@JsonKey(name: "status_message") String status_message;
@@ -34,7 +36,7 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
   @JsonKey(name: "title") String title;
   @JsonKey(name: "video") bool video;
 	@JsonKey(name: "credits") Credits credits;
-	List<OMDBRating> omdbRatings = [];
+	OMDBMovie omdbMovie = null;
 	List<TMDBReview> movieReviews = [];
 	TMDBMovieBasic movieBasic = null;
 	bool isLoaded;
@@ -42,6 +44,19 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	String get getOverview => movieBasic.overview;
 	String get getTitle => movieBasic.title;
 	int get getId => movieBasic.id;
+
+	String getRatingFor(RATING_SOURCE ratingSource) {
+		switch (ratingSource) {
+			case RATING_SOURCE.IMDB:
+				return omdbMovie.imdbRating;
+			case RATING_SOURCE.METACRITIC:
+				return omdbMovie.metascore;
+			case RATING_SOURCE.ROTTEN_TOMATOES:
+				return omdbMovie.ratings.firstWhere((OMDBRating rating) => rating.source == "Rotten Tomatoes").value;
+			default:
+				return "";
+		}
+	}
 
 	String getFormattedRunningTime() {
   	if (runtime != null) {
@@ -93,6 +108,10 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	hasErrors() {
 		return status_message != null;
 	}
+
+  // TODO: implement omdbRatings
+  @override
+  List<OMDBRating> get omdbRatings => null;
 
 }
 

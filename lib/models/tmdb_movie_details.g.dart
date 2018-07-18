@@ -52,11 +52,9 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
     ..credits = json['credits'] == null
         ? null
         : new Credits.fromJson(json['credits'] as Map<String, dynamic>)
-    ..omdbRatings = (json['omdbRatings'] as List)
-        ?.map((e) => e == null
-            ? null
-            : new OMDBRating.fromJson(e as Map<String, dynamic>))
-        ?.toList()
+    ..omdbMovie = json['omdbMovie'] == null
+        ? null
+        : new OMDBMovie.fromJson(json['omdbMovie'] as Map<String, dynamic>)
     ..movieReviews = (json['movieReviews'] as List)
         ?.map((e) => e == null
             ? null
@@ -65,7 +63,8 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
     ..movieBasic = json['movieBasic'] == null
         ? null
         : new TMDBMovieBasic.fromJson(
-            json['movieBasic'] as Map<String, dynamic>);
+            json['movieBasic'] as Map<String, dynamic>)
+    ..isLoaded = json['isLoaded'] as bool;
 }
 
 abstract class _$TMDBMovieDetailsSerializerMixin {
@@ -96,9 +95,10 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
   String get title;
   bool get video;
   Credits get credits;
-  List<OMDBRating> get omdbRatings;
+  OMDBMovie get omdbMovie;
   List<TMDBReview> get movieReviews;
   TMDBMovieBasic get movieBasic;
+  bool get isLoaded;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'status_message': status_message,
         'backdrop_path': backdropPath,
@@ -127,9 +127,10 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
         'title': title,
         'video': video,
         'credits': credits,
-        'omdbRatings': omdbRatings,
+        'omdbMovie': omdbMovie,
         'movieReviews': movieReviews,
-        'movieBasic': movieBasic
+        'movieBasic': movieBasic,
+        'isLoaded': isLoaded
       };
 }
 
