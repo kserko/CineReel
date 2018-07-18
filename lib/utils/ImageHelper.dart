@@ -1,5 +1,6 @@
 
 import 'package:flutter_bloc_movies/Constants.dart';
+import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 
 class ImageHelper {
   static String getImagePath(String path, String size) {
@@ -10,10 +11,10 @@ class ImageHelper {
     return fullPath;
   }
 
-  static String getCastFullProfilePath(String path, String size) {
+  static String getCastFullProfilePath(Cast cast, String size,) {
   	String fullPath = "";
-		if (path != null) {
-			fullPath = TMDB_BASE_IMAGE_URL + size + path;
+		if (cast != null && cast.profilePath != null) {
+			fullPath = TMDB_BASE_IMAGE_URL + size + cast.profilePath;
 		}
 		return fullPath;
 	}

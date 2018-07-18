@@ -12,17 +12,26 @@ class CastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      crossFadeState: movieDetails != null
-          ? CrossFadeState.showFirst
-          : CrossFadeState.showSecond,
-      duration: Duration(milliseconds: 300),
-      firstChild: _buildAvatars(),
-      secondChild: _buildPlaceholderAvatars(),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Material(
+            color: Colors.transparent,
+            child: Text("Cast", style: TextStyle(fontSize: 20.0))),
+        AnimatedCrossFade(
+          crossFadeState: movieDetails != null
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          duration: Duration(milliseconds: 300),
+          firstChild: _buildAvatars(),
+          secondChild: _buildPlaceholderAvatars(),
+        ),
+      ],
     );
   }
 
-  Container _buildAvatars() {
+  Widget _buildAvatars() {
     return Container(
       child: SizedBox.fromSize(
         size: const Size.fromHeight(120.0),
@@ -30,8 +39,8 @@ class CastWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount:
               movieDetails != null ? movieDetails.credits.cast.length : 8,
-          itemBuilder: (BuildContext context, int index) {
-            return _avatar(movieDetails.credits.cast[index]);
+					itemBuilder: (BuildContext context, int index) {
+            return _avatar(index);
           },
         ),
       ),
@@ -49,7 +58,7 @@ class CastWidget extends StatelessWidget {
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: <Widget>[
-						_placeHolderAvatar(),
+            _placeHolderAvatar(),
             _placeHolderAvatar(),
             _placeHolderAvatar(),
             _placeHolderAvatar(),
@@ -60,7 +69,8 @@ class CastWidget extends StatelessWidget {
     );
   }
 
-  Padding _avatar(Cast actor) {
+  Padding _avatar(int index) {
+  	Cast actor = movieDetails != null ? movieDetails.credits.cast[index] : null;
     return Padding(
       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
       child: Column(
@@ -83,23 +93,22 @@ class CastWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCircularAvatar(Cast actor) {
+  Widget _buildCircularAvatar(Cast cast) {
     return CircleAvatar(
         child: Padding(
           padding: const EdgeInsets.only(top: 88.0),
         ),
         radius: 40.0,
-        backgroundImage: _image(actor));
+        backgroundImage: _image(cast));
   }
 
-  ImageProvider _image(Cast actor) {
-		return FadeInImage
-				.memoryNetwork(
-				placeholder: kTransparentImage,
-				image: ImageHelper.getCastFullProfilePath(
-						actor.profilePath, PROFILE_SIZES['medium']))
-				.image;
-	}
+  ImageProvider _image(Cast cast) {
+    return FadeInImage
+        .memoryNetwork(
+            placeholder: kTransparentImage,
+            image: ImageHelper.getCastFullProfilePath(cast, PROFILE_SIZES['medium']))
+        .image;
+  }
 
   //Placeholders
   Padding _placeHolderAvatar() {

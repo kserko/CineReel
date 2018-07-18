@@ -27,20 +27,17 @@ class MovieDetailsBloc {
 	//the stream of movie details. use this to show the details
 	Stream<MovieDetailsState> get stream => _streamController.stream;
 
-
 	Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
 		String year = movie.releaseDate?.split('-')[0];
 		yield movieDetailsLoaded;
 
 		(Future.wait([
 			tmdbMovieDetailsCall(movieId),
-			tmdbMovieReviewsCall(movieId, 1),
 			omdbMovieByTitleAndYearCall(year)
 		]).
 		then((List responses) {
 			TMDBMovieDetails tmdbMovieDetails = responses[0];
-			TMDBReviewsResponse tmdbReviewsResponse = responses[1];
-			OMDBMovie omdbMovie = responses[2];
+			OMDBMovie omdbMovie = responses[1];
 
 			try {
 				if (tmdbMovieDetails.hasErrors()) {
@@ -49,7 +46,6 @@ class MovieDetailsBloc {
 					_streamController.add(
 							movieDetailsLoaded.update(
 							movieDetails: tmdbMovieDetails,
-							reviews: tmdbReviewsResponse.results,
 							omdbMovie: omdbMovie));
 				}
 			} catch (e) {
