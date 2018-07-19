@@ -50,7 +50,8 @@ class RatingsWidget extends StatelessWidget {
 	Widget buildRottenTomatoesRating() {
 		return Row(
 			children: <Widget>[
-				IconButton(icon: Image(image: AssetImage("assets/rotten_tomatoes_icon.png")),
+				IconButton(iconSize: 30.0, icon: Image(image: AssetImage
+					("assets/rotten_tomatoes_icon.png")),
 					onPressed: () {},),
 		Text(movieDetails.getRatingFor(RATING_SOURCE.ROTTEN_TOMATOES)),
 			],
