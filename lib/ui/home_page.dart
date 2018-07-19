@@ -5,7 +5,7 @@ import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/comon_widgets.dart';
+import 'package:flutter_bloc_movies/ui/common_widgets/common_widgets.dart';
 import 'package:flutter_bloc_movies/ui/list_page/movie_list_stream_builder.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 

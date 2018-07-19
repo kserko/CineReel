@@ -48,11 +48,12 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	String getRatingFor(RATING_SOURCE ratingSource) {
 		switch (ratingSource) {
 			case RATING_SOURCE.IMDB:
-				return omdbMovie.imdbRating;
+				return omdbMovie?.imdbRating ?? "-";
 			case RATING_SOURCE.METACRITIC:
-				return omdbMovie.metascore;
+				return omdbMovie?.metascore ?? "-";
 			case RATING_SOURCE.ROTTEN_TOMATOES:
-				return omdbMovie.ratings.firstWhere((OMDBRating rating) => rating.source == "Rotten Tomatoes").value;
+				return omdbMovie?.ratings?.firstWhere((OMDBRating rating) => rating
+						.source == "Rotten Tomatoes")?.value ?? "-";
 			default:
 				return "";
 		}

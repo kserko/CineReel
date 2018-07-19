@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/comon_widgets.dart';
+import 'package:flutter_bloc_movies/ui/common_widgets/common_widgets.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_container.dart';
 
 class MovieDetailsContent extends StatelessWidget {
