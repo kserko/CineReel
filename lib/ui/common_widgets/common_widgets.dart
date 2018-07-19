@@ -18,3 +18,12 @@ Widget getAppBar({title, context, tabController, myTabs}) {
 Widget buildHorizontalDivider() {
 	return Divider(height: 22.0);
 }
+
+Widget MaterialIcon(String assetPath) {
+	return Material(
+			color: Colors.transparent,
+			child: IconButton(
+				icon: Image(image: AssetImage(assetPath)),
+				onPressed: () {},
+			));
+}

@@ -75,7 +75,7 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
   int get getId => movieBasic.id;
 
   String getRatingFor(RATING_SOURCE ratingSource) {
-    if (omdbMovie.ratings != null) {
+    if (omdbMovie != null && omdbMovie.ratings != null) {
       switch (ratingSource) {
         case RATING_SOURCE.IMDB:
           return omdbMovie?.imdbRating ?? "N/A";
@@ -105,7 +105,7 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
   }
 
   String getFormattedReleaseDate() {
-    String year = releaseDate?.split('-')[0];
+    String year = movieBasic.releaseDate?.split('-')[0];
     return year != null ? "$year" : "";
   }
 

@@ -26,6 +26,7 @@ class MovieDetailsContent extends StatelessWidget {
             children: <Widget>[
               buildTitle(defaultStyle),
               buildHorizontalDivider(),
+              buildRunningTimeAndReleaseDate(),
               buildOverview(),
               buildHorizontalDivider(),
 							MovieDetailsContainer(
@@ -38,17 +39,18 @@ class MovieDetailsContent extends StatelessWidget {
     );
   }
 
-  AnimatedOpacity buildRunningTimeAndReleaseDate() {
-    return AnimatedOpacity(
-      child: Row(
+  Widget buildRunningTimeAndReleaseDate() {
+    return AnimatedCrossFade(
+      firstChild: Row(
         children: <Widget>[
           buildRunningTime(),
           getDotSeparator(),
           buildReleaseDate(),
         ],
       ),
-      duration: Duration(milliseconds: 300),
-      opacity: movieDetails == null ? 0.0 : 1.0,
+			secondChild: Container(),
+			duration: Duration(milliseconds: 200),
+			crossFadeState: movieDetails.isLoaded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );
   }
 
@@ -85,7 +87,7 @@ class MovieDetailsContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
-          movieDetails.isLoaded ? movieDetails.getFormattedRunningTime() : "",
+          movieDetails.getFormattedRunningTime(),
           style: TextStyle(fontSize: 13.0)),
     );
   }
@@ -94,7 +96,7 @@ class MovieDetailsContent extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
-          movieDetails.isLoaded ? movieDetails.getFormattedReleaseDate() : "",
+          movieDetails.getFormattedReleaseDate(),
           style: TextStyle(fontSize: 13.0)),
     );
   }
