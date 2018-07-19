@@ -12,22 +12,18 @@ class CastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Material(
-            color: Colors.transparent,
-            child: Text("Cast", style: TextStyle(fontSize: 20.0))),
-        AnimatedCrossFade(
-          crossFadeState: movieDetails.isLoaded
-              ? CrossFadeState.showFirst
-              : CrossFadeState.showSecond,
-          duration: Duration(milliseconds: 300),
-          firstChild: _buildAvatars(),
-          secondChild: _buildPlaceholderAvatars(),
+  	return Container(
+      child: SizedBox.fromSize(
+        size: const Size.fromHeight(120.0),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount:
+              movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
+					itemBuilder: (BuildContext context, int index) {
+            return _avatar(index);
+          },
         ),
-      ],
+      ),
     );
   }
 
@@ -49,24 +45,6 @@ class CastWidget extends StatelessWidget {
 //    return Container(
 //				color: Colors.grey,
 //        child: SizedBox.fromSize(size: const Size.fromHeight(120.0)));
-  }
-
-  Container _buildPlaceholderAvatars() {
-    return Container(
-      child: SizedBox.fromSize(
-        size: const Size.fromHeight(120.0),
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: <Widget>[
-            _placeHolderAvatar(),
-            _placeHolderAvatar(),
-            _placeHolderAvatar(),
-            _placeHolderAvatar(),
-            _placeHolderAvatar()
-          ],
-        ),
-      ),
-    );
   }
 
   Padding _avatar(int index) {
@@ -109,36 +87,5 @@ class CastWidget extends StatelessWidget {
             placeholder: kTransparentImage,
             image: ImageHelper.getCastFullProfilePath(cast, PROFILE_SIZES['medium']))
         .image;
-  }
-
-  //Placeholders
-  Padding _placeHolderAvatar() {
-    return Padding(
-        padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              _buildPlaceholderCircularAvatar(),
-              _buildPlaceholderActorName(),
-            ]));
-  }
-
-  Container _buildPlaceholderActorName() {
-    return Container(padding: const EdgeInsets.only(top: 5.0),
-              child: Text("", style: TextStyle(fontSize: 12.0),),
-            );
-  }
-
-  Widget _buildPlaceholderCircularAvatar() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-      child: CircleAvatar(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 88.0),
-          ),
-          radius: 40.0,
-          backgroundColor: Colors.black),
-    );
   }
 }
