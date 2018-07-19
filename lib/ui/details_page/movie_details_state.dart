@@ -12,32 +12,21 @@ import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 
 class MovieDetailsState {
-  MovieDetailsState();
-}
-
-class MovieDetailsError extends MovieDetailsState {
-  final error;
-
-  MovieDetailsError(this.error);
-}
-
-class MovieDetailsLoaded extends MovieDetailsState {
   TMDBMovieDetails movieDetails;
-  bool hasFailed;
+	bool hasFailed;
 
-  MovieDetailsLoaded({this.movieDetails});
-
+	MovieDetailsState({this.movieDetails});
 
 	update({TMDBMovieDetails movieDetails,
 		TMDBMovieBasic movieBasic,
 		OMDBMovie omdbMovie,
 		bool hasSucceeded,
 		bool hasFailed}) {
-    return this
+		return this
 			..hasFailed = hasFailed
-      ..movieDetails = movieDetails ?? this.movieDetails
+			..movieDetails = movieDetails ?? this.movieDetails
 			..movieDetails.hasData = hasSucceeded
 			..movieDetails.movieBasic = movieBasic ?? this.movieDetails.movieBasic
 			..movieDetails.omdbMovie = omdbMovie;
-  }
+	}
 }

@@ -15,7 +15,7 @@ class MovieDetailsBloc {
 
   TMDBMovieBasic movie;
 
-  MovieDetailsLoaded movieDetailsLoaded = MovieDetailsLoaded();
+  MovieDetailsState movieDetailsState = MovieDetailsState();
 
   MovieDetailsBloc({this.tmdb, this.omdb, this.movie}) {
     _streamController.addStream(_fetchMovieDetails(movie.id));
@@ -32,7 +32,7 @@ class MovieDetailsBloc {
 	details object
 	*/
 	MovieDetailsState initialData() {
-    return movieDetailsLoaded.update(
+    return movieDetailsState.update(
         movieDetails: TMDBMovieDetails(),
         movieBasic: movie,
         hasSucceeded: false,
@@ -41,30 +41,34 @@ class MovieDetailsBloc {
 
   Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
     String year = movie.releaseDate?.split('-')[0];
-    yield movieDetailsLoaded;
+    yield movieDetailsState;
 
     try {
       TMDBMovieDetails tmdbMovieDetails = await tmdbMovieDetailsCall(movieId);
       OMDBMovie omdbMovie = await omdbMovieByTitleAndYearCall(year);
-      if (tmdbMovieDetails.hasErrors()) {
-
-      	//pass the status message to the initial version of the movieDetails
-				// object and don't pass the new one because everything is empty
-				// (including the movieBasic) which we need
-      	movieDetailsLoaded.movieDetails.status_message = tmdbMovieDetails.status_message;
-        yield movieDetailsLoaded.update(
-            hasFailed: true,
-            hasSucceeded: false);
-      } else {
-        yield movieDetailsLoaded.update(
-            hasSucceeded: true,
-            hasFailed: false,
-            movieBasic: movie,
-            movieDetails: tmdbMovieDetails,
-            omdbMovie: omdbMovie);
-      }
+      yield getMovieDetailsState(tmdbMovieDetails, omdbMovie);
     } on Exception catch (e) {
       print("error $e");
+    }
+  }
+
+  MovieDetailsState getMovieDetailsState(TMDBMovieDetails tmdbMovieDetails, OMDBMovie
+	omdbMovie) {
+    if (tmdbMovieDetails.hasErrors()) {
+    	//pass the status message to the initial version of the movieDetails
+    				// object and don't pass the new one because everything is empty
+    				// (including the movieBasic) which we need
+    	movieDetailsState.movieDetails.status_message = tmdbMovieDetails.status_message;
+      return movieDetailsState.update(
+          hasFailed: true,
+          hasSucceeded: false);
+    } else {
+      return movieDetailsState.update(
+          hasSucceeded: true,
+          hasFailed: false,
+          movieBasic: movie,
+          movieDetails: tmdbMovieDetails,
+          omdbMovie: omdbMovie);
     }
   }
 

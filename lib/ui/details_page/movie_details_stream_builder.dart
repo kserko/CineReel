@@ -30,7 +30,7 @@ class MovieDetailsStreamBuilder extends StatelessWidget {
 									child: Stack(
 										children: <Widget>[
 											MovieDetailsWidget(
-												hasError: data.hasFailed,
+												hasFailed: data.hasFailed,
 												movieDetailsBloc: movieDetailsBloc,
 												movieDetails: data.movieDetails
 											)

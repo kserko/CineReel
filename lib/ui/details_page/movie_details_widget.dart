@@ -9,12 +9,12 @@ import 'package:flutter_bloc_movies/ui/details_page/movie_poster_full_screen_wid
 class MovieDetailsWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
-  final bool hasError;
+  final bool hasFailed;
 
   MovieDetailsWidget(
       {@required this.movieDetails,
       @required MovieDetailsBloc this.movieDetailsBloc,
-      bool this.hasError});
+      bool this.hasFailed});
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +44,7 @@ class MovieDetailsWidget extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: MovieImageFullScreen(
-              overlayContent: MovieDetailsContent(movieDetails,
-								movieDetailsBloc, hasError),
+              overlayContent: MovieDetailsContent(movieDetails, movieDetailsBloc, hasFailed),
               movieId: movieDetails.movieBasic.id,
               imagePath: movieDetails.movieBasic.posterPath,
               imageType: IMAGE_TYPE.POSTER,

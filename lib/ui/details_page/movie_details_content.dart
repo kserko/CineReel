@@ -8,10 +8,10 @@ import 'package:flutter_bloc_movies/ui/details_page/movie_details_container.dart
 class MovieDetailsContent extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
-  final bool hasError;
+  final bool hasFailed;
 
   MovieDetailsContent(
-      this.movieDetails, this.movieDetailsBloc, bool this.hasError);
+      this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class MovieDetailsContent extends StatelessWidget {
         childTwo: MoviesErrorWidget(
             visible: true,
             error: movieDetails.status_message),
-        showHappyPath: !hasError);
+        showHappyPath: !hasFailed);
   }
 
   Widget buildRunningTimeAndReleaseDate() {
