@@ -10,8 +10,8 @@ class MovieDetailsContent extends StatelessWidget {
   final MovieDetailsBloc movieDetailsBloc;
   final bool hasError;
 
-  MovieDetailsContent(this.movieDetails, this.movieDetailsBloc, bool
-	this.hasError);
+  MovieDetailsContent(
+      this.movieDetails, this.movieDetailsBloc, bool this.hasError);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class MovieDetailsContent extends StatelessWidget {
               buildRunningTimeAndReleaseDate(),
               buildOverview(),
               buildHorizontalDivider(),
-							buildMovieDetailsContainer(),
-						],
+              buildMovieDetailsContainer(),
+            ],
           ),
         ),
       ],
@@ -41,27 +41,27 @@ class MovieDetailsContent extends StatelessWidget {
   }
 
   Widget buildMovieDetailsContainer() {
-  	return AnimateChildren(
-				childOne:MovieDetailsContainer(
-						movieDetails: movieDetails,
-						movieDetailsBloc: movieDetailsBloc),
-			childTwo:MoviesErrorWidget(visible: true, error: "couldn't get movie "
-		"details"), showHappyPath: !hasError);
-		}
+    return AnimateChildren(
+        childOne: MovieDetailsContainer(
+            movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
+        childTwo: MoviesErrorWidget(
+            visible: true,
+            error: "couldn't get movie "
+                "details"),
+        showHappyPath: !hasError);
+  }
 
   Widget buildRunningTimeAndReleaseDate() {
-    return AnimatedCrossFade(
-      firstChild: Row(
-        children: <Widget>[
-          buildRunningTime(),
-          getDotSeparator(),
-          buildReleaseDate(),
-        ],
-      ),
-			secondChild: Container(),
-			duration: Duration(milliseconds: 200),
-			crossFadeState: movieDetails.hasData ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-    );
+    return AnimateChildren(
+        childOne: Row(
+          children: <Widget>[
+            buildRunningTime(),
+            getDotSeparator(),
+            buildReleaseDate(),
+          ],
+        ),
+        childTwo: Container(),
+        showHappyPath: movieDetails.hasData);
   }
 
   Widget buildOverview() {
@@ -96,8 +96,7 @@ class MovieDetailsContent extends StatelessWidget {
   buildRunningTime() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(
-          movieDetails.getFormattedRunningTime(),
+      child: Text(movieDetails.getFormattedRunningTime(),
           style: TextStyle(fontSize: 13.0)),
     );
   }
@@ -105,8 +104,7 @@ class MovieDetailsContent extends StatelessWidget {
   buildReleaseDate() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(
-          movieDetails.getFormattedReleaseDate(),
+      child: Text(movieDetails.getFormattedReleaseDate(),
           style: TextStyle(fontSize: 13.0)),
     );
   }

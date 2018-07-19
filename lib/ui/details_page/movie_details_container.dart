@@ -14,23 +14,19 @@ class MovieDetailsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      duration: Duration(milliseconds: 200),
-      crossFadeState: movieDetails.hasData
-          ? CrossFadeState.showFirst
-          : CrossFadeState.showSecond,
-      firstChild: Column(
-        children: <Widget>[
-          RatingsWidget(
-              movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-          buildHorizontalDivider(),
-          CastWidget(movieDetails: movieDetails),
-        ],
-      ),
-      secondChild: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: MoviesLoadingWidget(visible: true),
-      ),
-    );
+    return AnimateChildren(
+        childOne: Column(
+          children: <Widget>[
+            RatingsWidget(
+                movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
+            buildHorizontalDivider(),
+            CastWidget(movieDetails: movieDetails),
+          ],
+        ),
+        childTwo: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: MoviesLoadingWidget(visible: true),
+        ),
+        showHappyPath: movieDetails.hasData);
   }
 }
