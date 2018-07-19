@@ -23,12 +23,15 @@ class MovieDetailsError extends MovieDetailsState {
 
 class MovieDetailsLoaded extends MovieDetailsState {
   TMDBMovieDetails movieDetails;
+  bool hasError;
 
   MovieDetailsLoaded({this.movieDetails});
 
-  update({TMDBMovieDetails movieDetails, TMDBMovieBasic movieBasic, OMDBMovie
-	omdbMovie, bool hasDetailsLoaded}) {
+
+	update({TMDBMovieDetails movieDetails, TMDBMovieBasic movieBasic, OMDBMovie
+	omdbMovie, bool hasDetailsLoaded, bool hasError}) {
     return this
+			..hasError = hasError
       ..movieDetails = movieDetails ?? this.movieDetails
 			..movieDetails.isLoaded = hasDetailsLoaded
 			..movieDetails.movieBasic = movieBasic ?? this.movieDetails.movieBasic

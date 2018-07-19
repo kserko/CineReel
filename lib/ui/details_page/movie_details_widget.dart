@@ -9,12 +9,16 @@ import 'package:flutter_bloc_movies/ui/details_page/movie_poster_full_screen_wid
 class MovieDetailsWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
+  final bool hasError;
 
-  MovieDetailsWidget({@required this.movieDetails, @required MovieDetailsBloc this.movieDetailsBloc});
+  MovieDetailsWidget(
+      {@required this.movieDetails,
+      @required MovieDetailsBloc this.movieDetailsBloc,
+      bool this.hasError});
 
   @override
   Widget build(BuildContext context) {
-  	return Scaffold(
+    return Scaffold(
         body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -40,7 +44,8 @@ class MovieDetailsWidget extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: MovieImageFullScreen(
-              overlayContent: MovieDetailsContent(movieDetails, movieDetailsBloc),
+              overlayContent: MovieDetailsContent(movieDetails,
+								movieDetailsBloc, hasError),
               movieId: movieDetails.movieBasic.id,
               imagePath: movieDetails.movieBasic.posterPath,
               imageType: IMAGE_TYPE.POSTER,
@@ -49,5 +54,4 @@ class MovieDetailsWidget extends StatelessWidget {
       ],
     ));
   }
-
 }

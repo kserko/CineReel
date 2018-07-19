@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/common_widgets.dart';
+import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_container.dart';
 
 class MovieDetailsContent extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
+  final bool hasError;
 
-  MovieDetailsContent(this.movieDetails, this.movieDetailsBloc);
+  MovieDetailsContent(this.movieDetails, this.movieDetailsBloc, bool
+	this.hasError);
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +32,22 @@ class MovieDetailsContent extends StatelessWidget {
               buildRunningTimeAndReleaseDate(),
               buildOverview(),
               buildHorizontalDivider(),
-							MovieDetailsContainer(
-									movieDetails: movieDetails,
-									movieDetailsBloc: movieDetailsBloc),
+							buildMovieDetailsContainer(),
 						],
           ),
         ),
       ],
     );
+  }
+
+  Widget  buildMovieDetailsContainer() {
+  	if (hasError) {
+  		return MoviesErrorWidget(visible: true, error: "error");
+		}
+
+    return MovieDetailsContainer(
+									movieDetails: movieDetails,
+									movieDetailsBloc: movieDetailsBloc);
   }
 
   Widget buildRunningTimeAndReleaseDate() {

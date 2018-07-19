@@ -31,37 +31,55 @@ class MovieDetailsBloc {
 		//create an initial state with the basic movie object and an empty movie
 		// details object
 		return movieDetailsLoaded.update(movieDetails: TMDBMovieDetails(),
-			movieBasic: movie, hasDetailsLoaded: false);
+			movieBasic: movie, hasDetailsLoaded: false, hasError: false);
 	}
 
 	Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
 		String year = movie.releaseDate?.split('-')[0];
 		yield movieDetailsLoaded;
 
-		(Future.wait([
-			tmdbMovieDetailsCall(movieId),
-			omdbMovieByTitleAndYearCall(year)
-		]).
-		then((List responses) {
-			TMDBMovieDetails tmdbMovieDetails = responses[0];
-			OMDBMovie omdbMovie = responses[1];
-
-			try {
-				if (tmdbMovieDetails.hasErrors()) {
-					_streamController.add(MovieDetailsError(tmdbMovieDetails.status_message));
-				} else {
-					_streamController.add(
-							movieDetailsLoaded.update(
-									hasDetailsLoaded: true,
-									movieBasic: movie,
-									movieDetails: tmdbMovieDetails,
-									omdbMovie: omdbMovie));
-				}
-			} catch (e) {
-				print('error $e');
-				_streamController.add(MovieDetailsError(e));
+		try {
+		  TMDBMovieDetails tmdbMovieDetails = await tmdbMovieDetailsCall(1);
+		  OMDBMovie omdbMovie = await omdbMovieByTitleAndYearCall(year);
+		  if (tmdbMovieDetails.hasErrors()) {
+		  	print("error: ${tmdbMovieDetails.status_message}");
+				yield movieDetailsLoaded.update(
+						hasError: true,
+						hasDetailsLoaded: false);
+			} else {
+				yield movieDetailsLoaded.update(
+						hasDetailsLoaded: true,
+						movieDetails: tmdbMovieDetails,
+						omdbMovie: omdbMovie);
 			}
-		}));
+		} on Exception catch (e) {
+		  // TODO
+		}
+
+//		(Future.wait([
+//			tmdbMovieDetailsCall(movieId),
+//			omdbMovieByTitleAndYearCall(year)
+//		]).
+//		then((List responses) {
+//			TMDBMovieDetails tmdbMovieDetails = responses[0];
+//			OMDBMovie omdbMovie = responses[1];
+//
+//			try {
+//				if (tmdbMovieDetails.hasErrors()) {
+//					_streamController.add(MovieDetailsError(tmdbMovieDetails.status_message));
+//				} else {
+//					_streamController.add(
+//							movieDetailsLoaded.update(
+//									hasDetailsLoaded: true,
+//									movieBasic: movie,
+//									movieDetails: tmdbMovieDetails,
+//									omdbMovie: omdbMovie));
+//				}
+//			} catch (e) {
+//				print('error $e');
+//				_streamController.add(MovieDetailsError(e));
+//			}
+//		}));
 
 	}
 

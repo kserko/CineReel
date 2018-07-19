@@ -6,8 +6,6 @@ import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
-import 'package:flutter_bloc_movies/ui/details_page/movie_details_state.dart';
 import 'package:flutter_bloc_movies/ui/details_page/movie_details_widget.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
 
@@ -31,13 +29,8 @@ class MovieDetailsStreamBuilder extends StatelessWidget {
 								Expanded(
 									child: Stack(
 										children: <Widget>[
-//											EmptyWidget(visible: data is MovieDetailsEmpty),
-
-											MoviesErrorWidget(
-													visible: data is MovieDetailsError,
-													error: data is MovieDetailsError ? data.error : ""),
-
 											MovieDetailsWidget(
+												hasError: data.hasError,
 												movieDetailsBloc: movieDetailsBloc,
 												movieDetails: data.movieDetails
 											)
