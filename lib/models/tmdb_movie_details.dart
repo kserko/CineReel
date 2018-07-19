@@ -82,15 +82,15 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
         case RATING_SOURCE.METACRITIC:
           return omdbMovie?.metascore ?? "N/A";
         case RATING_SOURCE.ROTTEN_TOMATOES:
-          return omdbMovie.ratings.isNotEmpty
-              ? omdbMovie.ratings
-                  .firstWhere(
-                      (OMDBRating rating) => rating.source == "Rotten Tomatoes")
-                  .value
-              : "N/A";
+          return findRottenTomatoesRating();
       }
     }
     return "N/A";
+  }
+
+  String findRottenTomatoesRating() {
+      OMDBRating rating = omdbMovie.ratings.firstWhere((OMDBRating rating) => rating.source == "Rotten Tomatoes", orElse: () => null);
+      return rating?.value ?? "N/A";
   }
 
   String getFormattedRunningTime() {
