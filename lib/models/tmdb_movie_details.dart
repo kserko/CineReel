@@ -10,31 +10,34 @@ enum RATING_SOURCE { IMDB, ROTTEN_TOMATOES, METACRITIC }
 @JsonSerializable()
 class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	@JsonKey(name: "status_message") String status_message;
-  @JsonKey(name:"backdrop_path") String backdropPath;
-	@JsonKey(name:"belongs_to_collection") Object belongsToCollection;
-	@JsonKey(name:"imdb_id") String imdbId;
-	@JsonKey(name:"original_language") String originalLanguage;
-	@JsonKey(name:"original_title") String originalTitle;
-	@JsonKey(name:"poster_path") String posterPath;
-	@JsonKey(name:"production_companies") List<ProductionCompany>productionCompanies = null;
-	@JsonKey(name:"production_countries") List<ProductionCountry>productionCountries = null;
-	@JsonKey(name:"release_date") String releaseDate;
-	@JsonKey(name:"spoken_languages") List<SpokenLanguage> spokenLanguages = null;
-	@JsonKey(name:"tag_line") String tagline;
-	@JsonKey(name:"vote_average") double voteAverage;
-	@JsonKey(name:"vote_count") int voteCount;
+	@JsonKey(name: "backdrop_path") String backdropPath;
+	@JsonKey(name: "belongs_to_collection") Object belongsToCollection;
+	@JsonKey(name: "imdb_id") String imdbId;
+	@JsonKey(name: "original_language") String originalLanguage;
+	@JsonKey(name: "original_title") String originalTitle;
+	@JsonKey(name: "poster_path") String posterPath;
+	@JsonKey(name: "production_companies") List<
+			ProductionCompany>productionCompanies = null;
+	@JsonKey(name: "production_countries") List<
+			ProductionCountry>productionCountries = null;
+	@JsonKey(name: "release_date") String releaseDate;
+	@JsonKey(name: "spoken_languages") List<
+			SpokenLanguage> spokenLanguages = null;
+	@JsonKey(name: "tag_line") String tagline;
+	@JsonKey(name: "vote_average") double voteAverage;
+	@JsonKey(name: "vote_count") int voteCount;
 	@JsonKey(name: "overview") String overview;
 	@JsonKey(name: "adult") bool adult;
 	@JsonKey(name: "budget") int budget;
 	@JsonKey(name: "genres") List<Genre> genres = null;
 	@JsonKey(name: "homepage") String homepage;
 	@JsonKey(name: "id") int id;
-  @JsonKey(name: "popularity") double popularity;
-  @JsonKey(name: "revenue") int revenue;
-  @JsonKey(name: "runtime") int runtime;
-  @JsonKey(name: "status") String status;
-  @JsonKey(name: "title") String title;
-  @JsonKey(name: "video") bool video;
+	@JsonKey(name: "popularity") double popularity;
+	@JsonKey(name: "revenue") int revenue;
+	@JsonKey(name: "runtime") int runtime;
+	@JsonKey(name: "status") String status;
+	@JsonKey(name: "title") String title;
+	@JsonKey(name: "video") bool video;
 	@JsonKey(name: "credits") Credits credits;
 	OMDBMovie omdbMovie = null;
 	List<TMDBReview> movieReviews = [];
@@ -42,25 +45,28 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	bool isLoaded;
 
 	String get getOverview => movieBasic.overview;
+
 	String get getTitle => movieBasic.title;
+
 	int get getId => movieBasic.id;
 
 	String getRatingFor(RATING_SOURCE ratingSource) {
 		switch (ratingSource) {
 			case RATING_SOURCE.IMDB:
-				return omdbMovie?.imdbRating ?? "-";
+				return omdbMovie?.imdbRating ?? "N/A";
 			case RATING_SOURCE.METACRITIC:
-				return omdbMovie?.metascore ?? "-";
+				return omdbMovie?.metascore ?? "N/A";
 			case RATING_SOURCE.ROTTEN_TOMATOES:
-				return omdbMovie?.ratings?.firstWhere((OMDBRating rating) => rating
-						.source == "Rotten Tomatoes")?.value ?? "-";
+				return omdbMovie.ratings.isNotEmpty ? omdbMovie.ratings.firstWhere(
+						(OMDBRating rating) => rating.source == "Rotten Tomatoes").value
+						: "N/A";
 			default:
 				return "";
 		}
 	}
 
 	String getFormattedRunningTime() {
-  	if (runtime != null) {
+		if (runtime != null) {
 			String hours = (runtime / 60).floor().toString();
 			String hourLabel = hours == 1 ? "hr" : "hrs";
 			String minutes = (runtime % 60).toString();
@@ -71,94 +77,89 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 	}
 
 	String getFormattedReleaseDate() {
-  	String year = releaseDate?.split('-')[0];
-  	return year != null ? "$year" : "";
+		String year = releaseDate?.split('-')[0];
+		return year != null ? "$year" : "";
 	}
 
-  factory TMDBMovieDetails.fromJson(Map<String, dynamic> json) =>
-      _$TMDBMovieDetailsFromJson(json);
+	factory TMDBMovieDetails.fromJson(Map<String, dynamic> json) =>
+			_$TMDBMovieDetailsFromJson(json);
 
-  TMDBMovieDetails([
-      this.adult,
-      this.backdropPath,
-      this.belongsToCollection,
-      this.budget,
-      this.genres,
-      this.homepage,
-      this.id,
-      this.imdbId,
-      this.originalLanguage,
-      this.originalTitle,
-      this.overview,
-      this.popularity,
-      this.posterPath,
-      this.productionCompanies,
-      this.productionCountries,
-      this.releaseDate,
-      this.revenue,
-      this.runtime,
-      this.spokenLanguages,
-      this.status,
-      this.tagline,
-      this.title,
-      this.video,
-      this.voteAverage,
-      this.voteCount,
-			this.status_message]);
+	TMDBMovieDetails([
+		this.adult,
+		this.backdropPath,
+		this.belongsToCollection,
+		this.budget,
+		this.genres,
+		this.homepage,
+		this.id,
+		this.imdbId,
+		this.originalLanguage,
+		this.originalTitle,
+		this.overview,
+		this.popularity,
+		this.posterPath,
+		this.productionCompanies,
+		this.productionCountries,
+		this.releaseDate,
+		this.revenue,
+		this.runtime,
+		this.spokenLanguages,
+		this.status,
+		this.tagline,
+		this.title,
+		this.video,
+		this.voteAverage,
+		this.voteCount,
+		this.status_message]);
 
 	hasErrors() {
 		return status_message != null;
 	}
-
-  // TODO: implement omdbRatings
-  @override
-  List<OMDBRating> get omdbRatings => null;
-
 }
 
 @JsonSerializable()
 class ProductionCompany extends Object with _$ProductionCompanySerializerMixin {
-  int id;
-  Object logoPath;
-  String name;
-  String originCountry;
+	int id;
+	Object logoPath;
+	String name;
+	String originCountry;
 
-  ProductionCompany(this.id, this.logoPath, this.name, this.originCountry);
+	ProductionCompany(this.id, this.logoPath, this.name, this.originCountry);
 
-  factory ProductionCompany.fromJson(Map<String, dynamic> json) =>
-      _$ProductionCompanyFromJson(json);
+	factory ProductionCompany.fromJson(Map<String, dynamic> json) =>
+			_$ProductionCompanyFromJson(json);
 }
 
 @JsonSerializable()
 class ProductionCountry extends Object with _$ProductionCountrySerializerMixin {
-  String iso31661;
-  String name;
+	String iso31661;
+	String name;
 
-  ProductionCountry(this.iso31661, this.name);
+	ProductionCountry(this.iso31661, this.name);
 
-  factory ProductionCountry.fromJson(Map<String, dynamic> json) =>
-      _$ProductionCountryFromJson(json);
+	factory ProductionCountry.fromJson(Map<String, dynamic> json) =>
+			_$ProductionCountryFromJson(json);
 }
 
 @JsonSerializable()
 class SpokenLanguage extends Object with _$SpokenLanguageSerializerMixin {
-  String iso6391;
-  String name;
+	String iso6391;
+	String name;
 
-  SpokenLanguage(this.iso6391, this.name);
+	SpokenLanguage(this.iso6391, this.name);
 
-  factory SpokenLanguage.fromJson(Map<String, dynamic> json) =>
-      _$SpokenLanguageFromJson(json);
+	factory SpokenLanguage.fromJson(Map<String, dynamic> json) =>
+			_$SpokenLanguageFromJson(json);
 }
 
 @JsonSerializable()
 class Genre extends Object with _$GenreSerializerMixin {
-  int id;
-  String name;
+	int id;
+	String name;
 
-  Genre(this.id, this.name);
+	Genre(this.id, this.name);
 
-  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+	factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
 }
 
 /*
@@ -182,8 +183,9 @@ class Credits extends Object with _$CreditsSerializerMixin {
 
 	Credits(this.cast);
 
-	factory Credits.fromJson(Map<String, dynamic> json) => _$CreditsFromJson
-		(json);
+	factory Credits.fromJson(Map<String, dynamic> json) =>
+			_$CreditsFromJson
+				(json);
 }
 
 @JsonSerializable()
