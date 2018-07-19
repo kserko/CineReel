@@ -40,15 +40,14 @@ class MovieDetailsContent extends StatelessWidget {
     );
   }
 
-  Widget  buildMovieDetailsContainer() {
-  	if (hasError) {
-  		return MoviesErrorWidget(visible: true, error: "error");
+  Widget buildMovieDetailsContainer() {
+  	return AnimateChildren(
+				childOne:MovieDetailsContainer(
+						movieDetails: movieDetails,
+						movieDetailsBloc: movieDetailsBloc),
+			childTwo:MoviesErrorWidget(visible: true, error: "couldn't get movie "
+		"details"), showHappyPath: !hasError);
 		}
-
-    return MovieDetailsContainer(
-									movieDetails: movieDetails,
-									movieDetailsBloc: movieDetailsBloc);
-  }
 
   Widget buildRunningTimeAndReleaseDate() {
     return AnimatedCrossFade(
@@ -61,7 +60,7 @@ class MovieDetailsContent extends StatelessWidget {
       ),
 			secondChild: Container(),
 			duration: Duration(milliseconds: 200),
-			crossFadeState: movieDetails.isLoaded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+			crossFadeState: movieDetails.hasData ? CrossFadeState.showFirst : CrossFadeState.showSecond,
     );
   }
 

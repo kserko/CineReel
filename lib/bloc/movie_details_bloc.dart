@@ -31,7 +31,7 @@ class MovieDetailsBloc {
 		//create an initial state with the basic movie object and an empty movie
 		// details object
 		return movieDetailsLoaded.update(movieDetails: TMDBMovieDetails(),
-			movieBasic: movie, hasDetailsLoaded: false, hasError: false);
+			movieBasic: movie, hasSucceeded: false, hasFailed: false);
 	}
 
 	Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
@@ -39,16 +39,16 @@ class MovieDetailsBloc {
 		yield movieDetailsLoaded;
 
 		try {
-		  TMDBMovieDetails tmdbMovieDetails = await tmdbMovieDetailsCall(1);
+		  TMDBMovieDetails tmdbMovieDetails = await tmdbMovieDetailsCall(movieId);
 		  OMDBMovie omdbMovie = await omdbMovieByTitleAndYearCall(year);
 		  if (tmdbMovieDetails.hasErrors()) {
 		  	yield movieDetailsLoaded.update(
-						hasError: true,
-						hasDetailsLoaded: false);
+						hasFailed: true,
+						hasSucceeded: false);
 			} else {
 				yield movieDetailsLoaded.update(
-						hasDetailsLoaded: true,
-						hasError: false,
+						hasSucceeded: true,
+						hasFailed: false,
 						movieBasic: movie,
 						movieDetails: tmdbMovieDetails,
 						omdbMovie: omdbMovie);

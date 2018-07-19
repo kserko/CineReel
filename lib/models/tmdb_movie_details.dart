@@ -66,7 +66,7 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
   OMDBMovie omdbMovie = null;
   List<TMDBReview> movieReviews = [];
   TMDBMovieBasic movieBasic = null;
-  bool isLoaded;
+  bool hasData;
 
   String get getOverview => movieBasic.overview;
 

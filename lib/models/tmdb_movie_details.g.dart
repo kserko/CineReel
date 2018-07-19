@@ -64,7 +64,7 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
         ? null
         : new TMDBMovieBasic.fromJson(
             json['movieBasic'] as Map<String, dynamic>)
-    ..isLoaded = json['isLoaded'] as bool;
+    ..hasData = json['hasData'] as bool;
 }
 
 abstract class _$TMDBMovieDetailsSerializerMixin {
@@ -98,7 +98,7 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
   OMDBMovie get omdbMovie;
   List<TMDBReview> get movieReviews;
   TMDBMovieBasic get movieBasic;
-  bool get isLoaded;
+  bool get hasData;
   Map<String, dynamic> toJson() => <String, dynamic>{
         'status_message': status_message,
         'backdrop_path': backdropPath,
@@ -130,7 +130,7 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
         'omdbMovie': omdbMovie,
         'movieReviews': movieReviews,
         'movieBasic': movieBasic,
-        'isLoaded': isLoaded
+        'hasData': hasData
       };
 }
 

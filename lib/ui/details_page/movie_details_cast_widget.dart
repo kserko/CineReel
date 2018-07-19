@@ -48,7 +48,7 @@ class CastWidget extends StatelessWidget {
   }
 
   Padding _avatar(int index) {
-  	Cast actor = movieDetails.isLoaded ? movieDetails.credits.cast[index] :
+  	Cast actor = movieDetails.hasData ? movieDetails.credits.cast[index] :
 		null;
     return Padding(
       padding: const EdgeInsets.only(left: 5.0, right: 5.0),

@@ -10,26 +10,27 @@ class MovieDetailsContainer extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
 
-	MovieDetailsContainer({this.movieDetails, this.movieDetailsBloc});
+  MovieDetailsContainer({this.movieDetails, this.movieDetailsBloc});
 
   @override
   Widget build(BuildContext context) {
-		return AnimatedCrossFade(
-			duration: Duration(milliseconds: 200),
-			crossFadeState: movieDetails.isLoaded ? CrossFadeState.showSecond :
-			CrossFadeState.showFirst,
-			firstChild: Padding(
-				padding: const EdgeInsets.all(8.0),
-				child: MoviesLoadingWidget(visible: true),
-			),
-			secondChild: Column(
-				children: <Widget>[
-					RatingsWidget(
-							movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-					buildHorizontalDivider(),
-					CastWidget(movieDetails: movieDetails),
-				],
-			),
-		);
-	}
+    return AnimatedCrossFade(
+      duration: Duration(milliseconds: 200),
+      crossFadeState: movieDetails.hasData
+          ? CrossFadeState.showFirst
+          : CrossFadeState.showSecond,
+      firstChild: Column(
+        children: <Widget>[
+          RatingsWidget(
+              movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
+          buildHorizontalDivider(),
+          CastWidget(movieDetails: movieDetails),
+        ],
+      ),
+      secondChild: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: MoviesLoadingWidget(visible: true),
+      ),
+    );
+  }
 }
