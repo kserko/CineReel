@@ -42,13 +42,14 @@ class MovieDetailsBloc {
 		  TMDBMovieDetails tmdbMovieDetails = await tmdbMovieDetailsCall(1);
 		  OMDBMovie omdbMovie = await omdbMovieByTitleAndYearCall(year);
 		  if (tmdbMovieDetails.hasErrors()) {
-		  	print("error: ${tmdbMovieDetails.status_message}");
-				yield movieDetailsLoaded.update(
+		  	yield movieDetailsLoaded.update(
 						hasError: true,
 						hasDetailsLoaded: false);
 			} else {
 				yield movieDetailsLoaded.update(
 						hasDetailsLoaded: true,
+						hasError: false,
+						movieBasic: movie,
 						movieDetails: tmdbMovieDetails,
 						omdbMovie: omdbMovie);
 			}
