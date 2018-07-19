@@ -28,6 +28,8 @@ class MovieDetailsBloc {
 	Stream<MovieDetailsState> get stream => _streamController.stream;
 
 	MovieDetailsState initialData() {
+		//create an initial state with the basic movie object and an empty movie
+		// details object
 		return movieDetailsLoaded.update(movieDetails: TMDBMovieDetails(),
 			movieBasic: movie, hasDetailsLoaded: false);
 	}
