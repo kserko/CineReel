@@ -46,8 +46,7 @@ class MovieDetailsContent extends StatelessWidget {
             movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
         childTwo: MoviesErrorWidget(
             visible: true,
-            error: "couldn't get movie "
-                "details"),
+            error: movieDetails.status_message),
         showHappyPath: !hasError);
   }
 
