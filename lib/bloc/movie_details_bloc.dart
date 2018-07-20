@@ -32,11 +32,9 @@ class MovieDetailsBloc {
 	details object
 	*/
 	MovieDetailsState initialData() {
-    return movieDetailsState.update(
+    return movieDetailsState.initialState(
         movieDetails: TMDBMovieDetails(),
-        movieBasic: movie,
-        hasSucceeded: false,
-        hasFailed: false);
+        movieBasic: movie);
   }
 
   Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
@@ -46,30 +44,18 @@ class MovieDetailsBloc {
     try {
       TMDBMovieDetails tmdbMovieDetails = await tmdbMovieDetailsCall(movieId);
       OMDBMovie omdbMovie = await omdbMovieByTitleAndYearCall(year);
-      yield getMovieDetailsState(tmdbMovieDetails, omdbMovie);
-    } on Exception catch (e) {
-      print("error $e");
-    }
-  }
 
-  MovieDetailsState getMovieDetailsState(TMDBMovieDetails tmdbMovieDetails, OMDBMovie
-	omdbMovie) {
-    if (tmdbMovieDetails.hasErrors()) {
-    	//pass the status message to the initial version of the movieDetails
-    				// object and don't pass the new one because everything is empty
-    				// (including the movieBasic) which we need
-    	movieDetailsState.movieDetails.status_message = tmdbMovieDetails.status_message;
-      return movieDetailsState.update(
-          hasFailed: true,
-          hasSucceeded: false);
-    } else {
-      return movieDetailsState.update(
-          hasSucceeded: true,
-          hasFailed: false,
-          movieBasic: movie,
-          movieDetails: tmdbMovieDetails,
-          omdbMovie: omdbMovie);
-    }
+			if (tmdbMovieDetails.hasErrors()) {
+				yield movieDetailsState.withFailure(status_message: tmdbMovieDetails.status_message);
+			} else {
+				yield movieDetailsState.withSuccess(
+						movieBasic: movie,
+						movieDetails: tmdbMovieDetails,
+						omdbMovie: omdbMovie);
+			}
+		} on Exception catch (e) {
+			yield movieDetailsState.withFailure(status_message: e.toString());
+		}
   }
 
   Future<OMDBMovie> omdbMovieByTitleAndYearCall(String year) {

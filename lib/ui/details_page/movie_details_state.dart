@@ -17,16 +17,27 @@ class MovieDetailsState {
 
 	MovieDetailsState({this.movieDetails});
 
-	update({TMDBMovieDetails movieDetails,
-		TMDBMovieBasic movieBasic,
-		OMDBMovie omdbMovie,
-		bool hasSucceeded,
-		bool hasFailed}) {
+	initialState({TMDBMovieDetails movieDetails, TMDBMovieBasic movieBasic}) {
 		return this
-			..hasFailed = hasFailed
+			..movieDetails = movieDetails
+			..hasFailed = false
+			..movieDetails.hasData = false
+			..movieDetails.movieBasic = movieBasic;
+	}
+
+	withSuccess({TMDBMovieDetails movieDetails, TMDBMovieBasic movieBasic, OMDBMovie omdbMovie}) {
+		return this
 			..movieDetails = movieDetails ?? this.movieDetails
-			..movieDetails.hasData = hasSucceeded
+			..hasFailed = false
+			..movieDetails.hasData = true
 			..movieDetails.movieBasic = movieBasic ?? this.movieDetails.movieBasic
 			..movieDetails.omdbMovie = omdbMovie;
+	}
+
+	withFailure({String status_message}) {
+		return this
+				..hasFailed = true
+				..movieDetails.hasData = false
+				..movieDetails.status_message = status_message;
 	}
 }
