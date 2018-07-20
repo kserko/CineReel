@@ -27,6 +27,9 @@ class MovieDetailsBloc {
   //the stream of movie details. use this to show the details
   Stream<MovieDetailsState> get stream => _streamController.stream;
 
+  void _dispose() {
+  	_streamController.close();
+	}
 	/*
   create an initial state with the basic movie object and an empty movie
 	details object

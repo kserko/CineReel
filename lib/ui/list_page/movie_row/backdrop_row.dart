@@ -11,7 +11,7 @@ class MovieRow extends StatelessWidget {
 
   MovieRow(this.movie, this.index);
 
-	var defaultStyle = TextStyle(
+	final defaultStyle = TextStyle(
 			fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold);
 
 	@override

@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
-import 'package:flutter_bloc_movies/api/omdb_api.dart';
-import 'package:flutter_bloc_movies/api/tmdb_api.dart';
-import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
-import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
+import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
-import 'package:flutter_bloc_movies/navigation/SlideRoute.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/rating_widget.dart';
-import 'package:flutter_bloc_movies/ui/details_page/movie_details_stream_builder.dart';
 import 'package:flutter_bloc_movies/ui/list_page/movie_row/movie_image_for_poster_row.dart';
 
 class PosterRow extends StatelessWidget {
   final TMDBMovieBasic movie;
   final int index;
+  final MovieBloc movieBloc;
 
-  PosterRow(this.movie, this.index);
+  PosterRow(this.movie, this.index, this.movieBloc);
 
   final defaultStyle = TextStyle(
       fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
@@ -23,15 +19,7 @@ class PosterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              RouteTransition(
-                  widget: MovieDetailsProvider(
-                      movieDetailsBloc: MovieDetailsBloc(
-													tmdb: TMDBApi(),
-													omdb: OMDBApi(),
-													movie: movie),
-                      child: MovieDetailsStreamBuilder(movie))));
+        	movieBloc.pushDetailsScreen(context, movie);
         },
         child: buildMovieRow(movie, context));
   }
@@ -58,7 +46,7 @@ class PosterRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 MovieImageForRow(
-									movieId: movie.id,
+                    movieId: movie.id,
                     imagePath: movie.posterPath,
                     imageType: IMAGE_TYPE.POSTER,
                     size: POSTER_SIZES['small']),

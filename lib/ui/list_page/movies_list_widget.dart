@@ -62,9 +62,9 @@ class MyListState extends State<MovieListWidget> {
                   child: Text(movie.overview,
                       style: TextStyle(fontSize: 13.0),
                       textAlign: TextAlign.justify))
-            ], title: PosterRow(movie, index));
+            ], title: PosterRow(movie, index, this.widget.movieBloc));
           } else {
-          	return PosterRow(movie, index);
+          	return PosterRow(movie, index, this.widget.movieBloc);
 					}
         },
       ),
