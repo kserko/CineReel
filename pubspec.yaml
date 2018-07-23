@@ -17,8 +17,8 @@ dev_dependencies:
   build_runner: ^0.8.9
   json_serializable: ^0.5.4
   transparent_image: ^0.1.0
-#  flutter_test:
-#    sdk: flutter
+  flutter_test:
+    sdk: flutter
 
 
 # For information on the generic Dart part of this file, see the

@@ -21,17 +21,12 @@ class MyCustomRoute<T> extends MaterialPageRoute<T> {
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-	var title = 'A Flutter TMDB explorer in BLoCs';
+	final title = 'A Flutter TMDB explorer in BLoCs';
 
 	// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-//			initialRoute: '/',
-//      routes: {
-//				'/': (_) => HomePage(title: title),
-//				'/details': (_) => MovieDetails(_),
-//			},
       title: title,
       theme: new ThemeData(
 				dividerColor: Colors.white,
