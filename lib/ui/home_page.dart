@@ -67,6 +67,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+//  	return Scaffold();
     return new Scaffold(
       appBar: getAppBar(tabController: _tabController, title: title, myTabs:
 			myTabs, context: context),
