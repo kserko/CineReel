@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/api/tmdb_api.dart';
+import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
@@ -27,13 +28,20 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   ];
 
   TabController _tabController;
+  TabBarView tabBarView;
   int activeTab = 0;
+  final String title;
 
-  var title;
+  MovieProvider nowPlayingProvider = MovieProvider(
+      child: MovieListStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi()));
+
+  MovieProvider topRatedProvider = MovieProvider(
+      child: MovieListStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi()));
+
+  MovieProvider popularProvider = MovieProvider(
+      child: MovieListStreamBuilder(), movieBloc: PopularBloc(TMDBApi()));
 
   _MyTabbedPageState(this.title);
-
-  var tabBarView;
 
   @override
   void initState() {
@@ -41,14 +49,10 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     _tabController = new TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_handleTabSelection);
     tabBarView = TabBarView(controller: _tabController, children: [
-      MovieProvider(
-          child: MovieListStreamBuilder(),
-          movieBloc: NowPlayingBloc(TMDBApi())),
-      MovieProvider(
-          child: MovieListStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi())),
-      MovieProvider(
-          child: MovieListStreamBuilder(), movieBloc: PopularBloc(TMDBApi()))
-    ]);
+    	nowPlayingProvider,
+			popularProvider,
+			topRatedProvider,
+		]);
   }
 
   void _handleTabSelection() {
@@ -62,15 +66,21 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   @override
   void dispose() {
     _tabController.dispose();
+    nowPlayingProvider.movieBloc.dispose();
+    topRatedProvider.movieBloc.dispose();
+    popularProvider.movieBloc.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: getAppBar(tabController: _tabController, title: title, myTabs:
-			myTabs, context: context),
-			body: tabBarView,
+      appBar: getAppBar(
+          tabController: _tabController,
+          title: title,
+          myTabs: myTabs,
+          context: context),
+      body: tabBarView,
     );
   }
 }

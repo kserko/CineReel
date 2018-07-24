@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_movies/api/tmdb_api.dart';
-import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
 import 'package:flutter_bloc_movies/ui/home_page.dart';
-import 'package:flutter_bloc_movies/ui/list_page/movie_list_stream_builder.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
