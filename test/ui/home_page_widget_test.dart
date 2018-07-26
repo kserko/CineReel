@@ -16,7 +16,7 @@ void main() {
 
 	testWidgets('should build home scaffolld with appbar and tabBarView',
 					(WidgetTester tester) async {
-		await tester.pumpWidget(MaterialApp(home: HomePage(title: "test")));
+		await pumpHomePage(tester);
 
 		expect(scaffoldFinder, findsOneWidget);
 		expect(appBarFinder, findsOneWidget);
@@ -25,7 +25,7 @@ void main() {
 
 	testWidgets('should have three MovieProvider tabs', (WidgetTester tester)
 	async {
-		await tester.pumpWidget(MaterialApp(home: HomePage(title: "test")));
+		await pumpHomePage(tester);
 		TabBarView tabBarView = tester.widget(tabBarFinder);
 
 		expect(tabBarView.children[0] is MovieProvider, true);
@@ -35,4 +35,8 @@ void main() {
 		expect(tabBarView.children.length, 3);
 	});
 
+}
+
+Future pumpHomePage(WidgetTester tester) async {
+  await tester.pumpWidget(MaterialApp(home: HomePage(title: "test")));
 }

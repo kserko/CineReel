@@ -17,7 +17,9 @@ class MovieListStreamBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     movieBloc = MovieProvider.of(context);
 
-    return Column(children: [
+    return Column(
+			key: Key("rootColumn"),
+				children: [
       Flexible(
           child:
               buildStreamBuilder(TabKey.kNowPlaying, TabKey.kNowPlaying.index))
@@ -26,6 +28,7 @@ class MovieListStreamBuilder extends StatelessWidget {
 
   StreamBuilder<MoviesState> buildStreamBuilder(TabKey tabKey, int tabIndex) {
     return StreamBuilder(
+			key: Key('streamBuilder'),
         stream: movieBloc.stream,
         builder: (context, snapshot) {
           final data = snapshot.data;
@@ -33,6 +36,7 @@ class MovieListStreamBuilder extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Stack(
+									key: Key('content'),
                   children: <Widget>[
                     // Fade in an Empty Result screen if the search contained
                     // no items
