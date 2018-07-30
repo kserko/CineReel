@@ -6,8 +6,8 @@ import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/empty_result_widget.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/movies_loading_widget.dart';
-import 'package:flutter_bloc_movies/ui/list_page/movie_list_stream_builder.dart';
-import 'package:flutter_bloc_movies/ui/list_page/movies_list_widget.dart';
+import 'package:flutter_bloc_movies/ui/list_screen/movies_list_screen.dart';
+import 'package:flutter_bloc_movies/ui/list_screen/movies_list_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -68,6 +68,6 @@ descendantWidget) {
 
 Future pumpMainWidget(WidgetTester tester) async {
   await tester.pumpWidget(MovieProvider(
-  		child: MaterialApp(home: MovieListStreamBuilder()), movieBloc:
+  		child: MaterialApp(home: MoviesListScreen()), movieBloc:
   NowPlayingBloc(TMDBApi())));
 }

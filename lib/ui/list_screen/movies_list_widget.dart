@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
-import 'package:flutter_bloc_movies/ui/list_page/movie_row/poster_row.dart';
+import 'package:flutter_bloc_movies/ui/list_screen/movie_row/poster_row.dart';
 import 'package:flutter_bloc_movies/ui/scroll_controller/list_controller.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
@@ -62,9 +62,9 @@ class MyListState extends State<MovieListWidget> {
                   child: Text(movie.overview,
                       style: TextStyle(fontSize: 13.0),
                       textAlign: TextAlign.justify))
-            ], title: PosterRow(movie, index, this.widget.movieBloc));
+            ], title: PosterRow(movie));
           } else {
-          	return PosterRow(movie, index, this.widget.movieBloc);
+          	return PosterRow(movie);
 					}
         },
       ),

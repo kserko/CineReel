@@ -3,22 +3,19 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
 import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
-import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
-import 'package:flutter_bloc_movies/ui/details_page/movie_details_widget.dart';
+import 'package:flutter_bloc_movies/ui/details_screen/movie_details_widget.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
 
-// ignore: must_be_immutable
-class MovieDetailsStreamBuilder extends StatelessWidget {
+class MovieDetailsScreen extends StatelessWidget {
   final TMDBMovieBasic movie;
-  MovieDetailsBloc movieDetailsBloc;
 
-  MovieDetailsStreamBuilder(TMDBMovieBasic this.movie);
+  MovieDetailsScreen(TMDBMovieBasic this.movie);
 
   @override
   Widget build(BuildContext context) {
-		movieDetailsBloc = MovieDetailsProvider.of(context);
+		final movieDetailsBloc = MovieDetailsProvider.of(context);
 		return StreamBuilder(
 				stream: movieDetailsBloc.stream,
 				initialData: movieDetailsBloc.initialData(),

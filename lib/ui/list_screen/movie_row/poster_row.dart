@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_movies/Constants.dart';
-import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
+import 'package:flutter_bloc_movies/navigation/router.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/rating_widget.dart';
-import 'package:flutter_bloc_movies/ui/list_page/movie_row/movie_image_for_poster_row.dart';
+import 'package:flutter_bloc_movies/ui/list_screen/movie_row/movie_image_for_poster_row.dart';
 
 class PosterRow extends StatelessWidget {
   final TMDBMovieBasic movie;
-  final int index;
-  final MovieBloc movieBloc;
 
-  PosterRow(this.movie, this.index, this.movieBloc);
+  PosterRow(this.movie);
 
   final defaultStyle = TextStyle(
       fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
@@ -19,7 +17,7 @@ class PosterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-        	movieBloc.pushDetailsScreen(context, movie);
+        	Router.pushDetailsScreen(context, movie);
         },
         child: buildMovieRow(movie, context));
   }

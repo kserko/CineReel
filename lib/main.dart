@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_movies/ui/home_page.dart';
+import 'package:flutter_bloc_movies/ui/home_screen.dart';
 
 class MyCustomRoute<T> extends MaterialPageRoute<T> {
 	MyCustomRoute({ WidgetBuilder builder, RouteSettings settings })
@@ -21,7 +21,7 @@ class MyCustomRoute<T> extends MaterialPageRoute<T> {
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-	final title = 'A Flutter TMDB explorer in BLoCs';
+	final title = 'CineFlutter';
 
 	// This widget is the root of your application.
   @override

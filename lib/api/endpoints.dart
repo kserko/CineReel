@@ -43,4 +43,8 @@ class Endpoints {
   static String omdbMovieByTitleAndYearUrl(String title, String year) {
     return "$BASE_OMDB_URL/?t=$title&y=$year&apikey=$OMDB_API_KEY";
   }
+
+  static String movieSearchUrl(String title) {
+  	return "$BASE_TMDB_URL/search/movie?query=$title&api_key=$TMDB_API_KEY";
+	}
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/api/tmdb_api.dart';
-import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/popular_bloc.dart';
 import 'package:flutter_bloc_movies/bloc/to_rated_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/common_widgets.dart';
-import 'package:flutter_bloc_movies/ui/list_page/movie_list_stream_builder.dart';
+import 'package:flutter_bloc_movies/ui/list_screen/movies_list_screen.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,13 +32,13 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   final String title;
 
   MovieProvider nowPlayingProvider = MovieProvider(
-      child: MovieListStreamBuilder(), movieBloc: NowPlayingBloc(TMDBApi()));
+      child: MoviesListScreen(), movieBloc: NowPlayingBloc(TMDBApi()));
 
   MovieProvider topRatedProvider = MovieProvider(
-      child: MovieListStreamBuilder(), movieBloc: TopRatedBloc(TMDBApi()));
+      child: MoviesListScreen(), movieBloc: TopRatedBloc(TMDBApi()));
 
   MovieProvider popularProvider = MovieProvider(
-      child: MovieListStreamBuilder(), movieBloc: PopularBloc(TMDBApi()));
+      child: MoviesListScreen(), movieBloc: PopularBloc(TMDBApi()));
 
   _MyTabbedPageState(this.title);
 
