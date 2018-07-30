@@ -25,6 +25,7 @@ class SearchScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 4.0),
                     child: TextField(
+											autofocus: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'search TMDB...',
