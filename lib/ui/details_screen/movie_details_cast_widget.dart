@@ -27,26 +27,6 @@ class CastWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildAvatars() {
-    return Container(
-      child: SizedBox.fromSize(
-        size: const Size.fromHeight(120.0),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount:
-              movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
-					itemBuilder: (BuildContext context, int index) {
-            return _avatar(index);
-          },
-        ),
-      ),
-    );
-
-//    return Container(
-//				color: Colors.grey,
-//        child: SizedBox.fromSize(size: const Size.fromHeight(120.0)));
-  }
-
   Padding _avatar(int index) {
   	Cast actor = movieDetails.hasData ? movieDetails.credits.cast[index] :
 		null;
