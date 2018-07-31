@@ -54,7 +54,7 @@ class InfoView extends StatelessWidget {
 								"on gitlab \n"),
             TextSpan(
 						style: defaultStyle.copyWith(color: Colors.blue, fontSize: 14.0),
-                text: "https://gitlab.com/serk01/flutter-movies-bloc",
+                text: "https://gitlab.com/serk01/cine_reel",
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     _launchURL("https://gitlab.com/serk01/flutter-movies-bloc");
