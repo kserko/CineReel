@@ -31,14 +31,14 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   int activeTab = 0;
   final String title;
 
-  MovieProvider nowPlayingProvider = MovieProvider(
-      child: MoviesListScreen(), movieBloc: NowPlayingBloc(TMDBApi()));
+  MovieProvider nowPlayingTab = MovieProvider(
+      child: MoviesListScreen(tabKey: TabKey.kNowPlaying), movieBloc: NowPlayingBloc(TMDBApi()));
 
-  MovieProvider topRatedProvider = MovieProvider(
-      child: MoviesListScreen(), movieBloc: TopRatedBloc(TMDBApi()));
+  MovieProvider topRatedTab = MovieProvider(
+      child: MoviesListScreen(tabKey: TabKey.kTopRated), movieBloc: TopRatedBloc(TMDBApi()));
 
-  MovieProvider popularProvider = MovieProvider(
-      child: MoviesListScreen(), movieBloc: PopularBloc(TMDBApi()));
+  MovieProvider popularTab = MovieProvider(
+      child: MoviesListScreen(tabKey: TabKey.kPopular), movieBloc: PopularBloc(TMDBApi()));
 
   _MyTabbedPageState(this.title);
 
@@ -48,9 +48,9 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     _tabController = new TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_handleTabSelection);
     tabBarView = TabBarView(controller: _tabController, children: [
-    	nowPlayingProvider,
-			popularProvider,
-			topRatedProvider,
+    	nowPlayingTab,
+			popularTab,
+			topRatedTab,
 		]);
   }
 
@@ -65,9 +65,9 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   @override
   void dispose() {
     _tabController.dispose();
-    nowPlayingProvider.movieBloc.dispose();
-    topRatedProvider.movieBloc.dispose();
-    popularProvider.movieBloc.dispose();
+    nowPlayingTab.movieBloc.dispose();
+    topRatedTab.movieBloc.dispose();
+    popularTab.movieBloc.dispose();
     super.dispose();
   }
 

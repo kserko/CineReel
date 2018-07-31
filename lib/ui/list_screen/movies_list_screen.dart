@@ -9,8 +9,11 @@ import 'package:flutter_bloc_movies/ui/list_screen/movies_list_widget.dart';
 import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class MoviesListScreen extends StatelessWidget {
+  final TabKey tabKey;
 
-  @override
+	MoviesListScreen({@required TabKey this.tabKey});
+
+	@override
   Widget build(BuildContext context) {
 
     return Column(
@@ -18,7 +21,7 @@ class MoviesListScreen extends StatelessWidget {
 				children: [
       Flexible(
           child:
-              buildStreamBuilder(context, TabKey.kNowPlaying, TabKey.kNowPlaying.index))
+              buildStreamBuilder(context, tabKey, tabKey.index))
     ]);
   }
 

@@ -22,7 +22,7 @@ class Router {
 										tmdb: TMDBApi(),
 										omdb: OMDBApi(),
 										movie: movie),
-								child: MovieDetailsScreen(movie))));
+								child: MovieDetailsScreen())));
 	}
 
   static void pushSearchScreen(BuildContext context) {
