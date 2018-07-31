@@ -1,7 +1,7 @@
+import 'package:cine_reel/navigation/router.dart';
+import 'package:cine_reel/ui/info_view/info_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/navigation/router.dart';
-import 'package:flutter_bloc_movies/ui/info_view/info_view.dart';
 
 Widget getDotSeparator() {
   return Text("·", style: TextStyle(fontSize: 23.0));

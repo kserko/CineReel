@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter_bloc_movies/api/endpoints.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movies_collection_response.dart';
-import 'package:flutter_bloc_movies/models/tmdb_reviews_response.dart';
+import 'package:cine_reel/api/endpoints.dart';
+import 'package:cine_reel/models/tmdb_movie_details.dart';
+import 'package:cine_reel/models/tmdb_movies_collection_response.dart';
+import 'package:cine_reel/models/tmdb_reviews_response.dart';
 import 'package:http/http.dart' as http;
 
 class TMDBApi {

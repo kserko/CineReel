@@ -1,7 +1,7 @@
+import 'package:cine_reel/models/tmdb_movie_basic.dart';
+import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 
 class RatingWidget extends StatelessWidget {
 	final TMDBMovieBasic movie;

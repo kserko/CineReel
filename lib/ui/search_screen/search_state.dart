@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
+import 'package:cine_reel/models/tmdb_movie_basic.dart';
 
 class SearchState {}
 

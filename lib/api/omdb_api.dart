@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter_bloc_movies/api/endpoints.dart';
-import 'package:flutter_bloc_movies/models/omdb_movie.dart';
+import 'package:cine_reel/api/endpoints.dart';
+import 'package:cine_reel/models/omdb_movie.dart';
 import 'package:http/http.dart' as http;
 
 class OMDBApi {

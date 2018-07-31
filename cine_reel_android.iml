@@ -16,8 +16,8 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/android">
-      <sourceFolder url="file://$MODULE_DIR$/android/app/src/main/java" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/cine_reel">
+      <sourceFolder url="file://$MODULE_DIR$/cine_reel/app/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/android/gen" isTestSource="false" generated="true" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />

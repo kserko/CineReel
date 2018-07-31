@@ -1,6 +1,6 @@
-import 'package:flutter_bloc_movies/models/omdb_movie.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
-import 'package:flutter_bloc_movies/models/tmdb_reviews_response.dart';
+import 'package:cine_reel/models/omdb_movie.dart';
+import 'package:cine_reel/models/tmdb_movie_basic.dart';
+import 'package:cine_reel/models/tmdb_reviews_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part "tmdb_movie_details.g.dart";

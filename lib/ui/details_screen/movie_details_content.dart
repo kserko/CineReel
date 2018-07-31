@@ -1,10 +1,10 @@
+import 'package:cine_reel/Constants.dart';
+import 'package:cine_reel/bloc/movie_details_bloc.dart';
+import 'package:cine_reel/models/tmdb_movie_details.dart';
+import 'package:cine_reel/ui/details_screen/movie_details_poster_overlay.dart';
+import 'package:cine_reel/ui/details_screen/movie_full_screen_poster.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/Constants.dart';
-import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
-import 'package:flutter_bloc_movies/ui/details_screen/movie_details_poster_overlay.dart';
-import 'package:flutter_bloc_movies/ui/details_screen/movie_full_screen_poster.dart';
 
 class MovieDetailsContent extends StatelessWidget {
   final TMDBMovieDetails movieDetails;

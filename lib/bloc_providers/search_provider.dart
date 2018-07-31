@@ -1,5 +1,5 @@
+import 'package:cine_reel/bloc/search_bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/bloc/search_bloc.dart';
 
 class SearchProvider extends InheritedWidget {
 	final SearchBloc searchBloc;

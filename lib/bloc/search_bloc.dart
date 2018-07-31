@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_bloc_movies/api/tmdb_api.dart';
-import 'package:flutter_bloc_movies/ui/search_screen/search_state.dart';
+import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/ui/search_screen/search_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SearchBloc {

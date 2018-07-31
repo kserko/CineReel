@@ -4,9 +4,9 @@
 // find child widgets in the widget tree, read text, and verify that the values of widget properties
 // are correct.
 
+import 'package:cine_reel/main.dart';
+import 'package:cine_reel/ui/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_movies/main.dart';
-import 'package:flutter_bloc_movies/ui/home_screen/home_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -1,13 +1,13 @@
+import 'package:cine_reel/bloc/search_bloc.dart';
+import 'package:cine_reel/bloc_providers/search_provider.dart';
+import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
+import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
+import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
+import 'package:cine_reel/ui/search_screen/search_intro_widget.dart';
+import 'package:cine_reel/ui/search_screen/search_result_widget.dart';
+import 'package:cine_reel/ui/search_screen/search_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/bloc/search_bloc.dart';
-import 'package:flutter_bloc_movies/bloc_providers/search_provider.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/empty_result_widget.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_loading_widget.dart';
-import 'package:flutter_bloc_movies/ui/search_screen/search_intro_widget.dart';
-import 'package:flutter_bloc_movies/ui/search_screen/search_result_widget.dart';
-import 'package:flutter_bloc_movies/ui/search_screen/search_state.dart';
 
 class SearchScreen extends StatefulWidget {
   @override

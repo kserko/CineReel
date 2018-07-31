@@ -1,5 +1,5 @@
+import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 
 class MovieDetailsProvider extends InheritedWidget {
 	final MovieDetailsBloc movieDetailsBloc;

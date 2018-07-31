@@ -1,7 +1,7 @@
+import 'package:cine_reel/bloc/movie_details_bloc.dart';
+import 'package:cine_reel/bloc_providers/movie_details_provider.dart';
+import 'package:cine_reel/ui/details_screen/movie_details_content.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
-import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
-import 'package:flutter_bloc_movies/ui/details_screen/movie_details_content.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
 

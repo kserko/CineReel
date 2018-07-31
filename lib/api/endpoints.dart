@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_movies/Constants.dart';
+import 'package:cine_reel/Constants.dart';
 
 class Endpoints {
   static String discoverMoviesUrl(int page) {

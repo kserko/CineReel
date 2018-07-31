@@ -1,9 +1,9 @@
+import 'package:cine_reel/Constants.dart';
+import 'package:cine_reel/models/tmdb_movie_basic.dart';
+import 'package:cine_reel/navigation/router.dart';
+import 'package:cine_reel/ui/common_widgets/rating_widget.dart';
+import 'package:cine_reel/ui/list_screen/movie_row/movie_image_for_poster_row.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_movies/Constants.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
-import 'package:flutter_bloc_movies/navigation/router.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/rating_widget.dart';
-import 'package:flutter_bloc_movies/ui/list_screen/movie_row/movie_image_for_poster_row.dart';
 
 class PosterRow extends StatelessWidget {
   final TMDBMovieBasic movie;

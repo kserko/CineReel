@@ -1,7 +1,7 @@
+import 'package:cine_reel/Constants.dart';
+import 'package:cine_reel/utils/ImageHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/Constants.dart';
-import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MovieImageForRow extends StatelessWidget {

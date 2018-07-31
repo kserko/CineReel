@@ -1,13 +1,14 @@
+import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/now_playing_bloc.dart';
+import 'package:cine_reel/bloc_providers/movie_provider.dart';
+import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
+import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
+import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
+import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
+import 'package:cine_reel/ui/list_screen/movies_list_widget.dart';
+import 'package:cine_reel/utils/TabConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/api/tmdb_api.dart';
-import 'package:flutter_bloc_movies/bloc/now_playing_bloc.dart';
-import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/empty_result_widget.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_loading_widget.dart';
-import 'package:flutter_bloc_movies/ui/list_screen/movies_list_screen.dart';
-import 'package:flutter_bloc_movies/ui/list_screen/movies_list_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -68,6 +69,6 @@ descendantWidget) {
 
 Future pumpMainWidget(WidgetTester tester) async {
   await tester.pumpWidget(MovieProvider(
-  		child: MaterialApp(home: MoviesListScreen()), movieBloc:
+  		child: MaterialApp(home: MoviesListScreen(tabKey: TabKey.kNowPlaying)), movieBloc:
   NowPlayingBloc(TMDBApi())));
 }

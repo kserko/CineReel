@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter_bloc_movies/api/tmdb_api.dart';
-import 'package:flutter_bloc_movies/bloc/movie_bloc.dart';
-import 'package:flutter_bloc_movies/ui/list_screen/movie_state.dart';
+import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/movie_bloc.dart';
+import 'package:cine_reel/ui/list_screen/movie_state.dart';
 
 class PopularBloc extends MovieBloc {
 	PopularBloc(TMDBApi api) : super(api);

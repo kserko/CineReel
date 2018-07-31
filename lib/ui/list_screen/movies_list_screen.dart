@@ -1,12 +1,12 @@
+import 'package:cine_reel/bloc_providers/movie_provider.dart';
+import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
+import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
+import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
+import 'package:cine_reel/ui/list_screen/movie_state.dart';
+import 'package:cine_reel/ui/list_screen/movies_list_widget.dart';
+import 'package:cine_reel/utils/TabConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc_movies/bloc_providers/movie_provider.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/empty_result_widget.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_loading_widget.dart';
-import 'package:flutter_bloc_movies/ui/list_screen/movie_state.dart';
-import 'package:flutter_bloc_movies/ui/list_screen/movies_list_widget.dart';
-import 'package:flutter_bloc_movies/utils/TabConstants.dart';
 
 class MoviesListScreen extends StatelessWidget {
   final TabKey tabKey;

@@ -1,4 +1,4 @@
-# flutter_bloc_movies
+# cine_reel
 
 A new Flutter application.
 

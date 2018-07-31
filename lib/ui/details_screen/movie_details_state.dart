@@ -7,9 +7,9 @@
 //
 // The State Stream responds to input from the View by accepting a
 // Stream<String>. We call this Stream the onTextChanged "intent".
-import 'package:flutter_bloc_movies/models/omdb_movie.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_basic.dart';
-import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
+import 'package:cine_reel/models/omdb_movie.dart';
+import 'package:cine_reel/models/tmdb_movie_basic.dart';
+import 'package:cine_reel/models/tmdb_movie_details.dart';
 
 class MovieDetailsState {
   TMDBMovieDetails movieDetails;
