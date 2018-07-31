@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   rxdart: ^0.16.7
   flutter_svg: "^0.5.1"
+  url_launcher: ^3.0.3
 
 dev_dependencies:
   build_runner: ^0.8.9

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc_movies/bloc/search_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/search_provider.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/empty_result_widget.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
@@ -8,11 +9,28 @@ import 'package:flutter_bloc_movies/ui/search_screen/search_intro_widget.dart';
 import 'package:flutter_bloc_movies/ui/search_screen/search_result_widget.dart';
 import 'package:flutter_bloc_movies/ui/search_screen/search_state.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
+  @override
+  _SearchScreenState createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  SearchBloc searchBloc;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchBloc.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-  	final searchBloc = SearchProvider.of(context);
+    searchBloc = SearchProvider.of(context);
     return StreamBuilder(
         stream: searchBloc.state,
         initialData: SearchNoTerm(),
@@ -25,7 +43,7 @@ class SearchScreen extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 4.0),
                     child: TextField(
-											autofocus: true,
+                      autofocus: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'search TMDB...',

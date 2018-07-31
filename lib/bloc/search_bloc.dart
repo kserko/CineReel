@@ -30,6 +30,7 @@ class SearchBloc {
   SearchBloc._(this.onTextChanged, this.state);
 
   void dispose() {
+  	print('disposing searchBloc');
   	onTextChanged.close();
 	}
 

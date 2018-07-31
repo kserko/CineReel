@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/navigation/router.dart';
+import 'package:flutter_bloc_movies/ui/info_view/info_view.dart';
 
 Widget getDotSeparator() {
   return Text("·", style: TextStyle(fontSize: 23.0));
@@ -8,22 +9,34 @@ Widget getDotSeparator() {
 
 Widget getAppBar({title, context, tabController, myTabs}) {
   return AppBar(
-      actions: goToSearchPage(context),
+      actions: buildActions(context),
       title: new Text(title),
       elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 3.0,
       bottom: TabBar(controller: tabController, tabs: myTabs));
 }
 
-List<Widget> goToSearchPage(context) {
+List<Widget> buildActions(context) {
   return <Widget>[
-    IconButton(
-        icon: Icon(Icons.search),
-        onPressed: () => Router.pushSearchScreen(context)),
+    searchAction(context),
+		infoAction(context)
   ];
 }
 
-Widget buildHorizontalDivider() {
-  return Divider(height: 22.0);
+IconButton searchAction(context) {
+  return IconButton(
+      icon: Icon(Icons.search),
+      onPressed: () => Router.pushSearchScreen(context));
+}
+
+IconButton infoAction(context) {
+	return IconButton(
+			icon: Icon(Icons.info_outline),
+			onPressed: () => showModalBottomSheet(context: context, builder:(BuildContext context) =>
+					InfoView()));
+}
+
+Widget buildHorizontalDivider({double height = 22.0}) {
+  return Divider(height: height);
 }
 
 Widget MaterialIcon(String assetPath) {
