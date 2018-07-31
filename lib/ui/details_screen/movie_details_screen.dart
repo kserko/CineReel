@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/bloc_providers/movie_details_provider.dart';
-import 'package:flutter_bloc_movies/ui/details_screen/movie_details_widget.dart';
+import 'package:flutter_bloc_movies/ui/details_screen/movie_details_content.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
 
@@ -36,7 +36,7 @@ class _MovieDetailsStatefulState extends State<MovieDetailsScreen> {
 							Expanded(
 								child: Stack(
 									children: <Widget>[
-										MovieDetailsWidget(
+										MovieDetailsContent(
 												hasFailed: data.hasFailed,
 												movieDetailsBloc: movieDetailsBloc,
 												movieDetails: data.movieDetails

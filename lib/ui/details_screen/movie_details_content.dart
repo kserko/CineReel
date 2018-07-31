@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/common_widgets.dart';
-import 'package:flutter_bloc_movies/ui/common_widgets/movies_error_widget.dart';
-import 'package:flutter_bloc_movies/ui/details_screen/movie_details_container.dart';
+import 'package:flutter_bloc_movies/ui/details_screen/movie_details_poster_overlay.dart';
+import 'package:flutter_bloc_movies/ui/details_screen/movie_full_screen_poster.dart';
 
 class MovieDetailsContent extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
@@ -11,100 +12,45 @@ class MovieDetailsContent extends StatelessWidget {
   final bool hasFailed;
 
   MovieDetailsContent(
-      this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
+      {@required this.movieDetails,
+      @required MovieDetailsBloc this.movieDetailsBloc,
+      bool this.hasFailed});
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = TextStyle(
-        fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
+    return Scaffold(
+        body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(child: buildContent(context)),
+        ],
+      ),
+    ));
+  }
 
-    return ListView(
+  /*
+  This will create the full content of the details page
+  The MovieImageFullScreen will be laid out in fullscreen with a blur effect
+  We're passing the remaining content as overlayContent so that it can 
+  be used as a child in the Container that applies the blur on the image
+   */
+  buildContent(BuildContext context) {
+    return Container(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          margin: const EdgeInsets.only(top: 45.0),
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              buildTitle(defaultStyle),
-              buildHorizontalDivider(),
-              buildRunningTimeAndReleaseDate(),
-              buildOverview(),
-              buildHorizontalDivider(),
-              buildMovieDetailsContainer(),
-            ],
-          ),
+        Expanded(
+          child: MovieFullScreenPoster(
+              overlayContent: MovieDetailsPosterOverlay(movieDetails, movieDetailsBloc, hasFailed),
+              movieId: movieDetails.movieBasic.id,
+              imagePath: movieDetails.movieBasic.posterPath,
+              imageType: IMAGE_TYPE.POSTER,
+              size: POSTER_SIZES['small']),
         ),
       ],
-    );
-  }
-
-  Widget buildMovieDetailsContainer() {
-    return AnimateChildren(
-        childOne: MovieDetailsContainer(
-            movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-        childTwo: MoviesErrorWidget(
-            visible: true,
-            error: movieDetails.status_message),
-        showHappyPath: !hasFailed);
-  }
-
-  Widget buildRunningTimeAndReleaseDate() {
-    return AnimateChildren(
-        childOne: Row(
-          children: <Widget>[
-            buildRunningTime(),
-            getDotSeparator(),
-            buildReleaseDate(),
-          ],
-        ),
-        childTwo: Container(),
-        showHappyPath: movieDetails.hasData);
-  }
-
-  Widget buildOverview() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Material(
-        color: Colors.transparent,
-        child: Text(
-          movieDetails.getOverview,
-          textAlign: TextAlign.justify,
-          style: TextStyle(fontSize: 14.0),
-        ),
-      ),
-    );
-  }
-
-  Widget buildTitle(TextStyle defaultStyle) {
-    return Hero(
-      //wrapping up a Text with Material prevents the formatting
-      // being lost between transitions
-      child: Material(
-        color: Colors.transparent,
-        child: Text(
-          movieDetails.getTitle,
-          style: defaultStyle,
-        ),
-      ),
-      tag: "${movieDetails.getId}-${movieDetails.getTitle}",
-    );
-  }
-
-  buildRunningTime() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(movieDetails.getFormattedRunningTime(),
-          style: TextStyle(fontSize: 13.0)),
-    );
-  }
-
-  buildReleaseDate() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(movieDetails.getFormattedReleaseDate(),
-          style: TextStyle(fontSize: 13.0)),
-    );
+    ));
   }
 }

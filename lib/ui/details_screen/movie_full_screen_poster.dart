@@ -8,14 +8,14 @@ import 'package:flutter_bloc_movies/Constants.dart';
 import 'package:flutter_bloc_movies/utils/ImageHelper.dart';
 
 
-class MovieImageFullScreen extends StatelessWidget {
+class MovieFullScreenPoster extends StatelessWidget {
   final IMAGE_TYPE imageType;
   final String size;
   final String imagePath;
   final Widget overlayContent;
   final int movieId;
 
-  MovieImageFullScreen({int this.movieId, this.imagePath, this.imageType, this
+  MovieFullScreenPoster({int this.movieId, this.imagePath, this.imageType, this
 			.size, Widget this.overlayContent});
 
   @override

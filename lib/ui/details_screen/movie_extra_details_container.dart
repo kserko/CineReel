@@ -3,14 +3,14 @@ import 'package:flutter_bloc_movies/bloc/movie_details_bloc.dart';
 import 'package:flutter_bloc_movies/models/tmdb_movie_details.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/common_widgets.dart';
 import 'package:flutter_bloc_movies/ui/common_widgets/movies_loading_widget.dart';
-import 'package:flutter_bloc_movies/ui/details_screen/movie_details_cast_widget.dart';
+import 'package:flutter_bloc_movies/ui/details_screen/cast_widget.dart';
 import 'package:flutter_bloc_movies/ui/details_screen/ratings_widget.dart';
 
-class MovieDetailsContainer extends StatelessWidget {
+class MovieExtraDetailsContainer extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
 
-  MovieDetailsContainer({this.movieDetails, this.movieDetailsBloc});
+  MovieExtraDetailsContainer({this.movieDetails, this.movieDetailsBloc});
 
   @override
   Widget build(BuildContext context) {
