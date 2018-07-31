@@ -1,3 +1,4 @@
+import 'package:cine_reel/Constants.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class InfoView extends StatelessWidget {
   Padding buildAppTitle() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text("CineFlutter v1.0", style: defaultStyle.copyWith(fontSize: 22.0),),
+      child: Text("$APP_NAME v1.0", style: defaultStyle.copyWith(fontSize: 22.0),),
     );
   }
 

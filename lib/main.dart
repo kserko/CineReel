@@ -1,3 +1,4 @@
+import 'package:cine_reel/Constants.dart';
 import 'package:cine_reel/ui/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class MyCustomRoute<T> extends MaterialPageRoute<T> {
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
-	final title = 'CineReel';
+	final title = APP_NAME;
 
 	// This widget is the root of your application.
   @override
