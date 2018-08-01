@@ -1,7 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/navigation/router.dart';
-import 'package:cine_reel/ui/common_widgets/rating_widget.dart';
+import 'package:cine_reel/ui/list_screen/movie_row/list_row_rating_widget.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/movie_image_for_poster_row.dart';
 import 'package:flutter/material.dart';
 
@@ -72,7 +72,7 @@ class PosterRow extends StatelessWidget {
                       color: Colors.transparent,
                       child: Text(movie.title, style: defaultStyle)),
                   tag: "${movie.id}-${movie.title}"),
-              RatingWidget(movie, null),
+              ListRowRatingWidget(movie, null),
             ]),
       ),
     );

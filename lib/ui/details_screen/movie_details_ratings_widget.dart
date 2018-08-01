@@ -4,11 +4,11 @@ import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class RatingsWidget extends StatelessWidget {
+class MovieDetailsRatingsWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
 
-  RatingsWidget({this.movieDetails, this.movieDetailsBloc});
+  MovieDetailsRatingsWidget({this.movieDetails, this.movieDetailsBloc});
 
   @override
   Widget build(BuildContext context) {

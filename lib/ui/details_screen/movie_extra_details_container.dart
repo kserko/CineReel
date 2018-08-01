@@ -3,7 +3,7 @@ import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
 import 'package:cine_reel/ui/details_screen/cast_widget.dart';
-import 'package:cine_reel/ui/details_screen/ratings_widget.dart';
+import 'package:cine_reel/ui/details_screen/movie_details_ratings_widget.dart';
 import 'package:flutter/widgets.dart';
 
 class MovieExtraDetailsContainer extends StatelessWidget {
@@ -17,7 +17,7 @@ class MovieExtraDetailsContainer extends StatelessWidget {
     return AnimateChildren(
         childOne: Column(
           children: <Widget>[
-            RatingsWidget(
+            MovieDetailsRatingsWidget(
                 movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
             buildHorizontalDivider(),
             CastWidget(movieDetails: movieDetails),

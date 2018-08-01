@@ -3,13 +3,13 @@ import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class RatingWidget extends StatelessWidget {
+class ListRowRatingWidget extends StatelessWidget {
 	final TMDBMovieBasic movie;
 	final defaultStyle = TextStyle(
 			fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
 	final TMDBMovieDetails movieDetails;
 
-	RatingWidget(TMDBMovieBasic this.movie, TMDBMovieDetails this.movieDetails);
+	ListRowRatingWidget(TMDBMovieBasic this.movie, TMDBMovieDetails this.movieDetails);
 
 	@override
 	Widget build(BuildContext context) {
