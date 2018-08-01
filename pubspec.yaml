@@ -18,8 +18,13 @@ dev_dependencies:
   build_runner: ^0.8.9
   json_serializable: ^0.5.4
   transparent_image: ^0.1.0
+  flutter_launcher_icons: "^0.5.2"
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  image_path: "assets/film_reel.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -28,7 +33,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

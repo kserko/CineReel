@@ -11,19 +11,23 @@ class InfoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-						buildAppTitle(),
-						buildAppUrl(),
-						buildHorizontalDivider(height: 60.0),
-						buildTmdbLogo(),
-						buildTmdbAttributionText(),
-						buildHorizontalDivider(height: 60.0)
-          ],
-        )),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+              child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              buildAppTitle(),
+              buildAppUrl(),
+              buildHorizontalDivider(),
+              buildTmdbLogo(),
+              buildTmdbAttributionText(),
+              buildLauncherIconAttribution()
+            ],
+          )),
+        ),
         style: defaultStyle,
         textAlign: TextAlign.center);
   }
@@ -31,42 +35,42 @@ class InfoView extends StatelessWidget {
   Widget buildTmdbAttributionText() {
     var attributionWidget = Text("This product uses the TMDb API but is not endorsed or "
         "certified by TMDb");
-
-    return Container(padding: const EdgeInsets.only(top: 20.0), child: attributionWidget);
+    return Container(child: attributionWidget);
   }
 
-  Container buildTmdbLogo() {
-    return Container(
-        width: 80.0,
-        height: 80.0,
-        margin: const EdgeInsets.only(right: 10.0),
-        child: Image(image: AssetImage("assets/tmdb_icon.png")));
+  Widget buildTmdbLogo() {
+    return SizedBox.fromSize(
+        size: Size.fromHeight(60.0), child: Image(image: AssetImage("assets/tmdb_icon.png")));
   }
 
   Widget buildAppUrl() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: RichText(
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.clip,
-          text: TextSpan(style: defaultStyle.copyWith(fontSize: 16.0), children: [
-            TextSpan(text: "This app is free as in freedom and you can check out the source code "
-								"on gitlab \n"),
-            TextSpan(
-						style: defaultStyle.copyWith(color: Colors.blue, fontSize: 14.0),
-                text: "https://gitlab.com/serk01/cine_reel",
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    _launchURL("https://gitlab.com/serk01/cine_reel");
-                  })
-          ])),
-    );
+    return RichText(
+        textAlign: TextAlign.center,
+        overflow: TextOverflow.clip,
+        text: TextSpan(style: defaultStyle.copyWith(fontSize: 16.0), children: [
+          TextSpan(
+              text: "This app is free as in freedom and you can check out the source code "
+                  "on gitlab \n"),
+          TextSpan(
+              style: defaultStyle.copyWith(color: Colors.blue, fontSize: 14.0),
+              text: "https://gitlab.com/serk01/cine_reel",
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  _launchURL("https://gitlab.com/serk01/cine_reel");
+                })
+        ]));
   }
 
-  Padding buildAppTitle() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text("$APP_NAME v1.0", style: defaultStyle.copyWith(fontSize: 22.0),),
+  Widget buildAppTitle() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        SizedBox(height: 40.0, width: 40.0, child: Image.asset("assets/film_reel.png")),
+        Text(
+          "$APP_NAME v1.0",
+          style: defaultStyle.copyWith(fontSize: 22.0),
+        ),
+      ],
     );
   }
 
@@ -76,5 +80,40 @@ class InfoView extends StatelessWidget {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  Widget buildLauncherIconAttribution() {
+    var attributionWidget = RichText(
+			textAlign: TextAlign.center,
+        text: TextSpan(children: [
+      TextSpan(
+					text: 'Launcher icon made by', children: [
+        TextSpan(
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                _launchURL("http://www.freepik.com");
+              },
+            text: ' by Freepik',
+            style: defaultStyle.copyWith(color: Colors.blue)),
+        TextSpan(text: ' from '),
+        TextSpan(
+            text: 'Flaticon',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                _launchURL("https://www.flaticon.com");
+              },
+            style: defaultStyle.copyWith(color: Colors.blue)),
+        TextSpan(text: ' is licensed by'),
+        TextSpan(
+            text: ' CC 3.0 BY',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                _launchURL("http://creativecommons.org/licenses/by/3.0/");
+              },
+            style: defaultStyle.copyWith(color: Colors.blue))
+      ])
+    ]));
+
+    return attributionWidget;
   }
 }
