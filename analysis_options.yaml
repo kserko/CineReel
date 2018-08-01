@@ -1,0 +1,5 @@
+# this seems to be needed to avoid an error regarding mixings
+# see https://stackoverflow.com/questions/51346911/error-the-class-singletickerproviderstatemixin-cant-be-used-as-a-mixin-becau
+analyzer:
+  language:
+    enableSuperMixins: true

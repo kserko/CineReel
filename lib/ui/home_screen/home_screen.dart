@@ -9,6 +9,13 @@ import 'package:cine_reel/utils/tab_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+class TabObject {
+  Tab tab;
+  MovieProvider movieProvider;
+
+  TabObject({this.tab, this.movieProvider});
+}
+
 class HomePage extends StatefulWidget {
   final String title;
 
@@ -18,40 +25,42 @@ class HomePage extends StatefulWidget {
   _MyTabbedPageState createState() => new _MyTabbedPageState(title);
 }
 
-// ignore: mixin_inherits_from_not_object
 class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin {
-  final List<Tab> myTabs = <Tab>[
-    new Tab(text: tab[TabKey.kNowPlaying]),
-    new Tab(text: tab[TabKey.kTopRated]),
-    new Tab(text: tab[TabKey.kPopular]),
-  ];
-
+  List<TabObject> myTabs;
   TabController _tabController;
   TabBarView tabBarView;
   int activeTab = 0;
   final String title;
 
-  MovieProvider nowPlayingTab = MovieProvider(
-      child: MoviesListScreen(tabKey: TabKey.kNowPlaying), movieBloc: NowPlayingBloc(TMDBApi()));
+  final nowPlayingTab = TabObject(
+      tab: Tab(text: tab[TabKey.kNowPlaying]),
+      movieProvider: MovieProvider(
+          child: MoviesListScreen(tabKey: TabKey.kNowPlaying),
+          movieBloc: NowPlayingBloc(TMDBApi())));
 
-  MovieProvider topRatedTab = MovieProvider(
-      child: MoviesListScreen(tabKey: TabKey.kTopRated), movieBloc: TopRatedBloc(TMDBApi()));
+  final topRatedTab = TabObject(
+      tab: Tab(text: tab[TabKey.kTopRated]),
+      movieProvider: MovieProvider(
+          child: MoviesListScreen(tabKey: TabKey.kTopRated), movieBloc: TopRatedBloc(TMDBApi())));
 
-  MovieProvider popularTab = MovieProvider(
-      child: MoviesListScreen(tabKey: TabKey.kPopular), movieBloc: PopularBloc(TMDBApi()));
+  final popularTab = TabObject(
+      tab: Tab(text: tab[TabKey.kPopular]),
+      movieProvider: MovieProvider(
+          child: MoviesListScreen(tabKey: TabKey.kPopular), movieBloc: PopularBloc(TMDBApi())));
 
   _MyTabbedPageState(this.title);
 
   @override
   void initState() {
     super.initState();
+    myTabs = <TabObject>[nowPlayingTab, popularTab, topRatedTab];
     _tabController = new TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_handleTabSelection);
     tabBarView = TabBarView(controller: _tabController, children: [
-    	nowPlayingTab,
-			popularTab,
-			topRatedTab,
-		]);
+    	myTabs[0].movieProvider,
+      myTabs[1].movieProvider,
+			myTabs[2].movieProvider
+    ]);
   }
 
   void _handleTabSelection() {
@@ -65,9 +74,9 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   @override
   void dispose() {
     _tabController.dispose();
-    nowPlayingTab.movieBloc.dispose();
-    topRatedTab.movieBloc.dispose();
-    popularTab.movieBloc.dispose();
+    nowPlayingTab.movieProvider.movieBloc.dispose();
+    topRatedTab.movieProvider.movieBloc.dispose();
+    popularTab.movieProvider.movieBloc.dispose();
     super.dispose();
   }
 
@@ -77,7 +86,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
       appBar: getAppBar(
           tabController: _tabController,
           title: title,
-          myTabs: myTabs,
+          myTabs: [myTabs[0].tab, myTabs[1].tab, myTabs[2].tab],
           context: context),
       body: tabBarView,
     );
