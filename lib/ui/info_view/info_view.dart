@@ -1,4 +1,4 @@
-import 'package:cine_reel/Constants.dart';
+import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

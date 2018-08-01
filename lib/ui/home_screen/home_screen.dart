@@ -5,7 +5,7 @@ import 'package:cine_reel/bloc/top_rated_bloc.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
-import 'package:cine_reel/utils/TabConstants.dart';
+import 'package:cine_reel/utils/tab_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

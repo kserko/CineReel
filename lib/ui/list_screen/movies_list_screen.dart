@@ -4,7 +4,7 @@ import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
 import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
 import 'package:cine_reel/ui/list_screen/movie_state.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_widget.dart';
-import 'package:cine_reel/utils/TabConstants.dart';
+import 'package:cine_reel/utils/tab_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

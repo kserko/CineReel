@@ -1,5 +1,6 @@
 .DS_Store
 .dart_tool/
+lib/constants/api_secrets.dart
 
 .packages
 .pub/

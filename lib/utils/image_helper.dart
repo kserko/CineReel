@@ -1,5 +1,5 @@
 
-import 'package:cine_reel/Constants.dart';
+import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 
 class ImageHelper {

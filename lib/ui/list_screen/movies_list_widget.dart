@@ -2,7 +2,7 @@ import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/poster_row.dart';
 import 'package:cine_reel/ui/scroll_controller/list_controller.dart';
-import 'package:cine_reel/utils/TabConstants.dart';
+import 'package:cine_reel/utils/tab_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

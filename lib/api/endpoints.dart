@@ -1,4 +1,5 @@
-import 'package:cine_reel/Constants.dart';
+import 'package:cine_reel/constants/api_constants.dart';
+import 'package:cine_reel/constants/api_secrets.dart';
 
 class Endpoints {
   static String discoverMoviesUrl(int page) {

@@ -1,6 +1,6 @@
-import 'package:cine_reel/Constants.dart';
+import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
-import 'package:cine_reel/utils/ImageHelper.dart';
+import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
 import 'package:flutter_advanced_networkimage/transition_to_image.dart';

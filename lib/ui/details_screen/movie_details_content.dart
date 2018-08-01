@@ -1,5 +1,5 @@
-import 'package:cine_reel/Constants.dart';
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
+import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_poster_overlay.dart';
 import 'package:cine_reel/ui/details_screen/movie_full_screen_poster.dart';
