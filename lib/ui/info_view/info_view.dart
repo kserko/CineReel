@@ -1,9 +1,9 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
+import 'package:cine_reel/utils/helper_functions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class InfoView extends StatelessWidget {
   final TextStyle defaultStyle = TextStyle(fontSize: 16.0);
@@ -64,7 +64,7 @@ class InfoView extends StatelessWidget {
               text: "https://gitlab.com/kserko/cine_reel",
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  _launchURL("https://gitlab.com/serk01/cine_reel");
+                  launchURL("https://gitlab.com/serk01/cine_reel");
                 })
         ]));
   }
@@ -82,14 +82,6 @@ class InfoView extends StatelessWidget {
     );
   }
 
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   Widget buildLauncherIconAttribution() {
     var attributionWidget = RichText(
         textAlign: TextAlign.center,
@@ -98,7 +90,7 @@ class InfoView extends StatelessWidget {
             TextSpan(
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    _launchURL("http://www.freepik.com");
+                    launchURL("http://www.freepik.com");
                   },
                 text: ' by Freepik',
                 style: defaultStyle.copyWith(color: Colors.blue)),
@@ -107,7 +99,7 @@ class InfoView extends StatelessWidget {
                 text: 'Flaticon',
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    _launchURL("https://www.flaticon.com");
+                    launchURL("https://www.flaticon.com");
                   },
                 style: defaultStyle.copyWith(color: Colors.blue)),
             TextSpan(text: ' is licensed by'),
@@ -115,7 +107,7 @@ class InfoView extends StatelessWidget {
                 text: ' CC 3.0 BY',
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    _launchURL("http://creativecommons.org/licenses/by/3.0/");
+                    launchURL("http://creativecommons.org/licenses/by/3.0/");
                   },
                 style: defaultStyle.copyWith(color: Colors.blue))
           ])

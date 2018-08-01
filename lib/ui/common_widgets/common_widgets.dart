@@ -39,12 +39,12 @@ Widget buildHorizontalDivider({double height = 22.0}) {
   return Divider(height: height);
 }
 
-Widget MaterialIcon(String assetPath) {
+Widget MaterialIcon(String assetPath, [Function onPressedAction]) {
   return Material(
       color: Colors.transparent,
       child: IconButton(
         icon: Image(image: AssetImage(assetPath)),
-        onPressed: () {},
+        onPressed: () => onPressedAction(),
       ));
 }
 
