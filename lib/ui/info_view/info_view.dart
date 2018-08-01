@@ -21,9 +21,8 @@ class InfoView extends StatelessWidget {
             children: <Widget>[
               buildAppTitle(),
               buildAppUrl(),
-              buildHorizontalDivider(),
-              buildTmdbLogo(),
-              buildTmdbAttributionText(),
+              buildHorizontalDivider(height: 0.0),
+              buildTmdbAttribution(),
               buildLauncherIconAttribution()
             ],
           )),
@@ -32,15 +31,24 @@ class InfoView extends StatelessWidget {
         textAlign: TextAlign.center);
   }
 
-  Widget buildTmdbAttributionText() {
-    var attributionWidget = Text("This product uses the TMDb API but is not endorsed or "
-        "certified by TMDb");
-    return Container(child: attributionWidget);
+  Widget buildTmdbAttribution() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(flex: 1, child: buildTmdbLogo()),
+        Expanded(
+            flex: 4,
+            child: Text("This product uses the TMDb API but is not endorsed or "
+                "certified by TMDb")),
+      ],
+    );
   }
 
   Widget buildTmdbLogo() {
     return SizedBox.fromSize(
-        size: Size.fromHeight(60.0), child: Image(image: AssetImage("assets/tmdb_icon.png")));
+      size: Size.fromHeight(40.0),
+      child: Image(image: AssetImage("assets/tmdb_icon.png")),
+    );
   }
 
   Widget buildAppUrl() {
@@ -84,35 +92,34 @@ class InfoView extends StatelessWidget {
 
   Widget buildLauncherIconAttribution() {
     var attributionWidget = RichText(
-			textAlign: TextAlign.center,
+        textAlign: TextAlign.center,
         text: TextSpan(children: [
-      TextSpan(
-					text: 'Launcher icon made by', children: [
-        TextSpan(
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                _launchURL("http://www.freepik.com");
-              },
-            text: ' by Freepik',
-            style: defaultStyle.copyWith(color: Colors.blue)),
-        TextSpan(text: ' from '),
-        TextSpan(
-            text: 'Flaticon',
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                _launchURL("https://www.flaticon.com");
-              },
-            style: defaultStyle.copyWith(color: Colors.blue)),
-        TextSpan(text: ' is licensed by'),
-        TextSpan(
-            text: ' CC 3.0 BY',
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                _launchURL("http://creativecommons.org/licenses/by/3.0/");
-              },
-            style: defaultStyle.copyWith(color: Colors.blue))
-      ])
-    ]));
+          TextSpan(text: 'Launcher icon made by', children: [
+            TextSpan(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    _launchURL("http://www.freepik.com");
+                  },
+                text: ' by Freepik',
+                style: defaultStyle.copyWith(color: Colors.blue)),
+            TextSpan(text: ' from '),
+            TextSpan(
+                text: 'Flaticon',
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    _launchURL("https://www.flaticon.com");
+                  },
+                style: defaultStyle.copyWith(color: Colors.blue)),
+            TextSpan(text: ' is licensed by'),
+            TextSpan(
+                text: ' CC 3.0 BY',
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    _launchURL("http://creativecommons.org/licenses/by/3.0/");
+                  },
+                style: defaultStyle.copyWith(color: Colors.blue))
+          ])
+        ]));
 
     return attributionWidget;
   }
