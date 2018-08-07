@@ -15,8 +15,7 @@ class MovieListWidget extends StatefulWidget {
   final TabKey tabKey;
   final MovieBloc movieBloc;
 
-  MovieListWidget({Key key, this.movies, this.tabKey, this.movieBloc})
-      : super(key: key);
+  MovieListWidget({Key key, this.movies, this.tabKey, this.movieBloc}) : super(key: key);
 
   @override
   MyListState createState() {
@@ -26,7 +25,6 @@ class MovieListWidget extends StatefulWidget {
 
 class MyListState extends State<MovieListWidget> {
   ListController _scrollController;
-  bool expansionTilesEnabled = false;
 
   @override
   void initState() {
@@ -35,8 +33,7 @@ class MyListState extends State<MovieListWidget> {
   }
 
   void _scrollListener() {
-    if (_scrollController.position.extentAfter < 2000 &&
-        !_scrollController.isPaused) {
+    if (_scrollController.position.extentAfter < 2000 && !_scrollController.isPaused) {
       this.widget.movieBloc.nextPage.add(this.widget.tabKey);
       _scrollController.pause();
     }
@@ -54,18 +51,7 @@ class MyListState extends State<MovieListWidget> {
         itemCount: this.widget.movies.length,
         itemBuilder: (context, index) {
           final movie = this.widget.movies[index];
-          if (expansionTilesEnabled) {
-            return ExpansionTile(children: [
-              Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 25.0, vertical: 8.0),
-                  child: Text(movie.overview,
-                      style: TextStyle(fontSize: 13.0),
-                      textAlign: TextAlign.justify))
-            ], title: PosterRow(movie));
-          } else {
-          	return PosterRow(movie);
-					}
+          return PosterRow(movie);
         },
       ),
     );
