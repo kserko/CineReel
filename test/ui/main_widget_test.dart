@@ -17,7 +17,7 @@ void main() {
 		await tester.pumpWidget(MyApp());
 		MaterialApp materialApp = tester.widget(find.byType(MaterialApp));
 		HomePage homePage = tester.widget(find.byType(HomePage));
-		var expectedTitle = "A Flutter TMDB explorer in BLoCs";
+		var expectedTitle = "CineReel";
 
 		//assert
 		expect(materialApp.title, expectedTitle);

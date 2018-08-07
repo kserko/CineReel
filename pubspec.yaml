@@ -19,6 +19,7 @@ dev_dependencies:
   json_serializable: ^0.5.4
   transparent_image: ^0.1.0
   flutter_launcher_icons: "^0.5.2"
+  mockito: ^3.0.0-beta
   flutter_test:
     sdk: flutter
 
