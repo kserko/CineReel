@@ -1,6 +1,6 @@
 # cine_reel
 
-A new Flutter application.
+A Flutter TMDB client for Android
 
 # next steps (not necessarily in order of implementation)
 ~- make rating icons in details screen interactive~
