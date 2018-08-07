@@ -75,7 +75,7 @@ class InfoView extends StatelessWidget {
       children: <Widget>[
         SizedBox(height: 40.0, width: 40.0, child: Image.asset("assets/film_reel.png")),
         Text(
-          "$APP_NAME v1.0",
+          "$APP_NAME v1.1",
           style: defaultStyle.copyWith(fontSize: 22.0),
         ),
       ],

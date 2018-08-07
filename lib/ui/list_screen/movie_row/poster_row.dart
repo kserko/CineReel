@@ -15,11 +15,13 @@ class PosterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        onTap: () {
-        	Router.pushDetailsScreen(context, movie);
-        },
-        child: buildMovieRow(movie, context));
+    return Material(
+      child: InkWell(
+          onTap: () {
+          	Router.pushDetailsScreen(context, movie);
+          },
+          child: buildMovieRow(movie, context)),
+    );
   }
 
   BoxDecoration textDecoration() {
