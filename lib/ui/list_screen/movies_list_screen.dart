@@ -11,25 +11,20 @@ import 'package:flutter/widgets.dart';
 class MoviesListScreen extends StatelessWidget {
   final TabKey tabKey;
 
-	MoviesListScreen({@required TabKey this.tabKey});
+  MoviesListScreen({@required TabKey this.tabKey});
 
-	@override
+  @override
   Widget build(BuildContext context) {
-
     return Column(
-			key: Key("rootColumn"),
-				children: [
-      Flexible(
-          child:
-              buildStreamBuilder(context, tabKey, tabKey.index))
-    ]);
+        key: Key("rootColumn"),
+        children: [Flexible(child: buildStreamBuilder(context, tabKey, tabKey.index))]);
   }
 
   StreamBuilder<MoviesState> buildStreamBuilder(BuildContext context, TabKey tabKey, int tabIndex) {
-		final movieBloc = MovieProvider.of(context);
+    final movieBloc = MovieProvider.of(context);
 
-		return StreamBuilder(
-			key: Key('streamBuilder'),
+    return StreamBuilder(
+        key: Key('streamBuilder'),
         stream: movieBloc.stream,
         builder: (context, snapshot) {
           final data = snapshot.data;
@@ -37,7 +32,7 @@ class MoviesListScreen extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Stack(
-									key: Key('content'),
+                  key: Key('content'),
                   children: <Widget>[
                     // Fade in an Empty Result screen if the search contained
                     // no items
@@ -49,8 +44,7 @@ class MoviesListScreen extends StatelessWidget {
                     // Fade in an error if something went wrong when fetching
                     // the results
                     MoviesErrorWidget(
-                        visible: data is MoviesError,
-                        error: data is MoviesError ? data.error : ""),
+                        visible: data is MoviesError, error: data is MoviesError ? data.error : ""),
 
                     // Fade in the Result if available
                     MovieListWidget(

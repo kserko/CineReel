@@ -19,42 +19,89 @@ class MockMovieBloc extends Mock implements MovieBloc {}
 
 void main() {
   MockMovieBloc mockMovieBloc;
-  List<TMDBMovieBasic> moviesList;
+  List<TMDBMovieBasic> movieList = [mockMovieOne, mockMovieTwo, mockMovieThree];
+  ListController listController;
+  ListView listview;
   var listviewFinder = find.byType(ListView);
 
   setUp(() {
     HttpOverrides.global = MyHttpOverrides();
+
     mockMovieBloc = MockMovieBloc();
-    moviesList = createMockBasicMovies();
+    when(mockMovieBloc.nextPage).thenAnswer((_) => StreamController().sink);
   });
 
-  Future pumpMainWidget(WidgetTester tester, MockMovieBloc mockMovieBloc) async {
+  Future pumpMainWidget(WidgetTester tester, MockMovieBloc mockMovieBloc, List<TMDBMovieBasic> movies) async {
     await tester.pumpWidget(MaterialApp(
         home:
-            MovieListWidget(movies: moviesList, movieBloc: mockMovieBloc, tabKey: TabKey.kNowPlaying)));
+            MovieListWidget(movies: movies, movieBloc: mockMovieBloc, tabKey: TabKey.kNowPlaying)));
+
+    listview = getListView(tester, listviewFinder);
+    listController = listview.controller;
   }
 
   testWidgets('should have a Listview', (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc);
+    await pumpMainWidget(tester, mockMovieBloc, movieList);
     expect(listviewFinder, findsOneWidget);
   });
 
   testWidgets('listView should have poster rows', (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc);
-    expect(find.byType(PosterRow), findsNWidgets(moviesList.length));
+    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    expect(find.byType(PosterRow), findsNWidgets(movieList.length));
   });
 
-	testWidgets('listView should have a list controller', (WidgetTester tester) async {
-		await pumpMainWidget(tester, mockMovieBloc);
-		ListView listView = tester.widget(listviewFinder);
-		expect(listView.controller, isNotNull);
-	});
+  testWidgets('listView should have a list controller', (WidgetTester tester) async {
+    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    expect(listview.controller, isNotNull);
+  });
 
-	testWidgets('list controller should have a listener', (WidgetTester tester) async {
-		await pumpMainWidget(tester, mockMovieBloc);
-		ListView listView = tester.widget(listviewFinder);
-		ListController listController = listView.controller;
-		expect(listController.hasListeners, isTrue);
-	});
+  testWidgets('list controller should have a listener', (WidgetTester tester) async {
+    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    expect(listController.hasListeners, isTrue);
+  });
 
+  testWidgets('should request next page when close to the end of the listview',
+      (WidgetTester tester) async {
+    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    listController.position.jumpTo(10.0);
+    verify(mockMovieBloc.nextPage);
+  });
+
+  testWidgets('should not request next page when list controller is paused',
+      (WidgetTester tester) async {
+    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    listController.pause();
+
+    listController.position.jumpTo(10.0);
+
+    verifyNever(mockMovieBloc.nextPage);
+  });
+
+  testWidgets('should pause list controller after requesting next page',
+      (WidgetTester tester) async {
+    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    expect(listController.isPaused, isFalse);
+
+    listController.position.jumpTo(10.0);
+
+    verify(mockMovieBloc.nextPage);
+    expect(listController.isPaused, isTrue);
+  });
+
+  testWidgets('should show listview when movies present', (WidgetTester tester) async {
+    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    AnimatedOpacity animatedOpacity = tester.widget(find.byType(AnimatedOpacity));
+    expect(animatedOpacity.opacity, 1.0);
+  });
+
+  testWidgets('should hide listview when movies not present', (WidgetTester tester) async {
+    await pumpMainWidget(tester, mockMovieBloc, []);
+    AnimatedOpacity animatedOpacity = tester.widget(find.byType(AnimatedOpacity));
+    expect(animatedOpacity.opacity, 0.0);
+  });
+}
+
+ListView getListView(WidgetTester tester, Finder listviewFinder) {
+  ListView listView = tester.widget(listviewFinder);
+  return listView;
 }

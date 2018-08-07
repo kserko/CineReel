@@ -15,15 +15,20 @@ class MovieListWidget extends StatefulWidget {
   final TabKey tabKey;
   final MovieBloc movieBloc;
 
-  MovieListWidget({Key key, this.movies, this.tabKey, this.movieBloc}) : super(key: key);
+  MovieListWidget(
+      {Key key,
+      @required this.movies,
+      @required this.tabKey,
+      @required this.movieBloc})
+      : super(key: key);
 
   @override
-  MyListState createState() {
-    return new MyListState();
+  MovieListWidgetState createState() {
+    return new MovieListWidgetState();
   }
 }
 
-class MyListState extends State<MovieListWidget> {
+class MovieListWidgetState extends State<MovieListWidget> {
   ListController _scrollController;
 
   @override
