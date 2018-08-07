@@ -70,12 +70,4 @@ class MyListState extends State<MovieListWidget> {
       ),
     );
   }
-
-  void printMoviesTitles() {
-    print("MOViES IN LIST ${this.widget.movies.length}");
-    for (TMDBMovieBasic movie in this.widget.movies) {
-      print("${movie.title}");
-    }
-    print("MOIVES IN LIST END");
-  }
 }
