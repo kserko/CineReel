@@ -3,10 +3,11 @@
 A new Flutter application.
 
 # next steps (not necessarily in order of implementation)
-- make rating icons in details screen interactive
+~- make rating icons in details screen interactive~
 - add more tests
 - add more details - backdrops, videos,
 - add individual cast page
+- add firebase anaytics
 
 
 ## Getting Started
