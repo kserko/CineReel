@@ -1,6 +1,6 @@
 # cine_reel
 
-A Flutter TMDB client for Android
+A Flutter TMDB client for Android - https://play.google.com/store/apps/details?id=apps.serko.cinereel
 
 # next steps (not necessarily in order of implementation)
 ~- make rating icons in details screen interactive~
