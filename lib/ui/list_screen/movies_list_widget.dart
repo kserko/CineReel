@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 
 //As a stateful widget the state of this widget will be created once and
 // subsequent calls to create the widget in the same context
-// (i.e in page_stream_builder)
+// (i.e from movies_list_screen)
 // will only call the build method of the state object and
 class MovieListWidget extends StatefulWidget {
   final List<TMDBMovieBasic> movies;
