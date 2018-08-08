@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:cine_reel/api/endpoints.dart';
+import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_movies_collection_response.dart';
 import 'package:cine_reel/models/tmdb_reviews_response.dart';
@@ -42,6 +43,11 @@ class TMDBApi {
 	Future<TMDBMoviesCollectionResponse> searchMovie({String title}) async {
   	final response = await _makeRequest(Endpoints.movieSearchUrl(title));
   	return TMDBMoviesCollectionResponse.fromJson(json.decode(response.body));
+	}
+
+	Future<TMDBGenres> getGenres() async {
+		final response = await _makeRequest(Endpoints.genresUrl());
+		return TMDBGenres.fromJson(json.decode(response.body));
 	}
 
   Future<http.Response> _makeRequest(String url) async {

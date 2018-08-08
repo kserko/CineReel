@@ -36,6 +36,10 @@ class Endpoints {
     return '$TMDB_API_BASE_URL/movie/$movieId?api_key=$TMDB_API_KEY&append_to_response=credits';
   }
 
+	static String genresUrl() {
+  	return '$TMDB_API_BASE_URL/genre/movie/list?api_key=$TMDB_API_KEY&language=en-US';
+	}
+
   static String movieReviewsUrl(int movieId, int page) {
 		return '$TMDB_API_BASE_URL/movie/$movieId/reviews?api_key=$TMDB_API_KEY'
 				'&language=en-US&page=$page';

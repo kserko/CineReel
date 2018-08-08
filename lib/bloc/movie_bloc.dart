@@ -33,6 +33,7 @@ abstract class MovieBloc {
 	}
 
 	void dispose() {
+		print('closing movie bloc stream');
 		_streamController.close();
 	}
 

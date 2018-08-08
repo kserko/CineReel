@@ -1,9 +1,12 @@
 import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/genres_bloc.dart';
 import 'package:cine_reel/bloc/now_playing_bloc.dart';
 import 'package:cine_reel/bloc/popular_bloc.dart';
 import 'package:cine_reel/bloc/top_rated_bloc.dart';
+import 'package:cine_reel/bloc_providers/genres_provider.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
+import 'package:cine_reel/ui/genres/genres_screen.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
 import 'package:cine_reel/utils/tab_constants.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +14,12 @@ import 'package:flutter/widgets.dart';
 
 class TabObject {
   Tab tab;
-  MovieProvider movieProvider;
+  dynamic provider;
 
-  TabObject({this.tab, this.movieProvider});
+  TabObject({
+		@required this.tab,
+		this.provider,
+  });
 }
 
 class HomePage extends StatefulWidget {
@@ -32,20 +38,28 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   int activeTab = 0;
   final String title;
 
+  final genresTab = TabObject(
+		tab: Tab(text: tab[TabKey.kGenres]),
+		provider: GenresProvider(
+			child: GenresScreen(),
+			genreBloc: GenresBloc(TMDBApi()),
+		)
+	);
+
   final nowPlayingTab = TabObject(
       tab: Tab(text: tab[TabKey.kNowPlaying]),
-      movieProvider: MovieProvider(
+      provider: MovieProvider(
           child: MoviesListScreen(tabKey: TabKey.kNowPlaying),
           movieBloc: NowPlayingBloc(TMDBApi())));
 
   final topRatedTab = TabObject(
       tab: Tab(text: tab[TabKey.kTopRated]),
-      movieProvider: MovieProvider(
+      provider: MovieProvider(
           child: MoviesListScreen(tabKey: TabKey.kTopRated), movieBloc: TopRatedBloc(TMDBApi())));
 
   final popularTab = TabObject(
       tab: Tab(text: tab[TabKey.kPopular]),
-      movieProvider: MovieProvider(
+      provider: MovieProvider(
           child: MoviesListScreen(tabKey: TabKey.kPopular), movieBloc: PopularBloc(TMDBApi())));
 
   _MyTabbedPageState(this.title);
@@ -53,14 +67,15 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    myTabs = <TabObject>[nowPlayingTab, popularTab, topRatedTab];
+    myTabs = <TabObject>[nowPlayingTab, popularTab, topRatedTab, genresTab];
     _tabController = new TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_handleTabSelection);
     tabBarView = TabBarView(controller: _tabController, children: [
-    	myTabs[0].movieProvider,
-      myTabs[1].movieProvider,
-			myTabs[2].movieProvider
-    ]);
+    	myTabs[0].provider,
+      myTabs[1].provider,
+			myTabs[2].provider,
+			myTabs[3].provider
+		]);
   }
 
   void _handleTabSelection() {
@@ -74,9 +89,10 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   @override
   void dispose() {
     _tabController.dispose();
-    nowPlayingTab.movieProvider.movieBloc.dispose();
-    topRatedTab.movieProvider.movieBloc.dispose();
-    popularTab.movieProvider.movieBloc.dispose();
+    (nowPlayingTab.provider as MovieProvider).movieBloc.dispose();
+		(topRatedTab.provider as MovieProvider).movieBloc.dispose();
+		(popularTab.provider as MovieProvider).movieBloc.dispose();
+		(genresTab.provider as GenresProvider).genresBloc.dispose();
     super.dispose();
   }
 
@@ -86,7 +102,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
       appBar: getAppBar(
           tabController: _tabController,
           title: title,
-          myTabs: [myTabs[0].tab, myTabs[1].tab, myTabs[2].tab],
+          myTabs: [myTabs[0].tab, myTabs[1].tab, myTabs[2].tab, myTabs[3].tab],
           context: context),
       body: tabBarView,
     );
