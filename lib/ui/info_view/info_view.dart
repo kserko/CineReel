@@ -64,7 +64,7 @@ class InfoView extends StatelessWidget {
               text: "https://gitlab.com/kserko/cine_reel",
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  launchURL("https://gitlab.com/serk01/cine_reel");
+                  launchURL("https://github.com/kserko/CineReel");
                 })
         ]));
   }
