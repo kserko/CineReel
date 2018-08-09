@@ -12,7 +12,8 @@ Widget getAppBar({title, context, tabController, myTabs}) {
       actions: buildActions(context),
       title: new Text(title),
       elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 3.0,
-      bottom: TabBar(controller: tabController, tabs: myTabs, isScrollable: true));
+      bottom: TabBar(controller: tabController, tabs: myTabs, isScrollable: true,
+				indicatorWeight: 1.0,));
 }
 
 List<Widget> buildActions(context) {
