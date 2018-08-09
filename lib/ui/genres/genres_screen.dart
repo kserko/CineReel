@@ -9,6 +9,7 @@ class GenresScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final genresBloc = GenresProvider.of(context);
     return StreamBuilder(
+        key: Key('streamBuilder'),
         stream: genresBloc.stream,
         builder: (context, snapshot) {
           final data = snapshot.data;
@@ -18,7 +19,7 @@ class GenresScreen extends StatelessWidget {
               EmptyWidget(visible: data is GenresEmpty),
               GenresWidget(
                   visible: data is GenresPopulated,
-                  genres: data is GenresPopulated ? data.genres : null)
+                  genres: data is GenresPopulated ? data.genres : [])
             ]))
           ]);
         });

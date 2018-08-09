@@ -1,0 +1,19 @@
+import 'package:cine_reel/models/tmdb_genres.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+class GenreGridItem extends StatelessWidget {
+  final TMDBGenre genre;
+	GenreGridItem({TMDBGenre this.genre});
+
+  @override
+  Widget build(BuildContext context) {
+		return Padding(
+			padding: const EdgeInsets.all(0.5),
+			child: Container(child: FlatButton(
+					textColor: Theme.of(context).accentColor,
+					color: Theme.of(context).primaryColor,
+					onPressed: () {}, child: Text("${genre.name}"))),
+		);
+	}
+}
