@@ -31,14 +31,25 @@ void main() {
     when(mockMovieBloc.nextPage).thenAnswer((_) => StreamController().sink);
   });
 
-  Future pumpMainWidget(WidgetTester tester, MockMovieBloc mockMovieBloc, List<TMDBMovieBasic> movies) async {
+  Future pumpMainWidget(WidgetTester tester, MovieBloc movieBloc, List<TMDBMovieBasic> movies) async {
     await tester.pumpWidget(MaterialApp(
         home:
-            MovieListWidget(movies: movies, movieBloc: mockMovieBloc, tabKey: TabKey.kNowPlaying)));
+            MovieListWidget(movies: movies, movieBloc: movieBloc, tabKey: TabKey.kNowPlaying)));
 
     listview = getListView(tester, listviewFinder);
     listController = listview.controller;
   }
+
+//	testWidgets('should go to movie details when tapped', (WidgetTester tester) async {
+//		await pumpMainWidget(tester, mockMovieBloc, movieList);
+//
+//		expect(find.text(movieList[0].title), findsOneWidget);
+////		await tester.tap(find.text(movieList[0].title));
+//		await tester.tap(find.byKey(Key(movieList[0].title)));
+//		await tester.pumpAndSettle();
+//
+//		expect(find.byType(MovieDetailsWidget), findsOneWidget);
+//	});
 
   testWidgets('should have a Listview', (WidgetTester tester) async {
     await pumpMainWidget(tester, mockMovieBloc, movieList);

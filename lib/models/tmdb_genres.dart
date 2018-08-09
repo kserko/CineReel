@@ -10,6 +10,8 @@ class TMDBGenresResponse extends Object with _$TMDBGenresResponseSerializerMixin
 	factory TMDBGenresResponse.fromJson(Map<String, dynamic> json) =>
 			_$TMDBGenresResponseFromJson(json);
 
+  bool get isEmpty => genres.isEmpty;
+
 }
 
 @JsonSerializable()

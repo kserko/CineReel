@@ -42,7 +42,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 		tab: Tab(text: tab[TabKey.kGenres]),
 		provider: GenresProvider(
 			child: GenresScreen(),
-			genreBloc: GenresBloc(TMDBApi()),
+			genreBloc: GenresBloc(tmdbApi: TMDBApi(), fetchOnInit: true),
 		)
 	);
 
