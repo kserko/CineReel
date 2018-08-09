@@ -1,4 +1,5 @@
 import 'package:cine_reel/models/tmdb_genres.dart';
+import 'package:cine_reel/navigation/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -13,7 +14,9 @@ class GenreGridItem extends StatelessWidget {
 			child: Container(child: FlatButton(
 					textColor: Theme.of(context).accentColor,
 					color: Theme.of(context).primaryColor,
-					onPressed: () {}, child: Text("${genre.name}"))),
+					onPressed: () {
+						Router.pushMoviesByGenreList(context, genre);
+					}, child: Text("${genre.name}"))),
 		);
 	}
 }

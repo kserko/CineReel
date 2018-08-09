@@ -40,14 +40,14 @@ class Endpoints {
   	return '$TMDB_API_BASE_URL/genre/movie/list?api_key=$TMDB_API_KEY&language=en-US';
 	}
 
-	static String getMoviesForGenre(int genreId) {
+	static String getMoviesForGenre(int genreId, int page) {
   	// https://api.themoviedb.org/3/discover/movie?api_key=135401ad80768ff3cc3e4abc7cee2874&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=18
 		return '$TMDB_API_BASE_URL/discover/movie?api_key=$TMDB_API_KEY'
 				'&language=en-US'
 				'&sort_by=popularity.desc'
 				'&include_adult=false'
 				'&include_video=false'
-				'&page=1'
+				'&page=$page'
 				'&with_genres=$genreId';
 	}
 

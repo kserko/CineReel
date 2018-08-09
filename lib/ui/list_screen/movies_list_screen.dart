@@ -1,3 +1,4 @@
+import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
 import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
@@ -8,20 +9,18 @@ import 'package:cine_reel/utils/tab_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class MoviesListScreen extends StatelessWidget {
+class MoviesListScreen extends StatefulWidget {
   final TabKey tabKey;
 
   MoviesListScreen({@required TabKey this.tabKey});
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-        key: Key("rootColumn"),
-        children: [Flexible(child: buildStreamBuilder(context, tabKey, tabKey.index))]);
+  MoviesListScreenState createState() {
+    return new MoviesListScreenState();
   }
 
-  StreamBuilder<MoviesState> buildStreamBuilder(BuildContext context, TabKey tabKey, int tabIndex) {
-    final movieBloc = MovieProvider.of(context);
+  StreamBuilder<MoviesState> buildStreamBuilder(BuildContext context, MovieBloc movieBloc, TabKey
+	tabKey, int tabIndex) {
 
     return StreamBuilder(
         key: Key('streamBuilder'),
@@ -58,4 +57,25 @@ class MoviesListScreen extends StatelessWidget {
           );
         });
   }
+}
+
+class MoviesListScreenState extends State<MoviesListScreen> {
+	MovieBloc movieBloc;
+
+	@override
+  Widget build(BuildContext context) {
+		movieBloc = MovieProvider.of(context);
+
+		return Column(
+        key: Key("rootColumn"),
+        children: [Flexible(child: widget.buildStreamBuilder(context, movieBloc, widget.tabKey,
+						widget
+						.tabKey.index))]);
+  }
+
+	@override
+	void dispose() {
+		movieBloc.dispose();
+		super.dispose();
+	}
 }
