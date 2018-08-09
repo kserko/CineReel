@@ -1,3 +1,4 @@
+import 'package:cine_reel/bloc_providers/genres_provider.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
 import 'package:cine_reel/ui/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ void main() {
 		expect(tabBarFinder, findsOneWidget);
 	});
 
-	testWidgets('should have three MovieProvider tabs', (WidgetTester tester)
+	testWidgets('should have three MovieProvider tabs and one GenreProvider', (WidgetTester tester)
 	async {
 		await pumpHomePage(tester);
 		TabBarView tabBarView = tester.widget(tabBarFinder);
@@ -31,8 +32,9 @@ void main() {
 		expect(tabBarView.children[0] is MovieProvider, true);
 		expect(tabBarView.children[1] is MovieProvider, true);
 		expect(tabBarView.children[2] is MovieProvider, true);
+		expect(tabBarView.children[3] is GenresProvider, true);
 
-		expect(tabBarView.children.length, 3);
+		expect(tabBarView.children.length, 4);
 	});
 
 }
