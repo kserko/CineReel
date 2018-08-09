@@ -6,12 +6,12 @@ import 'package:cine_reel/ui/details_screen/movie_full_screen_poster.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class MovieDetailsContent extends StatelessWidget {
+class MovieDetailsWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
   final bool hasFailed;
 
-  MovieDetailsContent(
+  MovieDetailsWidget(
       {@required this.movieDetails,
       @required MovieDetailsBloc this.movieDetailsBloc,
       bool this.hasFailed});

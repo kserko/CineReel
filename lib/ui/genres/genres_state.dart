@@ -12,7 +12,7 @@ class GenresError extends GenresState {
 }
 
 class GenresPopulated extends GenresState {
-	final TMDBGenres genres;
+	final List<TMDBGenre> genres;
 
 	GenresPopulated(this.genres);
 }

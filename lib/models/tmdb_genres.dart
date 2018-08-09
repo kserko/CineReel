@@ -3,12 +3,12 @@ import 'package:json_annotation/json_annotation.dart';
 part 'tmdb_genres.g.dart';
 
 @JsonSerializable()
-class TMDBGenres extends Object with _$TMDBGenresSerializerMixin {
+class TMDBGenresResponse extends Object with _$TMDBGenresResponseSerializerMixin {
 	List<TMDBGenre> genres;
 
-	TMDBGenres(this.genres);
-	factory TMDBGenres.fromJson(Map<String, dynamic> json) =>
-			_$TMDBGenresFromJson(json);
+	TMDBGenresResponse(this.genres);
+	factory TMDBGenresResponse.fromJson(Map<String, dynamic> json) =>
+			_$TMDBGenresResponseFromJson(json);
 
 }
 

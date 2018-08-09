@@ -45,9 +45,9 @@ class TMDBApi {
   	return TMDBMoviesCollectionResponse.fromJson(json.decode(response.body));
 	}
 
-	Future<TMDBGenres> getGenres() async {
+	Future<TMDBGenresResponse> getGenres() async {
 		final response = await _makeRequest(Endpoints.genresUrl());
-		return TMDBGenres.fromJson(json.decode(response.body));
+		return TMDBGenresResponse.fromJson(json.decode(response.body));
 	}
 
   Future<http.Response> _makeRequest(String url) async {

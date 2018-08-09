@@ -28,9 +28,8 @@ class GenresBloc {
 
 		print('fetching genres');
 		try {
-		  TMDBGenres genres = await tmdbApi.getGenres();
-		  print('genres received ${genres.genres.length}');
-		  yield GenresPopulated(genres);
+		  TMDBGenresResponse response = await tmdbApi.getGenres();
+		  yield GenresPopulated(response.genres);
 
 		} on Exception catch (e) {
 			print('exception: $e');

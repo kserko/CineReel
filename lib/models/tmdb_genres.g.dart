@@ -6,14 +6,14 @@ part of 'tmdb_genres.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TMDBGenres _$TMDBGenresFromJson(Map<String, dynamic> json) {
-  return new TMDBGenres((json['genres'] as List)
+TMDBGenresResponse _$TMDBGenresResponseFromJson(Map<String, dynamic> json) {
+  return new TMDBGenresResponse((json['genres'] as List)
       ?.map((e) =>
           e == null ? null : new TMDBGenre.fromJson(e as Map<String, dynamic>))
       ?.toList());
 }
 
-abstract class _$TMDBGenresSerializerMixin {
+abstract class _$TMDBGenresResponseSerializerMixin {
   List<TMDBGenre> get genres;
   Map<String, dynamic> toJson() => <String, dynamic>{'genres': genres};
 }
