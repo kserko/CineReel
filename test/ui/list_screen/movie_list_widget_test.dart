@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cine_reel/bloc/movie_bloc.dart';
+import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/poster_row.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_widget.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../fixtures/genres_fixtures.dart';
 import '../../fixtures/movie_fixtures.dart';
 import 'image_mock_http_client.dart';
 
@@ -31,10 +33,15 @@ void main() {
     when(mockMovieBloc.nextPage).thenAnswer((_) => StreamController().sink);
   });
 
-  Future pumpMainWidget(WidgetTester tester, MovieBloc movieBloc, List<TMDBMovieBasic> movies) async {
+  Future pumpMainWidget(WidgetTester tester, MovieBloc movieBloc, List<TMDBMovieBasic> movies,
+      [TMDBGenre genre = null]) async {
     await tester.pumpWidget(MaterialApp(
-        home:
-            MovieListWidget(movies: movies, movieBloc: movieBloc, tabKey: TabKey.kNowPlaying)));
+        home: MovieListWidget(
+      movies: movies,
+      movieBloc: movieBloc,
+      tabKey: TabKey.kNowPlaying,
+      genre: genre,
+    )));
 
     listview = getListView(tester, listviewFinder);
     listController = listview.controller;
@@ -109,6 +116,15 @@ void main() {
     await pumpMainWidget(tester, mockMovieBloc, []);
     AnimatedOpacity animatedOpacity = tester.widget(find.byType(AnimatedOpacity));
     expect(animatedOpacity.opacity, 0.0);
+  });
+
+  testWidgets('should have Scaffold, AppBar and correct genre title if genres available',
+					(WidgetTester tester) async {
+    await pumpMainWidget(tester, mockMovieBloc, movieList, genreOne);
+    expect(find.byType(Scaffold), findsOneWidget);
+    expect(find.byType(AppBar), findsOneWidget);
+    AppBar appBar = tester.widget(find.byType(AppBar));
+    expect((appBar.title as Text).data, genreOne.name);
   });
 }
 

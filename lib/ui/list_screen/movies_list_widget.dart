@@ -1,4 +1,5 @@
 import 'package:cine_reel/bloc/movie_bloc.dart';
+import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/poster_row.dart';
 import 'package:cine_reel/ui/scroll_controller/list_controller.dart';
@@ -14,12 +15,14 @@ class MovieListWidget extends StatefulWidget {
   final List<TMDBMovieBasic> movies;
   final TabKey tabKey;
   final MovieBloc movieBloc;
+  final TMDBGenre genre;
 
   MovieListWidget(
       {Key key,
       @required this.movies,
       @required this.tabKey,
-      @required this.movieBloc})
+      @required this.movieBloc,
+  		this.genre})
       : super(key: key);
 
   @override
@@ -48,17 +51,39 @@ class MovieListWidgetState extends State<MovieListWidget> {
   Widget build(BuildContext context) {
     _scrollController.unPause();
 
-    return AnimatedOpacity(
-      duration: Duration(milliseconds: 800),
-      opacity: this.widget.movies.isNotEmpty ? 1.0 : 0.0,
-      child: ListView.builder(
-        controller: _scrollController,
-        itemCount: this.widget.movies.length,
-        itemBuilder: (context, index) {
-          final movie = this.widget.movies[index];
-          return PosterRow(movie);
-        },
-      ),
+    if (notGenreList()) {
+      return AnimatedOpacity(
+        duration: Duration(milliseconds: 800),
+        opacity: this.widget.movies.isNotEmpty ? 1.0 : 0.0,
+        child: ListView.builder(
+          controller: _scrollController,
+          itemCount: this.widget.movies.length,
+          itemBuilder: (context, index) {
+            final movie = this.widget.movies[index];
+            return PosterRow(movie);
+          },
+        ),
+      );
+    } else {
+      return Scaffold(
+          body: buildGenreList(),
+        appBar: AppBar(
+          title: Text("${this.widget.genre.name}"),
+        )
+			);
+    }
+  }
+
+  bool notGenreList() => this.widget.genre == null;
+
+  Widget buildGenreList() {
+    return ListView.builder(
+      controller: _scrollController,
+      itemCount: this.widget.movies.length,
+      itemBuilder: (context, index) {
+        final movie = this.widget.movies[index];
+        return PosterRow(movie);
+      },
     );
   }
 }

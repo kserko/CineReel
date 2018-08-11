@@ -1,5 +1,6 @@
 import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
+import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
 import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
 import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
@@ -11,17 +12,18 @@ import 'package:flutter/widgets.dart';
 
 class MoviesListScreen extends StatefulWidget {
   final TabKey tabKey;
+  final TMDBGenre genre;
 
-  MoviesListScreen({@required TabKey this.tabKey});
+  MoviesListScreen(
+      {@required TabKey this.tabKey, TMDBGenre this.genre});
 
   @override
   MoviesListScreenState createState() {
     return new MoviesListScreenState();
   }
 
-  StreamBuilder<MoviesState> buildStreamBuilder(BuildContext context, MovieBloc movieBloc, TabKey
-	tabKey, int tabIndex) {
-
+  StreamBuilder<MoviesState> buildStreamBuilder(
+      BuildContext context, MovieBloc movieBloc, TabKey tabKey, int tabIndex) {
     return StreamBuilder(
         key: Key('streamBuilder'),
         stream: movieBloc.stream,
@@ -47,6 +49,7 @@ class MoviesListScreen extends StatefulWidget {
 
                     // Fade in the Result if available
                     MovieListWidget(
+                        genre: genre,
                         movieBloc: movieBloc,
                         tabKey: tabKey,
                         movies: data is MoviesPopulated ? data.movies : []),
@@ -60,22 +63,21 @@ class MoviesListScreen extends StatefulWidget {
 }
 
 class MoviesListScreenState extends State<MoviesListScreen> {
-	MovieBloc movieBloc;
+  MovieBloc movieBloc;
 
-	@override
+  @override
   Widget build(BuildContext context) {
-		movieBloc = MovieProvider.of(context);
+    movieBloc = MovieProvider.of(context);
 
-		return Column(
-        key: Key("rootColumn"),
-        children: [Flexible(child: widget.buildStreamBuilder(context, movieBloc, widget.tabKey,
-						widget
-						.tabKey.index))]);
+    return Column(key: Key("rootColumn"), children: [
+      Flexible(
+          child: widget.buildStreamBuilder(context, movieBloc, widget.tabKey, widget.tabKey.index))
+    ]);
   }
 
-	@override
-	void dispose() {
-		movieBloc.dispose();
-		super.dispose();
-	}
+  @override
+  void dispose() {
+    movieBloc.dispose();
+    super.dispose();
+  }
 }

@@ -43,7 +43,7 @@ class Router {
 		Navigator.push(context, RouteTransition(
 			widget: MovieProvider(
 				movieBloc: MoviesForGenreBloc(TMDBApi(), genre),
-				child: MoviesListScreen(tabKey: TabKey.kGenres),
+				child: MoviesListScreen(tabKey: TabKey.kGenres, genre: genre,),
 			)
 		));
 	}
