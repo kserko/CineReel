@@ -58,13 +58,13 @@ class InfoView extends StatelessWidget {
         text: TextSpan(style: defaultStyle.copyWith(fontSize: 16.0), children: [
           TextSpan(
               text: "This app is free as in freedom and you can check out the source code "
-                  "on gitlab \n"),
+                  "on github \n"),
           TextSpan(
               style: defaultStyle.copyWith(color: Colors.blue, fontSize: 14.0),
-              text: "https://gitlab.com/kserko/cine_reel",
+              text: "https://github.com/kserko/CineReel",
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  launchURL("https://gitlab.com/serk01/cine_reel");
+                  launchURL("https://github.com/kserko/CineReel");
                 })
         ]));
   }

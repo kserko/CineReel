@@ -14,13 +14,16 @@ class MovieImageForRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-		return Hero(child: getFadeInImage(), tag: "$movieId-imagePath");
+		return Hero(child: getFadeInImage(context), tag: "$movieId-imagePath");
   }
 
-  Widget getFadeInImage() {
-    return FadeInImage.memoryNetwork(
-        placeholder: kTransparentImage,
-        image: ImageHelper.getImagePath(imagePath, size),
-        fit: BoxFit.fitWidth);
+  Widget getFadeInImage(BuildContext context) {
+    return SizedBox(
+			width: MediaQuery.of(context).size.width * 0.45,
+      child: FadeInImage.memoryNetwork(
+          placeholder: kTransparentImage,
+          image: ImageHelper.getImagePath(imagePath, size),
+          fit: BoxFit.fitWidth),
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/navigation/router.dart';
+import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/list_row_rating_widget.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/movie_image_for_poster_row.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +12,22 @@ class PosterRow extends StatelessWidget {
   PosterRow(this.movie);
 
   final defaultStyle = TextStyle(
-      fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
+      fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-          onTap: () {
-          	Router.pushDetailsScreen(context, movie);
-          },
-          child: buildMovieRow(movie, context)),
+    return Column(
+			mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Material(
+          child: InkWell(
+              onTap: () {
+              	Router.pushDetailsScreen(context, movie);
+              },
+              child: buildMovieRow(movie, context)),
+        ),
+				buildHorizontalDivider(height: 1.0, color: Theme.of(context).accentColor),
+      ],
     );
   }
 
@@ -38,7 +45,7 @@ class PosterRow extends StatelessWidget {
     return DefaultTextStyle(
       style: defaultStyle,
       child: Container(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(2.0),
         child: Stack(
           children: <Widget>[
             Row(
@@ -49,7 +56,7 @@ class PosterRow extends StatelessWidget {
                     movieId: movie.id,
                     imagePath: movie.posterPath,
                     imageType: IMAGE_TYPE.POSTER,
-                    size: POSTER_SIZES['small']),
+                    size: POSTER_SIZES['large']),
                 buildHeader(movie)
               ],
             ),
