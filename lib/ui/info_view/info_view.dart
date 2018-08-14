@@ -58,10 +58,10 @@ class InfoView extends StatelessWidget {
         text: TextSpan(style: defaultStyle.copyWith(fontSize: 16.0), children: [
           TextSpan(
               text: "This app is free as in freedom and you can check out the source code "
-                  "on gitlab \n"),
+                  "on github \n"),
           TextSpan(
               style: defaultStyle.copyWith(color: Colors.blue, fontSize: 14.0),
-              text: "https://gitlab.com/kserko/cine_reel",
+              text: "https://github.com/kserko/CineReel",
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   launchURL("https://github.com/kserko/CineReel");
@@ -75,7 +75,7 @@ class InfoView extends StatelessWidget {
       children: <Widget>[
         SizedBox(height: 40.0, width: 40.0, child: Image.asset("assets/film_reel.png")),
         Text(
-          "$APP_NAME v1.1",
+          "$APP_NAME v1.1.1",
           style: defaultStyle.copyWith(fontSize: 22.0),
         ),
       ],

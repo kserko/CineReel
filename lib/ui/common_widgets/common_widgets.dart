@@ -36,8 +36,8 @@ IconButton infoAction(context) {
 					InfoView()));
 }
 
-Widget buildHorizontalDivider({double height = 22.0}) {
-  return Divider(height: height);
+Widget buildHorizontalDivider({double height = 22.0, Color color = Colors.white}) {
+  return Divider(height: height, color: color,);
 }
 
 Widget MaterialIcon(String assetPath, [Function onPressedAction]) {
