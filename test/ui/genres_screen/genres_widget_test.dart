@@ -21,7 +21,8 @@ void main() {
 	testWidgets('Each GenreGridItem should have the name of the genre', (WidgetTester tester) async {
 		await pumpMainWidget(tester, genresList);
 		for (int i=1; i < genresList.length; i++ ) {
-			expect(find.text("genre$i"), findsOneWidget);
+			TMDBGenre genre = genresList[i];
+			expect(find.text("${genre.name}"), findsOneWidget);
 		}
 	});
 }

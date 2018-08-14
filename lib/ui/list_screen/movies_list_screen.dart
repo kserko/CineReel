@@ -77,7 +77,7 @@ class MoviesListScreenState extends State<MoviesListScreen> {
 
   @override
   void dispose() {
-    movieBloc.dispose();
+  	print('dispose movies list screen');
     super.dispose();
   }
 }

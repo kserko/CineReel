@@ -12,14 +12,13 @@ class CastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  	return Container(
+    return Container(
       child: SizedBox.fromSize(
         size: const Size.fromHeight(120.0),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount:
-              movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
-					itemBuilder: (BuildContext context, int index) {
+          itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
+          itemBuilder: (BuildContext context, int index) {
             return _avatar(index);
           },
         ),
@@ -28,17 +27,13 @@ class CastWidget extends StatelessWidget {
   }
 
   Padding _avatar(int index) {
-  	Cast actor = movieDetails.hasData ? movieDetails.credits.cast[index] :
-		null;
+    Cast actor = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
     return Padding(
       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            _buildCircularAvatar(actor),
-            _buildActorName(actor)
-          ]),
+          children: <Widget>[_buildCircularAvatar(actor), _buildActorName(actor)]),
     );
   }
 

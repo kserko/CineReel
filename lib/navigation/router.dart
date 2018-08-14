@@ -1,8 +1,8 @@
 
 import 'package:cine_reel/api/omdb_api.dart';
 import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/list_of_movies_blocs/movie_list_for_genre_bloc.dart';
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
-import 'package:cine_reel/bloc/movies_for_genre_bloc.dart';
 import 'package:cine_reel/bloc/search_bloc.dart';
 import 'package:cine_reel/bloc_providers/movie_details_provider.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
@@ -42,7 +42,7 @@ class Router {
 	static void pushMoviesByGenreList(BuildContext context, TMDBGenre genre) {
 		Navigator.push(context, RouteTransition(
 			widget: MovieProvider(
-				movieBloc: MoviesForGenreBloc(TMDBApi(), genre),
+				movieBloc: MovieListForGenreBloc(TMDBApi(), genre),
 				child: MoviesListScreen(tabKey: TabKey.kGenres, genre: genre,),
 			)
 		));

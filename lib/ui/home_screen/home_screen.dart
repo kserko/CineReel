@@ -1,8 +1,8 @@
 import 'package:cine_reel/api/tmdb_api.dart';
 import 'package:cine_reel/bloc/genres_bloc.dart';
-import 'package:cine_reel/bloc/now_playing_bloc.dart';
-import 'package:cine_reel/bloc/popular_bloc.dart';
-import 'package:cine_reel/bloc/top_rated_bloc.dart';
+import 'package:cine_reel/bloc/list_of_movies_blocs/now_playing_bloc.dart';
+import 'package:cine_reel/bloc/list_of_movies_blocs/popular_bloc.dart';
+import 'package:cine_reel/bloc/list_of_movies_blocs/top_rated_bloc.dart';
 import 'package:cine_reel/bloc_providers/genres_provider.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
@@ -88,6 +88,7 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 
   @override
   void dispose() {
+  	print('dispose home screen');
     _tabController.dispose();
     (nowPlayingTab.provider as MovieProvider).movieBloc.dispose();
 		(topRatedTab.provider as MovieProvider).movieBloc.dispose();

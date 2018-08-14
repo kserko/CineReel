@@ -21,7 +21,6 @@ class MockMovieBloc extends Mock implements MovieBloc {}
 
 void main() {
   MockMovieBloc mockMovieBloc;
-  List<TMDBMovieBasic> movieList = [mockMovieOne, mockMovieTwo, mockMovieThree];
   ListController listController;
   ListView listview;
   var listviewFinder = find.byType(ListView);
@@ -48,46 +47,46 @@ void main() {
   }
 
 //	testWidgets('should go to movie details when tapped', (WidgetTester tester) async {
-//		await pumpMainWidget(tester, mockMovieBloc, movieList);
+//		await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
 //
-//		expect(find.text(movieList[0].title), findsOneWidget);
-////		await tester.tap(find.text(movieList[0].title));
-//		await tester.tap(find.byKey(Key(movieList[0].title)));
+//		expect(find.text(mockMoviesList[0].title), findsOneWidget);
+////		await tester.tap(find.text(mockMoviesList[0].title));
+//		await tester.tap(find.byKey(Key(mockMoviesList[0].title)));
 //		await tester.pumpAndSettle();
 //
 //		expect(find.byType(MovieDetailsWidget), findsOneWidget);
 //	});
 
   testWidgets('should have a Listview', (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
     expect(listviewFinder, findsOneWidget);
   });
 
   testWidgets('listView should have poster rows', (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList);
-    expect(find.byType(PosterRow), findsNWidgets(movieList.length));
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
+    expect(find.byType(PosterRow), findsNWidgets(mockMoviesList.length));
   });
 
   testWidgets('listView should have a list controller', (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
     expect(listview.controller, isNotNull);
   });
 
   testWidgets('list controller should have a listener', (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
     expect(listController.hasListeners, isTrue);
   });
 
   testWidgets('should request next page when close to the end of the listview',
       (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
     listController.position.jumpTo(10.0);
     verify(mockMovieBloc.nextPage);
   });
 
   testWidgets('should not request next page when list controller is paused',
       (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
     listController.pause();
 
     listController.position.jumpTo(10.0);
@@ -97,7 +96,7 @@ void main() {
 
   testWidgets('should pause list controller after requesting next page',
       (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
     expect(listController.isPaused, isFalse);
 
     listController.position.jumpTo(10.0);
@@ -107,7 +106,7 @@ void main() {
   });
 
   testWidgets('should show listview when movies present', (WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList);
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList);
     AnimatedOpacity animatedOpacity = tester.widget(find.byType(AnimatedOpacity));
     expect(animatedOpacity.opacity, 1.0);
   });
@@ -120,7 +119,7 @@ void main() {
 
   testWidgets('should have Scaffold, AppBar and correct genre title if genres available',
 					(WidgetTester tester) async {
-    await pumpMainWidget(tester, mockMovieBloc, movieList, genreOne);
+    await pumpMainWidget(tester, mockMovieBloc, mockMoviesList, genreOne);
     expect(find.byType(Scaffold), findsOneWidget);
     expect(find.byType(AppBar), findsOneWidget);
     AppBar appBar = tester.widget(find.byType(AppBar));
