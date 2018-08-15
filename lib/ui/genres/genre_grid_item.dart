@@ -22,10 +22,13 @@ class GenreGridItem extends StatelessWidget {
           child: Hero(
             child: Material(
               color: Colors.transparent,
-              child: Text(
-                "${genre.name}",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16.0, color: Theme.of(context).accentColor),
+              child: FittedBox(
+								fit: BoxFit.scaleDown,
+                child: Text(
+                  "${genre.name}",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16.0, color: Theme.of(context).accentColor),
+                ),
               ),
             ),
             tag: "${genre.name}",
