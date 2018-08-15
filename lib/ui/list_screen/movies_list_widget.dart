@@ -18,11 +18,7 @@ class MovieListWidget extends StatefulWidget {
   final TMDBGenre genre;
 
   MovieListWidget(
-      {Key key,
-      @required this.movies,
-      @required this.tabKey,
-      @required this.movieBloc,
-  		this.genre})
+      {Key key, @required this.movies, @required this.tabKey, @required this.movieBloc, this.genre})
       : super(key: key);
 
   @override
@@ -67,10 +63,15 @@ class MovieListWidgetState extends State<MovieListWidget> {
     } else {
       return Scaffold(
           body: buildGenreList(),
-        appBar: AppBar(
-          title: Text("${this.widget.genre.name}"),
-        )
-			);
+          appBar: AppBar(
+            title: Hero(
+              child: Material(
+							color: Colors.transparent,
+                child: Text("${this.widget.genre.name}", style: TextStyle(fontSize: 23.0, color:
+								Theme.of(context).accentColor),),
+              ), tag: "${this.widget.genre.name}",
+            ),
+          ));
     }
   }
 
