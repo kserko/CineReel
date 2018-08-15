@@ -57,7 +57,7 @@ abstract class MovieBloc {
 
     page += 1;
     try {
-      final result = await getApiCall(page);
+      final result = await _getApiCall(page);
       if (result.isEmpty) {
         yield MoviesEmpty();
       } else {
@@ -65,11 +65,11 @@ abstract class MovieBloc {
       }
     } catch (e) {
       print('error $e');
-      yield MoviesError(e);
+      yield MoviesError(e.toString());
     }
   }
 
-  Future<TMDBMoviesResponse> getApiCall(int page) {
+  Future<TMDBMoviesResponse> _getApiCall(int page) {
   	Future<TMDBMoviesResponse> apiCall;
   	switch(tabKey) {
 			case TabKey.kNowPlaying:
