@@ -9,19 +9,27 @@ class GenresScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final genresBloc = GenresProvider.of(context);
     return StreamBuilder(
-        key: Key('streamBuilder'),
-        stream: genresBloc.stream,
-        builder: (context, snapshot) {
-          final data = snapshot.data;
-          return Column(children: <Widget>[
+      key: Key('streamBuilder'),
+      stream: genresBloc.stream,
+      builder: (context, snapshot) {
+        final data = snapshot.data;
+        return Column(
+          children: <Widget>[
             Expanded(
-                child: Stack(key: Key('content'), children: <Widget>[
-              EmptyWidget(visible: data is GenresEmpty),
-              GenresWidget(
-                  visible: data is GenresPopulated,
-                  genres: data is GenresPopulated ? data.genres : [])
-            ]))
-          ]);
-        });
+              child: Stack(
+                key: Key('content'),
+                children: <Widget>[
+                  EmptyWidget(visible: data is GenresEmpty),
+                  GenresWidget(
+                    visible: data is GenresPopulated,
+                    genres: data is GenresPopulated ? data.genres : [],
+                  )
+                ],
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 }

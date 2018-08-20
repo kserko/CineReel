@@ -12,6 +12,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../fixtures/common_mocks.dart';
+import '../../test_utils.dart';
 
 class MockMovieBloc extends Mock implements MovieBloc {
   MockMovieBloc(MockTMDBApi mockTMDBApi);
@@ -53,24 +54,6 @@ void main() {
 		verifyStackContainsWidget(tester, MovieListWidget);
 		expect(stack.children.length, 4);
 	});
-}
-
-/*Verify that a given widget type is a descendant of the Stack widget in the
-layout
-*/
-void verifyStackContainsWidget(WidgetTester tester, Type
-descendantWidget) {
-	var stackFinder = find.byKey(Key('content'));
-	Stack stack = tester.widget(stackFinder);
-
-	expect(
-  	tester.widget<Stack>(
-  		find.ancestor(
-  			of: find.byType(descendantWidget),
-  			matching: stackFinder,
-			matchRoot: false),
-  		), stack
-  	);
 }
 
 Future pumpMainWidget(WidgetTester tester) async {

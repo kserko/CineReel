@@ -15,7 +15,7 @@ import 'package:mockito/mockito.dart';
 
 import '../../fixtures/genres_fixtures.dart';
 import '../../fixtures/movie_fixtures.dart';
-import 'image_mock_http_client.dart';
+import '../image_mock_http_client.dart';
 
 class MockMovieBloc extends Mock implements MovieBloc {}
 
