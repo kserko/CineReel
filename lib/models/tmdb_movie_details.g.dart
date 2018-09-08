@@ -186,15 +186,22 @@ abstract class _$GenreSerializerMixin {
 }
 
 Credits _$CreditsFromJson(Map<String, dynamic> json) {
-  return new Credits((json['cast'] as List)
-      ?.map((e) =>
-          e == null ? null : new Cast.fromJson(e as Map<String, dynamic>))
-      ?.toList());
+  return new Credits(
+      (json['cast'] as List)
+          ?.map((e) =>
+              e == null ? null : new Cast.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['crew'] as List)
+          ?.map((e) =>
+              e == null ? null : new Crew.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
 abstract class _$CreditsSerializerMixin {
   List<Cast> get cast;
-  Map<String, dynamic> toJson() => <String, dynamic>{'cast': cast};
+  List<Crew> get crew;
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'cast': cast, 'crew': crew};
 }
 
 Cast _$CastFromJson(Map<String, dynamic> json) {
@@ -219,6 +226,36 @@ abstract class _$CastSerializerMixin {
         'character': character,
         'credit_id': creditId,
         'id': id,
+        'name': name,
+        'profile_path': profilePath
+      };
+}
+
+Crew _$CrewFromJson(Map<String, dynamic> json) {
+  return new Crew(
+      json['credit_id'] as String,
+      json['department'] as String,
+      json['gender'] as int,
+      json['id'] as int,
+      json['job'] as String,
+      json['name'] as String,
+      json['profile_path'] as String);
+}
+
+abstract class _$CrewSerializerMixin {
+  String get creditId;
+  String get department;
+  int get gender;
+  int get id;
+  String get job;
+  String get name;
+  String get profilePath;
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'credit_id': creditId,
+        'department': department,
+        'gender': gender,
+        'id': id,
+        'job': job,
         'name': name,
         'profile_path': profilePath
       };

@@ -29,10 +29,10 @@ class MovieDetailsPosterOverlay extends StatelessWidget {
             children: <Widget>[
               buildTitle(defaultStyle),
               buildHorizontalDivider(),
-              buildRunningTimeAndReleaseDate(),
+              buildMinorDetailsRow(),
               buildOverview(),
               buildHorizontalDivider(),
-              buildMovieDetailsContainer(),
+              buildMovieExtraDetailsContainer(),
             ],
           ),
         ),
@@ -40,7 +40,7 @@ class MovieDetailsPosterOverlay extends StatelessWidget {
     );
   }
 
-  Widget buildMovieDetailsContainer() {
+  Widget buildMovieExtraDetailsContainer() {
     return AnimateChildren(
         childOne: MovieExtraDetailsContainer(
             movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
@@ -50,14 +50,16 @@ class MovieDetailsPosterOverlay extends StatelessWidget {
         showHappyPath: !hasFailed);
   }
 
-  Widget buildRunningTimeAndReleaseDate() {
+  Widget buildMinorDetailsRow() {
     return AnimateChildren(
         childOne: Row(
           children: <Widget>[
             buildRunningTime(),
             getDotSeparator(),
             buildReleaseDate(),
-          ],
+						getDotSeparator(),
+						buildDirectorName(),
+					],
         ),
         childTwo: Container(),
         showHappyPath: movieDetails.hasData);
@@ -107,4 +109,15 @@ class MovieDetailsPosterOverlay extends StatelessWidget {
           style: TextStyle(fontSize: 13.0)),
     );
   }
+
+	buildDirectorName() {
+		return Expanded(
+		  child: Padding(
+		  	padding: const EdgeInsets.all(8.0),
+		  	child: Text("directed by ${movieDetails.getDirector()}",
+		  			style: TextStyle(fontSize: 13.0)),
+		  ),
+		);
+	}
+
 }
