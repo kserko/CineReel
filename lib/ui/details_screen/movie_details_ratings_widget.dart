@@ -14,18 +14,15 @@ class MovieDetailsRatingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          buildIMDBRating(),
-          buildRottenTomatoesRating(),
-          buildMetacriticRating(),
-          buildTMDBRating(),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        buildIMDBRating(),
+        buildRottenTomatoesRating(),
+        buildMetacriticRating(),
+        buildTMDBRating(),
+      ],
     );
   }
 

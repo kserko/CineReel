@@ -12,32 +12,46 @@ Widget getAppBar({title, context, tabController, myTabs}) {
       actions: buildActions(context),
       title: new Text(title),
       elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 3.0,
-      bottom: TabBar(controller: tabController, tabs: myTabs, isScrollable: true,
-				indicatorWeight: 1.0,));
+      bottom: TabBar(
+        controller: tabController,
+        tabs: myTabs,
+        isScrollable: true,
+        indicatorWeight: 1.0,
+      ));
 }
 
 List<Widget> buildActions(context) {
-  return <Widget>[
-    searchAction(context),
-		infoAction(context)
-  ];
+  return <Widget>[searchAction(context), infoAction(context)];
 }
 
 IconButton searchAction(context) {
-  return IconButton(
-      icon: Icon(Icons.search),
-      onPressed: () => Router.pushSearchScreen(context));
+  return IconButton(icon: Icon(Icons.search), onPressed: () => Router.pushSearchScreen(context));
 }
 
 IconButton infoAction(context) {
-	return IconButton(
-			icon: Icon(Icons.info_outline),
-			onPressed: () => showModalBottomSheet(context: context, builder:(BuildContext context) =>
-					InfoView()));
+  return IconButton(
+      icon: Icon(Icons.info_outline),
+      onPressed: () =>
+          showModalBottomSheet(context: context, builder: (BuildContext context) => InfoView()));
 }
 
 Widget buildHorizontalDivider({double height = 22.0, Color color = Colors.white}) {
-  return Divider(height: height, color: color,);
+	return Divider(
+    height: height,
+    color: color,
+  );
+}
+
+Widget buildDetailSubtitle(String subtitle) {
+  return Column(
+    children: <Widget>[
+      Padding(padding: EdgeInsets.only(top: 30.0)),
+      Text(
+        subtitle,
+        style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+      ),
+    ],
+  );
 }
 
 Widget MaterialIcon(String assetPath, [Function onPressedAction]) {

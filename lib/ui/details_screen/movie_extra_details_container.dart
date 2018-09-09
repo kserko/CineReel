@@ -16,13 +16,16 @@ class MovieExtraDetailsContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimateChildren(
         childOne: Column(
+					crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            MovieDetailsRatingsWidget(
+						MovieDetailsRatingsWidget(
                 movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-            buildHorizontalDivider(),
+						buildHorizontalDivider(),
 						CastWidget(movieDetails: movieDetails),
 						buildHorizontalDivider(),
-					],
+//						CrewWidget(movieDetails: movieDetails),
+//            buildHorizontalDivider(),
+          ],
         ),
         childTwo: Padding(
           padding: const EdgeInsets.all(8.0),
