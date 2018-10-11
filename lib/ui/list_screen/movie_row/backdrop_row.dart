@@ -11,10 +11,9 @@ class MovieRow extends StatelessWidget {
 
   MovieRow(this.movie, this.index);
 
-	final defaultStyle = TextStyle(
-			fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold);
+  final defaultStyle = TextStyle(fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold);
 
-	@override
+  @override
   Widget build(BuildContext context) {
     return buildMovieRow(movie, context);
   }
@@ -33,11 +32,7 @@ class MovieRow extends StatelessWidget {
     return DefaultTextStyle(
       style: defaultStyle,
       child: Stack(
-        children: <Widget>[
-          buildMovieBackdrop(movie),
-          buildTitle(movie),
-          buildRating(movie)
-        ],
+        children: <Widget>[buildMovieBackdrop(movie), buildTitle(movie), buildRating(movie)],
       ),
     );
   }
@@ -76,29 +71,27 @@ class MovieRow extends StatelessWidget {
 
   ExpansionTile buildExpansionTile(TMDBMovieBasic movie) {
     return ExpansionTile(
-        title: Text("$index ${movie.title}",
-            style: TextStyle(fontSize: 30.0, color: Colors.white)),
+        title: Text("$index ${movie.title}", style: TextStyle(fontSize: 30.0, color: Colors.white)),
         children: [
           SizedBox(
             height: 100.0,
             child: ListTile(
                 title: SingleChildScrollView(
-              child: Text(movie.overview,
-                  style: TextStyle(fontSize: 16.0, color: Colors.white)),
+              child: Text(movie.overview, style: TextStyle(fontSize: 16.0, color: Colors.white)),
             )),
           )
         ]);
   }
 
   Widget getAdvancedNetworkImage(TMDBMovieBasic movie) {
-    return new TransitionToImage(AdvancedNetworkImage(backdropImagePath(movie)),
-        placeholder: LinearProgressIndicator(),
-        useReload: false,
-        fallbackWidget: SizedBox(height: 300.0));
+    return new TransitionToImage(
+      AdvancedNetworkImage(backdropImagePath(movie)),
+      placeholder: LinearProgressIndicator(),
+    );
   }
 
-  String backdropImagePath(TMDBMovieBasic movie) => ImageHelper.getImagePath(
-      movie.backdropPath, BACKDROP_SIZES['medium']);
+  String backdropImagePath(TMDBMovieBasic movie) =>
+      ImageHelper.getImagePath(movie.backdropPath, BACKDROP_SIZES['medium']);
 
   Widget buildMovieBackdrop(TMDBMovieBasic movie) {
     if (movie.backdropPath != null && movie.backdropPath.isNotEmpty) {
