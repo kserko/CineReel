@@ -23,8 +23,6 @@ class MovieExtraDetailsContainer extends StatelessWidget {
 						buildHorizontalDivider(),
 						CastWidget(movieDetails: movieDetails),
 						buildHorizontalDivider(),
-//						CrewWidget(movieDetails: movieDetails),
-//            buildHorizontalDivider(),
           ],
         ),
         childTwo: Padding(

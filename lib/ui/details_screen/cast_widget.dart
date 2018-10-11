@@ -1,5 +1,6 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
+import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,29 +20,38 @@ class CastWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
           itemBuilder: (BuildContext context, int index) {
-            return _avatar(index);
+            return _avatar(context, index);
           },
         ),
       ),
     );
   }
 
-  Widget _avatar(int index) {
-    Cast actor = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[_buildCircularAvatar(actor), _buildActorName(actor)]),
+  Widget _avatar(BuildContext context, int index) {
+    Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
+    return Material(
+			color: Colors.transparent,
+      child: InkWell(
+			onTap: () => Router.pushCastDetailsScreen(context),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[_buildCircularAvatar(cast), _buildCastName(cast)]),
+        ),
+      ),
     );
   }
 
-  Container _buildActorName(Cast actor) {
-    return Container(
+  Container _buildCastName(Cast cast) {
+  	if (cast != null) {
+			print("${cast.name}, ${cast.id}");
+		}
+  	return Container(
       padding: const EdgeInsets.only(top: 5.0),
       child: Text(
-        actor != null ? actor.name : "",
+        cast != null ? cast.name : "",
         style: TextStyle(fontSize: 12.0),
       ),
     );
