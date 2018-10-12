@@ -13,6 +13,8 @@ class MovieExtraDetailsContainer extends StatelessWidget {
   MovieExtraDetailsContainer({this.movieDetails, this.movieDetailsBloc});
 
 
+  //this approach of adding things to the builder only when they become available
+	//helps us avoid the need to deal with null values in the children
   @override
   Widget build(BuildContext context) {
 		List<Widget> builder = [];

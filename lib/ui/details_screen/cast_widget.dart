@@ -32,7 +32,7 @@ class CastWidget extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => Router.pushPersonScreen(context, cast.id),
+        onTap: () => Router.pushPersonScreen(context, cast),
         child: Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
           child: Column(
@@ -47,9 +47,11 @@ class CastWidget extends StatelessWidget {
   Container _buildCastName(Cast cast) {
     return Container(
       padding: const EdgeInsets.only(top: 5.0),
-      child: Text(
-        cast != null ? cast.name : "",
-        style: TextStyle(fontSize: 12.0),
+      child: Material(
+				color: Colors.transparent,
+        child: Text(cast.name,
+          style: TextStyle(fontSize: 12.0),
+        ),
       ),
     );
   }
@@ -65,14 +67,14 @@ class CastWidget extends StatelessWidget {
             radius: 40.0,
             backgroundImage: _image(cast)),
       ),
-      tag: "tag-${cast.id}",
+      tag: "tag-${cast.profilePath}",
     );
   }
 
   ImageProvider _image(Cast cast) {
     return FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image: ImageHelper.getCastFullProfilePath(cast.profilePath, PROFILE_SIZES['medium']))
-        .image;
+      placeholder: kTransparentImage,
+      image: ImageHelper.getCastFullProfilePath(cast.profilePath, PROFILE_SIZES['large']),
+    ).image;
   }
 }

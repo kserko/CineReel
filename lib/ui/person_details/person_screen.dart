@@ -1,5 +1,6 @@
 import 'package:cine_reel/bloc/person_bloc.dart';
 import 'package:cine_reel/bloc_providers/person_provider.dart';
+import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class PersonScreen extends StatefulWidget {
-  PersonScreen();
+  final Cast cast;
+
+  PersonScreen(this.cast);
 
   @override
   PersonScreenState createState() {
@@ -22,7 +25,7 @@ class PersonScreenState extends State<PersonScreen> {
 
   @override
   Widget build(BuildContext context) {
-    personBloc = PersonProvider.of(context);
+		personBloc = PersonProvider.of(context);
     return Scaffold(
       body: StreamBuilder(
         stream: personBloc.stream,
@@ -46,7 +49,7 @@ class PersonScreenState extends State<PersonScreen> {
                       visible: data is PersonFailed, error: data is PersonFailed ? data.error : ""),
 
 									PersonWidget(
-										visible: data is PersonPopulated,
+										cast: this.widget.cast,
 										person: data is PersonPopulated ? data.tmdbPerson : null
 									)
 

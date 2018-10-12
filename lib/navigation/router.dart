@@ -10,6 +10,7 @@ import 'package:cine_reel/bloc_providers/person_provider.dart';
 import 'package:cine_reel/bloc_providers/search_provider.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
+import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/SlideRoute.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_screen.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
@@ -58,13 +59,13 @@ class Router {
     );
   }
 
-  static void pushPersonScreen(BuildContext context, int personId) {
+  static void pushPersonScreen(BuildContext context, Cast cast) {
     Navigator.push(
       context,
       RouteTransition(
         widget: PersonProvider(
-          child: PersonScreen(),
-          personBloc: PersonBloc(tmdbApi: TMDBApi(), personId: personId),
+          child: PersonScreen(cast),
+          personBloc: PersonBloc(tmdbApi: TMDBApi(), personId: cast.castId),
         ),
       ),
     );
