@@ -63,4 +63,8 @@ class Endpoints {
   static String movieSearchUrl(String title) {
   	return "$TMDB_API_BASE_URL/search/movie?query=$title&api_key=$TMDB_API_KEY";
 	}
+
+  static getPerson(int personId) {
+		return "$TMDB_API_BASE_URL/person/$personId?api_key=$TMDB_API_KEY";
+	}
 }

@@ -30,25 +30,22 @@ class CastWidget extends StatelessWidget {
   Widget _avatar(BuildContext context, int index) {
     Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
     return Material(
-			color: Colors.transparent,
+      color: Colors.transparent,
       child: InkWell(
-			onTap: () => Router.pushCastDetailsScreen(context),
+        onTap: () => Router.pushPersonScreen(context, cast.id),
         child: Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[_buildCircularAvatar(cast), _buildCastName(cast)]),
+              children: <Widget>[_buildCircularAvatar(cast, index), _buildCastName(cast)]),
         ),
       ),
     );
   }
 
   Container _buildCastName(Cast cast) {
-  	if (cast != null) {
-			print("${cast.name}, ${cast.id}");
-		}
-  	return Container(
+    return Container(
       padding: const EdgeInsets.only(top: 5.0),
       child: Text(
         cast != null ? cast.name : "",
@@ -57,20 +54,25 @@ class CastWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCircularAvatar(Cast cast) {
-    return CircleAvatar(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 88.0),
-        ),
-        radius: 40.0,
-        backgroundImage: _image(cast));
+  Widget _buildCircularAvatar(Cast cast, int index) {
+    return Hero(
+      child: Material(
+        color: Colors.transparent,
+        child: CircleAvatar(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 88.0),
+            ),
+            radius: 40.0,
+            backgroundImage: _image(cast)),
+      ),
+      tag: "tag-${cast.id}",
+    );
   }
 
   ImageProvider _image(Cast cast) {
-    return FadeInImage
-        .memoryNetwork(
+    return FadeInImage.memoryNetwork(
             placeholder: kTransparentImage,
-            image: ImageHelper.getCastFullProfilePath(cast, PROFILE_SIZES['medium']))
+            image: ImageHelper.getCastFullProfilePath(cast.profilePath, PROFILE_SIZES['medium']))
         .image;
   }
 }

@@ -36,9 +36,12 @@ class MovieDetailsBloc {
 	details object
 	*/
 	MovieDetailsState initialData() {
-    return movieDetailsState.initialState(
-        movieDetails: TMDBMovieDetails(),
-        movieBasic: movie);
+		if (movieDetailsState.movieDetails == null) {
+			return movieDetailsState.initialState(
+					movieDetails: TMDBMovieDetails(),
+					movieBasic: movie);
+		}
+		return movieDetailsState;
   }
 
   Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {

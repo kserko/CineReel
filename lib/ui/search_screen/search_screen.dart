@@ -1,8 +1,8 @@
 import 'package:cine_reel/bloc/search_bloc.dart';
 import 'package:cine_reel/bloc_providers/search_provider.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
-import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
-import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
+import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
+import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/search_screen/search_intro_widget.dart';
 import 'package:cine_reel/ui/search_screen/search_result_widget.dart';
 import 'package:cine_reel/ui/search_screen/search_state.dart';
@@ -68,11 +68,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
                         // Fade in a loading screen when results are being fetched
                         // from Github
-                        MoviesLoadingWidget(visible: state is SearchLoading),
+                        LoadingWidget(visible: state is SearchLoading),
 
                         // Fade in an error if something went wrong when fetching
                         // the results
-                        MoviesErrorWidget(visible: state is SearchError),
+                        ErrorsWidget(visible: state is SearchError),
 
                         // Fade in the Result if available
                         SearchResultWidget(

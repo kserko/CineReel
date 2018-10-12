@@ -5,6 +5,7 @@ import 'package:cine_reel/api/endpoints.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_movies_response.dart';
+import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/models/tmdb_reviews_response.dart';
 import 'package:http/http.dart' as http;
 
@@ -53,6 +54,11 @@ class TMDBApi {
 	Future<TMDBMoviesResponse> moviesForGenre({TMDBGenre genre, int page}) async {
 		final response = await _makeRequest(Endpoints.getMoviesForGenre(genre.id, page));
 		return TMDBMoviesResponse.fromJson(json.decode(response.body));
+	}
+
+	Future<TMDBPerson> getPerson({int personId}) async {
+  	final response = await _makeRequest((Endpoints.getPerson(personId)));
+  	return TMDBPerson.fromJson(json.decode(response.body));
 	}
 
 

@@ -1,7 +1,7 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
-import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
+import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_details_container.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class MovieDetailsPosterOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = TextStyle(
+		final defaultStyle = TextStyle(
         fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
 
     return ListView(
@@ -44,7 +44,7 @@ class MovieDetailsPosterOverlay extends StatelessWidget {
     return AnimateChildren(
         childOne: MovieExtraDetailsContainer(
             movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-        childTwo: MoviesErrorWidget(
+        childTwo: ErrorsWidget(
             visible: true,
             error: movieDetails.status_message),
         showHappyPath: !hasFailed);

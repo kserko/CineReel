@@ -2,8 +2,8 @@ import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
-import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
-import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
+import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
+import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/list_screen/movie_state.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_widget.dart';
 import 'package:cine_reel/utils/tab_constants.dart';
@@ -40,11 +40,11 @@ class MoviesListScreen extends StatefulWidget {
                     EmptyWidget(visible: data is MoviesEmpty),
 
                     // Fade in a loading screen when results are being fetched
-                    MoviesLoadingWidget(visible: data is MoviesLoading),
+                    LoadingWidget(visible: data is MoviesLoading),
 
                     // Fade in an error if something went wrong when fetching
                     // the results
-                    MoviesErrorWidget(
+                    ErrorsWidget(
                         visible: data is MoviesError, error: data is MoviesError ? data.error : ""),
 
                     // Fade in the Result if available

@@ -1,8 +1,8 @@
 import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/bloc_providers/movie_provider.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
-import 'package:cine_reel/ui/common_widgets/movies_error_widget.dart';
-import 'package:cine_reel/ui/common_widgets/movies_loading_widget.dart';
+import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
+import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_widget.dart';
 import 'package:cine_reel/utils/tab_constants.dart';
@@ -49,8 +49,8 @@ void main() {
 		Stack stack = tester.widget(stackFinder);
 
 		verifyStackContainsWidget(tester, EmptyWidget);
-		verifyStackContainsWidget(tester, MoviesLoadingWidget);
-		verifyStackContainsWidget(tester, MoviesErrorWidget);
+		verifyStackContainsWidget(tester, LoadingWidget);
+		verifyStackContainsWidget(tester, ErrorsWidget);
 		verifyStackContainsWidget(tester, MovieListWidget);
 		expect(stack.children.length, 4);
 	});
