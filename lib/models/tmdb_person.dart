@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class TMDBPerson {
 	String birthday;
 	String knownForDepartment;
@@ -16,6 +18,11 @@ class TMDBPerson {
 
 	//custom fields
 	bool hasData;
+	String formattedBirthday() {
+		var parsedDate = DateFormat("yyyy-MM-dd").parse(birthday);
+		var year = DateTime.now().year - parsedDate.year;
+		return "${DateFormat('MMMM dd yyyy').format(parsedDate)} ($year)";
+	}
 
 	TMDBPerson(
 			{this.birthday,

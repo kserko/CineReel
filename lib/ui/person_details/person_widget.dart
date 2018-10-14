@@ -11,37 +11,64 @@ import 'package:transparent_image/transparent_image.dart';
 class PersonWidget extends StatelessWidget {
   final TMDBPerson person;
   final Cast cast;
-  final List<Widget> builder = [];
+  final List<Widget> widgetsList = [];
 
   PersonWidget({Key key, this.person, this.cast}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    builder..add(basicInfo());
+    widgetsList.add(basicInfo());
 
     if (person != null) {
-      builder.add(getBiography());
+      widgetsList.addAll(
+        [
+          getBirthDetails(),
+          buildHorizontalDivider(),
+          getBiography(),
+          buildHorizontalDivider(),
+        ],
+      );
     }
 
     return Scaffold(
-      body: BlurredImage(
-        imagePath: cast.profilePath,
-        child: Column(children: builder),
+      body: DefaultTextStyle(
+        child: BlurredImage(
+          imagePath: cast.profilePath,
+          child: buildContent(),
+        ),
+        style: TextStyle(fontSize: 14.0),
       ),
+    );
+  }
+
+  Widget buildContent() {
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView(
+            children: [
+              Container(
+                  margin: const EdgeInsets.only(top: 45.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: widgetsList)),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   Widget basicInfo() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-      	personName(),
-				buildHorizontalDivider(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            avatar(),
-          ],
-        ),
+        personName(),
+        buildHorizontalDivider(),
+        avatar(),
       ],
     );
   }
@@ -54,32 +81,40 @@ class PersonWidget extends StatelessWidget {
   }
 
   Widget avatar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Hero(
-        child: Material(
-          color: Colors.transparent,
-          child: rectangleAvatar(),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Hero(
+          child: Material(
+            color: Colors.transparent,
+            child: rectangleAvatar(),
+          ),
+          tag: "tag-${cast.profilePath}",
         ),
-        tag: "tag-${cast.profilePath}",
       ),
     );
   }
 
   Widget rectangleAvatar() {
     return Image(
-        width: 200.0,
+        width: 230.0,
         image: _image(
           cast.profilePath,
         ));
   }
 
-  CircleAvatar circleAvatar() =>
-      CircleAvatar(radius: 100.0, backgroundImage: _image(cast.profilePath));
-
   Widget getBiography() {
-    return AnimateChildren(
-        childOne: Text(person.biography), childTwo: Container(), showHappyPath: person != null);
+    return Text(person.biography);
+  }
+
+  Widget getBirthDetails() {
+    return Row(
+      children: <Widget>[
+        Text(
+          person.formattedBirthday(),
+        ),
+      ],
+    );
   }
 
   ImageProvider _image(String profilePath) {
