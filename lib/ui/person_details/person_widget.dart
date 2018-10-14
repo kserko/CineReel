@@ -1,6 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
+import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/material.dart';
@@ -23,18 +24,24 @@ class PersonWidget extends StatelessWidget {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          title: personName(),
-        ),
-        body: Column(children: builder));
+      body: BlurredImage(
+        imagePath: cast.profilePath,
+        child: Column(children: builder),
+      ),
+    );
   }
 
   Widget basicInfo() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
       children: [
-        avatar(),
-				basicPersonalDetails(),
+      	personName(),
+				buildHorizontalDivider(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            avatar(),
+          ],
+        ),
       ],
     );
   }
@@ -83,6 +90,6 @@ class PersonWidget extends StatelessWidget {
   }
 
   Widget basicPersonalDetails() {
-  	return Text(cast.character);
-	}
+    return Text(cast.character);
+  }
 }

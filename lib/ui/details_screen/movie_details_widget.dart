@@ -1,8 +1,7 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
-import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_poster_overlay.dart';
-import 'package:cine_reel/ui/details_screen/movie_full_screen_poster.dart';
+import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
+import 'package:cine_reel/ui/details_screen/movie_details_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -32,9 +31,9 @@ class MovieDetailsWidget extends StatelessWidget {
 
   /*
   This will create the full content of the details page
-  The MovieImageFullScreen will be laid out in fullscreen with a blur effect
-  We're passing the remaining content as overlayContent so that it can 
-  be used as a child in the Container that applies the blur on the image
+  The BlurredImage will lay out the image in fullscreen with a blur effect
+  We're passing the remaining content as a child to the BlurredImage widget
+  so that it be laid over the blurred image
    */
   buildContent(BuildContext context) {
     return Container(
@@ -43,12 +42,10 @@ class MovieDetailsWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
-          child: MovieFullScreenPoster(
-              overlayContent: MovieDetailsPosterOverlay(movieDetails, movieDetailsBloc, hasFailed),
-              movieId: movieDetails.movieBasic.id,
-              imagePath: movieDetails.movieBasic.posterPath,
-              imageType: IMAGE_TYPE.POSTER,
-              size: POSTER_SIZES['small']),
+          child: BlurredImage(
+            child: MovieDetailsContent(movieDetails, movieDetailsBloc, hasFailed),
+            imagePath: movieDetails.movieBasic.posterPath,
+          ),
         ),
       ],
     ));

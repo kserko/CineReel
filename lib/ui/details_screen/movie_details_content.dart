@@ -5,12 +5,12 @@ import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_details_container.dart';
 import 'package:flutter/material.dart';
 
-class MovieDetailsPosterOverlay extends StatelessWidget {
+class MovieDetailsContent extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
   final bool hasFailed;
 
-  MovieDetailsPosterOverlay(
+  MovieDetailsContent(
       this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
 
   @override

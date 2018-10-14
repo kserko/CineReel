@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/ui/info_view/info_view.dart';
 import 'package:flutter/material.dart';
