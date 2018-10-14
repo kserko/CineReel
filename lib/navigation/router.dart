@@ -65,7 +65,7 @@ class Router {
       RouteTransition(
         widget: PersonProvider(
           child: PersonScreen(cast),
-          personBloc: PersonBloc(tmdbApi: TMDBApi(), personId: cast.castId),
+          personBloc: PersonBloc(tmdbApi: TMDBApi(), personId: cast.id),
         ),
       ),
     );

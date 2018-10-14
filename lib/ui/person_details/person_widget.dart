@@ -1,6 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
+import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,6 +17,11 @@ class PersonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     builder..add(basicInfo());
+
+    if (person != null) {
+      builder.add(getBiography());
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: personName(),
@@ -25,15 +31,19 @@ class PersonWidget extends StatelessWidget {
 
   Widget basicInfo() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
         avatar(),
+				basicPersonalDetails(),
       ],
     );
   }
 
   Widget personName() {
-    return Text(cast.name, style: TextStyle(fontSize: 23.0),);
+    return Text(
+      cast.name,
+      style: TextStyle(fontSize: 23.0),
+    );
   }
 
   Widget avatar() {
@@ -42,17 +52,27 @@ class PersonWidget extends StatelessWidget {
       child: Hero(
         child: Material(
           color: Colors.transparent,
-          child: CircleAvatar(
-              radius: 100.0,
-              backgroundImage: _image(cast.profilePath)),
+          child: rectangleAvatar(),
         ),
         tag: "tag-${cast.profilePath}",
       ),
     );
+  }
 
-//    return Center(
-//        child: Text(visible ? person.biography: ""),
-//      );
+  Widget rectangleAvatar() {
+    return Image(
+        width: 200.0,
+        image: _image(
+          cast.profilePath,
+        ));
+  }
+
+  CircleAvatar circleAvatar() =>
+      CircleAvatar(radius: 100.0, backgroundImage: _image(cast.profilePath));
+
+  Widget getBiography() {
+    return AnimateChildren(
+        childOne: Text(person.biography), childTwo: Container(), showHappyPath: person != null);
   }
 
   ImageProvider _image(String profilePath) {
@@ -61,4 +81,8 @@ class PersonWidget extends StatelessWidget {
             image: ImageHelper.getCastFullProfilePath(profilePath, PROFILE_SIZES['large']))
         .image;
   }
+
+  Widget basicPersonalDetails() {
+  	return Text(cast.character);
+	}
 }
