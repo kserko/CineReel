@@ -6,11 +6,11 @@ import 'package:cine_reel/ui/details_screen/cast_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_ratings_widget.dart';
 import 'package:flutter/widgets.dart';
 
-class MovieExtraDetailsContainer extends StatelessWidget {
+class MovieExtraContent extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
 
-  MovieExtraDetailsContainer({this.movieDetails, this.movieDetailsBloc});
+  MovieExtraContent({this.movieDetails, this.movieDetailsBloc});
 
 
   //this approach of adding things to the builder only when they become available

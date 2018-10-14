@@ -2,7 +2,7 @@ import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
-import 'package:cine_reel/ui/details_screen/movie_extra_details_container.dart';
+import 'package:cine_reel/ui/details_screen/movie_extra_content.dart';
 import 'package:flutter/material.dart';
 
 class MovieDetailsContent extends StatelessWidget {
@@ -42,7 +42,7 @@ class MovieDetailsContent extends StatelessWidget {
 
   Widget buildMovieExtraDetailsContainer() {
     return AnimateChildren(
-        childOne: MovieExtraDetailsContainer(
+        childOne: MovieExtraContent(
             movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
         childTwo: ErrorsWidget(
             visible: true,

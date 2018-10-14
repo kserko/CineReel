@@ -36,23 +36,41 @@ class CastWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[_buildCircularAvatar(cast, index), _buildCastName(cast)]),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _buildCircularAvatar(cast, index),
+              _buildCastName(cast),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Container _buildCastName(Cast cast) {
+  Widget _buildCastName(Cast cast) {
     return Container(
       padding: const EdgeInsets.only(top: 5.0),
-      child: Material(
-				color: Colors.transparent,
-        child: Text(cast.name,
-          style: TextStyle(fontSize: 12.0),
-        ),
+      child: Column(
+        children: <Widget>[
+          name(cast),
+          character(cast),
+        ],
       ),
+    );
+  }
+
+  Text name(Cast cast) {
+    return Text(
+      cast.name,
+      style: TextStyle(fontSize: 12.0),
+    );
+  }
+
+  Text character(Cast cast) {
+    return Text(
+			"(${cast.character})",
+      style: TextStyle(fontSize: 12.0),
     );
   }
 
