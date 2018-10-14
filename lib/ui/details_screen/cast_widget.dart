@@ -85,7 +85,7 @@ class CastWidget extends StatelessWidget {
             radius: 40.0,
             backgroundImage: _image(cast)),
       ),
-      tag: "tag-${cast.profilePath}",
+      tag: "tag-${cast.id}",
     );
   }
 

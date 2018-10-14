@@ -89,7 +89,7 @@ class PersonWidget extends StatelessWidget {
             color: Colors.transparent,
             child: rectangleAvatar(),
           ),
-          tag: "tag-${cast.profilePath}",
+          tag: "tag-${cast.id}",
         ),
       ),
     );
