@@ -1,10 +1,8 @@
-import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class CastWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
@@ -83,16 +81,9 @@ class CastWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 88.0),
             ),
             radius: 40.0,
-            backgroundImage: _image(cast)),
+            backgroundImage: image(cast.profilePath)),
       ),
       tag: "tag-${cast.id}",
     );
-  }
-
-  ImageProvider _image(Cast cast) {
-    return FadeInImage.memoryNetwork(
-      placeholder: kTransparentImage,
-      image: ImageHelper.getCastFullProfilePath(cast.profilePath, PROFILE_SIZES['large']),
-    ).image;
   }
 }

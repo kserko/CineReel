@@ -2,6 +2,7 @@ const String APP_NAME = "CineReel";
 const String OMDB_API_BASE_URL = "https://www.omdbapi.com";
 const String TMDB_API_BASE_URL = "https://api.themoviedb.org/3";
 const String IMDB_MOVIE_PAGE_BASE_URL = "https://www.imdb.com/title";
+const String IMDB_PERSON_PAGE_BASE_URL = "https://www.imdb.com/name";
 const String TMDB_MOVIE_PAGE_BASE_URL = "https://www.themoviedb.org/movie";
 const String ROTTEN_TOMATOES_MOVIE_PAGE_BASE_URL = "https://www.rottentomatoes.com/m";
 const String METACRITIC_MOVIE_PAGE_BASE_URL = "http://www.metacritic.com/movie";

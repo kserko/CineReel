@@ -4,11 +4,11 @@ import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
+import 'package:cine_reel/utils/helper_functions.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class PersonWidget extends StatelessWidget {
   final TMDBPerson person;
@@ -23,7 +23,7 @@ class PersonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    widgetsList.addAll([basicInfo(context), populatBio()]);
+    widgetsList.addAll([basicInfo(context), _populateBio()]);
 
     if (showLoading) {
       widgetsList.add(loadingWidget);
@@ -70,7 +70,16 @@ class PersonWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             avatar(),
-            populateBirthday(context),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  _buildIMDBLink(),
+                  _populateBirthday(context),
+                ],
+              ),
+            ),
           ],
         ),
       ],
@@ -90,27 +99,46 @@ class PersonWidget extends StatelessWidget {
       child: Hero(
         child: Material(
           color: Colors.transparent,
-          child: rectangleAvatar(),
+          child: _buildAvatar(),
         ),
         tag: "tag-${cast.id}",
       ),
     );
   }
 
-  Widget rectangleAvatar() {
-    return Image(
+  Widget _buildAvatar() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15.0),
+      child: Image(
         width: 180.0,
-        image: _image(
+        image: image(
           cast.profilePath,
-        ));
+        ),
+      ),
+    );
   }
 
-  Widget populatBio() {
+  Widget _buildIMDBLink() {
     return AnimateChildren(
-        childOne: biographyWidget(), childTwo: Container(), showHappyPath: person != null);
+        childOne: SizedBox.fromSize(
+          size: Size.fromHeight(80.0),
+          child: MaterialIcon("assets/imdb_icon.png", _launchIMDBUrl),
+        ),
+        childTwo: Container(),
+        showHappyPath: person != null);
   }
 
-  Widget biographyWidget() {
+  _launchIMDBUrl() {
+    var url = "$IMDB_PERSON_PAGE_BASE_URL/${person.imdbId}";
+    return launchURL(url);
+  }
+
+  Widget _populateBio() {
+    return AnimateChildren(
+        childOne: _biographyWidget(), childTwo: Container(), showHappyPath: person != null);
+  }
+
+  Widget _biographyWidget() {
     bool hasBiography = person?.hasBiography() ?? false;
     if (hasBiography) {
       return Column(
@@ -123,14 +151,12 @@ class PersonWidget extends StatelessWidget {
     return Container();
   }
 
-  Widget populateBirthday(BuildContext context) {
-    return Expanded(
-      child: AnimateChildren(
-          childOne: birthdayWidget(), childTwo: Container(), showHappyPath: person != null),
-    );
+  Widget _populateBirthday(BuildContext context) {
+    return AnimateChildren(
+        childOne: _birthdayWidget(), childTwo: Container(), showHappyPath: person != null);
   }
 
-  Widget birthdayWidget() {
+  Widget _birthdayWidget() {
     bool hasBirthdayDetails = person?.hasBirthdayDetails() ?? false;
 
     if (hasBirthdayDetails) {
@@ -166,16 +192,5 @@ class PersonWidget extends StatelessWidget {
       );
     }
     return Container();
-  }
-
-  ImageProvider _image(String profilePath) {
-    return FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image: ImageHelper.getCastFullProfilePath(profilePath, PROFILE_SIZES['large']))
-        .image;
-  }
-
-  Widget basicPersonalDetails() {
-    return Text(cast.character);
   }
 }
