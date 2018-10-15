@@ -32,7 +32,6 @@ class _MovieDetailsStatefulState extends State<MovieDetailsScreen> {
       initialData: movieDetailsBloc.initialData(),
       builder: (context, snapshot) {
         final data = snapshot.data;
-        print("movie details has data ${data.movieDetails.hasData}");
         return Column(
           children: <Widget>[
             Expanded(

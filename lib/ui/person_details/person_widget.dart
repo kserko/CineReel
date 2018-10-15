@@ -5,6 +5,7 @@ import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/utils/image_helper.dart';
+import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -79,7 +80,7 @@ class PersonWidget extends StatelessWidget {
   Widget personName() {
     return Text(
       cast.name,
-      style: TextStyle(fontSize: 23.0),
+      style: STYLE_TITLE,
     );
   }
 

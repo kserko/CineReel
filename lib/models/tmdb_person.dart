@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 class TMDBPerson {
   String birthday;
   String knownForDepartment;
-  Null deathday;
+  String deathDay;
   int id;
   String name;
   List<String> alsoKnownAs;
@@ -19,7 +19,7 @@ class TMDBPerson {
   TMDBPerson(
       {this.birthday,
       this.knownForDepartment,
-      this.deathday,
+      this.deathDay,
       this.id,
       this.name,
       this.alsoKnownAs,
@@ -35,7 +35,7 @@ class TMDBPerson {
   TMDBPerson.fromJson(Map<String, dynamic> json) {
     birthday = json['birthday'];
     knownForDepartment = json['known_for_department'];
-    deathday = json['deathday'];
+    deathDay = json['deathday'];
     id = json['id'];
     name = json['name'];
     alsoKnownAs = json['also_known_as'].cast<String>();
@@ -53,7 +53,7 @@ class TMDBPerson {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['birthday'] = this.birthday;
     data['known_for_department'] = this.knownForDepartment;
-    data['deathday'] = this.deathday;
+    data['deathday'] = this.deathDay;
     data['id'] = this.id;
     data['name'] = this.name;
     data['also_known_as'] = this.alsoKnownAs;
@@ -79,9 +79,15 @@ class TMDBPerson {
   }
 
 	String getFormattedBirthday() {
-		var parsedDate = DateFormat("yyyy-MM-dd").parse(birthday);
-		var year = DateTime.now().year - parsedDate.year;
-		return "${DateFormat('MMM dd yyyy').format(parsedDate)} ($year)";
+		var parsedBirthDate = DateFormat("yyyy-MM-dd").parse(birthday);
+
+		var birthYear = DateTime.now().year - parsedBirthDate.year;
+
+		if (isDead()) {
+			var parsedDeathDate = DateFormat("yyyy-MM-dd").parse(deathDay);
+			return "${DateFormat('yyyy').format(parsedBirthDate)} - ${parsedDeathDate.year} ($birthYear)";
+		}
+		return "${DateFormat('MMM dd yyyy').format(parsedBirthDate)} ($birthYear)";
 	}
 	
 	String getPlaceOfBirth() {
@@ -89,5 +95,9 @@ class TMDBPerson {
 			return "born in $placeOfBirth";
 		}
 		return "";
+	}
+
+  bool isDead() {
+		return deathDay != null && deathDay.isNotEmpty;
 	}
 }

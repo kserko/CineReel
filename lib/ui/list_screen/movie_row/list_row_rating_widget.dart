@@ -5,8 +5,7 @@ import 'package:flutter/widgets.dart';
 
 class ListRowRatingWidget extends StatelessWidget {
 	final TMDBMovieBasic movie;
-	final defaultStyle = TextStyle(
-			fontSize: 24.0, color: Colors.white, fontWeight: FontWeight.bold);
+	final defaultStyle = TextStyle(color: Colors.white, fontWeight: FontWeight.bold);
 	final TMDBMovieDetails movieDetails;
 
 	ListRowRatingWidget(TMDBMovieBasic this.movie, TMDBMovieDetails this.movieDetails);
