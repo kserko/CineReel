@@ -5,7 +5,7 @@ import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
-import 'package:cine_reel/ui/list_screen/movie_row/movie_image_for_poster_row.dart';
+import 'package:cine_reel/ui/common_widgets/movie_poster_widget.dart';
 import 'package:cine_reel/utils/helper_functions.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:cine_reel/utils/styles.dart';
@@ -257,7 +257,7 @@ class PersonWidget extends StatelessWidget {
             margin: EdgeInsets.all(3.0),
             child: SizedBox(
               height: movieCreditHeight,
-              child: MovieImageForRow(
+              child: MoviePosterWidget(
                 id: movieCredit.id,
                 imagePath: movieCredit.posterPath,
                 imageType: IMAGE_TYPE.POSTER,

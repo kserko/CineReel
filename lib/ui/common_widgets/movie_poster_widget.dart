@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class MovieImageForRow extends StatelessWidget {
+class MoviePosterWidget extends StatelessWidget {
   final IMAGE_TYPE imageType;
   final String size;
   final String imagePath;
   final int id;
 
-  MovieImageForRow({this.id, this.imagePath, this.imageType, this.size});
+  MoviePosterWidget({this.id, this.imagePath, this.imageType, this.size});
 
   @override
   Widget build(BuildContext context) {

@@ -2,8 +2,8 @@ import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
+import 'package:cine_reel/ui/common_widgets/movie_poster_widget.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/list_row_rating_widget.dart';
-import 'package:cine_reel/ui/list_screen/movie_row/movie_image_for_poster_row.dart';
 import 'package:flutter/material.dart';
 
 class PosterRow extends StatelessWidget {
@@ -54,7 +54,7 @@ class PosterRow extends StatelessWidget {
               children: <Widget>[
                 SizedBox(
 									width: MediaQuery.of(context).size.width * 0.45,
-                  child: MovieImageForRow(
+                  child: MoviePosterWidget(
                       id: movie.id,
                       imagePath: movie.posterPath,
                       imageType: IMAGE_TYPE.POSTER,
