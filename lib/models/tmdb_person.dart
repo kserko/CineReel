@@ -1,3 +1,4 @@
+import 'package:cine_reel/models/tmdb_movie_credits.dart';
 import 'package:intl/intl.dart';
 
 class TMDBPerson {
@@ -15,7 +16,8 @@ class TMDBPerson {
   bool adult;
   String imdbId;
   String homepage;
-  
+  TMDBMovieCredits movieCredits;
+
   TMDBPerson(
       {this.birthday,
       this.knownForDepartment,
@@ -30,7 +32,8 @@ class TMDBPerson {
       this.profilePath,
       this.adult,
       this.imdbId,
-      this.homepage});
+      this.homepage,
+      this.movieCredits});
 
   TMDBPerson.fromJson(Map<String, dynamic> json) {
     birthday = json['birthday'];
@@ -47,6 +50,8 @@ class TMDBPerson {
     adult = json['adult'];
     imdbId = json['imdb_id'];
     homepage = json['homepage'];
+    movieCredits =
+        json['movie_credits'] != null ? TMDBMovieCredits.fromJson(json['movie_credits']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -65,12 +70,15 @@ class TMDBPerson {
     data['adult'] = this.adult;
     data['imdb_id'] = this.imdbId;
     data['homepage'] = this.homepage;
+    if (this.movieCredits != null) {
+			data['movie_credits'] = this.movieCredits.toJson();
+		}
     return data;
   }
 
-	bool hasData;
+  bool hasData;
 
-	bool hasBiography() {
+  bool hasBiography() {
     return biography != null && biography.isNotEmpty;
   }
 
@@ -78,26 +86,30 @@ class TMDBPerson {
     return birthday != null && birthday.isNotEmpty;
   }
 
-	String getFormattedBirthday() {
-		var parsedBirthDate = DateFormat("yyyy-MM-dd").parse(birthday);
+  String getFormattedBirthday() {
+    var parsedBirthDate = DateFormat("yyyy-MM-dd").parse(birthday);
 
-		var birthYear = DateTime.now().year - parsedBirthDate.year;
+    var birthYear = DateTime.now().year - parsedBirthDate.year;
 
-		if (isDead()) {
-			var parsedDeathDate = DateFormat("yyyy-MM-dd").parse(deathDay);
-			return "${DateFormat('yyyy').format(parsedBirthDate)} - ${parsedDeathDate.year} ($birthYear)";
-		}
-		return "${DateFormat('MMM dd yyyy').format(parsedBirthDate)} ($birthYear)";
-	}
-	
-	String getPlaceOfBirth() {
-		if (placeOfBirth != null && placeOfBirth.isNotEmpty) {
-			return "born in $placeOfBirth";
-		}
-		return "";
-	}
+    if (isDead()) {
+      var parsedDeathDate = DateFormat("yyyy-MM-dd").parse(deathDay);
+      return "${DateFormat('yyyy').format(parsedBirthDate)} - ${parsedDeathDate.year} ($birthYear)";
+    }
+    return "${DateFormat('MMM dd yyyy').format(parsedBirthDate)} ($birthYear)";
+  }
+
+  String getPlaceOfBirth() {
+    if (placeOfBirth != null && placeOfBirth.isNotEmpty) {
+      return "born in $placeOfBirth";
+    }
+    return "";
+  }
 
   bool isDead() {
-		return deathDay != null && deathDay.isNotEmpty;
-	}
+    return deathDay != null && deathDay.isNotEmpty;
+  }
+
+  bool hasMovieCredits() {
+    return movieCredits != null && movieCredits.cast.isNotEmpty;
+  }
 }

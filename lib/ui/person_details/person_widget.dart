@@ -23,7 +23,7 @@ class PersonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    widgetsList.addAll([basicInfo(context), _populateBio()]);
+    widgetsList.addAll([_populateBasicInfo(context), _populateBio(), _populateMovieCredits()]);
 
     if (showLoading) {
       widgetsList.add(loadingWidget);
@@ -59,7 +59,7 @@ class PersonWidget extends StatelessWidget {
     );
   }
 
-  Widget basicInfo(BuildContext context) {
+  Widget _populateBasicInfo(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,10 +135,10 @@ class PersonWidget extends StatelessWidget {
 
   Widget _populateBio() {
     return AnimateChildren(
-        childOne: _biographyWidget(), childTwo: Container(), showHappyPath: person != null);
+        childOne: _buildBiographyWidget(), childTwo: Container(), showHappyPath: person != null);
   }
 
-  Widget _biographyWidget() {
+  Widget _buildBiographyWidget() {
     bool hasBiography = person?.hasBiography() ?? false;
     if (hasBiography) {
       return Column(
@@ -153,10 +153,10 @@ class PersonWidget extends StatelessWidget {
 
   Widget _populateBirthday(BuildContext context) {
     return AnimateChildren(
-        childOne: _birthdayWidget(), childTwo: Container(), showHappyPath: person != null);
+        childOne: _buildBirthdayWidget(), childTwo: Container(), showHappyPath: person != null);
   }
 
-  Widget _birthdayWidget() {
+  Widget _buildBirthdayWidget() {
     bool hasBirthdayDetails = person?.hasBirthdayDetails() ?? false;
 
     if (hasBirthdayDetails) {
@@ -193,4 +193,22 @@ class PersonWidget extends StatelessWidget {
     }
     return Container();
   }
+
+  Widget _populateMovieCredits() {
+    return AnimateChildren(
+      childOne: _buildMovieCredits(),
+      childTwo: Container(),
+      showHappyPath: person != null,
+    );
+  }
+
+  Widget _buildMovieCredits() {
+  	bool hasMovieDetails = person?.hasMovieCredits() ?? false;
+  	if (hasMovieDetails) {
+  		print(person);
+  		print(person.movieCredits.cast);
+  		return Container();
+		}
+		return Container();
+	}
 }

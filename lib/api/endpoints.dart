@@ -65,6 +65,6 @@ class Endpoints {
 	}
 
   static getPerson(int personId) {
-		return "$TMDB_API_BASE_URL/person/$personId?api_key=$TMDB_API_KEY";
+		return "$TMDB_API_BASE_URL/person/$personId?api_key=$TMDB_API_KEY&append_to_response=movie_credits";
 	}
 }
