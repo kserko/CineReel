@@ -1,41 +1,41 @@
 class TMDBMovieCredits {
-	List<Cast> cast;
-	List<Crew> crew;
+	List<MovieCreditsAsCast> movieCreditsAsCast;
+	List<MovieCreditsAsCrew> movieCreditsAsCrew;
 
-	TMDBMovieCredits({this.cast, this.crew});
+	TMDBMovieCredits({this.movieCreditsAsCast, this.movieCreditsAsCrew});
 
 	TMDBMovieCredits.fromJson(Map<String, dynamic> json) {
 		if (json['cast'] != null) {
-			cast = new List<Cast>();
+			movieCreditsAsCast = new List<MovieCreditsAsCast>();
 			json['cast'].forEach((v) {
-				cast.add(new Cast.fromJson(v));
+				movieCreditsAsCast.add(new MovieCreditsAsCast.fromJson(v));
 			});
 		}
 		if (json['crew'] != null) {
-			crew = new List<Crew>();
+			movieCreditsAsCrew = new List<MovieCreditsAsCrew>();
 			json['crew'].forEach((v) {
-				crew.add(new Crew.fromJson(v));
+				movieCreditsAsCrew.add(new MovieCreditsAsCrew.fromJson(v));
 			});
 		}
 	}
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
-		if (this.cast != null) {
-			data['cast'] = this.cast.map((v) => v.toJson()).toList();
+		if (this.movieCreditsAsCast != null) {
+			data['cast'] = this.movieCreditsAsCast.map((v) => v.toJson()).toList();
 		}
-		if (this.crew != null) {
-			data['crew'] = this.crew.map((v) => v.toJson()).toList();
+		if (this.movieCreditsAsCrew != null) {
+			data['crew'] = this.movieCreditsAsCrew.map((v) => v.toJson()).toList();
 		}
 		return data;
 	}
 }
 
-class Cast {
+class MovieCreditsAsCast {
 	String releaseDate;
 	bool adult;
 	double voteAverage;
-	int voteCount;
+	double voteCount;
 	bool video;
 	String title;
 	double popularity;
@@ -49,7 +49,7 @@ class Cast {
 	String overview;
 	String creditId;
 
-	Cast(
+	MovieCreditsAsCast(
 			{this.releaseDate,
 				this.adult,
 				this.voteAverage,
@@ -67,14 +67,14 @@ class Cast {
 				this.overview,
 				this.creditId});
 
-	Cast.fromJson(Map<String, dynamic> json) {
+	MovieCreditsAsCast.fromJson(Map<String, dynamic> json) {
 		releaseDate = json['release_date'];
 		adult = json['adult'];
 		voteAverage =  json['vote_average'].toDouble();
-		voteCount = json['vote_count'];
+		voteCount = json['vote_count'].toDouble();
 		video = json['video'];
 		title = json['title'];
-		popularity = json['popularity'];
+		popularity = json['popularity'].toDouble();
 		genreIds = json['genre_ids'].cast<int>();
 		originalLanguage = json['original_language'];
 		character = json['character'];
@@ -108,7 +108,7 @@ class Cast {
 	}
 }
 
-class Crew {
+class MovieCreditsAsCrew {
 	int id;
 	String department;
 	String originalLanguage;
@@ -121,13 +121,13 @@ class Crew {
 	String releaseDate;
 	double popularity;
 	double voteAverage;
-	int voteCount;
+	double voteCount;
 	String title;
 	bool adult;
 	String backdropPath;
 	String posterPath;
 
-	Crew(
+	MovieCreditsAsCrew(
 			{this.id,
 				this.department,
 				this.originalLanguage,
@@ -146,7 +146,7 @@ class Crew {
 				this.backdropPath,
 				this.posterPath});
 
-	Crew.fromJson(Map<String, dynamic> json) {
+	MovieCreditsAsCrew.fromJson(Map<String, dynamic> json) {
 		id = json['id'];
 		department = json['department'];
 		originalLanguage = json['original_language'];
@@ -157,9 +157,9 @@ class Crew {
 		video = json['video'];
 		creditId = json['credit_id'];
 		releaseDate = json['release_date'];
-		popularity = json['popularity'];
+		popularity = json['popularity'].toDouble();
 		voteAverage = json['vote_average'].toDouble();
-		voteCount = json['vote_count'];
+		voteCount = json['vote_count'].toDouble();
 		title = json['title'];
 		adult = json['adult'];
 		backdropPath = json['backdrop_path'];

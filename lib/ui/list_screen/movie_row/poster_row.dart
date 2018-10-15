@@ -52,11 +52,14 @@ class PosterRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                MovieImageForRow(
-                    movieId: movie.id,
-                    imagePath: movie.posterPath,
-                    imageType: IMAGE_TYPE.POSTER,
-                    size: POSTER_SIZES['large']),
+                SizedBox(
+									width: MediaQuery.of(context).size.width * 0.45,
+                  child: MovieImageForRow(
+                      id: movie.id,
+                      imagePath: movie.posterPath,
+                      imageType: IMAGE_TYPE.POSTER,
+                      size: POSTER_SIZES['large']),
+                ),
                 buildHeader(movie)
               ],
             ),

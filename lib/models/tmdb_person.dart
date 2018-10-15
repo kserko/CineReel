@@ -110,6 +110,6 @@ class TMDBPerson {
   }
 
   bool hasMovieCredits() {
-    return movieCredits != null && movieCredits.cast.isNotEmpty;
+    return movieCredits != null && movieCredits.movieCreditsAsCast.isNotEmpty;
   }
 }

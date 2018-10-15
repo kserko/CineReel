@@ -1,9 +1,11 @@
 import 'package:cine_reel/constants/api_constants.dart';
+import 'package:cine_reel/models/tmdb_movie_credits.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
+import 'package:cine_reel/ui/list_screen/movie_row/movie_image_for_poster_row.dart';
 import 'package:cine_reel/utils/helper_functions.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:cine_reel/utils/styles.dart';
@@ -23,7 +25,8 @@ class PersonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    widgetsList.addAll([_populateBasicInfo(context), _populateBio(), _populateMovieCredits()]);
+    widgetsList
+        .addAll([_populateBasicInfo(context), _populateBio(), _populateMovieCredits(context)]);
 
     if (showLoading) {
       widgetsList.add(loadingWidget);
@@ -194,21 +197,76 @@ class PersonWidget extends StatelessWidget {
     return Container();
   }
 
-  Widget _populateMovieCredits() {
+  Widget _populateMovieCredits(BuildContext context) {
     return AnimateChildren(
-      childOne: _buildMovieCredits(),
+      childOne: _buildMovieCredits(context),
       childTwo: Container(),
       showHappyPath: person != null,
     );
   }
 
-  Widget _buildMovieCredits() {
-  	bool hasMovieDetails = person?.hasMovieCredits() ?? false;
-  	if (hasMovieDetails) {
-  		print(person);
-  		print(person.movieCredits.cast);
-  		return Container();
-		}
-		return Container();
-	}
+  Widget _buildMovieCredits(BuildContext context) {
+    var movieCreditHeight = MediaQuery.of(context).size.height * 0.35;
+
+    bool hasMovieDetails = person?.hasMovieCredits() ?? false;
+    if (hasMovieDetails) {
+      var movieCredits = person.movieCredits.movieCreditsAsCast;
+
+      return SizedBox(
+        height: movieCreditHeight,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildMovieCreditSubtitle(),
+            _buildMovieCreditsList(movieCredits, movieCreditHeight),
+            buildHorizontalDivider(),
+          ],
+        ),
+      );
+    }
+    return Container();
+  }
+
+  Expanded _buildMovieCreditsList(List<MovieCreditsAsCast> movieCredits, double movieCreditHeight) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: movieCredits.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: ((BuildContext context, int index) {
+          return _buildMovieCreditPoster(movieCredits[index], movieCreditHeight);
+        }),
+      ),
+    );
+  }
+
+  Padding _buildMovieCreditSubtitle() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        "Filmography",
+        style: STYLE_SUBTITLE,
+      ),
+    );
+  }
+
+  Widget _buildMovieCreditPoster(MovieCreditsAsCast movieCredit, double movieCreditHeight) {
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.all(3.0),
+            child: SizedBox(
+              height: movieCreditHeight,
+              child: MovieImageForRow(
+                id: movieCredit.id,
+                imagePath: movieCredit.posterPath,
+                imageType: IMAGE_TYPE.POSTER,
+                size: POSTER_SIZES['medium'],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
