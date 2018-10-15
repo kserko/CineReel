@@ -15,7 +15,7 @@ class PersonBloc {
 		_streamController.addStream(_fetchDetails());
 	}
 
-  Stream<PersonState> _fetchDetails() async* {
+	Stream<PersonState> _fetchDetails() async* {
 		yield PersonLoading();
 
 		try {
@@ -29,5 +29,4 @@ class PersonBloc {
   void dispose() {
 		_streamController.close();
 	}
-
 }

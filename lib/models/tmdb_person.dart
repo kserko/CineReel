@@ -15,19 +15,7 @@ class TMDBPerson {
   bool adult;
   String imdbId;
   String homepage;
-
-  //custom fields
-  bool hasData;
-
-  String formattedBirthday() {
-    if (birthday != null && birthday.isNotEmpty) {
-      var parsedDate = DateFormat("yyyy-MM-dd").parse(birthday);
-      var year = DateTime.now().year - parsedDate.year;
-      return "${DateFormat('MMMM dd yyyy').format(parsedDate)} ($year)";
-    }
-    return "";
-  }
-
+  
   TMDBPerson(
       {this.birthday,
       this.knownForDepartment,
@@ -79,4 +67,27 @@ class TMDBPerson {
     data['homepage'] = this.homepage;
     return data;
   }
+
+	bool hasData;
+
+	bool hasBiography() {
+    return biography != null && biography.isNotEmpty;
+  }
+
+  bool hasBirthdayDetails() {
+    return birthday != null && birthday.isNotEmpty;
+  }
+
+	String getFormattedBirthday() {
+		var parsedDate = DateFormat("yyyy-MM-dd").parse(birthday);
+		var year = DateTime.now().year - parsedDate.year;
+		return "${DateFormat('MMM dd yyyy').format(parsedDate)} ($year)";
+	}
+	
+	String getPlaceOfBirth() {
+		if (placeOfBirth != null && placeOfBirth.isNotEmpty) {
+			return "born in $placeOfBirth";
+		}
+		return "";
+	}
 }

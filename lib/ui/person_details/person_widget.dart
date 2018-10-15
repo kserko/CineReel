@@ -3,6 +3,7 @@ import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
+import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,22 +13,21 @@ class PersonWidget extends StatelessWidget {
   final TMDBPerson person;
   final Cast cast;
   final List<Widget> widgetsList = [];
+  final bool showLoading;
 
-  PersonWidget({Key key, this.person, this.cast}) : super(key: key);
+  PersonWidget({Key key, this.person, this.cast, bool this.showLoading}) : super(key: key);
+  final loadingWidget = LoadingWidget(
+    visible: true,
+  );
 
   @override
   Widget build(BuildContext context) {
-    widgetsList.add(basicInfo());
+    widgetsList.addAll([basicInfo(context), populatBio()]);
 
-    if (person != null) {
-      widgetsList.addAll(
-        [
-          getBirthDetails(),
-          buildHorizontalDivider(),
-          getBiography(),
-          buildHorizontalDivider(),
-        ],
-      );
+    if (showLoading) {
+      widgetsList.add(loadingWidget);
+    } else {
+      widgetsList.remove(loadingWidget);
     }
 
     return Scaffold(
@@ -50,10 +50,7 @@ class PersonWidget extends StatelessWidget {
               Container(
                   margin: const EdgeInsets.only(top: 45.0),
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: widgetsList)),
+                  child: Column(children: widgetsList)),
             ],
           ),
         ),
@@ -61,14 +58,19 @@ class PersonWidget extends StatelessWidget {
     );
   }
 
-  Widget basicInfo() {
+  Widget basicInfo(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         personName(),
         buildHorizontalDivider(),
-        avatar(),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            avatar(),
+            populateBirthday(context),
+          ],
+        ),
       ],
     );
   }
@@ -81,40 +83,87 @@ class PersonWidget extends StatelessWidget {
   }
 
   Widget avatar() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Hero(
-          child: Material(
-            color: Colors.transparent,
-            child: rectangleAvatar(),
-          ),
-          tag: "tag-${cast.id}",
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Hero(
+        child: Material(
+          color: Colors.transparent,
+          child: rectangleAvatar(),
         ),
+        tag: "tag-${cast.id}",
       ),
     );
   }
 
   Widget rectangleAvatar() {
     return Image(
-        width: 230.0,
+        width: 180.0,
         image: _image(
           cast.profilePath,
         ));
   }
 
-  Widget getBiography() {
-    return Text(person.biography);
+  Widget populatBio() {
+    return AnimateChildren(
+        childOne: biographyWidget(), childTwo: Container(), showHappyPath: person != null);
   }
 
-  Widget getBirthDetails() {
-    return Row(
-      children: <Widget>[
-        Text(
-          person.formattedBirthday(),
-        ),
-      ],
+  Widget biographyWidget() {
+    bool hasBiography = person?.hasBiography() ?? false;
+    if (hasBiography) {
+      return Column(
+        children: <Widget>[
+          Text(person.biography),
+          buildHorizontalDivider(),
+        ],
+      );
+    }
+    return Container();
+  }
+
+  Widget populateBirthday(BuildContext context) {
+    return Expanded(
+      child: AnimateChildren(
+          childOne: birthdayWidget(), childTwo: Container(), showHappyPath: person != null),
     );
+  }
+
+  Widget birthdayWidget() {
+    bool hasBirthdayDetails = person?.hasBirthdayDetails() ?? false;
+
+    if (hasBirthdayDetails) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            buildHorizontalDivider(),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(person.getFormattedBirthday(),
+                      style: TextStyle(
+                        inherit: true,
+                        fontSize: 16.0,
+                      )),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+              child: Text(
+                person.getPlaceOfBirth(),
+                style: TextStyle(
+                  inherit: true,
+                  fontSize: 16.0,
+                ),
+              ),
+            ),
+            buildHorizontalDivider(),
+          ],
+        ),
+      );
+    }
+    return Container();
   }
 
   ImageProvider _image(String profilePath) {

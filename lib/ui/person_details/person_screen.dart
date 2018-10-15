@@ -50,6 +50,7 @@ class PersonScreenState extends State<PersonScreen> {
 
 									PersonWidget(
 										cast: this.widget.cast,
+										showLoading: data is PersonLoading,
 										person: data is PersonPopulated ? data.tmdbPerson : null
 									)
 
