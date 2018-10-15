@@ -61,6 +61,7 @@ class PersonWidget extends StatelessWidget {
   Widget basicInfo(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         personName(),
         buildHorizontalDivider(),
