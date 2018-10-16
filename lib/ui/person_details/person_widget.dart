@@ -1,7 +1,9 @@
 import 'package:cine_reel/constants/api_constants.dart';
+import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/models/tmdb_movie_credits.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
+import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
@@ -232,7 +234,7 @@ class PersonWidget extends StatelessWidget {
         itemCount: movieCredits.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: ((BuildContext context, int index) {
-          return _buildMovieCreditPoster(movieCredits[index], movieCreditHeight);
+          return _buildMovieCreditPoster(movieCredits[index], movieCreditHeight, context);
         }),
       ),
     );
@@ -248,7 +250,8 @@ class PersonWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMovieCreditPoster(MovieCreditsAsCast movieCredit, double movieCreditHeight) {
+  Widget _buildMovieCreditPoster(
+      MovieCreditsAsCast movieCredit, double movieCreditHeight, BuildContext context) {
     return Column(
       children: <Widget>[
         Expanded(
@@ -256,16 +259,38 @@ class PersonWidget extends StatelessWidget {
             margin: EdgeInsets.all(3.0),
             child: SizedBox(
               height: movieCreditHeight,
-              child: MoviePosterWidget(
-                id: movieCredit.id,
-                imagePath: movieCredit.posterPath,
-                imageType: IMAGE_TYPE.POSTER,
-                size: POSTER_SIZES['medium'],
+              child: Material(
+                child: InkWell(
+                  onTap: () => Router.pushDetailsScreen(
+                      context, createBasicMovieFromMovieCredits(movieCredit)),
+                  child: MoviePosterWidget(
+                    id: movieCredit.id,
+                    imagePath: movieCredit.posterPath,
+                    imageType: IMAGE_TYPE.POSTER,
+                    size: POSTER_SIZES['medium'],
+                  ),
+                ),
               ),
             ),
           ),
         ),
       ],
     );
+  }
+
+  TMDBMovieBasic createBasicMovieFromMovieCredits(MovieCreditsAsCast movieCredit) {
+  	print("movie id ${movieCredit.id}");
+    return TMDBMovieBasic(
+        originalTitle: movieCredit.originalTitle,
+        id: movieCredit.id,
+        video: false,
+        voteAverage: movieCredit.voteAverage,
+        popularity: movieCredit.popularity,
+        posterPath: movieCredit.posterPath,
+        releaseDate: movieCredit.releaseDate,
+        title: movieCredit.title,
+        voteCount: movieCredit.voteCount.toInt(),
+        genreIds: movieCredit.genreIds,
+        overview: movieCredit.overview);
   }
 }
