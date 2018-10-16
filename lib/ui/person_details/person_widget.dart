@@ -210,8 +210,7 @@ class PersonWidget extends StatelessWidget {
 
     bool hasMovieDetails = person?.hasMovieCredits() ?? false;
     if (hasMovieDetails) {
-      var movieCredits = person.movieCredits.movieCreditsAsCast;
-
+      var movieCredits = person.movieCredits.getSortedMovieCreditsAsCast();
       return SizedBox(
         height: movieCreditHeight,
         child: Column(
