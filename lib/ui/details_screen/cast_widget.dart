@@ -4,6 +4,8 @@ import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+const castHeight = 160.0;
+
 class CastWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
 
@@ -13,7 +15,7 @@ class CastWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: SizedBox.fromSize(
-        size: const Size.fromHeight(120.0),
+        size: const Size.fromHeight(castHeight),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
@@ -33,13 +35,17 @@ class CastWidget extends StatelessWidget {
         onTap: () => Router.pushPersonScreen(context, cast),
         child: Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              _buildCircularAvatar(cast, index),
-              _buildCastName(cast),
-            ],
+          child: SizedBox(
+            width: 120.0,
+            height: castHeight,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                _buildCircularAvatar(cast, index),
+                _buildCastName(cast),
+              ],
+            ),
           ),
         ),
       ),
@@ -51,39 +57,43 @@ class CastWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 5.0),
       child: Column(
         children: <Widget>[
-          name(cast),
-          character(cast),
+          _buildName(cast),
+          _buildCharacter(cast),
         ],
       ),
     );
   }
 
-  Text name(Cast cast) {
-    return Text(
-      cast.name,
-      style: TextStyle(fontSize: 12.0),
+  Widget _buildName(Cast cast) {
+    return Center(
+      child: Text(
+        cast.name,
+        style: TextStyle(fontSize: 12.0),
+      ),
     );
   }
 
-  Text character(Cast cast) {
-    return Text(
-			"(${cast.character})",
-      style: TextStyle(fontSize: 12.0),
+  Widget _buildCharacter(Cast cast) {
+    return Center(
+      child: Text(
+        "(${cast.character})", textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 12.0),
+      ),
     );
   }
 
   Widget _buildCircularAvatar(Cast cast, int index) {
-    return Hero(
-      child: Material(
-        color: Colors.transparent,
-        child: CircleAvatar(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 88.0),
-            ),
-            radius: 40.0,
-            backgroundImage: image(cast.profilePath)),
+    return Expanded(
+      child: Hero(
+        child: Material(
+          color: Colors.transparent,
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: CircleAvatar(radius: 50.0, backgroundImage: image(cast.profilePath)),
+          ),
+        ),
+        tag: "tag-${cast.id}",
       ),
-      tag: "tag-${cast.id}",
     );
   }
 }
