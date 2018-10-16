@@ -1,3 +1,5 @@
+import 'package:cine_reel/models/tmdb_movie_basic.dart';
+
 class TMDBMovieCredits {
   List<MovieCreditsAsCast> movieCreditsAsCast;
   List<MovieCreditsAsCrew> movieCreditsAsCrew;
@@ -47,7 +49,7 @@ class MovieCreditsAsCast {
   String releaseDate;
   bool adult;
   double voteAverage;
-  double voteCount;
+  int voteCount;
   bool video;
   String title;
   double popularity;
@@ -83,7 +85,7 @@ class MovieCreditsAsCast {
     releaseDate = json['release_date'];
     adult = json['adult'];
     voteAverage = json['vote_average'].toDouble();
-    voteCount = json['vote_count'].toDouble();
+    voteCount = json['vote_count'].floor();
     video = json['video'];
     title = json['title'];
     popularity = json['popularity'].toDouble();
@@ -118,6 +120,10 @@ class MovieCreditsAsCast {
     data['credit_id'] = this.creditId;
     return data;
   }
+
+	TMDBMovieBasic convertToTMDBMovieBasic() {
+		return TMDBMovieBasic.fromJson(this.toJson());
+	}
 }
 
 class MovieCreditsAsCrew {

@@ -1,5 +1,4 @@
 import 'package:cine_reel/constants/api_constants.dart';
-import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/models/tmdb_movie_credits.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
@@ -262,7 +261,7 @@ class PersonWidget extends StatelessWidget {
               child: Material(
                 child: InkWell(
                   onTap: () => Router.pushDetailsScreen(
-                      context, createBasicMovieFromMovieCredits(movieCredit)),
+                      context, movieCredit.convertToTMDBMovieBasic()),
                   child: MoviePosterWidget(
                     id: movieCredit.id,
                     imagePath: movieCredit.posterPath,
@@ -276,21 +275,5 @@ class PersonWidget extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  TMDBMovieBasic createBasicMovieFromMovieCredits(MovieCreditsAsCast movieCredit) {
-  	print("movie id ${movieCredit.id}");
-    return TMDBMovieBasic(
-        originalTitle: movieCredit.originalTitle,
-        id: movieCredit.id,
-        video: false,
-        voteAverage: movieCredit.voteAverage,
-        popularity: movieCredit.popularity,
-        posterPath: movieCredit.posterPath,
-        releaseDate: movieCredit.releaseDate,
-        title: movieCredit.title,
-        voteCount: movieCredit.voteCount.toInt(),
-        genreIds: movieCredit.genreIds,
-        overview: movieCredit.overview);
   }
 }
