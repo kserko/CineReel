@@ -1,10 +1,10 @@
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/router.dart';
-import 'package:cine_reel/utils/image_helper.dart';
+import 'package:cine_reel/ui/common_widgets/image_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-const castHeight = 160.0;
+const castHeight = 200.0;
 
 class CastWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
@@ -42,7 +42,7 @@ class CastWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                _buildCircularAvatar(cast, index),
+                _buildPhotoThumbnail(cast, index),
                 _buildCastName(cast),
               ],
             ),
@@ -82,15 +82,17 @@ class CastWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildCircularAvatar(Cast cast, int index) {
+  Widget _buildPhotoThumbnail(Cast cast, int index) {
     return Expanded(
       child: Hero(
         child: Material(
           color: Colors.transparent,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
-            child: CircleAvatar(radius: 50.0, backgroundImage: image(cast.profilePath)),
-          ),
+							child: ClipRRect(
+									borderRadius: BorderRadius.circular(30.0),
+									child: ImageLoader(cast.profilePath)),
+					),
         ),
         tag: "tag-${cast.id}",
       ),

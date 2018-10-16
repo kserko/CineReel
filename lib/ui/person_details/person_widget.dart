@@ -5,10 +5,10 @@ import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
+import 'package:cine_reel/ui/common_widgets/image_loader.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/common_widgets/movie_poster_widget.dart';
 import 'package:cine_reel/utils/helper_functions.dart';
-import 'package:cine_reel/utils/image_helper.dart';
 import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -73,7 +73,7 @@ class PersonWidget extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            avatar(),
+            _buildProfilePicture(),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,27 +97,25 @@ class PersonWidget extends StatelessWidget {
     );
   }
 
-  Widget avatar() {
+  Widget _buildProfilePicture() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Hero(
         child: Material(
           color: Colors.transparent,
-          child: _buildAvatar(),
+          child: _loadProfilePicture(),
         ),
         tag: "tag-${cast.id}",
       ),
     );
   }
 
-  Widget _buildAvatar() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15.0),
-      child: Image(
-        width: 180.0,
-        image: image(
-          cast.profilePath,
-        ),
+  Widget _loadProfilePicture() {
+    return SizedBox(
+      width: 180.0,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: ImageLoader(cast.profilePath),
       ),
     );
   }
@@ -260,8 +258,8 @@ class PersonWidget extends StatelessWidget {
               height: movieCreditHeight,
               child: Material(
                 child: InkWell(
-                  onTap: () => Router.pushDetailsScreen(
-                      context, movieCredit.convertToTMDBMovieBasic()),
+                  onTap: () =>
+                      Router.pushDetailsScreen(context, movieCredit.convertToTMDBMovieBasic()),
                   child: MoviePosterWidget(
                     id: movieCredit.id,
                     imagePath: movieCredit.posterPath,
