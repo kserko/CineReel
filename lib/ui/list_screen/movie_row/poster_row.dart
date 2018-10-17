@@ -58,7 +58,7 @@ class PosterRow extends StatelessWidget {
                       id: movie.id,
                       imagePath: movie.posterPath,
                       imageType: IMAGE_TYPE.POSTER,
-                      size: POSTER_SIZES['large']),
+                      size: SIZE_LARGE),
                 ),
                 buildHeader(movie)
               ],

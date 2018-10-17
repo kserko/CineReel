@@ -4,25 +4,27 @@ import 'package:flutter/widgets.dart';
 
 class ImageLoader extends StatefulWidget {
   final String imagePath;
+  final IMAGE_TYPE imageType;
+  final String size;
 
-  ImageLoader(String this.imagePath);
+  ImageLoader({@required this.imagePath, @required this.imageType, @required String this.size});
 
   @override
-  _ImageLoaderState createState() => _ImageLoaderState(imagePath);
+  _ImageLoaderState createState() => _ImageLoaderState();
 }
 
 class _ImageLoaderState extends State<ImageLoader> {
   bool _loaded = false;
-  var placeholder = Image(image: AssetImage("assets/avatar_placeholder.png"));
-	var img;
+  var img;
 
-  _ImageLoaderState(String imagePath) {
-		img = Image.network(ImageHelper.getCastFullProfilePath(imagePath, PROFILE_SIZES['large']));
-	}
+  //placeholder source - https://www.iconfinder.com/icons/2202250/account_avatar_human_man_profile_icon
+  var placeholder = Image(image: AssetImage("assets/avatar_placeholder.png"));
 
   @override
   void initState() {
-    img.image.resolve(ImageConfiguration()).addListener((i, b) {
+    _loadImage();
+
+    img?.image?.resolve(ImageConfiguration())?.addListener((i, b) {
       mounted
           ? setState(() {
               _loaded = true;
@@ -32,11 +34,25 @@ class _ImageLoaderState extends State<ImageLoader> {
     super.initState();
   }
 
+  void _loadImage() {
+    switch (widget.imageType) {
+      case IMAGE_TYPE.PROFILE:
+        img = Image.network(ImageHelper.getImagePath(widget.imagePath, PROFILE_SIZES[widget.size]));
+        break;
+      case IMAGE_TYPE.POSTER:
+        Image.network(ImageHelper.getImagePath(widget.imagePath, POSTER_SIZES[widget.size]));
+        break;
+      case IMAGE_TYPE.BACKDROP:
+        Image.network(ImageHelper.getImagePath(widget.imagePath, BACKDROP_SIZES[widget.size]));
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!_loaded) {
-    	return placeholder;
-		}
-    	return img;
+      return placeholder;
+    }
+    return img;
   }
 }

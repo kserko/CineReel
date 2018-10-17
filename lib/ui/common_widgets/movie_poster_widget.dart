@@ -18,17 +18,10 @@ class MoviePosterWidget extends StatelessWidget {
 		return Hero(child: _buildImage(context), tag: "$id-imagePath");
   }
 
-//	Widget getFadeInImage(BuildContext context) {
-//		return FadeInImage.memoryNetwork(
-//				placeholder: kTransparentImage,
-//				image: ImageHelper.getImagePath(imagePath, size),
-//				fit: BoxFit.fitWidth);
-//	}
-
   _buildImage(BuildContext context) {
 		var fadedImage = FadeInImage.memoryNetwork(
 				placeholder: kTransparentImage,
-				image: ImageHelper.getImagePath(imagePath, size),
+				image: ImageHelper.getImagePath(imagePath, POSTER_SIZES[size]),
 				fit: BoxFit.fitWidth);
 
   	return AnimateChildren(childOne: fadedImage, childTwo: SizedBox(width: 100.0), showHappyPath:

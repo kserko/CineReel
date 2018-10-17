@@ -1,3 +1,4 @@
+import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
@@ -76,7 +77,8 @@ class CastWidget extends StatelessWidget {
   Widget _buildCharacter(Cast cast) {
     return Center(
       child: Text(
-        "(${cast.character})", textAlign: TextAlign.center,
+        "(${cast.character})",
+        textAlign: TextAlign.center,
         style: TextStyle(fontSize: 12.0),
       ),
     );
@@ -89,10 +91,14 @@ class CastWidget extends StatelessWidget {
           color: Colors.transparent,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
-							child: ClipRRect(
-									borderRadius: BorderRadius.circular(30.0),
-									child: ImageLoader(cast.profilePath)),
-					),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(30.0),
+                child: ImageLoader(
+                  imagePath: cast.profilePath,
+                  imageType: IMAGE_TYPE.PROFILE,
+                  size: SIZE_LARGE,
+                )),
+          ),
         ),
         tag: "tag-${cast.id}",
       ),

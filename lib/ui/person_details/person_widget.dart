@@ -115,7 +115,11 @@ class PersonWidget extends StatelessWidget {
       width: 180.0,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15.0),
-        child: ImageLoader(cast.profilePath),
+        child: ImageLoader(
+          imagePath: cast.profilePath,
+          imageType: IMAGE_TYPE.PROFILE,
+          size: SIZE_LARGE,
+        ),
       ),
     );
   }
@@ -264,7 +268,7 @@ class PersonWidget extends StatelessWidget {
                     id: movieCredit.id,
                     imagePath: movieCredit.posterPath,
                     imageType: IMAGE_TYPE.POSTER,
-                    size: POSTER_SIZES['medium'],
+                    size: SIZE_MEDIUM,
                   ),
                 ),
               ),
