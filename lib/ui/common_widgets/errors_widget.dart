@@ -5,8 +5,7 @@ class ErrorsWidget extends StatelessWidget {
 
   final error;
 
-  const ErrorsWidget({Key key, this.visible, this.error}) : super(key:
-  key);
+  const ErrorsWidget({Key key, this.visible, this.error}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

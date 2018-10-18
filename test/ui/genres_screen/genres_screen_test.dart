@@ -12,14 +12,14 @@ import '../../fixtures/common_mocks.dart';
 import '../../test_utils.dart';
 
 class MockGenresBloc extends Mock implements GenresBloc {
-	MockGenresBloc(MockTMDBApi mockTMDBApi);
+  MockGenresBloc(MockTMDBApi mockTMDBApi);
 }
 
 void main() {
   var streamBuilderFinder;
 
   setUp(() {
-		streamBuilderFinder = find.byKey(Key('streamBuilder'));
+    streamBuilderFinder = find.byKey(Key('streamBuilder'));
   });
 
   testWidgets('should have a streambuilder', (WidgetTester tester) async {
@@ -46,6 +46,6 @@ void main() {
 }
 
 Future pumpMainWidget(WidgetTester tester) async {
-  await tester.pumpWidget(
-      GenresProvider(child: MaterialApp(home: GenresScreen()), genreBloc: MockGenresBloc(MockTMDBApi())));
+  await tester.pumpWidget(GenresProvider(
+      child: MaterialApp(home: GenresScreen()), genreBloc: MockGenresBloc(MockTMDBApi())));
 }

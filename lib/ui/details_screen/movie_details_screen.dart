@@ -36,8 +36,8 @@ class _MovieDetailsStatefulState extends State<MovieDetailsScreen> {
           children: <Widget>[
             Expanded(
               child: Stack(
-								key: Key('content'),
-								children: <Widget>[
+                key: Key('content'),
+                children: <Widget>[
                   MovieDetailsWidget(
                       hasFailed: data.hasFailed,
                       movieDetailsBloc: movieDetailsBloc,

@@ -9,9 +9,9 @@ class SearchError extends SearchState {}
 class SearchNoTerm extends SearchState {}
 
 class SearchPopulated extends SearchState {
-	final List<TMDBMovieBasic> movies;
+  final List<TMDBMovieBasic> movies;
 
-	SearchPopulated(this.movies);
+  SearchPopulated(this.movies);
 }
 
 class SearchEmpty extends SearchState {}

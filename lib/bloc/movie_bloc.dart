@@ -11,8 +11,8 @@ abstract class MovieBloc {
   TMDBApi api;
   int page = 0;
 
-	//an instance of the MoviesPopulated state that will be used for each Bloc implementation
-	MoviesPopulated moviesPopulated = MoviesPopulated([]);
+  //an instance of the MoviesPopulated state that will be used for each Bloc implementation
+  MoviesPopulated moviesPopulated = MoviesPopulated([]);
 
   // This is the internal object whose stream/sink is provided by this component
   final _streamController = BehaviorSubject<MoviesState>();
@@ -70,21 +70,21 @@ abstract class MovieBloc {
   }
 
   Future<TMDBMoviesResponse> _getApiCall(int page) {
-  	Future<TMDBMoviesResponse> apiCall;
-  	switch(tabKey) {
-			case TabKey.kNowPlaying:
-				apiCall = api.nowPlayingMovies(page: page);
-				break;
-			case TabKey.kPopular:
-				apiCall = api.popularMovies(page: page);
-				break;
-			case TabKey.kTopRated:
-				apiCall = api.topRated(page: page);
-				break;
-			case TabKey.kGenres:
-				apiCall = api.moviesForGenre(genre: genre, page: page);
-				break;
-		}
-		return apiCall;
-	}
+    Future<TMDBMoviesResponse> apiCall;
+    switch (tabKey) {
+      case TabKey.kNowPlaying:
+        apiCall = api.nowPlayingMovies(page: page);
+        break;
+      case TabKey.kPopular:
+        apiCall = api.popularMovies(page: page);
+        break;
+      case TabKey.kTopRated:
+        apiCall = api.topRated(page: page);
+        break;
+      case TabKey.kGenres:
+        apiCall = api.moviesForGenre(genre: genre, page: page);
+        break;
+    }
+    return apiCall;
+  }
 }

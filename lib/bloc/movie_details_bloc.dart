@@ -28,20 +28,19 @@ class MovieDetailsBloc {
   Stream<MovieDetailsState> get stream => _streamController.stream;
 
   void dispose() {
-  	print('closing movie details streamcontroller');
-  	_streamController.close();
-	}
-	/*
+    print('closing movie details streamcontroller');
+    _streamController.close();
+  }
+
+  /*
   create an initial state with the basic movie object and an empty movie
 	details object
 	*/
-	MovieDetailsState initialData() {
-		if (movieDetailsState.movieDetails == null) {
-			return movieDetailsState.initialState(
-					movieDetails: TMDBMovieDetails(),
-					movieBasic: movie);
-		}
-		return movieDetailsState;
+  MovieDetailsState initialData() {
+    if (movieDetailsState.movieDetails == null) {
+      return movieDetailsState.initialState(movieDetails: TMDBMovieDetails(), movieBasic: movie);
+    }
+    return movieDetailsState;
   }
 
   Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
@@ -52,25 +51,22 @@ class MovieDetailsBloc {
       TMDBMovieDetails tmdbMovieDetails = await tmdbMovieDetailsCall(movieId);
       OMDBMovie omdbMovie = await omdbMovieByTitleAndYearCall(year);
 
-			if (tmdbMovieDetails.hasErrors()) {
-				yield movieDetailsState.withFailure(status_message: tmdbMovieDetails.status_message);
-			} else {
-				yield movieDetailsState.withSuccess(
-						movieBasic: movie,
-						movieDetails: tmdbMovieDetails,
-						omdbMovie: omdbMovie);
-			}
-		} on Exception catch (e) {
-			yield movieDetailsState.withFailure(status_message: e.toString());
-		}
+      if (tmdbMovieDetails.hasErrors()) {
+        yield movieDetailsState.withFailure(status_message: tmdbMovieDetails.status_message);
+      } else {
+        yield movieDetailsState.withSuccess(
+            movieBasic: movie, movieDetails: tmdbMovieDetails, omdbMovie: omdbMovie);
+      }
+    } on Exception catch (e) {
+      yield movieDetailsState.withFailure(status_message: e.toString());
+    }
   }
 
   Future<OMDBMovie> omdbMovieByTitleAndYearCall(String year) {
     return omdb.getMovieByTitleAndYear(title: movie.title, year: year);
   }
 
-  Future<TMDBMovieDetails> tmdbMovieDetailsCall(int movieId) =>
-      tmdb.movieDetails(movieId: movieId);
+  Future<TMDBMovieDetails> tmdbMovieDetailsCall(int movieId) => tmdb.movieDetails(movieId: movieId);
 
   Future<TMDBReviewsResponse> tmdbMovieReviewsCall(int movieId, int page) =>
       tmdb.movieReviews(movieId: movieId, page: page);

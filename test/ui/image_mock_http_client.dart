@@ -5,8 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MyHttpOverrides extends HttpOverrides {
-
-	// Returns a mock HTTP client that responds with an image to all requests.
+  // Returns a mock HTTP client that responds with an image to all requests.
   @override
   HttpClient createHttpClient(SecurityContext context) {
     final MockHttpClient client = new MockHttpClient();

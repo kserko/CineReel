@@ -25,7 +25,7 @@ class PersonScreenState extends State<PersonScreen> {
 
   @override
   Widget build(BuildContext context) {
-		personBloc = PersonProvider.of(context);
+    personBloc = PersonProvider.of(context);
     return Scaffold(
       body: StreamBuilder(
         stream: personBloc.stream,
@@ -48,12 +48,10 @@ class PersonScreenState extends State<PersonScreen> {
                   ErrorsWidget(
                       visible: data is PersonFailed, error: data is PersonFailed ? data.error : ""),
 
-									PersonWidget(
-										cast: this.widget.cast,
-										showLoading: data is PersonLoading,
-										person: data is PersonPopulated ? data.tmdbPerson : null
-									)
-
+                  PersonWidget(
+                      cast: this.widget.cast,
+                      showLoading: data is PersonLoading,
+                      person: data is PersonPopulated ? data.tmdbPerson : null)
                 ],
               ),
             ),

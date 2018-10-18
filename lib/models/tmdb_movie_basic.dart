@@ -10,14 +10,22 @@ class TMDBMovieBasic extends Object with _$TMDBMovieBasicSerializerMixin {
   double popularity;
   bool adult;
   String overview;
-  @JsonKey(name: "poster_path") String posterPath;
-  @JsonKey(name: "release_date") String releaseDate;
-  @JsonKey(name: 'vote_count') int voteCount;
-  @JsonKey(name: "vote_average") double voteAverage;
-  @JsonKey(name: "original_language") String originalLanguage;
-  @JsonKey(name: "original_title") String originalTitle;
-  @JsonKey(name: "genre_ids") List<int> genreIds;
-  @JsonKey(name: "backdrop_path") String backdropPath;
+  @JsonKey(name: "poster_path")
+  String posterPath;
+  @JsonKey(name: "release_date")
+  String releaseDate;
+  @JsonKey(name: 'vote_count')
+  int voteCount;
+  @JsonKey(name: "vote_average")
+  double voteAverage;
+  @JsonKey(name: "original_language")
+  String originalLanguage;
+  @JsonKey(name: "original_title")
+  String originalTitle;
+  @JsonKey(name: "genre_ids")
+  List<int> genreIds;
+  @JsonKey(name: "backdrop_path")
+  String backdropPath;
 
   TMDBMovieBasic(
       {this.voteCount,
@@ -35,6 +43,5 @@ class TMDBMovieBasic extends Object with _$TMDBMovieBasicSerializerMixin {
       this.overview,
       this.releaseDate});
 
-  factory TMDBMovieBasic.fromJson(Map<String, dynamic> json) =>
-			_$TMDBMovieBasicFromJson(json);
+  factory TMDBMovieBasic.fromJson(Map<String, dynamic> json) => _$TMDBMovieBasicFromJson(json);
 }

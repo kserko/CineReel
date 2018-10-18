@@ -13,18 +13,18 @@ void main() {
     expect(find.byType(GridView), findsOneWidget);
   });
 
-	testWidgets('GridView should get populated with GenreGridItems', (WidgetTester tester) async {
-		await pumpMainWidget(tester, genresList);
-		expect(find.byType(GenreGridItem), findsNWidgets(5));
-	});
+  testWidgets('GridView should get populated with GenreGridItems', (WidgetTester tester) async {
+    await pumpMainWidget(tester, genresList);
+    expect(find.byType(GenreGridItem), findsNWidgets(5));
+  });
 
-	testWidgets('Each GenreGridItem should have the name of the genre', (WidgetTester tester) async {
-		await pumpMainWidget(tester, genresList);
-		for (int i=1; i < genresList.length; i++ ) {
-			TMDBGenre genre = genresList[i];
-			expect(find.text("${genre.name}"), findsOneWidget);
-		}
-	});
+  testWidgets('Each GenreGridItem should have the name of the genre', (WidgetTester tester) async {
+    await pumpMainWidget(tester, genresList);
+    for (int i = 1; i < genresList.length; i++) {
+      TMDBGenre genre = genresList[i];
+      expect(find.text("${genre.name}"), findsOneWidget);
+    }
+  });
 }
 
 Future pumpMainWidget(WidgetTester tester, List<TMDBGenre> genres) async {

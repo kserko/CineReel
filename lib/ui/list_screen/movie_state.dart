@@ -1,4 +1,3 @@
-
 // The State represents the data the View requires. The View consumes a Stream
 // of States. The view rebuilds every time the Stream emits a new State!
 //
@@ -11,10 +10,10 @@
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 
 class MoviesState {
-	MoviesState();
+  MoviesState();
 }
 
-class MoviesLoading extends MoviesState{}
+class MoviesLoading extends MoviesState {}
 
 class MoviesError extends MoviesState {
   final String error;
@@ -24,15 +23,13 @@ class MoviesError extends MoviesState {
 class MoviesNoResults extends MoviesState {}
 
 class MoviesPopulated extends MoviesState {
+  final List<TMDBMovieBasic> movies;
 
-	final List<TMDBMovieBasic> movies;
+  update({List<TMDBMovieBasic> newMovies}) {
+    return this..movies.addAll(newMovies ?? this.movies);
+  }
 
-	update({List<TMDBMovieBasic> newMovies}) {
-		return this
-			..movies.addAll(newMovies ?? this.movies);
-	}
-
-	MoviesPopulated(this.movies);
+  MoviesPopulated(this.movies);
 }
 
 class MoviesEmpty extends MoviesState {}

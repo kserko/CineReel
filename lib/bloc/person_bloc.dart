@@ -4,29 +4,28 @@ import 'package:cine_reel/ui/person_details/person_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PersonBloc {
-	TMDBApi tmdbApi;
+  TMDBApi tmdbApi;
   int personId;
 
-	final _streamController = BehaviorSubject<PersonState>();
-	Stream<PersonState> get stream => _streamController.stream;
+  final _streamController = BehaviorSubject<PersonState>();
+  Stream<PersonState> get stream => _streamController.stream;
 
+  PersonBloc({this.tmdbApi, this.personId}) {
+    _streamController.addStream(_fetchDetails());
+  }
 
-	PersonBloc({this.tmdbApi, this.personId}) {
-		_streamController.addStream(_fetchDetails());
-	}
+  Stream<PersonState> _fetchDetails() async* {
+    yield PersonLoading();
 
-	Stream<PersonState> _fetchDetails() async* {
-		yield PersonLoading();
-
-		try {
-			TMDBPerson tmdbPerson = await tmdbApi.getPerson(personId: personId);
-			yield PersonPopulated(tmdbPerson: tmdbPerson);
-		} on Exception catch (e) {
-			yield PersonFailed(e.toString());
-		}
-	}
+    try {
+      TMDBPerson tmdbPerson = await tmdbApi.getPerson(personId: personId);
+      yield PersonPopulated(tmdbPerson: tmdbPerson);
+    } on Exception catch (e) {
+      yield PersonFailed(e.toString());
+    }
+  }
 
   void dispose() {
-		_streamController.close();
-	}
+    _streamController.close();
+  }
 }

@@ -10,17 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  testWidgets('should build material app with home page', (WidgetTester tester) async {
+    //arrange
+    await tester.pumpWidget(MyApp());
+    MaterialApp materialApp = tester.widget(find.byType(MaterialApp));
+    HomePage homePage = tester.widget(find.byType(HomePage));
+    var expectedTitle = "CineReel";
 
-	testWidgets('should build material app with home page', (WidgetTester tester)
-	async {
-		//arrange
-		await tester.pumpWidget(MyApp());
-		MaterialApp materialApp = tester.widget(find.byType(MaterialApp));
-		HomePage homePage = tester.widget(find.byType(HomePage));
-		var expectedTitle = "CineReel";
-
-		//assert
-		expect(materialApp.title, expectedTitle);
-		expect(homePage.title, expectedTitle);
-	});
+    //assert
+    expect(materialApp.title, expectedTitle);
+    expect(homePage.title, expectedTitle);
+  });
 }

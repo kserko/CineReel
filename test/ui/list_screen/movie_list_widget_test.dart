@@ -118,7 +118,7 @@ void main() {
   });
 
   testWidgets('should have Scaffold, AppBar and correct genre title if genres available',
-					(WidgetTester tester) async {
+      (WidgetTester tester) async {
     await pumpMainWidget(tester, mockMovieBloc, mockMoviesList, genreOne);
     expect(find.byType(Scaffold), findsOneWidget);
     expect(find.byType(AppBar), findsOneWidget);

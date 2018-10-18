@@ -14,8 +14,7 @@ class MoviesListScreen extends StatefulWidget {
   final TabKey tabKey;
   final TMDBGenre genre;
 
-  MoviesListScreen(
-      {@required TabKey this.tabKey, TMDBGenre this.genre});
+  MoviesListScreen({@required TabKey this.tabKey, TMDBGenre this.genre});
 
   @override
   MoviesListScreenState createState() {
@@ -77,7 +76,7 @@ class MoviesListScreenState extends State<MoviesListScreen> {
 
   @override
   void dispose() {
-  	print('dispose movies list screen');
+    print('dispose movies list screen');
     super.dispose();
   }
 }

@@ -6,14 +6,14 @@ import 'package:flutter/widgets.dart';
 class SearchResultWidget extends StatelessWidget {
   final List<TMDBMovieBasic> movies;
 
-	SearchResultWidget({this.movies});
+  SearchResultWidget({this.movies});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-			itemCount: movies.length,
-				itemBuilder:(BuildContext context, int index) {
-				return PosterRow(movies[index]);
-		});
+        itemCount: movies.length,
+        itemBuilder: (BuildContext context, int index) {
+          return PosterRow(movies[index]);
+        });
   }
 }

@@ -11,22 +11,21 @@ class PosterRow extends StatelessWidget {
 
   PosterRow(this.movie);
 
-  final defaultStyle = TextStyle(
-      fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold);
+  final defaultStyle = TextStyle(fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
     return Column(
-			mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Material(
           child: InkWell(
               onTap: () {
-              	Router.pushDetailsScreen(context, movie);
+                Router.pushDetailsScreen(context, movie);
               },
               child: buildMovieRow(movie, context)),
         ),
-				buildHorizontalDivider(height: 1.0, color: Theme.of(context).accentColor),
+        buildHorizontalDivider(height: 1.0, color: Theme.of(context).accentColor),
       ],
     );
   }
@@ -53,7 +52,7 @@ class PosterRow extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
-									width: MediaQuery.of(context).size.width * 0.45,
+                  width: MediaQuery.of(context).size.width * 0.45,
                   child: MoviePosterWidget(
                       id: movie.id,
                       imagePath: movie.posterPath,
@@ -81,8 +80,7 @@ class PosterRow extends StatelessWidget {
             children: <Widget>[
               Hero(
                   child: Material(
-                      color: Colors.transparent,
-                      child: Text(movie.title, style: defaultStyle)),
+                      color: Colors.transparent, child: Text(movie.title, style: defaultStyle)),
                   tag: "${movie.id}-${movie.title}"),
               ListRowRatingWidget(movie, null),
             ]),
@@ -97,8 +95,7 @@ class PosterRow extends StatelessWidget {
       child: Container(
         child:
             //extract the year
-            Text(movie.releaseDate.split("-")[0],
-                style: defaultStyle.copyWith(fontSize: 14.0)),
+            Text(movie.releaseDate.split("-")[0], style: defaultStyle.copyWith(fontSize: 14.0)),
       ),
     );
   }

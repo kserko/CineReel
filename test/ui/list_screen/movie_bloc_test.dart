@@ -14,40 +14,37 @@ const NoResultsState = TypeMatcher<MoviesNoResults>();
 const PopulatedState = TypeMatcher<MoviesPopulated>();
 
 void main() {
+  test('emits a loading state and then a populated state', () {
+    MockTMDBApi mockTMDBApi = MockTMDBApi();
+    NowPlayingBloc nowPlayingBloc = NowPlayingBloc(mockTMDBApi);
+    setNowPlayingResults(mockTMDBApi);
 
-	test('emits a loading state and then a populated state', () {
-		MockTMDBApi mockTMDBApi = MockTMDBApi();
-		NowPlayingBloc nowPlayingBloc = NowPlayingBloc(mockTMDBApi);
-		setNowPlayingResults(mockTMDBApi);
+    expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
+  });
 
-		expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
-	});
+  test('emits a loading state and then an empty state', () {
+    MockTMDBApi mockTMDBApi = MockTMDBApi();
+    NowPlayingBloc nowPlayingBloc = NowPlayingBloc(mockTMDBApi);
+    setEmptyNowPlayingResults(mockTMDBApi);
 
-	test('emits a loading state and then an empty state', () {
-		MockTMDBApi mockTMDBApi = MockTMDBApi();
-		NowPlayingBloc nowPlayingBloc = NowPlayingBloc(mockTMDBApi);
-		setEmptyNowPlayingResults(mockTMDBApi);
+    expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, EmptyState]));
+  });
 
-		expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, EmptyState]));
-	});
+  test('emits a loading state and then an error state', () {
+    MockTMDBApi mockTMDBApi = MockTMDBApi();
+    NowPlayingBloc nowPlayingBloc = NowPlayingBloc(mockTMDBApi);
+    when(mockTMDBApi.nowPlayingMovies(page: 1)).thenThrow(Exception("problem"));
 
-	test('emits a loading state and then an error state', () {
-		MockTMDBApi mockTMDBApi = MockTMDBApi();
-		NowPlayingBloc nowPlayingBloc = NowPlayingBloc(mockTMDBApi);
-		when(mockTMDBApi.nowPlayingMovies(page: 1)).thenThrow(Exception("problem"));
-
-		expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, ErrorState]));
-	});
+    expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, ErrorState]));
+  });
 }
 
 void setNowPlayingResults(MockTMDBApi mockTMDBApi) {
-  when(mockTMDBApi.nowPlayingMovies(page: 1)).thenAnswer((_) async =>
-  		TMDBMoviesResponse
-  			(results: mockMoviesList));
+  when(mockTMDBApi.nowPlayingMovies(page: 1))
+      .thenAnswer((_) async => TMDBMoviesResponse(results: mockMoviesList));
 }
 
 void setEmptyNowPlayingResults(MockTMDBApi mockTMDBApi) {
-  when(mockTMDBApi.nowPlayingMovies(page: 1)).thenAnswer((_) async =>
-  		TMDBMoviesResponse
-  			(results: []));
+  when(mockTMDBApi.nowPlayingMovies(page: 1))
+      .thenAnswer((_) async => TMDBMoviesResponse(results: []));
 }

@@ -31,11 +31,11 @@ void main() {
   }
 
   setUp(() {
-		HttpOverrides.global = MyHttpOverrides();
-		streamBuilderFinder = find.byKey(Key('streamBuilder'));
+    HttpOverrides.global = MyHttpOverrides();
+    streamBuilderFinder = find.byKey(Key('streamBuilder'));
     mockMovieDetailsBloc = MockMovieDetailsBloc(MockTMDBApi(), MockOMDBApi());
-		when(mockMovieDetailsBloc.initialData()).thenReturn(movieDetailsState);
-	});
+    when(mockMovieDetailsBloc.initialData()).thenReturn(movieDetailsState);
+  });
 
   testWidgets('should have a streambuilder', (WidgetTester tester) async {
     await pumpMainWidget(tester);
@@ -43,15 +43,14 @@ void main() {
     expect(streamBuilderFinder, findsOneWidget);
   });
 
-	testWidgets('streamBuilder should have initialData', (WidgetTester
-	tester) async {
-		await pumpMainWidget(tester);
-		StreamBuilder streamBuilder = tester.widget(streamBuilderFinder);
-		expect(streamBuilder.initialData, movieDetailsState);
-	});
+  testWidgets('streamBuilder should have initialData', (WidgetTester tester) async {
+    await pumpMainWidget(tester);
+    StreamBuilder streamBuilder = tester.widget(streamBuilderFinder);
+    expect(streamBuilder.initialData, movieDetailsState);
+  });
 
-	testWidgets('streamBuilder should have a MovieDetailsWidget', (WidgetTester tester) async {
-		await pumpMainWidget(tester);
-		verifyStackContainsWidget(tester, MovieDetailsWidget);
-	});
+  testWidgets('streamBuilder should have a MovieDetailsWidget', (WidgetTester tester) async {
+    await pumpMainWidget(tester);
+    verifyStackContainsWidget(tester, MovieDetailsWidget);
+  });
 }

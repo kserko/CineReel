@@ -23,12 +23,11 @@ class CrewWidget extends StatelessWidget {
     );
   }
 
-
   Widget _buildCrewDetails(Crew crew) {
     return ListTile(
       title: Text(crew.name),
       subtitle: Text(crew.job),
-			contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
-		);
+      contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+    );
   }
 }

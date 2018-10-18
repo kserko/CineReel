@@ -10,9 +10,9 @@ class GenresBloc {
   bool fetchOnInit;
 
   GenresBloc({this.tmdbApi, bool this.fetchOnInit}) {
-  	if (fetchOnInit) {
-			_streamControler.addStream(_fetchGenres());
-		}
+    if (fetchOnInit) {
+      _streamControler.addStream(_fetchGenres());
+    }
   }
 
   //the internal object whose sink/stream we can use
@@ -27,15 +27,15 @@ class GenresBloc {
   }
 
   Stream<GenresState> _fetchGenres() async* {
-  	yield GenresLoading();
+    yield GenresLoading();
 
     try {
-			TMDBGenresResponse response = await tmdbApi.getGenres();
+      TMDBGenresResponse response = await tmdbApi.getGenres();
       if (response.isEmpty) {
-				yield GenresEmpty();
-			} else {
-				yield GenresPopulated(response.genres);
-			}
+        yield GenresEmpty();
+      } else {
+        yield GenresPopulated(response.genres);
+      }
     } on Exception catch (e) {
       print('exception: $e');
       yield GenresError(e.toString());

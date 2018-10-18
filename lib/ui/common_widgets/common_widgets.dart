@@ -38,7 +38,7 @@ IconButton infoAction(context) {
 }
 
 Widget buildHorizontalDivider({double height = 22.0, Color color = Colors.white}) {
-	return Divider(
+  return Divider(
     height: height,
     color: color,
   );

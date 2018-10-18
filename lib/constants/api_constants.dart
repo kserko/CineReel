@@ -14,10 +14,10 @@ const SIZE_MEDIUM = "medium";
 const SIZE_LARGE = "large";
 
 var PROFILE_SIZES = {
-	"$SIZE_SMALL": "w45",
-	"$SIZE_MEDIUM": "w185",
-	"$SIZE_LARGE": "h632",
-	"original": "original"
+  "$SIZE_SMALL": "w45",
+  "$SIZE_MEDIUM": "w185",
+  "$SIZE_LARGE": "h632",
+  "original": "original"
 };
 
 var BACKDROP_SIZES = {
@@ -28,11 +28,11 @@ var BACKDROP_SIZES = {
 };
 
 var POSTER_SIZES = {
-	"smallest": "w92",
-	"$SIZE_SMALL": "w154",
-	"$SIZE_MEDIUM": "w185",
-	"$SIZE_LARGE": "w342",
-	"larger": "w500",
-	"largest": "w780",
-	"original": "original"
+  "smallest": "w92",
+  "$SIZE_SMALL": "w154",
+  "$SIZE_MEDIUM": "w185",
+  "$SIZE_LARGE": "w342",
+  "larger": "w500",
+  "largest": "w780",
+  "original": "original"
 };

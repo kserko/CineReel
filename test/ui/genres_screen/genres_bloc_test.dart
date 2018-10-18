@@ -18,9 +18,8 @@ void main() {
   GenresBloc bloc;
   setUp(() {
     bloc = GenresBloc(tmdbApi: MockTMDBApi(), fetchOnInit: true);
-		when(bloc.tmdbApi.getGenres()).thenAnswer((_) async => TMDBGenresResponse(genresList));
-
-	});
+    when(bloc.tmdbApi.getGenres()).thenAnswer((_) async => TMDBGenresResponse(genresList));
+  });
   test('emits a loading state and then an empty state when the api returns no results', () {
     when(bloc.tmdbApi.getGenres()).thenAnswer((_) async => TMDBGenresResponse([]));
     expect(bloc.stream, emitsInOrder([LoadingState, EmptyState]));
@@ -35,16 +34,16 @@ void main() {
     expect(bloc.stream, emitsInOrder([LoadingState, ErrorState]));
   });
 
-	test('closes the stream on dispose', () {
-		bloc = GenresBloc(tmdbApi: MockTMDBApi(), fetchOnInit: false);
+  test('closes the stream on dispose', () {
+    bloc = GenresBloc(tmdbApi: MockTMDBApi(), fetchOnInit: false);
 
-		scheduleMicrotask(() {
-			bloc.dispose();
-		});
+    scheduleMicrotask(() {
+      bloc.dispose();
+    });
 
-		expect(
-			bloc.stream,
-			emitsInOrder([emitsDone]),
-		);
-	});
+    expect(
+      bloc.stream,
+      emitsInOrder([emitsDone]),
+    );
+  });
 }

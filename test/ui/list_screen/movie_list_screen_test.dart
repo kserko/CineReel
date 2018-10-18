@@ -19,45 +19,43 @@ class MockMovieBloc extends Mock implements MovieBloc {
 }
 
 void main() {
-	var streamBuilderFinder;
+  var streamBuilderFinder;
 
-	setUp(() {
-		streamBuilderFinder = find.byKey(Key('streamBuilder'));
-	});
+  setUp(() {
+    streamBuilderFinder = find.byKey(Key('streamBuilder'));
+  });
 
-	testWidgets('should have a streambuilder', (WidgetTester tester) async {
-		await pumpMainWidget(tester);
+  testWidgets('should have a streambuilder', (WidgetTester tester) async {
+    await pumpMainWidget(tester);
 
-		var rootFinder = find.byKey(Key("rootColumn"));
+    var rootFinder = find.byKey(Key("rootColumn"));
 
-		expect(rootFinder, findsOneWidget);
-		expect(streamBuilderFinder, findsOneWidget);
-	});
+    expect(rootFinder, findsOneWidget);
+    expect(streamBuilderFinder, findsOneWidget);
+  });
 
-	testWidgets('streamBuilder should not have initialData', (WidgetTester
-	tester) async {
-		await pumpMainWidget(tester);
-		StreamBuilder streamBuilder = tester.widget(streamBuilderFinder);
-		expect(streamBuilder.initialData, null);
-	});
+  testWidgets('streamBuilder should not have initialData', (WidgetTester tester) async {
+    await pumpMainWidget(tester);
+    StreamBuilder streamBuilder = tester.widget(streamBuilderFinder);
+    expect(streamBuilder.initialData, null);
+  });
 
-	testWidgets('streamBuilder should have four widgets in a stack', (WidgetTester
-	tester) async {
-		await pumpMainWidget(tester);
-		var stackFinder = find.byKey(Key('content'));
-		expect(stackFinder, findsOneWidget);
-		Stack stack = tester.widget(stackFinder);
+  testWidgets('streamBuilder should have four widgets in a stack', (WidgetTester tester) async {
+    await pumpMainWidget(tester);
+    var stackFinder = find.byKey(Key('content'));
+    expect(stackFinder, findsOneWidget);
+    Stack stack = tester.widget(stackFinder);
 
-		verifyStackContainsWidget(tester, EmptyWidget);
-		verifyStackContainsWidget(tester, LoadingWidget);
-		verifyStackContainsWidget(tester, ErrorsWidget);
-		verifyStackContainsWidget(tester, MovieListWidget);
-		expect(stack.children.length, 4);
-	});
+    verifyStackContainsWidget(tester, EmptyWidget);
+    verifyStackContainsWidget(tester, LoadingWidget);
+    verifyStackContainsWidget(tester, ErrorsWidget);
+    verifyStackContainsWidget(tester, MovieListWidget);
+    expect(stack.children.length, 4);
+  });
 }
 
 Future pumpMainWidget(WidgetTester tester) async {
   await tester.pumpWidget(MovieProvider(
-  		child: MaterialApp(home: MoviesListScreen(tabKey: TabKey.kNowPlaying)), movieBloc:
-  MockMovieBloc(MockTMDBApi())));
+      child: MaterialApp(home: MoviesListScreen(tabKey: TabKey.kNowPlaying)),
+      movieBloc: MockMovieBloc(MockTMDBApi())));
 }

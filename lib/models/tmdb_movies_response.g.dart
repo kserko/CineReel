@@ -12,9 +12,7 @@ TMDBMoviesResponse _$TMDBMoviesResponseFromJson(Map<String, dynamic> json) {
       totalResults: json['total_results'] as int,
       totalPages: json['total_pages'] as int,
       results: (json['results'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new TMDBMovieBasic.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new TMDBMovieBasic.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       errors: (json['errors'] as List)?.map((e) => e as String)?.toList());
 }

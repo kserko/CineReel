@@ -12,18 +12,17 @@ class MovieExtraContent extends StatelessWidget {
 
   MovieExtraContent({this.movieDetails, this.movieDetailsBloc});
 
-
   //this approach of adding things to the builder only when they become available
-	//helps us avoid the need to deal with null values in the children
+  //helps us avoid the need to deal with null values in the children
   @override
   Widget build(BuildContext context) {
-		List<Widget> builder = [];
+    List<Widget> builder = [];
 
     if (movieDetails.hasData) {
       builder.addAll(extraChildren());
     } else {
-			builder.add(getLoadingWidget());
-		}
+      builder.add(getLoadingWidget());
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

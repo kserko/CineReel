@@ -23,7 +23,7 @@ class GenreGridItem extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: FittedBox(
-								fit: BoxFit.scaleDown,
+                fit: BoxFit.scaleDown,
                 child: Text(
                   "${genre.name}",
                   textAlign: TextAlign.center,

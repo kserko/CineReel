@@ -4,5 +4,5 @@ const Map<TabKey, String> tab = {
   TabKey.kNowPlaying: "Now Playing",
   TabKey.kTopRated: "Top Rated",
   TabKey.kPopular: "Popular",
-	TabKey.kGenres: "Genres"
+  TabKey.kGenres: "Genres"
 };

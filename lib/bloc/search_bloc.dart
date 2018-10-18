@@ -30,27 +30,27 @@ class SearchBloc {
   SearchBloc._(this.onTextChanged, this.state);
 
   void dispose() {
-  	print('disposing searchBloc');
-  	onTextChanged.close();
-	}
+    print('disposing searchBloc');
+    onTextChanged.close();
+  }
 
-	static Stream<SearchState> _search(String movieTitle, TMDBApi api) async* {
-		if (movieTitle.isEmpty) {
-			yield SearchNoTerm();
-		} else {
-			yield SearchLoading();
+  static Stream<SearchState> _search(String movieTitle, TMDBApi api) async* {
+    if (movieTitle.isEmpty) {
+      yield SearchNoTerm();
+    } else {
+      yield SearchLoading();
 
-			try {
-				final result = await api.searchMovie(title: movieTitle);
+      try {
+        final result = await api.searchMovie(title: movieTitle);
 
-				if (result.isEmpty) {
-					yield SearchEmpty();
-				} else {
-					yield SearchPopulated(result.results);
-				}
-			} catch (e) {
-				yield SearchError();
-			}
-		}
-	}
+        if (result.isEmpty) {
+          yield SearchEmpty();
+        } else {
+          yield SearchPopulated(result.results);
+        }
+      } catch (e) {
+        yield SearchError();
+      }
+    }
+  }
 }

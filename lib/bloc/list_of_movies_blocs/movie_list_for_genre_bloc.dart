@@ -6,8 +6,6 @@ import 'package:cine_reel/utils/tab_constants.dart';
 class MovieListForGenreBloc extends MovieBloc {
   TMDBGenre genre;
 
-	MovieListForGenreBloc(TMDBApi api, TMDBGenre this.genre) : super(
-			api: api,
-			tabKey: TabKey.kGenres,
-			genre: genre);
+  MovieListForGenreBloc(TMDBApi api, TMDBGenre this.genre)
+      : super(api: api, tabKey: TabKey.kGenres, genre: genre);
 }

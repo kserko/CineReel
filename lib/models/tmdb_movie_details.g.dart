@@ -13,8 +13,7 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       json['belongs_to_collection'],
       json['budget'] as int,
       (json['genres'] as List)
-          ?.map((e) =>
-              e == null ? null : new Genre.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new Genre.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['homepage'] as String,
       json['id'] as int,
@@ -25,22 +24,16 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       (json['popularity'] as num)?.toDouble(),
       json['poster_path'] as String,
       (json['production_companies'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new ProductionCompany.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new ProductionCompany.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       (json['production_countries'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new ProductionCountry.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new ProductionCountry.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['release_date'] as String,
       json['revenue'] as int,
       json['runtime'] as int,
       (json['spoken_languages'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new SpokenLanguage.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new SpokenLanguage.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['status'] as String,
       json['tag_line'] as String,
@@ -56,14 +49,11 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
         ? null
         : new OMDBMovie.fromJson(json['omdbMovie'] as Map<String, dynamic>)
     ..movieReviews = (json['movieReviews'] as List)
-        ?.map((e) => e == null
-            ? null
-            : new TMDBReview.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null ? null : new TMDBReview.fromJson(e as Map<String, dynamic>))
         ?.toList()
     ..movieBasic = json['movieBasic'] == null
         ? null
-        : new TMDBMovieBasic.fromJson(
-            json['movieBasic'] as Map<String, dynamic>)
+        : new TMDBMovieBasic.fromJson(json['movieBasic'] as Map<String, dynamic>)
     ..hasData = json['hasData'] as bool;
 }
 
@@ -135,8 +125,8 @@ abstract class _$TMDBMovieDetailsSerializerMixin {
 }
 
 ProductionCompany _$ProductionCompanyFromJson(Map<String, dynamic> json) {
-  return new ProductionCompany(json['id'] as int, json['logoPath'],
-      json['name'] as String, json['originCountry'] as String);
+  return new ProductionCompany(
+      json['id'] as int, json['logoPath'], json['name'] as String, json['originCountry'] as String);
 }
 
 abstract class _$ProductionCompanySerializerMixin {
@@ -153,15 +143,13 @@ abstract class _$ProductionCompanySerializerMixin {
 }
 
 ProductionCountry _$ProductionCountryFromJson(Map<String, dynamic> json) {
-  return new ProductionCountry(
-      json['iso31661'] as String, json['name'] as String);
+  return new ProductionCountry(json['iso31661'] as String, json['name'] as String);
 }
 
 abstract class _$ProductionCountrySerializerMixin {
   String get iso31661;
   String get name;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'iso31661': iso31661, 'name': name};
+  Map<String, dynamic> toJson() => <String, dynamic>{'iso31661': iso31661, 'name': name};
 }
 
 SpokenLanguage _$SpokenLanguageFromJson(Map<String, dynamic> json) {
@@ -171,8 +159,7 @@ SpokenLanguage _$SpokenLanguageFromJson(Map<String, dynamic> json) {
 abstract class _$SpokenLanguageSerializerMixin {
   String get iso6391;
   String get name;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'iso6391': iso6391, 'name': name};
+  Map<String, dynamic> toJson() => <String, dynamic>{'iso6391': iso6391, 'name': name};
 }
 
 Genre _$GenreFromJson(Map<String, dynamic> json) {
@@ -188,30 +175,22 @@ abstract class _$GenreSerializerMixin {
 Credits _$CreditsFromJson(Map<String, dynamic> json) {
   return new Credits(
       (json['cast'] as List)
-          ?.map((e) =>
-              e == null ? null : new Cast.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new Cast.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       (json['crew'] as List)
-          ?.map((e) =>
-              e == null ? null : new Crew.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new Crew.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
 abstract class _$CreditsSerializerMixin {
   List<Cast> get cast;
   List<Crew> get crew;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'cast': cast, 'crew': crew};
+  Map<String, dynamic> toJson() => <String, dynamic>{'cast': cast, 'crew': crew};
 }
 
 Cast _$CastFromJson(Map<String, dynamic> json) {
-  return new Cast(
-      json['cast_id'] as int,
-      json['character'] as String,
-      json['credit_id'] as String,
-      json['id'] as int,
-      json['name'] as String,
-      json['profile_path'] as String);
+  return new Cast(json['cast_id'] as int, json['character'] as String, json['credit_id'] as String,
+      json['id'] as int, json['name'] as String, json['profile_path'] as String);
 }
 
 abstract class _$CastSerializerMixin {

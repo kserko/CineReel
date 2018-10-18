@@ -6,10 +6,8 @@ import 'package:cine_reel/models/omdb_movie.dart';
 import 'package:http/http.dart' as http;
 
 class OMDBApi {
-
   Future<OMDBMovie> getMovieByTitleAndYear({String title, String year}) async {
-    final response = await _makeRequest(Endpoints.omdbMovieByTitleAndYearUrl
-			(title, year));
+    final response = await _makeRequest(Endpoints.omdbMovieByTitleAndYearUrl(title, year));
     return OMDBMovie.fromJson(json.decode(response.body));
   }
 
@@ -17,6 +15,4 @@ class OMDBApi {
     print("calling -> " + url);
     return await http.get(url);
   }
-
-
 }

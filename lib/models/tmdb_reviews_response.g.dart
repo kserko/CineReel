@@ -11,9 +11,7 @@ TMDBReviewsResponse _$TMDBReviewsResponseFromJson(Map<String, dynamic> json) {
       json['id'] as int,
       json['page'] as int,
       (json['results'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new TMDBReview.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new TMDBReview.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['total_results'] as int)
     ..totalPages = json['total_pages'] as int;
@@ -35,8 +33,8 @@ abstract class _$TMDBReviewsResponseSerializerMixin {
 }
 
 TMDBReview _$TMDBReviewFromJson(Map<String, dynamic> json) {
-  return new TMDBReview(json['author'] as String, json['content'] as String,
-      json['id'] as String, json['url'] as String);
+  return new TMDBReview(json['author'] as String, json['content'] as String, json['id'] as String,
+      json['url'] as String);
 }
 
 abstract class _$TMDBReviewSerializerMixin {
@@ -44,10 +42,6 @@ abstract class _$TMDBReviewSerializerMixin {
   String get content;
   String get id;
   String get url;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'author': author,
-        'content': content,
-        'id': id,
-        'url': url
-      };
+  Map<String, dynamic> toJson() =>
+      <String, dynamic>{'author': author, 'content': content, 'id': id, 'url': url};
 }

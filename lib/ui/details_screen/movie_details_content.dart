@@ -11,8 +11,7 @@ class MovieDetailsContent extends StatelessWidget {
   final MovieDetailsBloc movieDetailsBloc;
   final bool hasFailed;
 
-  MovieDetailsContent(
-      this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
+  MovieDetailsContent(this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +39,8 @@ class MovieDetailsContent extends StatelessWidget {
 
   Widget buildMovieExtraDetailsContainer() {
     return AnimateChildren(
-        childOne: MovieExtraContent(
-            movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-        childTwo: ErrorsWidget(
-            visible: true,
-            error: movieDetails.status_message),
+        childOne: MovieExtraContent(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
+        childTwo: ErrorsWidget(visible: true, error: movieDetails.status_message),
         showHappyPath: !hasFailed);
   }
 
@@ -55,9 +51,9 @@ class MovieDetailsContent extends StatelessWidget {
             buildRunningTime(),
             getDotSeparator(),
             buildReleaseDate(),
-						getDotSeparator(),
-						buildDirectorName(),
-					],
+            getDotSeparator(),
+            buildDirectorName(),
+          ],
         ),
         childTwo: Container(),
         showHappyPath: movieDetails.hasData);
@@ -95,27 +91,23 @@ class MovieDetailsContent extends StatelessWidget {
   buildRunningTime() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(movieDetails.getFormattedRunningTime(),
-          style: TextStyle(fontSize: 13.0)),
+      child: Text(movieDetails.getFormattedRunningTime(), style: TextStyle(fontSize: 13.0)),
     );
   }
 
   buildReleaseDate() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Text(movieDetails.getFormattedReleaseDate(),
-          style: TextStyle(fontSize: 13.0)),
+      child: Text(movieDetails.getFormattedReleaseDate(), style: TextStyle(fontSize: 13.0)),
     );
   }
 
-	buildDirectorName() {
-		return Expanded(
-		  child: Padding(
-		  	padding: const EdgeInsets.all(8.0),
-		  	child: Text("directed by ${movieDetails.getDirector()}",
-		  			style: TextStyle(fontSize: 13.0)),
-		  ),
-		);
-	}
-
+  buildDirectorName() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("directed by ${movieDetails.getDirector()}", style: TextStyle(fontSize: 13.0)),
+      ),
+    );
+  }
 }

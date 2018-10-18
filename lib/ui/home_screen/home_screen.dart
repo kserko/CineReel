@@ -17,8 +17,8 @@ class TabObject {
   dynamic provider;
 
   TabObject({
-		@required this.tab,
-		this.provider,
+    @required this.tab,
+    this.provider,
   });
 }
 
@@ -39,12 +39,11 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   final String title;
 
   final genresTab = TabObject(
-		tab: Tab(text: tab[TabKey.kGenres]),
-		provider: GenresProvider(
-			child: GenresScreen(),
-			genreBloc: GenresBloc(tmdbApi: TMDBApi(), fetchOnInit: true),
-		)
-	);
+      tab: Tab(text: tab[TabKey.kGenres]),
+      provider: GenresProvider(
+        child: GenresScreen(),
+        genreBloc: GenresBloc(tmdbApi: TMDBApi(), fetchOnInit: true),
+      ));
 
   final nowPlayingTab = TabObject(
       tab: Tab(text: tab[TabKey.kNowPlaying]),
@@ -70,12 +69,9 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     myTabs = <TabObject>[nowPlayingTab, popularTab, topRatedTab, genresTab];
     _tabController = new TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_handleTabSelection);
-    tabBarView = TabBarView(controller: _tabController, children: [
-    	myTabs[0].provider,
-      myTabs[1].provider,
-			myTabs[2].provider,
-			myTabs[3].provider
-		]);
+    tabBarView = TabBarView(
+        controller: _tabController,
+        children: [myTabs[0].provider, myTabs[1].provider, myTabs[2].provider, myTabs[3].provider]);
   }
 
   void _handleTabSelection() {
@@ -88,12 +84,12 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 
   @override
   void dispose() {
-  	print('dispose home screen');
+    print('dispose home screen');
     _tabController.dispose();
     (nowPlayingTab.provider as MovieProvider).movieBloc.dispose();
-		(topRatedTab.provider as MovieProvider).movieBloc.dispose();
-		(popularTab.provider as MovieProvider).movieBloc.dispose();
-		(genresTab.provider as GenresProvider).genresBloc.dispose();
+    (topRatedTab.provider as MovieProvider).movieBloc.dispose();
+    (popularTab.provider as MovieProvider).movieBloc.dispose();
+    (genresTab.provider as GenresProvider).genresBloc.dispose();
     super.dispose();
   }
 

@@ -23,9 +23,7 @@ OMDBMovie _$OMDBMovieFromJson(Map<String, dynamic> json) {
       json['Awards'] as String,
       json['Poster'] as String,
       (json['Ratings'] as List)
-          ?.map((e) => e == null
-              ? null
-              : new OMDBRating.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : new OMDBRating.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['Metascore'] as String,
       json['imdbRating'] as String,
@@ -101,6 +99,5 @@ OMDBRating _$OMDBRatingFromJson(Map<String, dynamic> json) {
 abstract class _$OMDBRatingSerializerMixin {
   String get source;
   String get value;
-  Map<String, dynamic> toJson() =>
-      <String, dynamic>{'Source': source, 'Value': value};
+  Map<String, dynamic> toJson() => <String, dynamic>{'Source': source, 'Value': value};
 }

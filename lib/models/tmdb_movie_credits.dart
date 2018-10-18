@@ -121,9 +121,9 @@ class MovieCreditsAsCast {
     return data;
   }
 
-	TMDBMovieBasic convertToTMDBMovieBasic() {
-		return TMDBMovieBasic.fromJson(this.toJson());
-	}
+  TMDBMovieBasic convertToTMDBMovieBasic() {
+    return TMDBMovieBasic.fromJson(this.toJson());
+  }
 }
 
 class MovieCreditsAsCrew {

@@ -8,8 +8,7 @@ part of 'tmdb_genres.dart';
 
 TMDBGenresResponse _$TMDBGenresResponseFromJson(Map<String, dynamic> json) {
   return new TMDBGenresResponse((json['genres'] as List)
-      ?.map((e) =>
-          e == null ? null : new TMDBGenre.fromJson(e as Map<String, dynamic>))
+      ?.map((e) => e == null ? null : new TMDBGenre.fromJson(e as Map<String, dynamic>))
       ?.toList());
 }
 

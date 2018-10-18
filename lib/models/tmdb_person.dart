@@ -71,8 +71,8 @@ class TMDBPerson {
     data['imdb_id'] = this.imdbId;
     data['homepage'] = this.homepage;
     if (this.movieCredits != null) {
-			data['movie_credits'] = this.movieCredits.toJson();
-		}
+      data['movie_credits'] = this.movieCredits.toJson();
+    }
     return data;
   }
 
