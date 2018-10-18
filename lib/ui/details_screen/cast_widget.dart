@@ -75,13 +75,16 @@ class CastWidget extends StatelessWidget {
   }
 
   Widget _buildCharacter(Cast cast) {
-    return Center(
-      child: Text(
-        "(${cast.character})",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 12.0),
-      ),
-    );
+  	if (cast.hasCharacter()) {
+			return Center(
+				child: Text(
+					"(${cast.character})",
+					textAlign: TextAlign.center,
+					style: TextStyle(fontSize: 12.0),
+				),
+			);
+		}
+		return Container();
   }
 
   Widget _buildPhotoThumbnail(Cast cast, int index) {

@@ -254,6 +254,9 @@ class Cast extends Object with _$CastSerializerMixin {
 
   Cast(this.castId, this.character, this.creditId, this.id, this.name, this.profilePath);
 
+  bool hasCharacter() {
+  	return (character != null && character.isNotEmpty);
+	}
   factory Cast.fromJson(Map<String, dynamic> json) => _$CastFromJson(json);
 }
 
