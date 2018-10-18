@@ -4,9 +4,9 @@ A Flutter TMDB client for Android - https://play.google.com/store/apps/details?i
 
 # next steps (not necessarily in order of implementation)
 ~- make rating icons in details screen interactive~
-- add more tests
+~- add more tests~
 - add more details - backdrops, videos,
-- add individual cast page
+~- add individual cast page~
 - add firebase anaytics
 
 
