@@ -88,7 +88,7 @@ class CastWidget extends StatelessWidget {
   }
 
   Widget _buildPhotoThumbnail(Cast cast, int index) {
-    return Expanded(
+		return Expanded(
       child: Hero(
         child: Material(
           color: Colors.transparent,
@@ -99,7 +99,7 @@ class CastWidget extends StatelessWidget {
                 child: ImageLoader(
                   imagePath: cast.profilePath,
                   imageType: IMAGE_TYPE.PROFILE,
-                  size: SIZE_LARGE,
+                  size: PROFILE_SIZE,
                 )),
           ),
         ),

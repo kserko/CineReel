@@ -6,9 +6,10 @@ import 'package:cine_reel/ui/common_widgets/movie_poster_widget.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/list_row_rating_widget.dart';
 import 'package:flutter/material.dart';
 
+const String POSTER_SIZE = SIZE_LARGE;
+
 class PosterRow extends StatelessWidget {
   final TMDBMovieBasic movie;
-
   PosterRow(this.movie);
 
   final defaultStyle = TextStyle(fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold);
@@ -21,7 +22,7 @@ class PosterRow extends StatelessWidget {
         Material(
           child: InkWell(
               onTap: () {
-                Router.pushDetailsScreen(context, movie);
+                Router.pushDetailsScreen(context, movie, POSTER_SIZE);
               },
               child: buildMovieRow(movie, context)),
         ),
@@ -57,7 +58,7 @@ class PosterRow extends StatelessWidget {
                       id: movie.id,
                       imagePath: movie.posterPath,
                       imageType: IMAGE_TYPE.POSTER,
-                      size: SIZE_LARGE),
+                      size: POSTER_SIZE),
                 ),
                 buildHeader(movie)
               ],

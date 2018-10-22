@@ -20,13 +20,13 @@ import 'package:cine_reel/utils/tab_constants.dart';
 import 'package:flutter/widgets.dart';
 
 class Router {
-  static void pushDetailsScreen(BuildContext context, TMDBMovieBasic movie) {
+  static void pushDetailsScreen(BuildContext context, TMDBMovieBasic movie, String backgroundSize) {
     Navigator.push(
       context,
       RouteTransition(
         widget: MovieDetailsProvider(
           movieDetailsBloc: MovieDetailsBloc(tmdb: TMDBApi(), omdb: OMDBApi(), movie: movie),
-          child: MovieDetailsScreen(),
+          child: MovieDetailsScreen(backgroundSize: backgroundSize),
         ),
       ),
     );

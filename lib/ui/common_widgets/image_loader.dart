@@ -1,4 +1,5 @@
 import 'package:cine_reel/constants/api_constants.dart';
+import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/widgets.dart';
 
@@ -15,7 +16,7 @@ class ImageLoader extends StatefulWidget {
 
 class _ImageLoaderState extends State<ImageLoader> {
   bool _loaded = false;
-  var img;
+  var image;
 
   //placeholder source - https://www.iconfinder.com/icons/2202250/account_avatar_human_man_profile_icon
   var placeholder = Image(image: AssetImage("assets/avatar_placeholder.png"));
@@ -24,7 +25,7 @@ class _ImageLoaderState extends State<ImageLoader> {
   void initState() {
     _loadImage();
 
-    img?.image?.resolve(ImageConfiguration())?.addListener((i, b) {
+    image?.image?.resolve(ImageConfiguration())?.addListener((i, b) {
       mounted
           ? setState(() {
               _loaded = true;
@@ -35,24 +36,31 @@ class _ImageLoaderState extends State<ImageLoader> {
   }
 
   void _loadImage() {
+    image = placeholder;
     switch (widget.imageType) {
       case IMAGE_TYPE.PROFILE:
-        img = Image.network(ImageHelper.getImagePath(widget.imagePath, PROFILE_SIZES[widget.size]));
+        image =
+            Image.network(ImageHelper.getImagePath(widget.imagePath, PROFILE_SIZES[widget.size]));
         break;
       case IMAGE_TYPE.POSTER:
-        Image.network(ImageHelper.getImagePath(widget.imagePath, POSTER_SIZES[widget.size]));
+        image =
+            Image.network(ImageHelper.getImagePath(widget.imagePath, POSTER_SIZES[widget.size]));
         break;
       case IMAGE_TYPE.BACKDROP:
-        Image.network(ImageHelper.getImagePath(widget.imagePath, BACKDROP_SIZES[widget.size]));
+        image =
+            Image.network(ImageHelper.getImagePath(widget.imagePath, BACKDROP_SIZES[widget.size]));
         break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_loaded) {
-      return placeholder;
-    }
-    return img;
+    return AnimateChildren(
+      childOne: image,
+      childTwo: widget.imageType == IMAGE_TYPE.PROFILE
+          ? placeholder
+          : SizedBox(width: 10.0, height: 100.0,),
+      showHappyPath: _loaded,
+    );
   }
 }

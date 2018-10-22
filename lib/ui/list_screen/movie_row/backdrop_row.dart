@@ -7,9 +7,8 @@ import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 
 class MovieRow extends StatelessWidget {
   final TMDBMovieBasic movie;
-  final int index;
 
-  MovieRow(this.movie, this.index);
+  MovieRow(this.movie);
 
   final defaultStyle = TextStyle(fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold);
 
@@ -71,7 +70,7 @@ class MovieRow extends StatelessWidget {
 
   ExpansionTile buildExpansionTile(TMDBMovieBasic movie) {
     return ExpansionTile(
-        title: Text("$index ${movie.title}", style: TextStyle(fontSize: 30.0, color: Colors.white)),
+        title: Text("${movie.title}", style: TextStyle(fontSize: 30.0, color: Colors.white)),
         children: [
           SizedBox(
             height: 100.0,

@@ -13,6 +13,8 @@ import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+const String MOVIE_POSTER_SIZE = SIZE_LARGE;
+
 class PersonWidget extends StatelessWidget {
   final TMDBPerson person;
   final Cast cast;
@@ -27,7 +29,7 @@ class PersonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     widgetsList
-        .addAll([_populateBasicInfo(context), _populateBio(), _populateMovieCredits(context)]);
+        .addAll([_populateBasicInfo(context), _populateBio(), _populateFilmography(context)]);
 
     if (showLoading) {
       widgetsList.add(loadingWidget);
@@ -37,9 +39,14 @@ class PersonWidget extends StatelessWidget {
 
     return Scaffold(
       body: DefaultTextStyle(
-        child: BlurredImage(
-          imagePath: cast.profilePath,
-          child: buildContent(),
+        child: Stack(
+          children: <Widget>[
+            BlurredImage(
+              imageSize: PROFILE_SIZE,
+              imagePath: cast.profilePath,
+            ),
+            buildContent(),
+          ],
         ),
         style: TextStyle(fontSize: 14.0),
       ),
@@ -118,7 +125,7 @@ class PersonWidget extends StatelessWidget {
         child: ImageLoader(
           imagePath: cast.profilePath,
           imageType: IMAGE_TYPE.PROFILE,
-          size: SIZE_LARGE,
+          size: PROFILE_SIZE,
         ),
       ),
     );
@@ -200,27 +207,27 @@ class PersonWidget extends StatelessWidget {
     return Container();
   }
 
-  Widget _populateMovieCredits(BuildContext context) {
+  Widget _populateFilmography(BuildContext context) {
     return AnimateChildren(
-      childOne: _buildMovieCredits(context),
+      childOne: _buildFilmography(context),
       childTwo: Container(),
       showHappyPath: person != null,
     );
   }
 
-  Widget _buildMovieCredits(BuildContext context) {
-    var movieCreditHeight = MediaQuery.of(context).size.height * 0.35;
+  Widget _buildFilmography(BuildContext context) {
+    var filmographyHeight = MediaQuery.of(context).size.height * 0.35;
 
     bool hasMovieDetails = person?.hasMovieCredits() ?? false;
     if (hasMovieDetails) {
       var movieCredits = person.movieCredits.getSortedMovieCreditsAsCast();
       return SizedBox(
-        height: movieCreditHeight,
+        height: filmographyHeight,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildMovieCreditSubtitle(),
-            _buildMovieCreditsList(movieCredits, movieCreditHeight),
+            _buildFilmographySubtitle(),
+            _buildFilmographyList(movieCredits, filmographyHeight),
             buildHorizontalDivider(),
           ],
         ),
@@ -229,19 +236,19 @@ class PersonWidget extends StatelessWidget {
     return Container();
   }
 
-  Expanded _buildMovieCreditsList(List<MovieCreditsAsCast> movieCredits, double movieCreditHeight) {
+  Expanded _buildFilmographyList(List<MovieCreditsAsCast> movieCredits, double movieCreditHeight) {
     return Expanded(
       child: ListView.builder(
         itemCount: movieCredits.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: ((BuildContext context, int index) {
-          return _buildMovieCreditPoster(movieCredits[index], movieCreditHeight, context);
+          return _buildMoviePoster(movieCredits[index], movieCreditHeight, context);
         }),
       ),
     );
   }
 
-  Padding _buildMovieCreditSubtitle() {
+  Padding _buildFilmographySubtitle() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Text(
@@ -251,7 +258,7 @@ class PersonWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMovieCreditPoster(
+  Widget _buildMoviePoster(
       MovieCreditsAsCast movieCredit, double movieCreditHeight, BuildContext context) {
     return Column(
       children: <Widget>[
@@ -262,13 +269,13 @@ class PersonWidget extends StatelessWidget {
               height: movieCreditHeight,
               child: Material(
                 child: InkWell(
-                  onTap: () =>
-                      Router.pushDetailsScreen(context, movieCredit.convertToTMDBMovieBasic()),
+                  onTap: () => Router.pushDetailsScreen(
+                      context, movieCredit.convertToTMDBMovieBasic(), MOVIE_POSTER_SIZE),
                   child: MoviePosterWidget(
                     id: movieCredit.id,
                     imagePath: movieCredit.posterPath,
                     imageType: IMAGE_TYPE.POSTER,
-                    size: SIZE_MEDIUM,
+                    size: MOVIE_POSTER_SIZE,
                   ),
                 ),
               ),

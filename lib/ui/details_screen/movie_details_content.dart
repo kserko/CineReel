@@ -2,6 +2,7 @@ import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
+import 'package:cine_reel/ui/details_screen/movie_details_backdrop_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_content.dart';
 import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -15,25 +16,19 @@ class MovieDetailsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Container(
-          margin: const EdgeInsets.only(top: 45.0),
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              buildTitle(),
-              buildHorizontalDivider(),
-              buildMinorDetailsRow(),
-              buildOverview(),
-              buildHorizontalDivider(),
-              buildMovieExtraDetailsContainer(),
-            ],
-          ),
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          MovieDetailsBackdropWidget(backdropPath: movieDetails.movieBasic.backdropPath),
+          buildTitle(),
+          buildMinorDetailsRow(),
+          buildOverview(),
+          buildHorizontalDivider(),
+          buildMovieExtraDetailsContainer(),
+        ],
+      ),
     );
   }
 
@@ -74,17 +69,28 @@ class MovieDetailsContent extends StatelessWidget {
   }
 
   Widget buildTitle() {
-    return Hero(
-      //wrapping up a Text with Material prevents the formatting
-      // being lost between transitions
-      child: Material(
-        color: Colors.transparent,
-        child: Text(
-          movieDetails.getTitle,
-          style: STYLE_TITLE,
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Hero(
+                //wrapping up a Text with Material prevents the formatting
+                // being lost between transitions
+                child: Material(
+                  color: Colors.transparent,
+                  child: Text(
+                    movieDetails.getTitle,
+                    style: STYLE_TITLE,
+                  ),
+                ),
+                tag: "${movieDetails.getId}-${movieDetails.getTitle}",
+              ),
+            ),
+          ],
         ),
       ),
-      tag: "${movieDetails.getId}-${movieDetails.getTitle}",
     );
   }
 
@@ -110,4 +116,5 @@ class MovieDetailsContent extends StatelessWidget {
       ),
     );
   }
+
 }

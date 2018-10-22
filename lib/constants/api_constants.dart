@@ -13,6 +13,9 @@ const SIZE_SMALL = "small";
 const SIZE_MEDIUM = "medium";
 const SIZE_LARGE = "large";
 
+const POSTER_SIZE = SIZE_LARGE;
+const PROFILE_SIZE = SIZE_MEDIUM;
+
 var PROFILE_SIZES = {
   "$SIZE_SMALL": "w45",
   "$SIZE_MEDIUM": "w185",

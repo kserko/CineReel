@@ -9,44 +9,31 @@ class MovieDetailsWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
   final bool hasFailed;
+  final String backgroundSize;
 
   MovieDetailsWidget(
       {@required this.movieDetails,
       @required MovieDetailsBloc this.movieDetailsBloc,
-      bool this.hasFailed});
+      bool this.hasFailed,
+      this.backgroundSize});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(child: buildContent(context)),
-        ],
-      ),
-    ));
+    return buildContent(context);
   }
 
   /*
-  This will create the full content of the details page
-  The BlurredImage will lay out the image in fullscreen with a blur effect
-  We're passing the remaining content as a child to the BlurredImage widget
-  so that it be laid over the blurred image
+  A stack with a blurred background and contents laid out on top of it
    */
   buildContent(BuildContext context) {
     return Container(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
       children: <Widget>[
-        Expanded(
-          child: BlurredImage(
-            child: MovieDetailsContent(movieDetails, movieDetailsBloc, hasFailed),
-            imagePath: movieDetails.movieBasic.posterPath,
-          ),
+        BlurredImage(
+          imagePath: movieDetails.movieBasic.posterPath,
+          imageSize: backgroundSize,
         ),
+        MovieDetailsContent(movieDetails, movieDetailsBloc, hasFailed)
       ],
     ));
   }
