@@ -42,7 +42,7 @@ class PersonWidget extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             BlurredImage(
-              imageSize: PROFILE_SIZE,
+              imageSize: SIZE_SMALL,
               imagePath: cast.profilePath,
             ),
             buildContent(),

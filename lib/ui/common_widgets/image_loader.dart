@@ -37,33 +37,27 @@ class _ImageLoaderState extends State<ImageLoader> {
 
   void _loadImage() {
     image = placeholder;
+    String imageSize = "original"; //default
     switch (widget.imageType) {
       case IMAGE_TYPE.PROFILE:
-        image = Image.network(
-          ImageHelper.getImagePath(
-            widget.imagePath,
-            PROFILE_SIZES[widget.size],
-          ),
-        );
+      	imageSize = PROFILE_SIZES[widget.size];
         break;
       case IMAGE_TYPE.POSTER:
-        image = Image.network(
-          ImageHelper.getImagePath(
-            widget.imagePath,
-            POSTER_SIZES[widget.size],
-          ),
-        );
+				imageSize = POSTER_SIZES[widget.size];
         break;
       case IMAGE_TYPE.BACKDROP:
-        image = Image.network(
-          ImageHelper.getImagePath(
-            widget.imagePath,
-            BACKDROP_SIZES[widget.size],
-          ),
-        );
-        break;
+				imageSize = BACKDROP_SIZES[widget.size];
+				break;
     }
-  }
+
+		image = Image.network(
+			ImageHelper.getImagePath(
+				widget.imagePath,
+				imageSize,
+			),
+		);
+
+	}
 
   @override
   Widget build(BuildContext context) {
