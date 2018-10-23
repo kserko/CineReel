@@ -4,11 +4,40 @@ import 'package:cine_reel/utils/helper_functions.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:package_info/package_info.dart';
 
-class InfoView extends StatelessWidget {
+class InfoView extends StatefulWidget {
+
+	@override
+  InfoViewState createState() {
+    return new InfoViewState();
+  }
+}
+
+class InfoViewState extends State<InfoView> {
+	PackageInfo _packageInfo = new PackageInfo(
+		appName: 'Unknown',
+		packageName: 'Unknown',
+		version: 'Unknown',
+		buildNumber: 'Unknown',
+	);
+
   final TextStyle defaultStyle = TextStyle(fontSize: 16.0);
 
-  @override
+	@override
+	void initState() {
+		super.initState();
+		_initPackageInfo();
+	}
+
+	Future<Null> _initPackageInfo() async {
+		final PackageInfo info = await PackageInfo.fromPlatform();
+		setState(() {
+			_packageInfo = info;
+		});
+	}
+
+	@override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
         child: Padding(
@@ -70,12 +99,13 @@ class InfoView extends StatelessWidget {
   }
 
   Widget buildAppTitle() {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         SizedBox(height: 40.0, width: 40.0, child: Image.asset("assets/film_reel.png")),
         Text(
-          "$APP_NAME v1.3.2",
+          "$APP_NAME ${_packageInfo.version}",
           style: defaultStyle.copyWith(fontSize: 22.0),
         ),
       ],
