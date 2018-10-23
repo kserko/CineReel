@@ -16,17 +16,18 @@ class MovieExtraContent extends StatelessWidget {
   //helps us avoid the need to deal with null values in the children
   @override
   Widget build(BuildContext context) {
-    List<Widget> builder = [];
+    List<Widget> widgetList = [];
 
     if (movieDetails.hasData) {
-      builder.addAll(extraChildren());
+      widgetList.addAll(extraChildren());
     } else {
-      builder.add(getLoadingWidget());
+      widgetList.add(getLoadingWidget());
     }
 
     return Column(
+			mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: builder,
+      children: widgetList,
     );
   }
 
@@ -35,7 +36,6 @@ class MovieExtraContent extends StatelessWidget {
       MovieDetailsRatingsWidget(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
       buildHorizontalDivider(),
       CastWidget(movieDetails: movieDetails),
-      buildHorizontalDivider(),
     ];
   }
 
