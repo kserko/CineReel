@@ -1,5 +1,5 @@
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/bloc/genres_bloc.dart';
-import 'package:cine_reel/bloc_providers/genres_provider.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
 import 'package:cine_reel/ui/genres/genres_screen.dart';
 import 'package:cine_reel/ui/genres/genres_widget.dart';
@@ -46,6 +46,6 @@ void main() {
 }
 
 Future pumpMainWidget(WidgetTester tester) async {
-  await tester.pumpWidget(GenresProvider(
-      child: MaterialApp(home: GenresScreen()), genreBloc: MockGenresBloc(MockTMDBApi())));
+  await tester.pumpWidget(BlocProvider<GenresBloc>(
+      child: MaterialApp(home: GenresScreen()), bloc: MockGenresBloc(MockTMDBApi())));
 }

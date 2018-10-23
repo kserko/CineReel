@@ -1,5 +1,5 @@
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/bloc/person_bloc.dart';
-import 'package:cine_reel/bloc_providers/person_provider.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
@@ -25,7 +25,7 @@ class PersonScreenState extends State<PersonScreen> {
 
   @override
   Widget build(BuildContext context) {
-    personBloc = PersonProvider.of(context);
+    personBloc = BlocProvider.of<PersonBloc>(context);
     return Scaffold(
       body: StreamBuilder(
         stream: personBloc.stream,

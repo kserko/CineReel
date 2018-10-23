@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/ui/genres/genres_state.dart';
 import 'package:rxdart/rxdart.dart';
 
-class GenresBloc {
+class GenresBloc extends BlocBase {
   TMDBApi tmdbApi;
   bool fetchOnInit;
 

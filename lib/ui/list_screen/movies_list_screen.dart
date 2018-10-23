@@ -1,5 +1,5 @@
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/bloc/movie_bloc.dart';
-import 'package:cine_reel/bloc_providers/movie_provider.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
@@ -66,7 +66,7 @@ class MoviesListScreenState extends State<MoviesListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    movieBloc = MovieProvider.of(context);
+    movieBloc = BlocProvider.of<MovieBloc>(context);
 
     return Column(key: Key("rootColumn"), children: [
       Flexible(

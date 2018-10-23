@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movies_response.dart';
 import 'package:cine_reel/ui/list_screen/movie_state.dart';
 import 'package:cine_reel/utils/tab_constants.dart';
 import 'package:rxdart/rxdart.dart';
 
-abstract class MovieBloc {
+abstract class MovieBloc extends BlocBase {
   TMDBApi api;
   int page = 0;
 

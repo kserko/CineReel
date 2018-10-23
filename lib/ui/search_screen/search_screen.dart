@@ -1,5 +1,5 @@
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/bloc/search_bloc.dart';
-import 'package:cine_reel/bloc_providers/search_provider.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
@@ -30,7 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    searchBloc = SearchProvider.of(context);
+    searchBloc = BlocProvider.of<SearchBloc>(context);
     return StreamBuilder(
         stream: searchBloc.state,
         initialData: SearchNoTerm(),

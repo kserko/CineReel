@@ -1,5 +1,5 @@
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
-import 'package:cine_reel/bloc_providers/movie_details_provider.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,7 +28,7 @@ class _MovieDetailsStatefulState extends State<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    movieDetailsBloc = MovieDetailsProvider.of(context);
+    movieDetailsBloc = BlocProvider.of<MovieDetailsBloc>(context);
     return Scaffold(
       body: StreamBuilder(
         key: Key('streamBuilder'),

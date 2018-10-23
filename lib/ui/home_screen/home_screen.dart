@@ -1,10 +1,10 @@
 import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/bloc/genres_bloc.dart';
 import 'package:cine_reel/bloc/list_of_movies_blocs/now_playing_bloc.dart';
 import 'package:cine_reel/bloc/list_of_movies_blocs/popular_bloc.dart';
 import 'package:cine_reel/bloc/list_of_movies_blocs/top_rated_bloc.dart';
-import 'package:cine_reel/bloc_providers/genres_provider.dart';
-import 'package:cine_reel/bloc_providers/movie_provider.dart';
+import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/genres/genres_screen.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
@@ -40,26 +40,26 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
 
   final genresTab = TabObject(
       tab: Tab(text: tab[TabKey.kGenres]),
-      provider: GenresProvider(
+      provider: BlocProvider<GenresBloc>(
         child: GenresScreen(),
-        genreBloc: GenresBloc(tmdbApi: TMDBApi(), fetchOnInit: true),
+        bloc: GenresBloc(tmdbApi: TMDBApi(), fetchOnInit: true),
       ));
 
   final nowPlayingTab = TabObject(
       tab: Tab(text: tab[TabKey.kNowPlaying]),
-      provider: MovieProvider(
+      provider: BlocProvider<MovieBloc>(
           child: MoviesListScreen(tabKey: TabKey.kNowPlaying),
-          movieBloc: NowPlayingBloc(TMDBApi())));
+          bloc: NowPlayingBloc(TMDBApi())));
 
   final topRatedTab = TabObject(
       tab: Tab(text: tab[TabKey.kTopRated]),
-      provider: MovieProvider(
-          child: MoviesListScreen(tabKey: TabKey.kTopRated), movieBloc: TopRatedBloc(TMDBApi())));
+      provider: BlocProvider<MovieBloc>(
+          child: MoviesListScreen(tabKey: TabKey.kTopRated), bloc: TopRatedBloc(TMDBApi())));
 
   final popularTab = TabObject(
       tab: Tab(text: tab[TabKey.kPopular]),
-      provider: MovieProvider(
-          child: MoviesListScreen(tabKey: TabKey.kPopular), movieBloc: PopularBloc(TMDBApi())));
+      provider: BlocProvider<MovieBloc>(
+          child: MoviesListScreen(tabKey: TabKey.kPopular), bloc: PopularBloc(TMDBApi())));
 
   _MyTabbedPageState(this.title);
 
@@ -86,10 +86,6 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   void dispose() {
     print('dispose home screen');
     _tabController.dispose();
-    (nowPlayingTab.provider as MovieProvider).movieBloc.dispose();
-    (topRatedTab.provider as MovieProvider).movieBloc.dispose();
-    (popularTab.provider as MovieProvider).movieBloc.dispose();
-    (genresTab.provider as GenresProvider).genresBloc.dispose();
     super.dispose();
   }
 

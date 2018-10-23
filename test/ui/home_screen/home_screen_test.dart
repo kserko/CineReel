@@ -1,5 +1,6 @@
-import 'package:cine_reel/bloc_providers/genres_provider.dart';
-import 'package:cine_reel/bloc_providers/movie_provider.dart';
+import 'package:cine_reel/bloc/bloc_provider.dart';
+import 'package:cine_reel/bloc/genres_bloc.dart';
+import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/ui/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,10 +30,10 @@ void main() {
     await pumpHomePage(tester);
     TabBarView tabBarView = tester.widget(tabBarFinder);
 
-    expect(tabBarView.children[0] is MovieProvider, true);
-    expect(tabBarView.children[1] is MovieProvider, true);
-    expect(tabBarView.children[2] is MovieProvider, true);
-    expect(tabBarView.children[3] is GenresProvider, true);
+    expect(tabBarView.children[0] is BlocProvider<MovieBloc>, true);
+    expect(tabBarView.children[1] is BlocProvider<MovieBloc>, true);
+    expect(tabBarView.children[2] is BlocProvider<MovieBloc>, true);
+    expect(tabBarView.children[3] is BlocProvider<GenresBloc>, true);
 
     expect(tabBarView.children.length, 4);
   });

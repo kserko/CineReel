@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/ui/search_screen/search_state.dart';
 import 'package:rxdart/rxdart.dart';
 
-class SearchBloc {
+class SearchBloc extends BlocBase {
   final Sink<String> onTextChanged;
   final Stream<SearchState> state;
   TMDBApi api;

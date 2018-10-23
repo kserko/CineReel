@@ -1,9 +1,10 @@
 import 'package:cine_reel/api/tmdb_api.dart';
+import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/ui/person_details/person_state.dart';
 import 'package:rxdart/rxdart.dart';
 
-class PersonBloc {
+class PersonBloc extends BlocBase {
   TMDBApi tmdbApi;
   int personId;
 
