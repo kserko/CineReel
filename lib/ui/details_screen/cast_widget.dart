@@ -21,14 +21,14 @@ class CastWidget extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
           itemBuilder: (BuildContext context, int index) {
-            return _avatar(context, index);
+            return _buildAvatar(context, index);
           },
         ),
       ),
     );
   }
 
-  Widget _avatar(BuildContext context, int index) {
+  Widget _buildAvatar(BuildContext context, int index) {
     Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
     return Material(
       color: Colors.transparent,
@@ -36,17 +36,13 @@ class CastWidget extends StatelessWidget {
         onTap: () => Router.pushPersonScreen(context, cast),
         child: Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-          child: SizedBox(
-            width: 120.0,
-            height: castHeight,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                _buildPhotoThumbnail(cast, index),
-                _buildCastName(cast),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _buildPhotoThumbnail(cast, index),
+              _buildCastName(cast),
+            ],
           ),
         ),
       ),
@@ -75,20 +71,20 @@ class CastWidget extends StatelessWidget {
   }
 
   Widget _buildCharacter(Cast cast) {
-  	if (cast.hasCharacter()) {
-			return Center(
-				child: Text(
-					"(${cast.character})",
-					textAlign: TextAlign.center,
-					style: TextStyle(fontSize: 12.0),
-				),
-			);
-		}
-		return Container();
+    if (cast.hasCharacter()) {
+      return Center(
+        child: Text(
+          "(${cast.character})",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 12.0),
+        ),
+      );
+    }
+    return Container();
   }
 
   Widget _buildPhotoThumbnail(Cast cast, int index) {
-		return Expanded(
+    return Expanded(
       child: Hero(
         child: Material(
           color: Colors.transparent,

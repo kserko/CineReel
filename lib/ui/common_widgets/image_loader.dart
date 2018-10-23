@@ -39,16 +39,28 @@ class _ImageLoaderState extends State<ImageLoader> {
     image = placeholder;
     switch (widget.imageType) {
       case IMAGE_TYPE.PROFILE:
-        image =
-            Image.network(ImageHelper.getImagePath(widget.imagePath, PROFILE_SIZES[widget.size]));
+        image = Image.network(
+          ImageHelper.getImagePath(
+            widget.imagePath,
+            PROFILE_SIZES[widget.size],
+          ),
+        );
         break;
       case IMAGE_TYPE.POSTER:
-        image =
-            Image.network(ImageHelper.getImagePath(widget.imagePath, POSTER_SIZES[widget.size]));
+        image = Image.network(
+          ImageHelper.getImagePath(
+            widget.imagePath,
+            POSTER_SIZES[widget.size],
+          ),
+        );
         break;
       case IMAGE_TYPE.BACKDROP:
-        image =
-            Image.network(ImageHelper.getImagePath(widget.imagePath, BACKDROP_SIZES[widget.size]));
+        image = Image.network(
+          ImageHelper.getImagePath(
+            widget.imagePath,
+            BACKDROP_SIZES[widget.size],
+          ),
+        );
         break;
     }
   }
@@ -59,7 +71,10 @@ class _ImageLoaderState extends State<ImageLoader> {
       childOne: image,
       childTwo: widget.imageType == IMAGE_TYPE.PROFILE
           ? placeholder
-          : SizedBox(width: 10.0, height: 100.0,),
+          : SizedBox(
+              width: 10.0,
+              height: 100.0,
+            ),
       showHappyPath: _loaded,
     );
   }
