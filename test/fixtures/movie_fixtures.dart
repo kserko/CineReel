@@ -16,4 +16,4 @@ TMDBMovieBasic mockMovieThree = TMDBMovieBasic()
 List<TMDBMovieBasic> mockMoviesList = [mockMovieOne, mockMovieTwo, mockMovieThree];
 
 MovieDetailsState movieDetailsState =
-    MovieDetailsState().initialState(movieDetails: TMDBMovieDetails(), movieBasic: mockMovieOne);
+    MovieDetailsState(movieDetails: TMDBMovieDetails(), movieBasic: mockMovieOne);
