@@ -23,7 +23,7 @@ class Router {
       context,
       RouteTransition(
         widget: BlocProvider<MovieDetailsBloc>(
-          bloc: MovieDetailsBloc(tmdb: TMDBApi(), omdb: OMDBApi(), movie: movie),
+          bloc: MovieDetailsBloc(tmdb: TMDBApi(), omdb: OMDBApi(), movieBasic: movie),
           child: MovieDetailsScreen(backgroundSize: backgroundSize),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
+import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/common_widgets/movie_poster_widget.dart';
@@ -20,8 +21,10 @@ class PersonWidget extends StatelessWidget {
   final Cast cast;
   final List<Widget> widgetsList = [];
   final bool showLoading;
+  String errorMessage;
 
-  PersonWidget({Key key, this.person, this.cast, bool this.showLoading}) : super(key: key);
+  PersonWidget({Key key, this.person, this.cast, bool this.showLoading, this.errorMessage}) :
+				super(key: key);
   final loadingWidget = LoadingWidget(
     visible: true,
   );
@@ -31,6 +34,9 @@ class PersonWidget extends StatelessWidget {
     widgetsList
         .addAll([_populateBasicInfo(context), _populateBio(), _populateFilmography(context)]);
 
+    if (errorMessage.isNotEmpty) {
+    	widgetsList.add(ErrorsWidget(visible: true, error: errorMessage,));
+		}
     if (showLoading) {
       widgetsList.add(loadingWidget);
     } else {

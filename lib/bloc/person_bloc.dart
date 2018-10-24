@@ -20,7 +20,11 @@ class PersonBloc extends BlocBase {
 
     try {
       TMDBPerson tmdbPerson = await tmdbApi.getPerson(personId: personId);
-      yield PersonPopulated(tmdbPerson: tmdbPerson);
+      if (tmdbPerson.isEmpty()) {
+      	yield PersonFailed("Failed to get cast details. Please check your connection and try again.");
+			} else {
+				yield PersonPopulated(tmdbPerson: tmdbPerson);
+			}
     } on Exception catch (e) {
       yield PersonFailed(e.toString());
     }

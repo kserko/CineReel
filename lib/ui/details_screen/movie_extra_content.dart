@@ -1,6 +1,7 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
+import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/details_screen/cast_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_ratings_widget.dart';
@@ -20,12 +21,14 @@ class MovieExtraContent extends StatelessWidget {
 
     if (movieDetails.hasData) {
       widgetList.addAll(extraChildren());
+    } else if (movieDetails.hasErrors()) {
+      widgetList.add(ErrorsWidget(visible: true, error: movieDetails.status_message));
     } else {
       widgetList.add(getLoadingWidget());
     }
 
     return Column(
-			mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: widgetList,
     );

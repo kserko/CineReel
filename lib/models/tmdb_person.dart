@@ -41,7 +41,7 @@ class TMDBPerson {
     deathDay = json['deathday'];
     id = json['id'];
     name = json['name'];
-    alsoKnownAs = json['also_known_as'].cast<String>();
+    alsoKnownAs = json['also_known_as']?.cast<String>();
     gender = json['gender'];
     biography = json['biography'];
     popularity = json['popularity'];
@@ -75,8 +75,6 @@ class TMDBPerson {
     }
     return data;
   }
-
-  bool hasData;
 
   bool hasBiography() {
     return biography != null && biography.isNotEmpty;
@@ -112,4 +110,8 @@ class TMDBPerson {
   bool hasMovieCredits() {
     return movieCredits != null && movieCredits.movieCreditsAsCast.isNotEmpty;
   }
+
+  bool isEmpty() {
+  	return id == null || name == null;
+	}
 }

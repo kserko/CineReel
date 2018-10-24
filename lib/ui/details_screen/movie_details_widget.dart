@@ -13,7 +13,7 @@ class MovieDetailsWidget extends StatelessWidget {
 
   MovieDetailsWidget(
       {@required this.movieDetails,
-      @required MovieDetailsBloc this.movieDetailsBloc,
+      @required this.movieDetailsBloc,
       bool this.hasFailed,
       this.backgroundSize});
 

@@ -14,12 +14,10 @@ class MovieDetailsBloc extends BlocBase {
   TMDBApi tmdb;
   OMDBApi omdb;
 
-  TMDBMovieBasic movie;
+  TMDBMovieBasic movieBasic;
 
-  MovieDetailsState movieDetailsState = MovieDetailsState();
-
-  MovieDetailsBloc({this.tmdb, this.omdb, this.movie}) {
-    _streamController.addStream(_fetchMovieDetails(movie.id));
+  MovieDetailsBloc({this.tmdb, this.omdb, this.movieBasic}) {
+    _streamController.addStream(_fetchMovieDetails(movieBasic.id));
   }
 
   //the internal object whose sink/stream we can use
@@ -38,33 +36,39 @@ class MovieDetailsBloc extends BlocBase {
 	details object
 	*/
   MovieDetailsState initialData() {
-    if (movieDetailsState.movieDetails == null) {
-      return movieDetailsState.initialState(movieDetails: TMDBMovieDetails(), movieBasic: movie);
-    }
-    return movieDetailsState;
-  }
+		return MovieDetailsLoadingState(movieBasic);
+	}
 
   Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
-    String year = movie.releaseDate?.split('-')[0];
-    yield movieDetailsState;
+    String year = movieBasic.releaseDate?.split('-')[0];
+    yield MovieDetailsLoadingState(movieBasic);
 
     try {
       TMDBMovieDetails tmdbMovieDetails = await tmdbMovieDetailsCall(movieId);
       OMDBMovie omdbMovie = await omdbMovieByTitleAndYearCall(year);
 
       if (tmdbMovieDetails.hasErrors()) {
-        yield movieDetailsState.withFailure(status_message: tmdbMovieDetails.status_message);
+        yield MovieDetailsFailureState(
+          moveBasic: movieBasic,
+          errorMessage: tmdbMovieDetails.status_message,
+        );
       } else {
-        yield movieDetailsState.withSuccess(
-            movieBasic: movie, movieDetails: tmdbMovieDetails, omdbMovie: omdbMovie);
+        yield MovieDetailsSuccessState(
+          movieDetails: tmdbMovieDetails,
+          movieBasic: movieBasic,
+          omdbMovie: omdbMovie,
+        );
       }
     } on Exception catch (e) {
-      yield movieDetailsState.withFailure(status_message: e.toString());
+      yield MovieDetailsFailureState(
+        moveBasic: movieBasic,
+        errorMessage: e.toString(),
+      );
     }
   }
 
   Future<OMDBMovie> omdbMovieByTitleAndYearCall(String year) {
-    return omdb.getMovieByTitleAndYear(title: movie.title, year: year);
+    return omdb.getMovieByTitleAndYear(title: movieBasic.title, year: year);
   }
 
   Future<TMDBMovieDetails> tmdbMovieDetailsCall(int movieId) => tmdb.movieDetails(movieId: movieId);

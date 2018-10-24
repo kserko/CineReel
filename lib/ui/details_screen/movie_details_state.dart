@@ -13,31 +13,47 @@ import 'package:cine_reel/models/tmdb_movie_details.dart';
 
 class MovieDetailsState {
   TMDBMovieDetails movieDetails;
-  bool hasFailed;
+  TMDBMovieBasic movieBasic;
 
-  MovieDetailsState({this.movieDetails});
-
-  initialState({TMDBMovieDetails movieDetails, TMDBMovieBasic movieBasic}) {
-    return this
+  MovieDetailsState({this.movieBasic, this.movieDetails}) {
+    this
       ..movieDetails = movieDetails
-      ..hasFailed = false
-      ..movieDetails.hasData = false
       ..movieDetails.movieBasic = movieBasic;
   }
+}
 
-  withSuccess({TMDBMovieDetails movieDetails, TMDBMovieBasic movieBasic, OMDBMovie omdbMovie}) {
-    return this
-      ..movieDetails = movieDetails ?? this.movieDetails
-      ..hasFailed = false
-      ..movieDetails.hasData = true
-      ..movieDetails.movieBasic = movieBasic ?? this.movieDetails.movieBasic
-      ..movieDetails.omdbMovie = omdbMovie;
-  }
+class MovieDetailsLoadingState extends MovieDetailsState {
+  MovieDetailsLoadingState(
+    TMDBMovieBasic movieBasic,
+  ) : super(
+          movieBasic: movieBasic,
+          movieDetails: TMDBMovieDetails(),
+        );
+}
 
-  withFailure({String status_message}) {
-    return this
-      ..hasFailed = true
-      ..movieDetails.hasData = false
-      ..movieDetails.status_message = status_message;
+class MovieDetailsSuccessState extends MovieDetailsState {
+  MovieDetailsSuccessState({
+    TMDBMovieDetails movieDetails,
+    TMDBMovieBasic movieBasic,
+    OMDBMovie omdbMovie,
+  }) : super(
+          movieBasic: movieBasic,
+          movieDetails: movieDetails,
+        ) {
+    this
+      ..movieDetails.omdbMovie = omdbMovie
+      ..movieDetails.hasData = true;
   }
+}
+
+class MovieDetailsFailureState extends MovieDetailsState {
+  String errorMessage;
+
+  MovieDetailsFailureState({
+    TMDBMovieBasic moveBasic,
+		this.errorMessage,
+  }) : super(
+          movieBasic: moveBasic,
+          movieDetails: TMDBMovieDetails()..status_message = errorMessage,
+        );
 }
