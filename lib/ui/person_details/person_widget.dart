@@ -21,7 +21,7 @@ class PersonWidget extends StatelessWidget {
   final Cast cast;
   final List<Widget> widgetsList = [];
   final bool showLoading;
-  String errorMessage;
+  final String errorMessage;
 
   PersonWidget({Key key, this.person, this.cast, bool this.showLoading, this.errorMessage}) :
 				super(key: key);
