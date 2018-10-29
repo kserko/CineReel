@@ -12,19 +12,19 @@ class GenresBloc extends BlocBase {
 
   GenresBloc({this.tmdbApi, bool this.fetchOnInit}) {
     if (fetchOnInit) {
-      _streamControler.addStream(_fetchGenres());
+      _streamController.addStream(_fetchGenres());
     }
   }
 
   //the internal object whose sink/stream we can use
-  final _streamControler = BehaviorSubject<GenresState>();
+  final _streamController = BehaviorSubject<GenresState>();
 
   //the stream of genres. We use this to show the list of fetched genres
-  Stream<GenresState> get stream => _streamControler.stream;
+  Stream<GenresState> get stream => _streamController.stream;
 
   void dispose() {
     print('closing genres bloc stream');
-    _streamControler.close();
+    _streamController.close();
   }
 
   Stream<GenresState> _fetchGenres() async* {

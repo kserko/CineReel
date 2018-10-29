@@ -39,7 +39,6 @@ void main() {
 
   testWidgets('should have a streambuilder', (WidgetTester tester) async {
     await pumpMainWidget(tester);
-
     expect(streamBuilderFinder, findsOneWidget);
   });
 
