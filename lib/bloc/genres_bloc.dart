@@ -22,6 +22,8 @@ class GenresBloc extends BlocBase {
   //the stream of genres. We use this to show the list of fetched genres
   Stream<GenresState> get stream => _streamController.stream;
 
+
+	@override
   void dispose() {
     print('closing genres bloc stream');
     _streamController.close();

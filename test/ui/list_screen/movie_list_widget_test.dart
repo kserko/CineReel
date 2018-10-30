@@ -7,7 +7,7 @@ import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/poster_row.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_widget.dart';
 import 'package:cine_reel/ui/scroll_controller/list_controller.dart';
-import 'package:cine_reel/utils/tab_constants.dart';
+import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';

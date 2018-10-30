@@ -5,7 +5,7 @@ import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movies_response.dart';
 import 'package:cine_reel/ui/list_screen/movie_state.dart';
-import 'package:cine_reel/utils/tab_constants.dart';
+import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:rxdart/rxdart.dart';
 
 abstract class MovieBloc extends BlocBase {
@@ -16,7 +16,7 @@ abstract class MovieBloc extends BlocBase {
   MoviesPopulated moviesPopulated = MoviesPopulated([]);
 
   // This is the internal object whose stream/sink is provided by this component
-  final _streamController = BehaviorSubject<MoviesState>();
+  var _streamController = BehaviorSubject<MoviesState>();
 
   //the tab key with which we can identify the specific bloc implementation
   TabKey tabKey;
@@ -36,15 +36,18 @@ abstract class MovieBloc extends BlocBase {
     init();
   }
 
+  @override
+  void dispose() {
+    print('dispose $tabKey');
+    _streamController.close();
+  }
+
   void init() {
+    print('initialising bloc for $tabKey');
+    _streamController = BehaviorSubject<MoviesState>();
     if (page == 0) {
       fetchNextPage();
     }
-  }
-
-  void dispose() {
-    print('closing movie bloc stream $this');
-    _streamController.close();
   }
 
   fetchNextPage([event]) {

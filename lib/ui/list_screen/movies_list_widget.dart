@@ -3,14 +3,10 @@ import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/poster_row.dart';
 import 'package:cine_reel/ui/scroll_controller/list_controller.dart';
-import 'package:cine_reel/utils/tab_constants.dart';
+import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-//As a stateful widget the state of this widget will be created once and
-// subsequent calls to create the widget in the same context
-// (i.e from movies_list_screen)
-// will only call the build method of the state object and
 class MovieListWidget extends StatefulWidget {
   final List<TMDBMovieBasic> movies;
   final TabKey tabKey;
