@@ -32,6 +32,13 @@ class Endpoints {
         '&include_adult=false&page=$page';
   }
 
+	static String upcomingMoviesUrl(int page, String region) {
+		return '$TMDB_API_BASE_URL'
+				'/movie/upcoming?api_key='
+				'$TMDB_API_KEY'
+				'&include_adult=false&page=$page&region=$region';
+	}
+
   static String movieDetailsUrl(int movieId) {
     return '$TMDB_API_BASE_URL/movie/$movieId?api_key=$TMDB_API_KEY&append_to_response=credits';
   }

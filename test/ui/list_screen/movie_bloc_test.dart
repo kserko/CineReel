@@ -1,6 +1,7 @@
-import 'package:cine_reel/bloc/list_of_movies_blocs/now_playing_bloc.dart';
+import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/models/tmdb_movies_response.dart';
 import 'package:cine_reel/ui/list_screen/movie_state.dart';
+import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -15,37 +16,43 @@ const PopulatedState = TypeMatcher<MoviesPopulated>();
 
 void main() {
 	MockTMDBApi mockTMDBApi;
-	NowPlayingBloc nowPlayingBloc;
+	MovieBloc movieBloc;
 
 	setUp(() {
 		mockTMDBApi = MockTMDBApi();
-		nowPlayingBloc = NowPlayingBloc(mockTMDBApi);
+		movieBloc = MovieBloc(api: mockTMDBApi, tabKey: TabKey.kNowPlaying);
 	});
 
   test('emits a loading state and then a populated state', () {
-		setNowPlayingResults(mockTMDBApi);
-    expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
+		setResults(mockTMDBApi);
+    expect(movieBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
   });
 
   test('emits a loading state and then an empty state', () {
-    setEmptyNowPlayingResults(mockTMDBApi);
-
-    expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, EmptyState]));
+    setEmptyResults(mockTMDBApi);
+    expect(movieBloc.stream, emitsInOrder([LoadingState, EmptyState]));
   });
 
   test('emits a loading state and then an error state', () {
     when(mockTMDBApi.nowPlayingMovies(page: 1)).thenThrow(Exception("problem"));
-
-    expect(nowPlayingBloc.stream, emitsInOrder([LoadingState, ErrorState]));
+    expect(movieBloc.stream, emitsInOrder([LoadingState, ErrorState]));
   });
+
+	test('emits existing data if new results are empty but already got data previously', () {
+		setEmptyResults(mockTMDBApi);
+		movieBloc.moviesPopulated = MoviesPopulated(basicMoviesList);
+
+		expect(movieBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
+
+	});
 }
 
-void setNowPlayingResults(MockTMDBApi mockTMDBApi) {
+void setResults(MockTMDBApi mockTMDBApi) {
   when(mockTMDBApi.nowPlayingMovies(page: 1))
       .thenAnswer((_) async => TMDBMoviesResponse(results: basicMoviesList));
 }
 
-void setEmptyNowPlayingResults(MockTMDBApi mockTMDBApi) {
+void setEmptyResults(MockTMDBApi mockTMDBApi) {
   when(mockTMDBApi.nowPlayingMovies(page: 1))
       .thenAnswer((_) async => TMDBMoviesResponse(results: []));
 }

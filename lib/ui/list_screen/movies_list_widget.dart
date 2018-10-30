@@ -75,6 +75,8 @@ class MovieListWidgetState extends State<MovieListWidget> {
     }
   }
 
+  bool isUpcoming() => this.widget.tabKey == TabKey.kUpcoming;
+
   bool notGenreList() => this.widget.genre == null;
 
   Widget buildGenreList() {

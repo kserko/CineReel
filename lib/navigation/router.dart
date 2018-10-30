@@ -14,7 +14,6 @@ import 'package:cine_reel/ui/details_screen/movie_details_screen.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
 import 'package:cine_reel/ui/person_details/person_screen.dart';
 import 'package:cine_reel/ui/search_screen/search_screen.dart';
-import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:flutter/widgets.dart';
 
 class Router {
@@ -49,7 +48,6 @@ class Router {
         widget: BlocProvider<MovieBloc>(
           bloc: MovieListForGenreBloc(TMDBApi(), genre),
           child: MoviesListScreen(
-            tabKey: TabKey.kGenres,
             genre: genre,
           ),
         ),

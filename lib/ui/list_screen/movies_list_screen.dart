@@ -1,6 +1,7 @@
 import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
+import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/ui/common_widgets/empty_result_widget.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
@@ -11,10 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class MoviesListScreen extends StatefulWidget {
-  final TabKey tabKey;
   final TMDBGenre genre;
 
-  MoviesListScreen({@required TabKey this.tabKey, TMDBGenre this.genre});
+  MoviesListScreen({TMDBGenre this.genre});
 
   @override
   MoviesListScreenState createState() {
@@ -51,7 +51,7 @@ class MoviesListScreen extends StatefulWidget {
                         genre: genre,
                         movieBloc: movieBloc,
                         tabKey: tabKey,
-                        movies: data is MoviesPopulated ? data.movies : []),
+                        movies: data is MoviesPopulated ? getMovies(data, movieBloc, tabKey) : []),
                   ],
                 ),
               ),
@@ -59,6 +59,13 @@ class MoviesListScreen extends StatefulWidget {
           );
         });
   }
+
+	List<TMDBMovieBasic> getMovies(MoviesPopulated data, MovieBloc movieBloc, TabKey tabKey) {
+		if (tabKey == TabKey.kUpcoming) {
+			return movieBloc.sortMoviesByReleaseDate();
+		}
+		return data.movies;
+	}
 }
 
 class MoviesListScreenState extends State<MoviesListScreen> {
@@ -70,7 +77,13 @@ class MoviesListScreenState extends State<MoviesListScreen> {
 
     return Column(key: Key("rootColumn"), children: [
       Flexible(
-          child: widget.buildStreamBuilder(context, movieBloc, widget.tabKey, widget.tabKey.index))
+        child: widget.buildStreamBuilder(
+          context,
+          movieBloc,
+          movieBloc.tabKey,
+          movieBloc.tabKey.index,
+        ),
+      ),
     ]);
   }
 }

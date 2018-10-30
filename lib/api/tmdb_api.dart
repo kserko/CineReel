@@ -30,7 +30,12 @@ class TMDBApi {
     return TMDBMoviesResponse.fromJson(json.decode(response.body));
   }
 
-  Future<TMDBMovieDetails> movieDetails({int movieId}) async {
+	Future<TMDBMoviesResponse> upcomingMovies({int page, String region}) async {
+		final response = await _makeRequest(Endpoints.upcomingMoviesUrl(page, region));
+		return TMDBMoviesResponse.fromJson(json.decode(response.body));
+	}
+	
+	Future<TMDBMovieDetails> movieDetails({int movieId}) async {
     final response = await _makeRequest(Endpoints.movieDetailsUrl(movieId));
     return TMDBMovieDetails.fromJson(json.decode(response.body));
   }

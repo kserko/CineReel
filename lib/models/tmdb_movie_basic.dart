@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tmdb_movie_basic.g.dart';
@@ -26,6 +27,20 @@ class TMDBMovieBasic extends Object with _$TMDBMovieBasicSerializerMixin {
   List<int> genreIds;
   @JsonKey(name: "backdrop_path")
   String backdropPath;
+
+  String getReleaseYear() {
+  	return releaseDate.split("-")[0];
+	}
+
+	String getUpcomingReleaseDate() {
+		var parsedReleasedDate = DateFormat("yyyy-M-dd").parse(releaseDate);
+		bool isInTheFuture = parsedReleasedDate.isAfter(DateTime.now());
+		if (isInTheFuture) {
+			return "${DateFormat("MMM dd yyyy").format(parsedReleasedDate)}";
+		} else {
+			return getReleaseYear();
+		}
+	}
 
   TMDBMovieBasic(
       {this.voteCount,

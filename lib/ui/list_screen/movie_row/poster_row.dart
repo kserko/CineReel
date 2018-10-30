@@ -10,7 +10,9 @@ const String POSTER_SIZE = SIZE_LARGE;
 
 class PosterRow extends StatelessWidget {
   final TMDBMovieBasic movie;
-  PosterRow(this.movie);
+  final bool isUpcoming;
+
+  PosterRow(this.movie, [this.isUpcoming = false]);
 
   final defaultStyle = TextStyle(fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold);
 
@@ -90,13 +92,15 @@ class PosterRow extends StatelessWidget {
   }
 
   Widget buildReleaseDate(TMDBMovieBasic movie) {
+  	print("release date ${movie.releaseDate}");
     return Positioned(
       bottom: 0.0,
       right: 0.0,
       child: Container(
+				padding: EdgeInsets.all(3.0),
         child:
             //extract the year
-            Text(movie.releaseDate.split("-")[0], style: defaultStyle.copyWith(fontSize: 14.0)),
+            Text(movie.getUpcomingReleaseDate(), style: defaultStyle.copyWith(fontSize: 14.0)),
       ),
     );
   }

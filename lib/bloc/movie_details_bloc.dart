@@ -26,6 +26,7 @@ class MovieDetailsBloc extends BlocBase {
   //the stream of movie details. use this to show the details
   Stream<MovieDetailsState> get stream => _streamController.stream;
 
+  @override
   void dispose() {
     print('closing movie details streamcontroller');
     _streamController.close();

@@ -1,3 +1,4 @@
+import 'package:cine_reel/bloc/app_bloc.dart';
 import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/tabs/tab_object.dart';
@@ -15,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin {
-  List<TabObject> myTabs;
   TabController _tabController;
   TabBarView tabBarView;
   int activeTab = 0;
@@ -24,32 +24,46 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
   TabObject popularTab;
   TabObject genresTab;
   TabObject topRatedTab;
+  TabObject upcomingTab;
+
+  bool hasBuiltTabs = false;
 
   _MyTabbedPageState(this.title);
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    //Moved init here because we need the device locale from the AppBloc for the upcoming movies
+    //and can't call an inherited widget inside initState
+    AppBloc appBloc = BlocProvider.of<AppBloc>(context);
+    buildTabs(appBloc.deviceLocale);
+  }
+
+  void buildTabs(Locale deviceLocale) {
+    if (hasBuiltTabs) {
+      return;
+    }
 
     genresTab = TabObject(TabKey.kGenres, getGenresProvider());
     nowPlayingTab = TabObject(TabKey.kNowPlaying, getNowPlayingProvider());
     topRatedTab = TabObject(TabKey.kTopRated, getTopRatedProvider());
     popularTab = TabObject(TabKey.kPopular, getPopularProvider());
+    upcomingTab = TabObject(TabKey.kUpcoming, getUpcomingProvider(deviceLocale.countryCode));
 
-    myTabs = <TabObject>[nowPlayingTab, popularTab, topRatedTab, genresTab];
-
-    _tabController = new TabController(vsync: this, length: myTabs.length);
+    _tabController = new TabController(vsync: this, length: tabs.length);
     _tabController.addListener(_handleTabSelection);
 
     tabBarView = TabBarView(
       controller: _tabController,
       children: [
         nowPlayingTab.provider,
+        upcomingTab.provider,
         popularTab.provider,
         topRatedTab.provider,
         genresTab.provider,
       ],
     );
+    hasBuiltTabs = true;
   }
 
   void _handleTabSelection() {
@@ -66,8 +80,8 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     _tabController.dispose();
 
     for (BlocProvider provider in tabBarView.children) {
-    	provider.bloc.dispose();
-		}
+      provider.bloc.dispose();
+    }
 
     super.dispose();
   }
@@ -80,10 +94,11 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
           title: title,
           myTabs: [
             nowPlayingTab.tab,
+            upcomingTab.tab,
             popularTab.tab,
             topRatedTab.tab,
-						genresTab.tab,
-					],
+            genresTab.tab,
+          ],
           context: context),
       body: tabBarView,
     );

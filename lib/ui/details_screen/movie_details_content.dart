@@ -44,9 +44,7 @@ class MovieDetailsContent extends StatelessWidget {
         childOne: Row(
           children: <Widget>[
             buildRunningTime(),
-            getDotSeparator(),
             buildReleaseDate(),
-            getDotSeparator(),
             buildDirectorName(),
           ],
         ),
@@ -95,17 +93,39 @@ class MovieDetailsContent extends StatelessWidget {
   }
 
   buildRunningTime() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(movieDetails.getFormattedRunningTime(), style: TextStyle(fontSize: 13.0)),
-    );
-  }
+		var formattedRunningTime = movieDetails.getFormattedRunningTime();
+
+		if (formattedRunningTime != null && formattedRunningTime.isNotEmpty) {
+			return Row(
+				children: <Widget>[
+					Padding(
+						padding: const EdgeInsets.all(8.0),
+						child: Text(
+							formattedRunningTime,
+							style: TextStyle(fontSize: 13.0),
+						),
+					),
+					getDotSeparator(),
+				],
+			);
+		}
+		return Container();
+	}
 
   buildReleaseDate() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(movieDetails.getFormattedReleaseDate(), style: TextStyle(fontSize: 13.0)),
-    );
+    var formattedReleaseDate = movieDetails.getFormattedReleaseDate();
+    if (formattedReleaseDate != null && formattedReleaseDate.isNotEmpty) {
+			return Row(
+				children: <Widget>[
+					Padding(
+						padding: const EdgeInsets.all(8.0),
+						child: Text(formattedReleaseDate, style: TextStyle(fontSize: 13.0)),
+					),
+					getDotSeparator(),
+				],
+			);
+		}
+		return Container();
   }
 
   buildDirectorName() {
@@ -116,5 +136,4 @@ class MovieDetailsContent extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,13 +1,14 @@
 import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
-enum TabKey { kNowPlaying, kTopRated, kPopular, kGenres }
+enum TabKey { kNowPlaying, kUpcoming, kTopRated, kPopular, kGenres }
 
 const Map<TabKey, String> tabs = {
-	TabKey.kNowPlaying: "Now Playing",
-	TabKey.kTopRated: "Top Rated",
-	TabKey.kPopular: "Popular",
-	TabKey.kGenres: "Genres"
+	TabKey.kNowPlaying: "IN THEATERS",
+	TabKey.kUpcoming: "UPCOMING",
+	TabKey.kTopRated: "TOP RATED",
+	TabKey.kPopular: "POPULAR",
+	TabKey.kGenres: "GENRES"
 };
 
 class TabObject {
