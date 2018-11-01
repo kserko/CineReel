@@ -92,7 +92,6 @@ class PosterRow extends StatelessWidget {
   }
 
   Widget buildReleaseDate(TMDBMovieBasic movie) {
-  	print("release date ${movie.releaseDate}");
     return Positioned(
       bottom: 0.0,
       right: 0.0,

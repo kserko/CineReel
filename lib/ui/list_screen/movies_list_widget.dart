@@ -63,10 +63,14 @@ class MovieListWidgetState extends State<MovieListWidget> {
             title: Hero(
               child: Material(
                 color: Colors.transparent,
-                child: Text(
-                  "${this.widget.genre.name}",
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      "${this.widget.genre.name}",
 									key: Key("appBarTitle"),
-                  style: TextStyle(fontSize: 23.0, color: Theme.of(context).accentColor),
+                      style: TextStyle(fontSize: 23.0, color: Theme.of(context).accentColor),
+                    ),
+                  ],
                 ),
               ),
               tag: "${this.widget.genre.name}",

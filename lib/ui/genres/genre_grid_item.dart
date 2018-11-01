@@ -11,7 +11,7 @@ class GenreGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(0.5),
+      padding: const EdgeInsets.all(1.0),
       child: Container(
         child: FlatButton(
           textColor: Theme.of(context).accentColor,
