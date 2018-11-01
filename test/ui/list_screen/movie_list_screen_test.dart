@@ -5,7 +5,6 @@ import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_widget.dart';
-import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -56,6 +55,6 @@ void main() {
 
 Future pumpMainWidget(WidgetTester tester) async {
   await tester.pumpWidget(BlocProvider<MovieBloc>(
-      child: MaterialApp(home: MoviesListScreen(tabKey: TabKey.kNowPlaying)),
+      child: MaterialApp(home: MoviesListScreen()),
       bloc: MockMovieBloc(MockTMDBApi())));
 }
