@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SearchIntro extends StatelessWidget {
   final bool visible;
+  final bool isSearchingMovies;
 
-  const SearchIntro({Key key, this.visible}) : super(key: key);
+  const SearchIntro({Key key, this.visible, this.isSearchingMovies}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +19,20 @@ class SearchIntro extends StatelessWidget {
             Icon(Icons.info, color: Theme.of(context).accentColor, size: 80.0),
             Container(
               padding: EdgeInsets.only(top: 16.0),
-              child: Text(
-                "Enter a movie title to begin",
-                style: TextStyle(
-                  color: Colors.green[100],
-                ),
-              ),
+              child: buildText(),
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Text buildText() {
+  	String text = isSearchingMovies ? "Enter a movie title to begin" : "Enter a person name to begin";
+    return Text(
+      text,
+      style: TextStyle(
+        color: Colors.green[100],
       ),
     );
   }

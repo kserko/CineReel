@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'tmdb_reviews_response.g.dart';
 
 @JsonSerializable()
-class TMDBReviewsResponse extends Object with _$TMDBReviewsResponseSerializerMixin {
+class TMDBReviewsResponse {
   @JsonKey(name: "id")
   int id;
   @JsonKey(name: "page")
@@ -19,10 +19,12 @@ class TMDBReviewsResponse extends Object with _$TMDBReviewsResponseSerializerMix
 
   factory TMDBReviewsResponse.fromJson(Map<String, dynamic> json) =>
       _$TMDBReviewsResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TMDBReviewsResponseToJson(this);
 }
 
 @JsonSerializable()
-class TMDBReview extends Object with _$TMDBReviewSerializerMixin {
+class TMDBReview {
   @JsonKey(name: "author")
   String author;
   @JsonKey(name: "content")
@@ -35,4 +37,6 @@ class TMDBReview extends Object with _$TMDBReviewSerializerMixin {
   TMDBReview(this.author, this.content, this.id, this.url);
 
   factory TMDBReview.fromJson(Map<String, dynamic> json) => _$TMDBReviewFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TMDBReviewToJson(this);
 }

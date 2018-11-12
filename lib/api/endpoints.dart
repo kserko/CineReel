@@ -67,11 +67,15 @@ class Endpoints {
     return "$OMDB_API_BASE_URL/?t=$title&y=$year&apikey=$OMDB_API_KEY";
   }
 
-  static String movieSearchUrl(String title) {
-    return "$TMDB_API_BASE_URL/search/movie?query=$title&api_key=$TMDB_API_KEY";
+  static String movieSearchUrl(String query) {
+    return "$TMDB_API_BASE_URL/search/movie?query=$query&api_key=$TMDB_API_KEY";
   }
 
-  static getPerson(int personId) {
+	static String personSearchUrl(String query) {
+		return "$TMDB_API_BASE_URL/search/person?query=$query&api_key=$TMDB_API_KEY";
+	}
+
+	static getPerson(int personId) {
     return "$TMDB_API_BASE_URL/person/$personId?api_key=$TMDB_API_KEY&append_to_response=movie_credits";
   }
 }

@@ -7,22 +7,18 @@ part of 'tmdb_genres.dart';
 // **************************************************************************
 
 TMDBGenresResponse _$TMDBGenresResponseFromJson(Map<String, dynamic> json) {
-  return new TMDBGenresResponse((json['genres'] as List)
-      ?.map((e) => e == null ? null : new TMDBGenre.fromJson(e as Map<String, dynamic>))
+  return TMDBGenresResponse((json['genres'] as List)
+      ?.map((e) =>
+          e == null ? null : TMDBGenre.fromJson(e as Map<String, dynamic>))
       ?.toList());
 }
 
-abstract class _$TMDBGenresResponseSerializerMixin {
-  List<TMDBGenre> get genres;
-  Map<String, dynamic> toJson() => <String, dynamic>{'genres': genres};
-}
+Map<String, dynamic> _$TMDBGenresResponseToJson(TMDBGenresResponse instance) =>
+    <String, dynamic>{'genres': instance.genres};
 
 TMDBGenre _$TMDBGenreFromJson(Map<String, dynamic> json) {
-  return new TMDBGenre(json['id'] as int, json['name'] as String);
+  return TMDBGenre(json['id'] as int, json['name'] as String);
 }
 
-abstract class _$TMDBGenreSerializerMixin {
-  int get id;
-  String get name;
-  Map<String, dynamic> toJson() => <String, dynamic>{'id': id, 'name': name};
-}
+Map<String, dynamic> _$TMDBGenreToJson(TMDBGenre instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};

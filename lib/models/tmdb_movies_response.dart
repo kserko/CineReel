@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'tmdb_movies_response.g.dart';
 
 @JsonSerializable()
-class TMDBMoviesResponse extends Object with _$TMDBMoviesResponseSerializerMixin {
+class TMDBMoviesResponse {
   int page;
   List<TMDBMovieBasic> results;
   @JsonKey(name: "total_results")
@@ -28,4 +28,6 @@ class TMDBMoviesResponse extends Object with _$TMDBMoviesResponseSerializerMixin
 
   factory TMDBMoviesResponse.fromJson(Map<String, dynamic> json) =>
       _$TMDBMoviesResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TMDBMoviesResponseToJson(this);
 }

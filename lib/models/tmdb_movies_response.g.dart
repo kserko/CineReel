@@ -7,27 +7,23 @@ part of 'tmdb_movies_response.dart';
 // **************************************************************************
 
 TMDBMoviesResponse _$TMDBMoviesResponseFromJson(Map<String, dynamic> json) {
-  return new TMDBMoviesResponse(
+  return TMDBMoviesResponse(
       page: json['page'] as int,
       totalResults: json['total_results'] as int,
       totalPages: json['total_pages'] as int,
       results: (json['results'] as List)
-          ?.map((e) => e == null ? null : new TMDBMovieBasic.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null
+              ? null
+              : TMDBMovieBasic.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       errors: (json['errors'] as List)?.map((e) => e as String)?.toList());
 }
 
-abstract class _$TMDBMoviesResponseSerializerMixin {
-  int get page;
-  List<TMDBMovieBasic> get results;
-  int get totalResults;
-  int get totalPages;
-  List<String> get errors;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'page': page,
-        'results': results,
-        'total_results': totalResults,
-        'total_pages': totalPages,
-        'errors': errors
-      };
-}
+Map<String, dynamic> _$TMDBMoviesResponseToJson(TMDBMoviesResponse instance) =>
+    <String, dynamic>{
+      'page': instance.page,
+      'results': instance.results,
+      'total_results': instance.totalResults,
+      'total_pages': instance.totalPages,
+      'errors': instance.errors
+    };

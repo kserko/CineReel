@@ -6,6 +6,7 @@ import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_movies_response.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
+import 'package:cine_reel/models/tmdb_person_search_response.dart';
 import 'package:cine_reel/models/tmdb_reviews_response.dart';
 import 'package:http/http.dart' as http;
 
@@ -50,7 +51,12 @@ class TMDBApi {
     return TMDBMoviesResponse.fromJson(json.decode(response.body));
   }
 
-  Future<TMDBGenresResponse> getGenres() async {
+	Future<TMDBPersonSearchResponse> searchPerson({String personName}) async {
+		final response = await _makeRequest(Endpoints.personSearchUrl(personName));
+		return TMDBPersonSearchResponse.fromJson(json.decode(response.body));
+	}
+
+	Future<TMDBGenresResponse> getGenres() async {
     final response = await _makeRequest(Endpoints.genresUrl());
     return TMDBGenresResponse.fromJson(json.decode(response.body));
   }

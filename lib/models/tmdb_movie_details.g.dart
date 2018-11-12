@@ -7,13 +7,14 @@ part of 'tmdb_movie_details.dart';
 // **************************************************************************
 
 TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
-  return new TMDBMovieDetails(
+  return TMDBMovieDetails(
       json['adult'] as bool,
       json['backdrop_path'] as String,
       json['belongs_to_collection'],
       json['budget'] as int,
       (json['genres'] as List)
-          ?.map((e) => e == null ? null : new Genre.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Genre.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['homepage'] as String,
       json['id'] as int,
@@ -24,16 +25,22 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       (json['popularity'] as num)?.toDouble(),
       json['poster_path'] as String,
       (json['production_companies'] as List)
-          ?.map((e) => e == null ? null : new ProductionCompany.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null
+              ? null
+              : ProductionCompany.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       (json['production_countries'] as List)
-          ?.map((e) => e == null ? null : new ProductionCountry.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null
+              ? null
+              : ProductionCountry.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['release_date'] as String,
       json['revenue'] as int,
       json['runtime'] as int,
       (json['spoken_languages'] as List)
-          ?.map((e) => e == null ? null : new SpokenLanguage.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null
+              ? null
+              : SpokenLanguage.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['status'] as String,
       json['tag_line'] as String,
@@ -44,174 +51,125 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       json['status_message'] as String)
     ..credits = json['credits'] == null
         ? null
-        : new Credits.fromJson(json['credits'] as Map<String, dynamic>)
+        : Credits.fromJson(json['credits'] as Map<String, dynamic>)
     ..omdbMovie = json['omdbMovie'] == null
         ? null
-        : new OMDBMovie.fromJson(json['omdbMovie'] as Map<String, dynamic>)
+        : OMDBMovie.fromJson(json['omdbMovie'] as Map<String, dynamic>)
     ..movieReviews = (json['movieReviews'] as List)
-        ?.map((e) => e == null ? null : new TMDBReview.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : TMDBReview.fromJson(e as Map<String, dynamic>))
         ?.toList()
     ..movieBasic = json['movieBasic'] == null
         ? null
-        : new TMDBMovieBasic.fromJson(json['movieBasic'] as Map<String, dynamic>)
+        : TMDBMovieBasic.fromJson(json['movieBasic'] as Map<String, dynamic>)
     ..hasData = json['hasData'] as bool;
 }
 
-abstract class _$TMDBMovieDetailsSerializerMixin {
-  String get status_message;
-  String get backdropPath;
-  Object get belongsToCollection;
-  String get imdbId;
-  String get originalLanguage;
-  String get originalTitle;
-  String get posterPath;
-  List<ProductionCompany> get productionCompanies;
-  List<ProductionCountry> get productionCountries;
-  String get releaseDate;
-  List<SpokenLanguage> get spokenLanguages;
-  String get tagline;
-  double get voteAverage;
-  int get voteCount;
-  String get overview;
-  bool get adult;
-  int get budget;
-  List<Genre> get genres;
-  String get homepage;
-  int get id;
-  double get popularity;
-  int get revenue;
-  int get runtime;
-  String get status;
-  String get title;
-  bool get video;
-  Credits get credits;
-  OMDBMovie get omdbMovie;
-  List<TMDBReview> get movieReviews;
-  TMDBMovieBasic get movieBasic;
-  bool get hasData;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'status_message': status_message,
-        'backdrop_path': backdropPath,
-        'belongs_to_collection': belongsToCollection,
-        'imdb_id': imdbId,
-        'original_language': originalLanguage,
-        'original_title': originalTitle,
-        'poster_path': posterPath,
-        'production_companies': productionCompanies,
-        'production_countries': productionCountries,
-        'release_date': releaseDate,
-        'spoken_languages': spokenLanguages,
-        'tag_line': tagline,
-        'vote_average': voteAverage,
-        'vote_count': voteCount,
-        'overview': overview,
-        'adult': adult,
-        'budget': budget,
-        'genres': genres,
-        'homepage': homepage,
-        'id': id,
-        'popularity': popularity,
-        'revenue': revenue,
-        'runtime': runtime,
-        'status': status,
-        'title': title,
-        'video': video,
-        'credits': credits,
-        'omdbMovie': omdbMovie,
-        'movieReviews': movieReviews,
-        'movieBasic': movieBasic,
-        'hasData': hasData
-      };
-}
+Map<String, dynamic> _$TMDBMovieDetailsToJson(TMDBMovieDetails instance) =>
+    <String, dynamic>{
+      'status_message': instance.status_message,
+      'backdrop_path': instance.backdropPath,
+      'belongs_to_collection': instance.belongsToCollection,
+      'imdb_id': instance.imdbId,
+      'original_language': instance.originalLanguage,
+      'original_title': instance.originalTitle,
+      'poster_path': instance.posterPath,
+      'production_companies': instance.productionCompanies,
+      'production_countries': instance.productionCountries,
+      'release_date': instance.releaseDate,
+      'spoken_languages': instance.spokenLanguages,
+      'tag_line': instance.tagline,
+      'vote_average': instance.voteAverage,
+      'vote_count': instance.voteCount,
+      'overview': instance.overview,
+      'adult': instance.adult,
+      'budget': instance.budget,
+      'genres': instance.genres,
+      'homepage': instance.homepage,
+      'id': instance.id,
+      'popularity': instance.popularity,
+      'revenue': instance.revenue,
+      'runtime': instance.runtime,
+      'status': instance.status,
+      'title': instance.title,
+      'video': instance.video,
+      'credits': instance.credits,
+      'omdbMovie': instance.omdbMovie,
+      'movieReviews': instance.movieReviews,
+      'movieBasic': instance.movieBasic,
+      'hasData': instance.hasData
+    };
 
 ProductionCompany _$ProductionCompanyFromJson(Map<String, dynamic> json) {
-  return new ProductionCompany(
-      json['id'] as int, json['logoPath'], json['name'] as String, json['originCountry'] as String);
+  return ProductionCompany(json['id'] as int, json['logoPath'],
+      json['name'] as String, json['originCountry'] as String);
 }
 
-abstract class _$ProductionCompanySerializerMixin {
-  int get id;
-  Object get logoPath;
-  String get name;
-  String get originCountry;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
-        'logoPath': logoPath,
-        'name': name,
-        'originCountry': originCountry
-      };
-}
+Map<String, dynamic> _$ProductionCompanyToJson(ProductionCompany instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'logoPath': instance.logoPath,
+      'name': instance.name,
+      'originCountry': instance.originCountry
+    };
 
 ProductionCountry _$ProductionCountryFromJson(Map<String, dynamic> json) {
-  return new ProductionCountry(json['iso31661'] as String, json['name'] as String);
+  return ProductionCountry(json['iso31661'] as String, json['name'] as String);
 }
 
-abstract class _$ProductionCountrySerializerMixin {
-  String get iso31661;
-  String get name;
-  Map<String, dynamic> toJson() => <String, dynamic>{'iso31661': iso31661, 'name': name};
-}
+Map<String, dynamic> _$ProductionCountryToJson(ProductionCountry instance) =>
+    <String, dynamic>{'iso31661': instance.iso31661, 'name': instance.name};
 
 SpokenLanguage _$SpokenLanguageFromJson(Map<String, dynamic> json) {
-  return new SpokenLanguage(json['iso6391'] as String, json['name'] as String);
+  return SpokenLanguage(json['iso6391'] as String, json['name'] as String);
 }
 
-abstract class _$SpokenLanguageSerializerMixin {
-  String get iso6391;
-  String get name;
-  Map<String, dynamic> toJson() => <String, dynamic>{'iso6391': iso6391, 'name': name};
-}
+Map<String, dynamic> _$SpokenLanguageToJson(SpokenLanguage instance) =>
+    <String, dynamic>{'iso6391': instance.iso6391, 'name': instance.name};
 
 Genre _$GenreFromJson(Map<String, dynamic> json) {
-  return new Genre(json['id'] as int, json['name'] as String);
+  return Genre(json['id'] as int, json['name'] as String);
 }
 
-abstract class _$GenreSerializerMixin {
-  int get id;
-  String get name;
-  Map<String, dynamic> toJson() => <String, dynamic>{'id': id, 'name': name};
-}
+Map<String, dynamic> _$GenreToJson(Genre instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};
 
 Credits _$CreditsFromJson(Map<String, dynamic> json) {
-  return new Credits(
+  return Credits(
       (json['cast'] as List)
-          ?.map((e) => e == null ? null : new Cast.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Cast.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       (json['crew'] as List)
-          ?.map((e) => e == null ? null : new Crew.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Crew.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
-abstract class _$CreditsSerializerMixin {
-  List<Cast> get cast;
-  List<Crew> get crew;
-  Map<String, dynamic> toJson() => <String, dynamic>{'cast': cast, 'crew': crew};
-}
+Map<String, dynamic> _$CreditsToJson(Credits instance) =>
+    <String, dynamic>{'cast': instance.cast, 'crew': instance.crew};
 
 Cast _$CastFromJson(Map<String, dynamic> json) {
-  return new Cast(json['cast_id'] as int, json['character'] as String, json['credit_id'] as String,
-      json['id'] as int, json['name'] as String, json['profile_path'] as String);
+  return Cast(
+      json['cast_id'] as int,
+      json['character'] as String,
+      json['credit_id'] as String,
+      json['id'] as int,
+      json['name'] as String,
+      json['profile_path'] as String);
 }
 
-abstract class _$CastSerializerMixin {
-  int get castId;
-  String get character;
-  String get creditId;
-  int get id;
-  String get name;
-  String get profilePath;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'cast_id': castId,
-        'character': character,
-        'credit_id': creditId,
-        'id': id,
-        'name': name,
-        'profile_path': profilePath
-      };
-}
+Map<String, dynamic> _$CastToJson(Cast instance) => <String, dynamic>{
+      'cast_id': instance.castId,
+      'character': instance.character,
+      'credit_id': instance.creditId,
+      'id': instance.id,
+      'name': instance.name,
+      'profile_path': instance.profilePath
+    };
 
 Crew _$CrewFromJson(Map<String, dynamic> json) {
-  return new Crew(
+  return Crew(
       json['credit_id'] as String,
       json['department'] as String,
       json['gender'] as int,
@@ -221,21 +179,12 @@ Crew _$CrewFromJson(Map<String, dynamic> json) {
       json['profile_path'] as String);
 }
 
-abstract class _$CrewSerializerMixin {
-  String get creditId;
-  String get department;
-  int get gender;
-  int get id;
-  String get job;
-  String get name;
-  String get profilePath;
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'credit_id': creditId,
-        'department': department,
-        'gender': gender,
-        'id': id,
-        'job': job,
-        'name': name,
-        'profile_path': profilePath
-      };
-}
+Map<String, dynamic> _$CrewToJson(Crew instance) => <String, dynamic>{
+      'credit_id': instance.creditId,
+      'department': instance.department,
+      'gender': instance.gender,
+      'id': instance.id,
+      'job': instance.job,
+      'name': instance.name,
+      'profile_path': instance.profilePath
+    };

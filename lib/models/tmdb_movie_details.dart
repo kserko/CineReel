@@ -8,7 +8,7 @@ part "tmdb_movie_details.g.dart";
 enum RATING_SOURCE { IMDB, ROTTEN_TOMATOES, METACRITIC }
 
 @JsonSerializable()
-class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
+class TMDBMovieDetails {
   @JsonKey(name: "status_message")
   String status_message;
   @JsonKey(name: "backdrop_path")
@@ -121,6 +121,8 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 
   factory TMDBMovieDetails.fromJson(Map<String, dynamic> json) => _$TMDBMovieDetailsFromJson(json);
 
+  Map<String, dynamic> toJson() => _$TMDBMovieDetailsToJson(this);
+
   TMDBMovieDetails(
       [this.adult,
       this.backdropPath,
@@ -155,7 +157,7 @@ class TMDBMovieDetails extends Object with _$TMDBMovieDetailsSerializerMixin {
 }
 
 @JsonSerializable()
-class ProductionCompany extends Object with _$ProductionCompanySerializerMixin {
+class ProductionCompany {
   int id;
   Object logoPath;
   String name;
@@ -165,10 +167,12 @@ class ProductionCompany extends Object with _$ProductionCompanySerializerMixin {
 
   factory ProductionCompany.fromJson(Map<String, dynamic> json) =>
       _$ProductionCompanyFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductionCompanyToJson(this);
 }
 
 @JsonSerializable()
-class ProductionCountry extends Object with _$ProductionCountrySerializerMixin {
+class ProductionCountry {
   String iso31661;
   String name;
 
@@ -176,26 +180,32 @@ class ProductionCountry extends Object with _$ProductionCountrySerializerMixin {
 
   factory ProductionCountry.fromJson(Map<String, dynamic> json) =>
       _$ProductionCountryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProductionCountryToJson(this);
 }
 
 @JsonSerializable()
-class SpokenLanguage extends Object with _$SpokenLanguageSerializerMixin {
+class SpokenLanguage {
   String iso6391;
   String name;
 
   SpokenLanguage(this.iso6391, this.name);
 
   factory SpokenLanguage.fromJson(Map<String, dynamic> json) => _$SpokenLanguageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SpokenLanguageToJson(this);
 }
 
 @JsonSerializable()
-class Genre extends Object with _$GenreSerializerMixin {
+class Genre {
   int id;
   String name;
 
   Genre(this.id, this.name);
 
   factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GenreToJson(this);
 }
 
 /*
@@ -228,17 +238,18 @@ class Genre extends Object with _$GenreSerializerMixin {
  */
 
 @JsonSerializable()
-class Credits extends Object with _$CreditsSerializerMixin {
+class Credits {
   List<Cast> cast;
   List<Crew> crew;
 
   Credits(this.cast, this.crew);
 
   factory Credits.fromJson(Map<String, dynamic> json) => _$CreditsFromJson(json);
+	Map<String, dynamic> toJson() => _$CreditsToJson(this);
 }
 
 @JsonSerializable()
-class Cast extends Object with _$CastSerializerMixin {
+class Cast {
   @JsonKey(name: "cast_id")
   int castId;
   @JsonKey(name: "character")
@@ -255,13 +266,15 @@ class Cast extends Object with _$CastSerializerMixin {
   Cast(this.castId, this.character, this.creditId, this.id, this.name, this.profilePath);
 
   bool hasCharacter() {
-  	return (character != null && character.isNotEmpty);
-	}
+    return (character != null && character.isNotEmpty);
+  }
+
   factory Cast.fromJson(Map<String, dynamic> json) => _$CastFromJson(json);
+	Map<String, dynamic> toJson() => _$CastToJson(this);
 }
 
 @JsonSerializable()
-class Crew extends Object with _$CrewSerializerMixin {
+class Crew {
   @JsonKey(name: "credit_id")
   String creditId;
   String department;
@@ -275,4 +288,5 @@ class Crew extends Object with _$CrewSerializerMixin {
   Crew(this.creditId, this.department, this.gender, this.id, this.job, this.name, this.profilePath);
 
   factory Crew.fromJson(Map<String, dynamic> json) => _$CrewFromJson(json);
+	Map<String, dynamic> toJson() => _$CrewToJson(this);
 }

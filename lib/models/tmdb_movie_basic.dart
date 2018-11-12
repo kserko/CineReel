@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'tmdb_movie_basic.g.dart';
 
 @JsonSerializable()
-class TMDBMovieBasic extends Object with _$TMDBMovieBasicSerializerMixin {
+class TMDBMovieBasic {
   int id;
   bool video;
   String title;
@@ -33,12 +33,16 @@ class TMDBMovieBasic extends Object with _$TMDBMovieBasicSerializerMixin {
 	}
 
 	String getUpcomingReleaseDate() {
-		var parsedReleasedDate = DateFormat("yyyy-M-dd").parse(releaseDate);
-		bool isInTheFuture = parsedReleasedDate.isAfter(DateTime.now());
-		if (isInTheFuture) {
-			return "${DateFormat("MMM dd yyyy").format(parsedReleasedDate)}";
-		} else {
-			return getReleaseYear();
+		try {
+		  var parsedReleasedDate = DateFormat("yyyy-M-dd").parse(releaseDate);
+		  bool isInTheFuture = parsedReleasedDate.isAfter(DateTime.now());
+		  if (isInTheFuture) {
+		  	return "${DateFormat("MMM dd yyyy").format(parsedReleasedDate)}";
+		  } else {
+		  	return getReleaseYear();
+		  }
+		} on Exception catch (e) {
+		  return "";
 		}
 	}
 
@@ -59,4 +63,5 @@ class TMDBMovieBasic extends Object with _$TMDBMovieBasicSerializerMixin {
       this.releaseDate});
 
   factory TMDBMovieBasic.fromJson(Map<String, dynamic> json) => _$TMDBMovieBasicFromJson(json);
+	Map<String, dynamic> toJson() => _$TMDBMovieBasicToJson(this);
 }

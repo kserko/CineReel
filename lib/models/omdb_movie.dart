@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'omdb_movie.g.dart';
 
 @JsonSerializable()
-class OMDBMovie extends Object with _$OMDBMovieSerializerMixin {
+class OMDBMovie {
   @JsonKey(name: "Title")
   String title;
   @JsonKey(name: "Year")
@@ -83,10 +83,11 @@ class OMDBMovie extends Object with _$OMDBMovieSerializerMixin {
       this.response);
 
   factory OMDBMovie.fromJson(Map<String, dynamic> json) => _$OMDBMovieFromJson(json);
+  Map<String, dynamic> toJson() => _$OMDBMovieToJson(this);
 }
 
 @JsonSerializable()
-class OMDBRating extends Object with _$OMDBRatingSerializerMixin {
+class OMDBRating {
   @JsonKey(name: "Source")
   String source;
   @JsonKey(name: "Value")
@@ -95,4 +96,5 @@ class OMDBRating extends Object with _$OMDBRatingSerializerMixin {
   OMDBRating(this.source, this.value);
 
   factory OMDBRating.fromJson(Map<String, dynamic> json) => _$OMDBRatingFromJson(json);
+  Map<String, dynamic> toJson() => _$OMDBRatingToJson(this);
 }
