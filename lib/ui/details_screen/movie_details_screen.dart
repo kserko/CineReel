@@ -23,7 +23,6 @@ class _MovieDetailsStatefulState extends State<MovieDetailsScreen> {
 
   @override
   void dispose() {
-    movieDetailsBloc.dispose();
     super.dispose();
   }
 

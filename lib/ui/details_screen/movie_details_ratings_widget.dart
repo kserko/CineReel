@@ -94,7 +94,6 @@ class MovieDetailsRatingsWidget extends StatelessWidget {
     print("original title: ${movieDetails.getTitle}");
     String cleanTitle = sanitiseTitleAndJoin("-");
     var url = "$METACRITIC_MOVIE_PAGE_BASE_URL/$cleanTitle";
-    print(url);
     return launchURL(url);
   }
 }

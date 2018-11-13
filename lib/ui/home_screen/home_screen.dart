@@ -18,7 +18,6 @@ class HomePage extends StatefulWidget {
 class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin {
   TabController _tabController;
   TabBarView tabBarView;
-  int activeTab = 0;
   final String title;
   TabObject nowPlayingTab;
   TabObject popularTab;
@@ -70,19 +69,12 @@ class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateM
     if (_tabController.indexIsChanging) {
       return;
     }
-    activeTab = _tabController.index;
-    print("Changed tab to: ${_tabController.index.toString()}");
   }
 
   @override
   void dispose() {
     print('dispose home screen');
     _tabController.dispose();
-
-    for (BlocProvider provider in tabBarView.children) {
-      provider.bloc.dispose();
-    }
-
     super.dispose();
   }
 

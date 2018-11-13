@@ -36,21 +36,22 @@ class SearchResultWidget extends StatelessWidget {
     } else {
 			TMDBPersonBasic person = people[index];
 			var cast = Cast.fromJson(person.toJson());
-      print("person ${person.name}");
       return InkWell(
 				onTap: () {
-					print("Cast from Person ${cast}");
 					Router.pushPersonScreen(context, cast);
 				},
         child: Hero(
 						tag: "tag-${cast.id}",
-            child: SizedBox(
-              child: ListTile(
+            child: Material(
+              child: SizedBox(
+								height: 300.0,
+                child: ListTile(
 								title: Text(person.name),
-                subtitle: ImageLoader(
-                  imagePath: person.profilePath,
-                  imageType: IMAGE_TYPE.POSTER,
-                  size: SIZE_MEDIUM,
+                  subtitle: ImageLoader(
+                    imagePath: person.profilePath,
+                    imageType: IMAGE_TYPE.POSTER,
+                    size: PROFILE_SIZE,
+                  ),
                 ),
               ),
             ),
