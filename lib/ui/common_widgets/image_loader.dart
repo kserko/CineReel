@@ -7,8 +7,15 @@ class ImageLoader extends StatefulWidget {
   final String imagePath;
   final IMAGE_TYPE imageType;
   final String size;
+  final BoxFit boxFit;
+  final bool animate;
 
-  ImageLoader({@required this.imagePath, @required this.imageType, @required String this.size});
+  ImageLoader(
+      {@required this.imagePath,
+      @required this.imageType,
+      @required this.size,
+      this.animate = true,
+      this.boxFit = BoxFit.fitWidth});
 
   @override
   _ImageLoaderState createState() => _ImageLoaderState();
@@ -18,8 +25,8 @@ class _ImageLoaderState extends State<ImageLoader> {
   bool _loaded = false;
   var image;
 
-  //placeholder source - https://www.iconfinder.com/icons/2202250/account_avatar_human_man_profile_icon
-  var placeholder = Image(image: AssetImage("assets/avatar_placeholder.png"));
+  var profilePlaceholder = Image(image: AssetImage("assets/avatar_placeholder.png"));
+  var moviePlaceholder = Image(image:AssetImage("assets/film_reel.png"));
 
   @override
   void initState() {
@@ -36,40 +43,57 @@ class _ImageLoaderState extends State<ImageLoader> {
   }
 
   void _loadImage() {
-    image = placeholder;
-    String imageSize = "original"; //default
-    switch (widget.imageType) {
-      case IMAGE_TYPE.PROFILE:
-      	imageSize = PROFILE_SIZES[widget.size];
-        break;
-      case IMAGE_TYPE.POSTER:
-				imageSize = POSTER_SIZES[widget.size];
-        break;
-      case IMAGE_TYPE.BACKDROP:
-				imageSize = BACKDROP_SIZES[widget.size];
+    image = getPlaceholder();
+
+//    image = FadeInImage.memoryNetwork(
+//        placeholder: kTransparentImage,
+//        image: ImageHelper.getImagePath(widget.imagePath, widget.size),
+//        fit: widget.boxFit);
+
+    image = Image.network(
+      ImageHelper.getImagePath(
+        widget.imagePath,
+        widget.size,
+      ),
+      fit: widget.boxFit,
+    );
+  }
+
+  Image getPlaceholder() {
+  	Image image;
+    switch(widget.imageType) {
+			case IMAGE_TYPE.PROFILE:
+				image = profilePlaceholder;
 				break;
-    }
-
-		image = Image.network(
-			ImageHelper.getImagePath(
-				widget.imagePath,
-				imageSize,
-			),
-		);
-
-	}
+			case IMAGE_TYPE.POSTER:
+				image = moviePlaceholder;
+    		break;
+			case IMAGE_TYPE.BACKDROP:
+				image = moviePlaceholder;
+				break;
+		}
+		return image;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AnimateChildren(
-      childOne: image,
-      childTwo: widget.imageType == IMAGE_TYPE.PROFILE
-          ? placeholder
-          : SizedBox(
-              width: 10.0,
-              height: 100.0,
-            ),
-      showHappyPath: _loaded,
-    );
-  }
+		if (widget.animate) {
+			return AnimateChildren(
+				childOne: image,
+				childTwo: widget.imageType == IMAGE_TYPE.PROFILE
+						? getPlaceholder()
+						: SizedBox(
+					width: 10.0,
+					height: 100.0,
+				),
+				showHappyPath: _loaded,
+			);
+		} else {
+			if (_loaded) {
+				return image;
+			} else {
+				return getPlaceholder();
+			}
+		}
+	}
 }

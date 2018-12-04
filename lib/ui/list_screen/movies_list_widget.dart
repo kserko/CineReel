@@ -52,7 +52,7 @@ class MovieListWidgetState extends State<MovieListWidget> {
           itemCount: this.widget.movies.length,
           itemBuilder: (context, index) {
             final movie = this.widget.movies[index];
-            return PosterRow(movie);
+            return PosterRow(movie: movie);
           },
         ),
       );
@@ -89,7 +89,7 @@ class MovieListWidgetState extends State<MovieListWidget> {
       itemCount: this.widget.movies.length,
       itemBuilder: (context, index) {
         final movie = this.widget.movies[index];
-        return PosterRow(movie);
+        return PosterRow(movie: movie);
       },
     );
   }

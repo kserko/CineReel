@@ -8,7 +8,7 @@ import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
-import 'package:cine_reel/ui/common_widgets/movie_poster_widget.dart';
+import 'package:cine_reel/ui/common_widgets/poster_widget.dart';
 import 'package:cine_reel/utils/helper_functions.dart';
 import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +118,7 @@ class PersonWidget extends StatelessWidget {
           color: Colors.transparent,
           child: _loadProfilePicture(),
         ),
-        tag: "tag-${cast.id}",
+        tag: "${cast.id}-${cast.name}",
       ),
     );
   }
@@ -131,7 +131,7 @@ class PersonWidget extends StatelessWidget {
         child: ImageLoader(
           imagePath: cast.profilePath,
           imageType: IMAGE_TYPE.PROFILE,
-          size: PROFILE_SIZE,
+          size: PROFILE_SIZES[PROFILE_SIZE],
         ),
       ),
     );
@@ -275,13 +275,14 @@ class PersonWidget extends StatelessWidget {
               height: movieCreditHeight,
               child: Material(
                 child: InkWell(
-                  onTap: () => Router.pushDetailsScreen(
+                  onTap: () => Router.goToMovieDetailsScreen(
                       context, movieCredit.convertToTMDBMovieBasic(), MOVIE_POSTER_SIZE),
-                  child: MoviePosterWidget(
+                  child: PosterWidget(
                     id: movieCredit.id,
                     imagePath: movieCredit.posterPath,
                     imageType: IMAGE_TYPE.POSTER,
                     size: MOVIE_POSTER_SIZE,
+										boxFit: BoxFit.fitWidth,
                   ),
                 ),
               ),

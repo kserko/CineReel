@@ -17,7 +17,7 @@ class GenreGridItem extends StatelessWidget {
           textColor: Theme.of(context).accentColor,
           color: Theme.of(context).primaryColor,
           onPressed: () {
-            Router.pushMoviesByGenreList(context, genre);
+            Router.goToMoviesByGenreList(context, genre);
           },
           child: Hero(
             child: Material(

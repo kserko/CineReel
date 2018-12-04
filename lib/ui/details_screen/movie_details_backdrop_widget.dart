@@ -16,7 +16,7 @@ class MovieDetailsBackdropWidget extends StatelessWidget {
 					child: ImageLoader(
 						imageType: IMAGE_TYPE.BACKDROP,
 						imagePath: backdropPath,
-						size: POSTER_SIZE,
+						size: BACKDROP_SIZES[SIZE_LARGE],
 					),
 				)
 			],

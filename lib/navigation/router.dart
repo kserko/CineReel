@@ -16,7 +16,7 @@ import 'package:cine_reel/ui/search_screen/search_screen_tabs_container.dart';
 import 'package:flutter/widgets.dart';
 
 class Router {
-  static void pushDetailsScreen(BuildContext context, TMDBMovieBasic movie, String backgroundSize) {
+  static void goToMovieDetailsScreen(BuildContext context, TMDBMovieBasic movie, String backgroundSize) {
     Navigator.push(
       context,
       RouteTransition(
@@ -28,7 +28,7 @@ class Router {
     );
   }
 
-  static void pushSearchScreen(BuildContext context) {
+  static void goToSearchScreen(BuildContext context) {
     Navigator.push(context,
     RouteTransition(
       widget: SearchScreenTabsContainer(),
@@ -36,7 +36,7 @@ class Router {
     );
   }
 
-  static void pushMoviesByGenreList(BuildContext context, TMDBGenre genre) {
+  static void goToMoviesByGenreList(BuildContext context, TMDBGenre genre) {
     Navigator.push(
       context,
       RouteTransition(
@@ -50,7 +50,7 @@ class Router {
     );
   }
 
-  static void pushPersonScreen(BuildContext context, Cast cast) {
+  static void goToPersonDetailsScreen(BuildContext context, Cast cast) {
     Navigator.push(
       context,
       RouteTransition(

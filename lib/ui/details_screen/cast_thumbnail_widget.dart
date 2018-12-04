@@ -7,10 +7,10 @@ import 'package:flutter/widgets.dart';
 
 const castHeight = 280.0;
 
-class CastWidget extends StatelessWidget {
+class CastThumbnailWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
 
-  CastWidget({TMDBMovieDetails this.movieDetails});
+  CastThumbnailWidget({TMDBMovieDetails this.movieDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class CastWidget extends StatelessWidget {
 			child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => Router.pushPersonScreen(context, cast),
+          onTap: () => Router.goToPersonDetailsScreen(context, cast),
           child: Padding(
             padding: const EdgeInsets.only(left: 5.0, right: 5.0),
             child: Column(
@@ -107,11 +107,11 @@ class CastWidget extends StatelessWidget {
                 child: ImageLoader(
                   imagePath: cast.profilePath,
                   imageType: IMAGE_TYPE.PROFILE,
-                  size: PROFILE_SIZE,
+                  size: PROFILE_SIZES[PROFILE_SIZE],
                 )),
           ),
         ),
-        tag: "tag-${cast.id}",
+        tag: "${cast.id}-${cast.name}",
       ),
     );
   }

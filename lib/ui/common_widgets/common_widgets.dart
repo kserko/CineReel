@@ -27,7 +27,7 @@ List<Widget> buildActions(context) {
 }
 
 IconButton searchAction(context) {
-  return IconButton(icon: Icon(Icons.search), onPressed: () => Router.pushSearchScreen(context));
+  return IconButton(icon: Icon(Icons.search), onPressed: () => Router.goToSearchScreen(context));
 }
 
 IconButton infoAction(context) {

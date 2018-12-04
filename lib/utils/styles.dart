@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-double FONT_LARGE = 24.0;
+double FONT_LARGE = 22.0;
 double FONT_MEDIUM = 18.0;
 
 final STYLE_TITLE =
