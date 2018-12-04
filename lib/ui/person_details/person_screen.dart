@@ -28,7 +28,6 @@ class PersonScreenState extends State<PersonScreen> {
         stream: personBloc.stream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var data = snapshot.data;
-          print("person data $data");
           return Column(children: <Widget>[
             Expanded(
               child: Stack(

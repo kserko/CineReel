@@ -25,8 +25,8 @@ class _ImageLoaderState extends State<ImageLoader> {
   bool _loaded = false;
   var image;
 
-  var profilePlaceholder = Image(image: AssetImage("assets/avatar_placeholder.png"));
-  var moviePlaceholder = Image(image:AssetImage("assets/film_reel.png"));
+  var profilePlaceholder = Image(image: AssetImage("assets/person_placeholder.png"));
+  var moviePlaceholder = Image(image:AssetImage("assets/movie_placeholder.png"));
 
   @override
   void initState() {
