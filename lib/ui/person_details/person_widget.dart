@@ -226,7 +226,7 @@ class PersonWidget extends StatelessWidget {
 
     bool hasMovieDetails = person?.hasMovieCredits() ?? false;
     if (hasMovieDetails) {
-      var movieCredits = person.movieCredits.getSortedMovieCreditsAsCast();
+      var movieCredits = person.movieCredits.getFilmographyByReleaseDate();
       return SizedBox(
         height: filmographyHeight,
         child: Column(
@@ -274,6 +274,7 @@ class PersonWidget extends StatelessWidget {
             child: SizedBox(
               height: movieCreditHeight,
               child: Material(
+								color: Colors.transparent,
                 child: InkWell(
                   onTap: () => Router.goToMovieDetailsScreen(
                       context, movieCredit.convertToTMDBMovieBasic(), MOVIE_POSTER_SIZE),

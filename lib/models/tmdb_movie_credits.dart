@@ -1,4 +1,5 @@
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
+import 'package:intl/intl.dart';
 
 class TMDBMovieCredits {
   List<MovieCreditsAsCast> movieCreditsAsCast;
@@ -32,7 +33,7 @@ class TMDBMovieCredits {
     return data;
   }
 
-  List<MovieCreditsAsCast> getSortedMovieCreditsAsCast() {
+  List<MovieCreditsAsCast> getFilmographyByPopularity() {
     movieCreditsAsCast.sort((a, b) {
       if (a.popularity > b.popularity) {
         return -1;
@@ -41,6 +42,23 @@ class TMDBMovieCredits {
       } else
         return 1;
     });
+    return movieCreditsAsCast;
+  }
+
+  List<MovieCreditsAsCast> getFilmographyByReleaseDate() {
+    movieCreditsAsCast.removeWhere(
+        (movie) => movie == null || movie.releaseDate == null || movie.releaseDate.isEmpty);
+    movieCreditsAsCast.sort((a, b) {
+      var aDate = DateFormat("yyyy-M-dd").parse(a.releaseDate);
+      var bDate = DateFormat("yyyy-M-dd").parse(b.releaseDate);
+      if (aDate.isAfter(bDate)) {
+        return -1;
+      } else if (aDate == bDate) {
+        return 0;
+      } else
+        return 1;
+    });
+
     return movieCreditsAsCast;
   }
 }
