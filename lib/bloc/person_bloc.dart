@@ -32,7 +32,6 @@ class PersonBloc extends BlocBase {
 
   @override
   void dispose() {
-  	print('disposing person bloc');
     _streamController.close();
   }
 }

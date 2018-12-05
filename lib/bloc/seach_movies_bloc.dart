@@ -51,7 +51,6 @@ class SearchMoviesBloc extends BlocBase {
 
   @override
   void dispose() {
-    print('disposing search movies bloc');
     onTextChanged.close();
   }
 }

@@ -1,22 +1,26 @@
 import 'package:cine_reel/models/tmdb_movie_credits.dart';
 import 'package:intl/intl.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'tmdb_person.g.dart';
+
+@JsonSerializable()
 class TMDBPerson {
   String birthday;
-  String knownForDepartment;
-  String deathDay;
+  @JsonKey(name: "known_for_department") String knownForDepartment;
+  @JsonKey(name: "death_day") String deathDay;
   int id;
   String name;
-  List<String> alsoKnownAs;
+	@JsonKey(name: "also_known_as") List<String> alsoKnownAs;
   int gender;
   String biography;
   double popularity;
-  String placeOfBirth;
-  String profilePath;
+	@JsonKey(name: "place_of_birth") String placeOfBirth;
+	@JsonKey(name: "profile_path") String profilePath;
   bool adult;
-  String imdbId;
+	@JsonKey(name: "imdb_id") String imdbId;
   String homepage;
-  TMDBMovieCredits movieCredits;
+	@JsonKey(name: "movie_credits") TMDBMovieCredits movieCredits;
 
   TMDBPerson(
       {this.birthday,
@@ -35,46 +39,9 @@ class TMDBPerson {
       this.homepage,
       this.movieCredits});
 
-  TMDBPerson.fromJson(Map<String, dynamic> json) {
-    birthday = json['birthday'];
-    knownForDepartment = json['known_for_department'];
-    deathDay = json['deathday'];
-    id = json['id'];
-    name = json['name'];
-    alsoKnownAs = json['also_known_as']?.cast<String>();
-    gender = json['gender'];
-    biography = json['biography'];
-    popularity = json['popularity'];
-    placeOfBirth = json['place_of_birth'];
-    profilePath = json['profile_path'];
-    adult = json['adult'];
-    imdbId = json['imdb_id'];
-    homepage = json['homepage'];
-    movieCredits =
-        json['movie_credits'] != null ? TMDBMovieCredits.fromJson(json['movie_credits']) : null;
-  }
+	factory TMDBPerson.fromJson(Map<String, dynamic> json) => _$TMDBPersonFromJson(json);
+	Map<String, dynamic> toJson() => _$TMDBPersonToJson(this);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['birthday'] = this.birthday;
-    data['known_for_department'] = this.knownForDepartment;
-    data['deathday'] = this.deathDay;
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['also_known_as'] = this.alsoKnownAs;
-    data['gender'] = this.gender;
-    data['biography'] = this.biography;
-    data['popularity'] = this.popularity;
-    data['place_of_birth'] = this.placeOfBirth;
-    data['profile_path'] = this.profilePath;
-    data['adult'] = this.adult;
-    data['imdb_id'] = this.imdbId;
-    data['homepage'] = this.homepage;
-    if (this.movieCredits != null) {
-      data['movie_credits'] = this.movieCredits.toJson();
-    }
-    return data;
-  }
 
   bool hasBiography() {
     return biography != null && biography.isNotEmpty;
@@ -112,6 +79,6 @@ class TMDBPerson {
   }
 
   bool isEmpty() {
-  	return id == null || name == null;
-	}
+    return id == null || name == null;
+  }
 }

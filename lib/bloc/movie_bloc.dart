@@ -41,7 +41,6 @@ class MovieBloc extends BlocBase {
 
   @override
   void dispose() {
-    print('dispose $tabKey');
     _streamController.close();
   }
 

@@ -25,7 +25,6 @@ class GenresBloc extends BlocBase {
 
 	@override
   void dispose() {
-    print('closing genres bloc stream');
     _streamController.close();
   }
 
