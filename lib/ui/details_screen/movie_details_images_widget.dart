@@ -1,6 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/router.dart';
+import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,17 @@ class MovieDetailsImagesWidget extends StatelessWidget {
     List<TMDBImage> backdrops = movieDetails.backdrops;
     List<TMDBImage> posters = movieDetails.posters;
 
-    return Column(
-      children: <Widget>[
-        buildSubtitleForDetailsPage("Images"),
-        buildBackdrops(backdrops),
-			],
-    );
+    print("${backdrops.length}");
+    if (backdrops.length > 1) {
+			return Column(
+				children: <Widget>[
+					buildSubtitleForDetailsPage("Images"),
+					buildBackdrops(backdrops),
+					buildHorizontalDivider(),
+				],
+			);
+		}
+		return Container();
   }
 
 	AspectRatio buildBackdrops(List<TMDBImage> backdrops) {

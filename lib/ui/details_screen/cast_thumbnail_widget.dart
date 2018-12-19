@@ -1,6 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/router.dart';
+import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,33 +18,38 @@ class CastThumbnailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-				buildSubtitleForDetailsPage("Cast"),
-				Container(
-          child: SizedBox.fromSize(
-            size: const Size.fromHeight(castHeight),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
-              itemBuilder: (BuildContext context, int index) {
-                Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(child: _buildAvatar(context, index, cast)),
-                    _buildCastName(cast),
+        buildSubtitleForDetailsPage("Cast"),
+        buildThumbnails(),
+				buildHorizontalDivider(),
+			],
+    );
+  }
+
+  Container buildThumbnails() {
+    return Container(
+      child: SizedBox.fromSize(
+        size: const Size.fromHeight(castHeight),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
+          itemBuilder: (BuildContext context, int index) {
+            Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(child: _buildAvatar(context, index, cast)),
+                _buildCastName(cast),
 //                    SizedBox(
 //                      width: 140.0,
 //                      height: 50.0,
 //                      child: _buildCastName(cast),
 //                    ),
-                  ],
-                );
-              },
-            ),
-          ),
+              ],
+            );
+          },
         ),
-      ],
+      ),
     );
   }
 

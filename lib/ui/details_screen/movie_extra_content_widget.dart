@@ -1,6 +1,5 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
-import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/details_screen/cast_thumbnail_widget.dart';
@@ -46,11 +45,8 @@ class MovieExtraContentWidget extends StatelessWidget {
   List<Widget> extraChildren() {
     return [
       MovieDetailsRatingsWidget(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-      buildHorizontalDivider(),
       CastThumbnailWidget(movieDetails: movieDetails),
-      buildHorizontalDivider(),
       MovieDetailsImagesWidget(movieDetails: movieDetails),
-      buildHorizontalDivider(),
     ];
   }
 
