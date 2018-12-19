@@ -9,10 +9,10 @@ import 'package:flutter/widgets.dart';
 
 const castHeight = 280.0;
 
-class CastThumbnailWidget extends StatelessWidget {
+class CastThumbnailsWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
 
-  CastThumbnailWidget({TMDBMovieDetails this.movieDetails});
+  CastThumbnailsWidget({TMDBMovieDetails this.movieDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class CastThumbnailWidget extends StatelessWidget {
       children: <Widget>[
         buildSubtitleForDetailsPage("Cast"),
         buildThumbnails(),
-				buildHorizontalDivider(),
-			],
+        buildHorizontalDivider(),
+      ],
     );
   }
 
@@ -40,11 +40,6 @@ class CastThumbnailWidget extends StatelessWidget {
               children: <Widget>[
                 Expanded(child: _buildAvatar(context, index, cast)),
                 _buildCastName(cast),
-//                    SizedBox(
-//                      width: 140.0,
-//                      height: 50.0,
-//                      child: _buildCastName(cast),
-//                    ),
               ],
             );
           },
@@ -66,7 +61,6 @@ class CastThumbnailWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               _buildPhotoThumbnail(cast, index),
-//              _buildCastName(cast),
             ],
           ),
         ),
