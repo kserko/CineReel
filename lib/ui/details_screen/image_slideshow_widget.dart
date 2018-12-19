@@ -29,7 +29,6 @@ class ImageSlideshowWidgetState extends State<ImageSlideshowWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.blueGrey,
         child: PageView.builder(
           controller: pageController,
           itemCount: widget.images.length - 1,
