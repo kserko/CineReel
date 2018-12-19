@@ -63,10 +63,17 @@ class TMDBMovieDetails {
   bool video;
   @JsonKey(name: "credits")
   Credits credits;
+  @JsonKey(name: "images")
+  Images images;
+
   OMDBMovie omdbMovie = null;
   List<TMDBReview> movieReviews = [];
   TMDBMovieBasic movieBasic = null;
   bool hasData = false;
+
+  List<TMDBImage> get backdrops => images?.backdrops ?? [];
+  List<TMDBImage> get posters => images?.posters ?? [];
+  List<TMDBImage> get allImages => [backdrops, posters].expand((images) => images).toList();
 
   String get getOverview => movieBasic.overview;
 
@@ -154,6 +161,36 @@ class TMDBMovieDetails {
   hasErrors() {
     return status_message != null;
   }
+}
+
+@JsonSerializable()
+class Images {
+  List<TMDBImage> backdrops;
+  List<TMDBImage> posters;
+
+  Images(this.backdrops, this.posters);
+
+  factory Images.fromJson(Map<String, dynamic> json) => _$ImagesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ImagesToJson(this);
+}
+
+@JsonSerializable()
+class TMDBImage {
+  @JsonKey(name: "aspect_ration") double aspectRatio;
+  @JsonKey(name: "file_path") String filePath;
+  @JsonKey(name: "iso_639_1") String iso6391;
+  @JsonKey(name: "vote_average") double voteAverage;
+  @JsonKey(name: "vote_count") int voteCount;
+  int height;
+  int width;
+
+  TMDBImage(this.aspectRatio, this.filePath, this.height, this.iso6391, this.voteAverage,
+      this.voteCount, this.width);
+
+  factory TMDBImage.fromJson(Map<String, dynamic> json) => _$TMDBImageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TMDBImageToJson(this);
 }
 
 @JsonSerializable()
@@ -245,7 +282,8 @@ class Credits {
   Credits(this.cast, this.crew);
 
   factory Credits.fromJson(Map<String, dynamic> json) => _$CreditsFromJson(json);
-	Map<String, dynamic> toJson() => _$CreditsToJson(this);
+
+  Map<String, dynamic> toJson() => _$CreditsToJson(this);
 }
 
 @JsonSerializable()
@@ -270,7 +308,8 @@ class Cast {
   }
 
   factory Cast.fromJson(Map<String, dynamic> json) => _$CastFromJson(json);
-	Map<String, dynamic> toJson() => _$CastToJson(this);
+
+  Map<String, dynamic> toJson() => _$CastToJson(this);
 }
 
 @JsonSerializable()
@@ -288,5 +327,6 @@ class Crew {
   Crew(this.creditId, this.department, this.gender, this.id, this.job, this.name, this.profilePath);
 
   factory Crew.fromJson(Map<String, dynamic> json) => _$CrewFromJson(json);
-	Map<String, dynamic> toJson() => _$CrewToJson(this);
+
+  Map<String, dynamic> toJson() => _$CrewToJson(this);
 }

@@ -9,6 +9,7 @@ import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/SlideRoute.dart';
+import 'package:cine_reel/ui/details_screen/image_slideshow_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_screen.dart';
 import 'package:cine_reel/ui/list_screen/movies_list_screen.dart';
 import 'package:cine_reel/ui/person_details/person_screen.dart';
@@ -16,7 +17,8 @@ import 'package:cine_reel/ui/search_screen/search_screen_tabs_container.dart';
 import 'package:flutter/widgets.dart';
 
 class Router {
-  static void goToMovieDetailsScreen(BuildContext context, TMDBMovieBasic movie, String backgroundSize) {
+  static void goToMovieDetailsScreen(
+      BuildContext context, TMDBMovieBasic movie, String backgroundSize) {
     Navigator.push(
       context,
       RouteTransition(
@@ -28,10 +30,21 @@ class Router {
     );
   }
 
+  static void goToImageSlideshow(BuildContext context, List<TMDBImage> images, int startingIndex) {
+    Navigator.push(
+      context,
+      RouteTransition(
+        widget: ImageSlideshowWidget(images: images, startingIndex: startingIndex),
+				fade: false
+      ),
+    );
+  }
+
   static void goToSearchScreen(BuildContext context) {
-    Navigator.push(context,
-    RouteTransition(
-      widget: SearchScreenTabsContainer(),
+    Navigator.push(
+      context,
+      RouteTransition(
+        widget: SearchScreenTabsContainer(),
       ),
     );
   }

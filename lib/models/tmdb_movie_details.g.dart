@@ -52,6 +52,9 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
     ..credits = json['credits'] == null
         ? null
         : Credits.fromJson(json['credits'] as Map<String, dynamic>)
+    ..images = json['images'] == null
+        ? null
+        : Images.fromJson(json['images'] as Map<String, dynamic>)
     ..omdbMovie = json['omdbMovie'] == null
         ? null
         : OMDBMovie.fromJson(json['omdbMovie'] as Map<String, dynamic>)
@@ -94,10 +97,49 @@ Map<String, dynamic> _$TMDBMovieDetailsToJson(TMDBMovieDetails instance) =>
       'title': instance.title,
       'video': instance.video,
       'credits': instance.credits,
+      'images': instance.images,
       'omdbMovie': instance.omdbMovie,
       'movieReviews': instance.movieReviews,
       'movieBasic': instance.movieBasic,
       'hasData': instance.hasData
+    };
+
+Images _$ImagesFromJson(Map<String, dynamic> json) {
+  return Images(
+      (json['backdrops'] as List)
+          ?.map((e) =>
+              e == null ? null : TMDBImage.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['posters'] as List)
+          ?.map((e) =>
+              e == null ? null : TMDBImage.fromJson(e as Map<String, dynamic>))
+          ?.toList());
+}
+
+Map<String, dynamic> _$ImagesToJson(Images instance) => <String, dynamic>{
+      'backdrops': instance.backdrops,
+      'posters': instance.posters
+    };
+
+TMDBImage _$TMDBImageFromJson(Map<String, dynamic> json) {
+  return TMDBImage(
+      (json['aspect_ration'] as num)?.toDouble(),
+      json['file_path'] as String,
+      json['height'] as int,
+      json['iso_639_1'] as String,
+      (json['vote_average'] as num)?.toDouble(),
+      json['vote_count'] as int,
+      json['width'] as int);
+}
+
+Map<String, dynamic> _$TMDBImageToJson(TMDBImage instance) => <String, dynamic>{
+      'aspect_ration': instance.aspectRatio,
+      'file_path': instance.filePath,
+      'height': instance.height,
+      'iso_639_1': instance.iso6391,
+      'vote_average': instance.voteAverage,
+      'vote_count': instance.voteCount,
+      'width': instance.width
     };
 
 ProductionCompany _$ProductionCompanyFromJson(Map<String, dynamic> json) {

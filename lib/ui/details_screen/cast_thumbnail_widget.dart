@@ -2,6 +2,7 @@ import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/router.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
+import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -14,51 +15,57 @@ class CastThumbnailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SizedBox.fromSize(
-        size: const Size.fromHeight(castHeight),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
-          itemBuilder: (BuildContext context, int index) {
-            Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Expanded(child: _buildAvatar(context, index, cast)),
-                SizedBox(
-									width: 140.0,
-                  height: 100.0,
-                  child: _buildCastName(cast),
-                ),
-              ],
-            );
-          },
+    return Column(
+      children: <Widget>[
+				buildSubtitleForDetailsPage("Cast"),
+				Container(
+          child: SizedBox.fromSize(
+            size: const Size.fromHeight(castHeight),
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
+              itemBuilder: (BuildContext context, int index) {
+                Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(child: _buildAvatar(context, index, cast)),
+                    _buildCastName(cast),
+//                    SizedBox(
+//                      width: 140.0,
+//                      height: 50.0,
+//                      child: _buildCastName(cast),
+//                    ),
+                  ],
+                );
+              },
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
   Widget _buildAvatar(BuildContext context, int index, Cast cast) {
     return Container(
-			child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () => Router.goToPersonDetailsScreen(context, cast),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                _buildPhotoThumbnail(cast, index),
+        child: Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => Router.goToPersonDetailsScreen(context, cast),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _buildPhotoThumbnail(cast, index),
 //              _buildCastName(cast),
-              ],
-            ),
+            ],
           ),
         ),
       ),
-    );
+    ));
   }
 
   Widget _buildCastName(Cast cast) {

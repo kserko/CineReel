@@ -1,6 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/utils/image_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ImageLoader extends StatefulWidget {
@@ -26,7 +27,7 @@ class _ImageLoaderState extends State<ImageLoader> {
   var image;
 
   var profilePlaceholder = Image(image: AssetImage("assets/person_placeholder.png"));
-  var moviePlaceholder = Image(image:AssetImage("assets/movie_placeholder.png"));
+  var moviePlaceholder = Image(image: AssetImage("assets/movie_placeholder.png"));
 
   @override
   void initState() {
@@ -45,11 +46,6 @@ class _ImageLoaderState extends State<ImageLoader> {
   void _loadImage() {
     image = getPlaceholder();
 
-//    image = FadeInImage.memoryNetwork(
-//        placeholder: kTransparentImage,
-//        image: ImageHelper.getImagePath(widget.imagePath, widget.size),
-//        fit: widget.boxFit);
-
     image = Image.network(
       ImageHelper.getImagePath(
         widget.imagePath,
@@ -59,41 +55,36 @@ class _ImageLoaderState extends State<ImageLoader> {
     );
   }
 
-  Image getPlaceholder() {
-  	Image image;
-    switch(widget.imageType) {
-			case IMAGE_TYPE.PROFILE:
-				image = profilePlaceholder;
-				break;
-			case IMAGE_TYPE.POSTER:
-				image = moviePlaceholder;
-    		break;
-			case IMAGE_TYPE.BACKDROP:
-				image = moviePlaceholder;
-				break;
-		}
-		return image;
+  Widget getPlaceholder() {
+    Widget placeholder;
+    switch (widget.imageType) {
+      case IMAGE_TYPE.PROFILE:
+        placeholder = profilePlaceholder;
+        break;
+      case IMAGE_TYPE.POSTER:
+        placeholder = moviePlaceholder;
+        break;
+      case IMAGE_TYPE.BACKDROP:
+        placeholder = Center(child: CircularProgressIndicator());
+        break;
+    }
+    return placeholder;
   }
 
   @override
   Widget build(BuildContext context) {
-		if (widget.animate) {
-			return AnimateChildren(
-				childOne: image,
-				childTwo: widget.imageType == IMAGE_TYPE.PROFILE
-						? getPlaceholder()
-						: SizedBox(
-					width: 10.0,
-					height: 100.0,
-				),
-				showHappyPath: _loaded,
-			);
-		} else {
-			if (_loaded) {
-				return image;
-			} else {
-				return getPlaceholder();
-			}
-		}
-	}
+  	if (widget.animate) {
+      return AnimateChildren(
+        childOne: image,
+        childTwo: getPlaceholder(),
+        showHappyPath: _loaded,
+      );
+    } else {
+    	if (_loaded) {
+        return image;
+      } else {
+        return getPlaceholder();
+      }
+    }
+  }
 }

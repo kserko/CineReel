@@ -20,7 +20,7 @@ class SearchPeopleBloc extends BlocBase {
         // Wait for the user to stop typing for 250ms before running a search
         .debounce(const Duration(milliseconds: 250))
         // Call the TMDB api with the given search term and convert it to a
-        // State. If another search term is entered, flatMapLatest will ensure
+        // State. If another search term is entered, switchMap will ensure
         // the previous search is discarded so we don't deliver stale results
         // to the View.
         .switchMap<SearchState>((String personName) => _search(personName, api))

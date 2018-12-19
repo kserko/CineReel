@@ -2,39 +2,38 @@ import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_backdrop_widget.dart';
-import 'package:cine_reel/ui/details_screen/movie_extra_content.dart';
+import 'package:cine_reel/ui/details_screen/movie_details_header_backdrop_widget.dart';
+import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
 
-class MovieDetailsContent extends StatelessWidget {
+class MovieDetailsContentWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
   final bool hasFailed;
 
-  MovieDetailsContent(this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
+  MovieDetailsContentWidget(this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MovieDetailsBackdropWidget(backdropPath: movieDetails.movieBasic.backdropPath),
-          buildTitle(),
-          buildMinorDetailsRow(),
-          buildOverview(),
-          buildHorizontalDivider(),
-          buildMovieExtraDetailsContainer(),
-        ],
-      ),
+    return ListView(
+      children: <Widget>[
+        MovieDetailsHeaderBackdrop(
+          backdropPath: movieDetails.movieBasic.backdropPath,
+        ),
+        buildTitle(),
+        buildMinorDetailsRow(),
+        buildOverview(),
+        buildHorizontalDivider(),
+        buildMovieExtraDetailsContainer(),
+      ],
     );
   }
 
   Widget buildMovieExtraDetailsContainer() {
     return AnimateChildren(
-        childOne: MovieExtraContent(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
+        childOne:
+            MovieExtraContentWidget(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
         childTwo: ErrorsWidget(visible: true, error: movieDetails.status_message),
         showHappyPath: !hasFailed);
   }
@@ -93,39 +92,39 @@ class MovieDetailsContent extends StatelessWidget {
   }
 
   buildRunningTime() {
-		var formattedRunningTime = movieDetails.getFormattedRunningTime();
+    var formattedRunningTime = movieDetails.getFormattedRunningTime();
 
-		if (formattedRunningTime != null && formattedRunningTime.isNotEmpty) {
-			return Row(
-				children: <Widget>[
-					Padding(
-						padding: const EdgeInsets.all(8.0),
-						child: Text(
-							formattedRunningTime,
-							style: TextStyle(fontSize: 13.0),
-						),
-					),
-					getDotSeparator(),
-				],
-			);
-		}
-		return Container();
-	}
+    if (formattedRunningTime != null && formattedRunningTime.isNotEmpty) {
+      return Row(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              formattedRunningTime,
+              style: TextStyle(fontSize: 13.0),
+            ),
+          ),
+          getDotSeparator(),
+        ],
+      );
+    }
+    return Container();
+  }
 
   buildReleaseDate() {
     var formattedReleaseDate = movieDetails.getFormattedReleaseDate();
     if (formattedReleaseDate != null && formattedReleaseDate.isNotEmpty) {
-			return Row(
-				children: <Widget>[
-					Padding(
-						padding: const EdgeInsets.all(8.0),
-						child: Text(formattedReleaseDate, style: TextStyle(fontSize: 13.0)),
-					),
-					getDotSeparator(),
-				],
-			);
-		}
-		return Container();
+      return Row(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(formattedReleaseDate, style: TextStyle(fontSize: 13.0)),
+          ),
+          getDotSeparator(),
+        ],
+      );
+    }
+    return Container();
   }
 
   buildDirectorName() {

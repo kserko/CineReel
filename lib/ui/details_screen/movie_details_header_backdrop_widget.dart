@@ -2,10 +2,10 @@ import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
 import 'package:flutter/material.dart';
 
-class MovieDetailsBackdropWidget extends StatelessWidget {
+class MovieDetailsHeaderBackdrop extends StatelessWidget {
 	final String backdropPath;
 
-	MovieDetailsBackdropWidget({@required this.backdropPath});
+	MovieDetailsHeaderBackdrop({@required this.backdropPath});
 
 	@override
 	Widget build(BuildContext context) {
