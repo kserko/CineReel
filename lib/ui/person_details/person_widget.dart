@@ -138,7 +138,7 @@ class PersonWidget extends StatelessWidget {
   }
 
   Widget _buildIMDBLink() {
-    return AnimateChildren(
+    return CrossFadeWidgets(
         childOne: SizedBox.fromSize(
           size: Size.fromHeight(80.0),
           child: MaterialIcon("assets/imdb_icon.png", _launchIMDBUrl),
@@ -153,7 +153,7 @@ class PersonWidget extends StatelessWidget {
   }
 
   Widget _populateBio() {
-    return AnimateChildren(
+    return CrossFadeWidgets(
         childOne: _buildBiographyWidget(), childTwo: Container(), showHappyPath: person != null);
   }
 
@@ -171,7 +171,7 @@ class PersonWidget extends StatelessWidget {
   }
 
   Widget _populateBirthday(BuildContext context) {
-    return AnimateChildren(
+    return CrossFadeWidgets(
         childOne: _buildBirthdayWidget(), childTwo: Container(), showHappyPath: person != null);
   }
 
@@ -214,7 +214,7 @@ class PersonWidget extends StatelessWidget {
   }
 
   Widget _populateFilmography(BuildContext context) {
-    return AnimateChildren(
+    return CrossFadeWidgets(
       childOne: _buildFilmography(context),
       childTwo: Container(),
       showHappyPath: person != null,

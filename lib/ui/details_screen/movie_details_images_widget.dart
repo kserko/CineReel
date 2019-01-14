@@ -1,7 +1,6 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/router.dart';
-import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class MovieDetailsImagesWidget extends StatelessWidget {
 				children: <Widget>[
 					buildSubtitleForDetailsPage("Images"),
 					buildBackdrops(backdrops),
-					buildHorizontalDivider(),
+//			  		buildHorizontalDivider(),
 				],
 			);
 		}
@@ -36,8 +35,8 @@ class MovieDetailsImagesWidget extends StatelessWidget {
         itemCount: backdrops.length - 1,
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
-					String imagePath = backdrops[index + 1].filePath; //index+1 to ignore first image as we
-					// already show it in the header
+        	//index+1 to ignore first image as we already show it in the header
+					String imagePath = backdrops[index + 1].filePath;
 					return GestureDetector(
 						onTap: () => Router.goToImageSlideshow(context, backdrops, index),
             child: Hero(

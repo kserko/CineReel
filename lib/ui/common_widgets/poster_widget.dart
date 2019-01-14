@@ -34,7 +34,7 @@ class PosterWidget extends StatelessWidget {
 				animate: false);
 
 		if (animate) {
-			return AnimateChildren(
+			return CrossFadeWidgets(
 					childOne: image,
 					childTwo: SizedBox(width: 100.0),
 					showHappyPath: image != null);

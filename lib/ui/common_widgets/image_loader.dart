@@ -1,5 +1,4 @@
 import 'package:cine_reel/constants/api_constants.dart';
-import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/utils/image_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -65,7 +64,7 @@ class _ImageLoaderState extends State<ImageLoader> {
         placeholder = moviePlaceholder;
         break;
       case IMAGE_TYPE.BACKDROP:
-        placeholder = Center(child: CircularProgressIndicator());
+        placeholder = moviePlaceholder;
         break;
     }
     return placeholder;
@@ -73,14 +72,14 @@ class _ImageLoaderState extends State<ImageLoader> {
 
   @override
   Widget build(BuildContext context) {
-  	if (widget.animate) {
-      return AnimateChildren(
-        childOne: image,
-        childTwo: getPlaceholder(),
-        showHappyPath: _loaded,
+    if (widget.animate) {
+      return AnimatedOpacity(
+        child: image,
+        duration: Duration(milliseconds: 300),
+        opacity: _loaded ? 1.0 : 0.0,
       );
     } else {
-    	if (_loaded) {
+      if (_loaded) {
         return image;
       } else {
         return getPlaceholder();

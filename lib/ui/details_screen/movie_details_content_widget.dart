@@ -2,7 +2,7 @@ import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_header_backdrop_widget.dart';
+import 'package:cine_reel/ui/details_screen/movie_details_header_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        MovieDetailsHeaderBackdrop(
+        MovieDetailsHeaderWidget(
           backdropPath: movieDetails.movieBasic.backdropPath,
         ),
         buildTitle(),
@@ -31,7 +31,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
   }
 
   Widget buildMovieExtraDetailsContainer() {
-    return AnimateChildren(
+    return CrossFadeWidgets(
         childOne:
             MovieExtraContentWidget(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
         childTwo: ErrorsWidget(visible: true, error: movieDetails.status_message),
@@ -39,7 +39,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
   }
 
   Widget buildMinorDetailsRow() {
-    return AnimateChildren(
+    return CrossFadeWidgets(
         childOne: Row(
           children: <Widget>[
             buildRunningTime(),

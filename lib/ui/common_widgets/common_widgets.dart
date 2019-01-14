@@ -66,7 +66,7 @@ Widget MaterialIcon(String assetPath, [Function onPressedAction]) {
 }
 
 
-AnimatedCrossFade AnimateChildren(
+AnimatedCrossFade CrossFadeWidgets(
     {@required Widget childOne, @required Widget childTwo, @required bool showHappyPath}) {
 	return AnimatedCrossFade(
 		alignment: Alignment.center,
