@@ -9,17 +9,13 @@ class MovieDetailsHeaderWidget extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return Column(
-			children: <Widget>[
-				ClipPath(
-					clipper: BackdropClipper(),
-					child: ImageLoader(
-						imageType: IMAGE_TYPE.BACKDROP,
-						imagePath: backdropPath,
-						size: BACKDROP_SIZES[SIZE_LARGE],
-					),
-				)
-			],
+		return ClipPath(
+			clipper: BackdropClipper(),
+			child: ImageLoader(
+				imageType: IMAGE_TYPE.BACKDROP,
+				imagePath: backdropPath,
+				size: BACKDROP_SIZES[SIZE_LARGE],
+			),
 		);
 	}
 }

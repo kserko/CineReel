@@ -16,17 +16,26 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  	//use a ListView to make the screen vertically scrollable
     return ListView(
       children: <Widget>[
-        MovieDetailsHeaderWidget(
-          backdropPath: movieDetails.movieBasic.backdropPath,
-        ),
+        buildHeaderImage(context),
         buildTitle(),
         buildMinorDetailsRow(),
         buildOverview(),
         buildHorizontalDivider(),
         buildMovieExtraDetailsContainer(),
       ],
+    );
+  }
+
+  Widget buildHeaderImage(BuildContext context) {
+    return SizedBox(
+			//0.32 is just a magic number that makes things not overlap even in smaller screens
+			height: MediaQuery.of(context).size.height * 0.32,
+      child: MovieDetailsHeaderWidget(
+        backdropPath: movieDetails.movieBasic.backdropPath,
+      ),
     );
   }
 
@@ -67,26 +76,24 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   Widget buildTitle() {
     return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Hero(
-                //wrapping up a Text with Material prevents the formatting
-                // being lost between transitions
-                child: Material(
-                  color: Colors.transparent,
-                  child: Text(
-                    movieDetails.getTitle,
-                    style: STYLE_TITLE,
-                  ),
+			padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Hero(
+              //wrapping up a Text with Material prevents the formatting
+              // being lost between transitions
+              child: Material(
+                color: Colors.transparent,
+                child: Text(
+                  movieDetails.getTitle,
+                  style: STYLE_TITLE,
                 ),
-                tag: "${movieDetails.getId}-${movieDetails.getTitle}",
               ),
+              tag: "${movieDetails.getId}-${movieDetails.getTitle}",
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
