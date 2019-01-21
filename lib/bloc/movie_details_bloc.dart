@@ -7,7 +7,7 @@ import 'package:cine_reel/models/omdb_movie.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/models/tmdb_reviews_response.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_state.dart';
+import 'package:cine_reel/ui/details_screen/movie_details/movie_details_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MovieDetailsBloc extends BlocBase {

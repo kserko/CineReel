@@ -1,7 +1,7 @@
 import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_state.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_widget.dart';
+import 'package:cine_reel/ui/details_screen/movie_details/movie_details_state.dart';
+import 'package:cine_reel/ui/details_screen/movie_details/movie_details_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

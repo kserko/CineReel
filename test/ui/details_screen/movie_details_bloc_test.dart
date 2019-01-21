@@ -1,6 +1,6 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_state.dart';
+import 'package:cine_reel/ui/details_screen/movie_details/movie_details_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:matcher/matcher.dart';
 import 'package:mockito/mockito.dart';

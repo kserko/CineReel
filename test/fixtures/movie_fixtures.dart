@@ -1,6 +1,6 @@
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_state.dart';
+import 'package:cine_reel/ui/details_screen/movie_details/movie_details_state.dart';
 
 TMDBMovieBasic movieOne = TMDBMovieBasic()
   ..title = "Movie One"
