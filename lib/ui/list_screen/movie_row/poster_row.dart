@@ -16,6 +16,7 @@ class PosterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+//  	timeDilation = 1.5;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -44,29 +45,48 @@ class PosterRow extends StatelessWidget {
   Widget buildListMovieRow(TMDBMovieBasic movie, BuildContext context) {
     return DefaultTextStyle(
       style: STYLE_TITLE,
-      child: Container(
-        padding: const EdgeInsets.all(2.0),
-        child: Stack(
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.45,
-                  child: PosterWidget(
-                    id: movie.id,
-                    imagePath: movie.posterPath,
-                    imageType: IMAGE_TYPE.POSTER,
-                    size: POSTER_SIZE,
-                    boxFit: BoxFit.fitWidth,
+      child: Material(
+        child: Container(
+          padding: const EdgeInsets.all(2.0),
+          child: Stack(
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Hero(
+										flightShuttleBuilder: (
+												BuildContext flightContext,
+												Animation<double> animation,
+												HeroFlightDirection flightDirection,
+												BuildContext fromHeroContext,
+												BuildContext toHeroContext,
+												) {
+											final Hero toHero = toHeroContext.widget;
+											final Hero fromHero = fromHeroContext.widget;
+											return SizeTransition(
+												sizeFactor: animation,
+												child: fromHero.child,
+											);
+										},
+										tag: movie.posterPath,
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: PosterWidget(
+                        id: movie.id,
+                        imagePath: movie.posterPath,
+                        imageType: IMAGE_TYPE.POSTER,
+                        size: POSTER_SIZE,
+                        boxFit: BoxFit.fitWidth,
+                      ),
+                    ),
                   ),
-                ),
-                Expanded(child: buildHeader(movie: movie))
-              ],
-            ),
-            buildReleaseDate(movie)
-          ],
+                  Expanded(child: buildHeader(movie: movie))
+                ],
+              ),
+              buildReleaseDate(movie)
+            ],
+          ),
         ),
       ),
     );
@@ -86,9 +106,7 @@ class PosterRow extends StatelessWidget {
   }
 
   Widget _buildTitle(TMDBMovieBasic movie) {
-    return Hero(
-        child: Material(color: Colors.transparent, child: Text(movie.title, style: STYLE_TITLE)),
-        tag: "${movie.id}-${movie.title}");
+    return Material(color: Colors.transparent, child: Text(movie.title, style: STYLE_TITLE));
   }
 
   Widget buildReleaseDate(TMDBMovieBasic movie) {

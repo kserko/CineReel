@@ -2,6 +2,7 @@ import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
+import 'package:cine_reel/ui/details_screen/movie_details/movie_details_enter_animation.dart';
 import 'package:cine_reel/ui/details_screen/movie_details/movie_details_extra_content_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details/movie_details_header_widget.dart';
 import 'package:cine_reel/utils/styles.dart';
@@ -11,28 +12,50 @@ class MovieDetailsContentWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
   final bool hasFailed;
+  final AnimationController animationController;
+  final MovieDetailsEnterAnimation animation;
 
-  MovieDetailsContentWidget(this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
+  MovieDetailsContentWidget(
+      this.movieDetails, this.movieDetailsBloc, bool this.hasFailed, this.animationController)
+      : animation = MovieDetailsEnterAnimation(animationController);
 
   @override
   Widget build(BuildContext context) {
-  	//use a ListView to make the screen vertically scrollable
+    MovieDetailsEnterAnimation.fullWidth = MediaQuery.of(context).size.width;
+
+    return AnimatedBuilder(animation: animationController, builder: _buildScreen);
+  }
+
+  Widget _buildScreen(BuildContext context, Widget child) {
+    //use a ListView to make the screen vertically scrollable
     return ListView(
       children: <Widget>[
         buildHeaderImage(context),
         buildTitle(),
         buildMinorDetailsRow(),
         buildOverview(),
-        buildHorizontalDivider(),
-        buildMovieExtraDetailsContainer(),
+        buildHorizontalDivider(context),
+//        buildMovieExtraDetailsContainer(),
+      ],
+    );
+  }
+
+  Widget buildHorizontalDivider(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Container(
+          margin: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+          width: animation.overviewDividerWidth.value,
+          height: 0.5,
+          color: Colors.white,
+        ),
       ],
     );
   }
 
   Widget buildHeaderImage(BuildContext context) {
-    return SizedBox(
-			//0.32 is just a magic number that makes things not overlap even in smaller screens
-			height: MediaQuery.of(context).size.height * 0.32,
+    return Opacity(
+      opacity: animation.headerOpacity.value,
       child: MovieDetailsHeaderWidget(
         backdropPath: movieDetails.movieBasic.backdropPath,
       ),
@@ -41,48 +64,50 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   Widget buildMovieExtraDetailsContainer() {
     return CrossFadeWidgets(
-        childOne:
-            MovieDetailsExtraContentWidget(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
+        childOne: MovieDetailsExtraContentWidget(
+            movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
         childTwo: ErrorsWidget(visible: true, error: movieDetails.status_message),
         showHappyPath: !hasFailed);
   }
 
   Widget buildMinorDetailsRow() {
-    return CrossFadeWidgets(
-        childOne: Row(
-          children: <Widget>[
-            buildRunningTime(),
-            buildReleaseDate(),
-            buildDirectorName(),
-          ],
-        ),
-        childTwo: Container(),
-        showHappyPath: movieDetails.hasData);
+    List<Widget> minorDetails = movieDetails.hasData
+        ? [buildRunningTime(), buildReleaseDate(), buildDirectorName()]
+        : [Container()];
+    return Opacity(
+      opacity: animation.minorDetailsOpacity.value,
+      child: SizedBox(
+        height: 40.0,
+        child: Row(children: minorDetails),
+      ),
+    );
   }
 
   Widget buildOverview() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Material(
-        color: Colors.transparent,
-        child: Text(
-          movieDetails.getOverview,
-          textAlign: TextAlign.justify,
-          style: TextStyle(fontSize: 14.0),
+    return Opacity(
+      opacity: animation.overviewOpacity.value,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Material(
+          color: Colors.transparent,
+          child: Text(
+            movieDetails.getOverview,
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 14.0),
+          ),
         ),
       ),
     );
   }
 
   Widget buildTitle() {
-    return Container(
-			padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Hero(
-              //wrapping up a Text with Material prevents the formatting
-              // being lost between transitions
+    return Opacity(
+      opacity: animation.titleOpacity.value,
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: <Widget>[
+            Expanded(
               child: Material(
                 color: Colors.transparent,
                 child: Text(
@@ -90,10 +115,9 @@ class MovieDetailsContentWidget extends StatelessWidget {
                   style: STYLE_TITLE,
                 ),
               ),
-              tag: "${movieDetails.getId}-${movieDetails.getTitle}",
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

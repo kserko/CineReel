@@ -35,7 +35,6 @@ class Router {
       context,
       RouteTransition(
         widget: ImageSlideshowWidget(images: images, startingIndex: startingIndex),
-				fade: false
       ),
     );
   }
