@@ -1,6 +1,5 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
-import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/details_screen/movie_details/movie_details_content_animator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,8 +13,8 @@ class MovieDetailsWidget extends StatelessWidget {
   MovieDetailsWidget(
       {@required this.movieDetails,
       @required this.movieDetailsBloc,
-      bool this.hasFailed,
-      this.backgroundSize});
+      @required bool this.hasFailed,
+      @required this.backgroundSize});
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +25,11 @@ class MovieDetailsWidget extends StatelessWidget {
   A stack with a blurred background and contents laid out on top of it
    */
   buildContent(BuildContext context) {
-    return Container(
-        child: Stack(
-      children: <Widget>[
-        BlurredImage(
-            imagePath: movieDetails.movieBasic.posterPath,
-            imageSize: backgroundSize,
-          ),
-        MovieDetailsContentAnimator(movieDetails, movieDetailsBloc, hasFailed)
-      ],
-    ));
+    return MovieDetailsContentAnimator(
+      movieDetails: movieDetails,
+      movieDetailsBloc: movieDetailsBloc,
+			backgroundSize: backgroundSize,
+      hasFailed: hasFailed,
+    );
   }
 }

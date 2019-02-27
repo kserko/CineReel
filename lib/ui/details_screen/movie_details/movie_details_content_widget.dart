@@ -1,5 +1,6 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
+§§import 'package:cine_reel/ui/common_widgets/blurred_image.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details/movie_details_enter_animation.dart';
@@ -11,12 +12,17 @@ import 'package:flutter/material.dart';
 class MovieDetailsContentWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
   final MovieDetailsBloc movieDetailsBloc;
+  final String backgroundSize;
   final bool hasFailed;
   final AnimationController animationController;
   final MovieDetailsEnterAnimation animation;
 
   MovieDetailsContentWidget(
-      this.movieDetails, this.movieDetailsBloc, bool this.hasFailed, this.animationController)
+      {@required this.movieDetails,
+      @required this.movieDetailsBloc,
+      @required this.hasFailed,
+      @required this.backgroundSize,
+      @required this.animationController})
       : animation = MovieDetailsEnterAnimation(animationController);
 
   @override
@@ -28,15 +34,28 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   Widget _buildScreen(BuildContext context, Widget child) {
     //use a ListView to make the screen vertically scrollable
-    return ListView(
+    return Stack(
       children: <Widget>[
-        buildHeaderImage(context),
-        buildTitle(),
-        buildMinorDetailsRow(),
-        buildOverview(),
-        buildHorizontalDivider(context),
-//        buildMovieExtraDetailsContainer(),
+        buildBackground(),
+        ListView(
+          children: <Widget>[
+            buildHeaderImage(context),
+            buildTitle(),
+            buildMinorDetailsRow(),
+            buildOverview(),
+            buildHorizontalDivider(context),
+            buildMovieExtraDetailsContainer(),
+          ],
+        ),
       ],
+    );
+  }
+
+  BlurredImage buildBackground() {
+    return BlurredImage(
+      imagePath: movieDetails.movieBasic.posterPath,
+      imageSize: backgroundSize,
+      posterBlur: animation.posterBlur,
     );
   }
 
@@ -63,17 +82,20 @@ class MovieDetailsContentWidget extends StatelessWidget {
   }
 
   Widget buildMovieExtraDetailsContainer() {
-    return CrossFadeWidgets(
-        childOne: MovieDetailsExtraContentWidget(
-            movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-        childTwo: ErrorsWidget(visible: true, error: movieDetails.status_message),
-        showHappyPath: !hasFailed);
+  	if (!hasFailed) {
+			return Opacity(
+					opacity: animation.extraDetailsOpacity.value,
+					child: MovieDetailsExtraContentWidget(
+							movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc)
+			);
+		} else {
+  		return ErrorsWidget(visible: true, error: movieDetails.status_message);
+		}
   }
 
   Widget buildMinorDetailsRow() {
     List<Widget> minorDetails = movieDetails.hasData
-        ? [buildRunningTime(), buildReleaseDate(), buildDirectorName()]
-        : [Container()];
+        ? [buildRunningTime(), buildReleaseDate(), buildDirectorName()] : [Container()];
     return Opacity(
       opacity: animation.minorDetailsOpacity.value,
       child: SizedBox(

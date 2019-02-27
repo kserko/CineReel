@@ -8,11 +8,17 @@ import 'package:flutter/widgets.dart';
 class BlurredImage extends StatelessWidget {
   final String imagePath;
   final String imageSize;
+  final Animation<double> posterBlur;
 
-  BlurredImage({@required this.imagePath, @required String this.imageSize});
+  BlurredImage({
+    @required this.imagePath,
+    @required String this.imageSize,
+    @required this.posterBlur,
+  });
 
   @override
   Widget build(BuildContext context) {
+  	double blurValue = posterBlur?.value ?? 25.0;
     return Hero(
       flightShuttleBuilder: (
         BuildContext flightContext,
@@ -36,7 +42,7 @@ class BlurredImage extends StatelessWidget {
                   fit: BoxFit.fitHeight)),
           child: new BackdropFilter(
             //applying a blur filter on the image
-            filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
+            filter: ImageFilter.blur(sigmaX: blurValue, sigmaY: blurValue),
             child: new Container(
               decoration: new BoxDecoration(color: Colors.black.withOpacity(0.2)),
             ),

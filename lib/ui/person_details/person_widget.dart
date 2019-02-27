@@ -271,19 +271,36 @@ class PersonWidget extends StatelessWidget {
         Expanded(
           child: Container(
             margin: EdgeInsets.all(3.0),
-            child: SizedBox(
-              height: movieCreditHeight,
-              child: Material(
+            child: Hero(
+							flightShuttleBuilder: (
+									BuildContext flightContext,
+									Animation<double> animation,
+									HeroFlightDirection flightDirection,
+									BuildContext fromHeroContext,
+									BuildContext toHeroContext,
+									) {
+								final Hero toHero = toHeroContext.widget;
+								final Hero fromHero = fromHeroContext.widget;
+								return SizeTransition(
+									sizeFactor: animation,
+									child: fromHero.child,
+								);
+							},
+							tag: movieCredit.posterPath,
+              child: SizedBox(
+                height: movieCreditHeight,
+                child: Material(
 								color: Colors.transparent,
-                child: InkWell(
-                  onTap: () => Router.goToMovieDetailsScreen(
-                      context, movieCredit.convertToTMDBMovieBasic(), MOVIE_POSTER_SIZE),
-                  child: PosterWidget(
-                    id: movieCredit.id,
-                    imagePath: movieCredit.posterPath,
-                    imageType: IMAGE_TYPE.POSTER,
-                    size: MOVIE_POSTER_SIZE,
+                  child: InkWell(
+                    onTap: () => Router.goToMovieDetailsScreen(
+                        context, movieCredit.convertToTMDBMovieBasic(), MOVIE_POSTER_SIZE),
+                    child: PosterWidget(
+                      id: movieCredit.id,
+                      imagePath: movieCredit.posterPath,
+                      imageType: IMAGE_TYPE.POSTER,
+                      size: MOVIE_POSTER_SIZE,
 										boxFit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
               ),
