@@ -9,10 +9,12 @@ class BlurredImage extends StatelessWidget {
   final String imagePath;
   final String imageSize;
   final Animation<double> posterBlur;
+  final String id;
 
   BlurredImage({
-    @required this.imagePath,
-    @required String this.imageSize,
+		@required this.id,
+		@required this.imagePath,
+    @required this.imageSize,
     @required this.posterBlur,
   });
 

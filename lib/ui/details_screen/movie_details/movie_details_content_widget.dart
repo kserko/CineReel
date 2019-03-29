@@ -53,6 +53,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   BlurredImage buildBackground() {
     return BlurredImage(
+      id: movieDetails.movieBasic.id.toString(),
       imagePath: movieDetails.movieBasic.posterPath,
       imageSize: backgroundSize,
       posterBlur: animation.posterBlur,
