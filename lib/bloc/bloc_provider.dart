@@ -1,46 +1,58 @@
-//Generic Interface for all BLoCs
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+//code taken from https://www.didierboelens.com/2018/12/reactive-programming---streams---bloc---practical-use-cases/#1-bloc-provider-and-inheritedwidget
+
+Type _typeOf<T>() => T;
 
 abstract class BlocBase {
 	void dispose();
 }
 
 class BlocProvider<T extends BlocBase> extends StatefulWidget {
-  final Widget child;
-	final T bloc;
-
-  BlocProvider({
+	BlocProvider({
 		Key key,
 		@required this.child,
 		@required this.bloc,
-}) : super(key: key);
+	}): super(key: key);
 
+	final Widget child;
+	final T bloc;
 
 	@override
-  _BlocProviderState<T> createState() => _BlocProviderState<T>();
+	_BlocProviderState<T> createState() => _BlocProviderState<T>();
 
-  static T of<T extends BlocBase>(BuildContext context) {
-		final type = _typeOf<BlocProvider<T>>();
-		BlocProvider<T> provider = context.ancestorWidgetOfExactType(type);
-		return provider.bloc;
+	static T of<T extends BlocBase>(BuildContext context){
+		final type = _typeOf<_BlocProviderInherited<T>>();
+		_BlocProviderInherited<T> provider =
+				context.ancestorInheritedElementForWidgetOfExactType(type)?.widget;
+		return provider?.bloc;
 	}
-
-	static Type _typeOf<T>() => T;
 }
 
-class _BlocProviderState<T> extends State<BlocProvider<BlocBase>>{
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
-
+class _BlocProviderState<T extends BlocBase> extends State<BlocProvider<T>>{
 	@override
-	void dispose() {
-//  	disposing the blocs here, means that when switching tabs and the bloc is destroyed,
-//		when coming back to that tab, the stream controller is closed and pagination doesn't work
-		print('disposing ${widget.bloc}');
-		widget.bloc.dispose();
+	void dispose(){
+		widget.bloc?.dispose();
 		super.dispose();
 	}
+
+	@override
+	Widget build(BuildContext context){
+		return new _BlocProviderInherited<T>(
+			bloc: widget.bloc,
+			child: widget.child,
+		);
+	}
+}
+
+class _BlocProviderInherited<T> extends InheritedWidget {
+	_BlocProviderInherited({
+		Key key,
+		@required Widget child,
+		@required this.bloc,
+	}) : super(key: key, child: child);
+
+	final T bloc;
+
+	@override
+	bool updateShouldNotify(_BlocProviderInherited oldWidget) => false;
 }
