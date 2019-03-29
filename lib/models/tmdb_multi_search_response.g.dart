@@ -6,21 +6,17 @@ part of 'tmdb_multi_search_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TMDBMultiSearchResponse _$TMDBMultiSearchResponseFromJson(
-    Map<String, dynamic> json) {
+TMDBMultiSearchResponse _$TMDBMultiSearchResponseFromJson(Map<String, dynamic> json) {
   return TMDBMultiSearchResponse(
       page: json['page'] as int,
       totalResults: json['total_results'] as int,
       totalPages: json['total_pages'] as int,
       results: (json['results'] as List)
-          ?.map((e) => e == null
-              ? null
-              : TMDBMultiSearchResult.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null ? null : TMDBMultiSearchResult.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
-Map<String, dynamic> _$TMDBMultiSearchResponseToJson(
-        TMDBMultiSearchResponse instance) =>
+Map<String, dynamic> _$TMDBMultiSearchResponseToJson(TMDBMultiSearchResponse instance) =>
     <String, dynamic>{
       'page': instance.page,
       'total_results': instance.totalResults,
@@ -28,8 +24,7 @@ Map<String, dynamic> _$TMDBMultiSearchResponseToJson(
       'results': instance.results
     };
 
-TMDBMultiSearchResult _$TMDBMultiSearchResultFromJson(
-    Map<String, dynamic> json) {
+TMDBMultiSearchResult _$TMDBMultiSearchResultFromJson(Map<String, dynamic> json) {
   return TMDBMultiSearchResult(
       voteAverage: (json['vote_average'] as num)?.toDouble(),
       voteCount: json['vote_count'] as int,
@@ -49,13 +44,11 @@ TMDBMultiSearchResult _$TMDBMultiSearchResultFromJson(
     ..profilePath = json['profile_path'] as String
     ..name = json['name'] as String
     ..knownFor = (json['known_for'] as List)
-        ?.map((e) =>
-            e == null ? null : KnownFor.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => e == null ? null : KnownFor.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
 
-Map<String, dynamic> _$TMDBMultiSearchResultToJson(
-        TMDBMultiSearchResult instance) =>
+Map<String, dynamic> _$TMDBMultiSearchResultToJson(TMDBMultiSearchResult instance) =>
     <String, dynamic>{
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,

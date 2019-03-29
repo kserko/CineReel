@@ -60,12 +60,12 @@ class MoviesListScreen extends StatefulWidget {
         });
   }
 
-	List<TMDBMovieBasic> getMovies(MoviesPopulated data, MovieBloc movieBloc, TabKey tabKey) {
-		if (tabKey == TabKey.kUpcoming) {
-			return movieBloc.sortMoviesByReleaseDate();
-		}
-		return data.movies;
-	}
+  List<TMDBMovieBasic> getMovies(MoviesPopulated data, MovieBloc movieBloc, TabKey tabKey) {
+    if (tabKey == TabKey.kUpcoming) {
+      return movieBloc.sortMoviesByReleaseDate();
+    }
+    return data.movies;
+  }
 }
 
 class MoviesListScreenState extends State<MoviesListScreen> {

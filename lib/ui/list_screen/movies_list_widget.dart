@@ -67,7 +67,7 @@ class MovieListWidgetState extends State<MovieListWidget> {
                   children: <Widget>[
                     Text(
                       "${this.widget.genre.name}",
-									key: Key("appBarTitle"),
+                      key: Key("appBarTitle"),
                       style: TextStyle(fontSize: 23.0, color: Theme.of(context).accentColor),
                     ),
                   ],

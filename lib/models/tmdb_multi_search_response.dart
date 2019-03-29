@@ -118,12 +118,28 @@ class KnownFor {
   @JsonKey(name: "original_country")
   List<String> originCountry;
 
-	KnownFor(this.id, this.video, this.title, this.popularity, this.adult, this.overview,
-			this.posterPath, this.releaseDate, this.voteCount, this.voteAverage, this.originalLanguage,
-			this.originalTitle, this.genreIds, this.backdropPath, this.originalName, this.mediaType,
-			this.name, this.firstAirDate, this.originCountry);
+  KnownFor(
+      this.id,
+      this.video,
+      this.title,
+      this.popularity,
+      this.adult,
+      this.overview,
+      this.posterPath,
+      this.releaseDate,
+      this.voteCount,
+      this.voteAverage,
+      this.originalLanguage,
+      this.originalTitle,
+      this.genreIds,
+      this.backdropPath,
+      this.originalName,
+      this.mediaType,
+      this.name,
+      this.firstAirDate,
+      this.originCountry);
 
-	factory KnownFor.fromJson(Map<String, dynamic> json) => _$KnownForFromJson(json);
+  factory KnownFor.fromJson(Map<String, dynamic> json) => _$KnownForFromJson(json);
 
   Map<String, dynamic> toJson() => _$KnownForToJson(this);
 }

@@ -70,15 +70,15 @@ class CastThumbnailsWidget extends StatelessWidget {
 
   Widget _buildCastName(Cast cast) {
     return Container(
-			width: 140.0,
-			padding: const EdgeInsets.only(top: 5.0),
-        child: Column(
-          children: <Widget>[
-            _buildName(cast),
-            _buildCharacter(cast),
-          ],
-        ),
-      );
+      width: 140.0,
+      padding: const EdgeInsets.only(top: 5.0),
+      child: Column(
+        children: <Widget>[
+          _buildName(cast),
+          _buildCharacter(cast),
+        ],
+      ),
+    );
   }
 
   Widget _buildName(Cast cast) {

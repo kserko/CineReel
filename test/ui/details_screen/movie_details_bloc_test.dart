@@ -49,11 +49,10 @@ void main() {
     expect(bloc.stream, emitsInOrder([LoadingState, FailureState]));
   });
 
-	test('emit a loading state and then a failure state with exception', () {
-		when(mockTMDBApi.movieDetails(movieId: anyNamed("movieId")))
-				.thenAnswer((_) async => Future.error(Exception("error")));
+  test('emit a loading state and then a failure state with exception', () {
+    when(mockTMDBApi.movieDetails(movieId: anyNamed("movieId")))
+        .thenAnswer((_) async => Future.error(Exception("error")));
 
-		expect(bloc.stream, emitsInOrder([LoadingState, FailureState]));
-	});
-
+    expect(bloc.stream, emitsInOrder([LoadingState, FailureState]));
+  });
 }

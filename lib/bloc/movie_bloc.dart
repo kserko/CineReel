@@ -76,21 +76,20 @@ class MovieBloc extends BlocBase {
   }
 
   //sorts movies by release date in ascending order (i.e going from now to the future)
-	List<TMDBMovieBasic> sortMoviesByReleaseDate() {
-		moviesPopulated.movies.sort((a, b) {
-			var releaseDateA = DateFormat("yyyy-M-dd").parse(a.releaseDate);
-			var releaseDateB = DateFormat("yyyy-M-dd").parse(b.releaseDate);
-			if (releaseDateA.isAfter(releaseDateB)) {
-				return 1;
-			}
-			else if (releaseDateA.isBefore(releaseDateB)) {
-				return -1;
-			} else {
-				return 0;
-			}
-		});
-		return moviesPopulated.movies;
-	}
+  List<TMDBMovieBasic> sortMoviesByReleaseDate() {
+    moviesPopulated.movies.sort((a, b) {
+      var releaseDateA = DateFormat("yyyy-M-dd").parse(a.releaseDate);
+      var releaseDateB = DateFormat("yyyy-M-dd").parse(b.releaseDate);
+      if (releaseDateA.isAfter(releaseDateB)) {
+        return 1;
+      } else if (releaseDateA.isBefore(releaseDateB)) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+    return moviesPopulated.movies;
+  }
 
   bool _hasNoExistingData() => moviesPopulated.movies?.isEmpty ?? true;
 
@@ -100,10 +99,10 @@ class MovieBloc extends BlocBase {
       case TabKey.kNowPlaying:
         apiCall = api.nowPlayingMovies(page: page);
         break;
-			case TabKey.kUpcoming:
-				apiCall = api.upcomingMovies(page: page, region: region);
-				break;
-			case TabKey.kPopular:
+      case TabKey.kUpcoming:
+        apiCall = api.upcomingMovies(page: page, region: region);
+        break;
+      case TabKey.kPopular:
         apiCall = api.popularMovies(page: page);
         break;
       case TabKey.kTopRated:
@@ -112,8 +111,8 @@ class MovieBloc extends BlocBase {
       case TabKey.kGenres:
         apiCall = api.moviesForGenre(genre: genre, page: page);
         break;
-			default:
-				//
+      default:
+      //
     }
     return apiCall;
   }

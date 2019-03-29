@@ -8,6 +8,7 @@ class GenresLoading extends GenresState {}
 
 class GenresError extends GenresState {
   final error;
+
   GenresError(this.error);
 }
 

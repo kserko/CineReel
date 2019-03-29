@@ -23,8 +23,8 @@ class PersonWidget extends StatelessWidget {
   final bool showLoading;
   final String errorMessage;
 
-  PersonWidget({Key key, this.person, this.cast, bool this.showLoading, this.errorMessage}) :
-				super(key: key);
+  PersonWidget({Key key, this.person, this.cast, bool this.showLoading, this.errorMessage})
+      : super(key: key);
   final loadingWidget = LoadingWidget(
     visible: true,
   );
@@ -35,8 +35,11 @@ class PersonWidget extends StatelessWidget {
         .addAll([_populateBasicInfo(context), _populateBio(), _populateFilmography(context)]);
 
     if (errorMessage.isNotEmpty) {
-    	widgetsList.add(ErrorsWidget(visible: true, error: errorMessage,));
-		}
+      widgetsList.add(ErrorsWidget(
+        visible: true,
+        error: errorMessage,
+      ));
+    }
     if (showLoading) {
       widgetsList.add(loadingWidget);
     } else {
@@ -274,7 +277,7 @@ class PersonWidget extends StatelessWidget {
             child: SizedBox(
               height: movieCreditHeight,
               child: Material(
-								color: Colors.transparent,
+                color: Colors.transparent,
                 child: InkWell(
                   onTap: () => Router.goToMovieDetailsScreen(
                       context, movieCredit.convertToTMDBMovieBasic(), MOVIE_POSTER_SIZE),
@@ -283,7 +286,7 @@ class PersonWidget extends StatelessWidget {
                     imagePath: movieCredit.posterPath,
                     imageType: IMAGE_TYPE.POSTER,
                     size: MOVIE_POSTER_SIZE,
-										boxFit: BoxFit.fitWidth,
+                    boxFit: BoxFit.fitWidth,
                   ),
                 ),
               ),

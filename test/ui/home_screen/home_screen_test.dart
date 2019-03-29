@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 class MockAppBloc extends Mock implements AppBloc {
-	Locale deviceLocale = Locale("en", "gb");
+  Locale deviceLocale = Locale("en", "gb");
 }
 
 void main() {
@@ -37,16 +37,16 @@ void main() {
     TabBarView tabBarView = tester.widget(tabBarFinder);
 
     expect(tabBarView.children[0] is BlocProvider<MovieBloc>, true);
-		expect(tabBarView.children[1] is BlocProvider<MovieBloc>, true);
+    expect(tabBarView.children[1] is BlocProvider<MovieBloc>, true);
     expect(tabBarView.children[2] is BlocProvider<MovieBloc>, true);
-		expect(tabBarView.children[3] is BlocProvider<MovieBloc>, true);
+    expect(tabBarView.children[3] is BlocProvider<MovieBloc>, true);
     expect(tabBarView.children[4] is BlocProvider<GenresBloc>, true);
 
-		expect(tabBarView.children.length, 5);
+    expect(tabBarView.children.length, 5);
   });
 }
 
 Future pumpHomePage(WidgetTester tester) async {
-	await tester.pumpWidget(BlocProvider<AppBloc>(child: MaterialApp(home: HomePage(title: "test")),
-			bloc: MockAppBloc()));
+  await tester.pumpWidget(BlocProvider<AppBloc>(
+      child: MaterialApp(home: HomePage(title: "test")), bloc: MockAppBloc()));
 }

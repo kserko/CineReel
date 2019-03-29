@@ -16,7 +16,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  	//use a ListView to make the screen vertically scrollable
+    //use a ListView to make the screen vertically scrollable
     return ListView(
       children: <Widget>[
         buildHeaderImage(context),
@@ -31,8 +31,8 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   Widget buildHeaderImage(BuildContext context) {
     return SizedBox(
-			//0.32 is just a magic number that makes things not overlap even in smaller screens
-			height: MediaQuery.of(context).size.height * 0.32,
+      //0.32 is just a magic number that makes things not overlap even in smaller screens
+      height: MediaQuery.of(context).size.height * 0.32,
       child: MovieDetailsHeaderWidget(
         backdropPath: movieDetails.movieBasic.backdropPath,
       ),
@@ -76,7 +76,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   Widget buildTitle() {
     return Container(
-			padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Row(
         children: <Widget>[
           Expanded(

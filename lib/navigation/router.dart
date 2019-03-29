@@ -34,9 +34,7 @@ class Router {
     Navigator.push(
       context,
       RouteTransition(
-        widget: ImageSlideshowWidget(images: images, startingIndex: startingIndex),
-				fade: false
-      ),
+          widget: ImageSlideshowWidget(images: images, startingIndex: startingIndex), fade: false),
     );
   }
 

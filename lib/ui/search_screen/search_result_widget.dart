@@ -12,8 +12,7 @@ class SearchResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-		var data = isSearchingForMovies() ? movies : people;
+    var data = isSearchingForMovies() ? movies : people;
     if (data != null) {
       return GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -35,7 +34,7 @@ class SearchResultWidget extends StatelessWidget {
     if (isSearchingForMovies()) {
       return GridItem(movie: movies[index]);
     } else {
-      return GridItem(person:people[index]);
+      return GridItem(person: people[index]);
     }
   }
 }

@@ -24,5 +24,6 @@ class TMDBGenre {
   TMDBGenre(this.id, this.name);
 
   factory TMDBGenre.fromJson(Map<String, dynamic> json) => _$TMDBGenreFromJson(json);
-	Map<String, dynamic> toJson() => _$TMDBGenreToJson(this);
+
+  Map<String, dynamic> toJson() => _$TMDBGenreToJson(this);
 }

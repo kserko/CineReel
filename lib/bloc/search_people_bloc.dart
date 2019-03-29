@@ -54,6 +54,6 @@ class SearchPeopleBloc extends BlocBase {
 
   @override
   void dispose() {
-   onTextChanged.close();
+    onTextChanged.close();
   }
 }

@@ -7,20 +7,27 @@ part 'tmdb_person.g.dart';
 @JsonSerializable()
 class TMDBPerson {
   String birthday;
-  @JsonKey(name: "known_for_department") String knownForDepartment;
-  @JsonKey(name: "death_day") String deathDay;
+  @JsonKey(name: "known_for_department")
+  String knownForDepartment;
+  @JsonKey(name: "death_day")
+  String deathDay;
   int id;
   String name;
-	@JsonKey(name: "also_known_as") List<String> alsoKnownAs;
+  @JsonKey(name: "also_known_as")
+  List<String> alsoKnownAs;
   int gender;
   String biography;
   double popularity;
-	@JsonKey(name: "place_of_birth") String placeOfBirth;
-	@JsonKey(name: "profile_path") String profilePath;
+  @JsonKey(name: "place_of_birth")
+  String placeOfBirth;
+  @JsonKey(name: "profile_path")
+  String profilePath;
   bool adult;
-	@JsonKey(name: "imdb_id") String imdbId;
+  @JsonKey(name: "imdb_id")
+  String imdbId;
   String homepage;
-	@JsonKey(name: "movie_credits") TMDBMovieCredits movieCredits;
+  @JsonKey(name: "movie_credits")
+  TMDBMovieCredits movieCredits;
 
   TMDBPerson(
       {this.birthday,
@@ -39,9 +46,9 @@ class TMDBPerson {
       this.homepage,
       this.movieCredits});
 
-	factory TMDBPerson.fromJson(Map<String, dynamic> json) => _$TMDBPersonFromJson(json);
-	Map<String, dynamic> toJson() => _$TMDBPersonToJson(this);
+  factory TMDBPerson.fromJson(Map<String, dynamic> json) => _$TMDBPersonFromJson(json);
 
+  Map<String, dynamic> toJson() => _$TMDBPersonToJson(this);
 
   bool hasBiography() {
     return biography != null && biography.isNotEmpty;

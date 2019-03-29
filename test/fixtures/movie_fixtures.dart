@@ -21,8 +21,8 @@ TMDBMovieDetails movieDetails = TMDBMovieDetails()
   ..backdropPath = ""
   ..title = movieOne.title
   ..releaseDate = movieOne.releaseDate
-	..popularity = 10.0
-	..posterPath = ""
+  ..popularity = 10.0
+  ..posterPath = ""
   ..movieBasic = movieOne;
 
 MovieDetailsState movieDetailsState =

@@ -29,22 +29,22 @@ class TMDBMovieBasic {
   String backdropPath;
 
   String getReleaseYear() {
-  	return releaseDate.split("-")[0];
-	}
+    return releaseDate.split("-")[0];
+  }
 
-	String getUpcomingReleaseDate() {
-		try {
-		  var parsedReleasedDate = DateFormat("yyyy-M-dd").parse(releaseDate);
-		  bool isInTheFuture = parsedReleasedDate.isAfter(DateTime.now());
-		  if (isInTheFuture) {
-		  	return "${DateFormat("MMM dd yyyy").format(parsedReleasedDate)}";
-		  } else {
-		  	return getReleaseYear();
-		  }
-		} on Exception catch (e) {
-		  return "";
-		}
-	}
+  String getUpcomingReleaseDate() {
+    try {
+      var parsedReleasedDate = DateFormat("yyyy-M-dd").parse(releaseDate);
+      bool isInTheFuture = parsedReleasedDate.isAfter(DateTime.now());
+      if (isInTheFuture) {
+        return "${DateFormat("MMM dd yyyy").format(parsedReleasedDate)}";
+      } else {
+        return getReleaseYear();
+      }
+    } on Exception catch (e) {
+      return "";
+    }
+  }
 
   TMDBMovieBasic(
       {this.voteCount,
@@ -63,5 +63,6 @@ class TMDBMovieBasic {
       this.releaseDate});
 
   factory TMDBMovieBasic.fromJson(Map<String, dynamic> json) => _$TMDBMovieBasicFromJson(json);
-	Map<String, dynamic> toJson() => _$TMDBMovieBasicToJson(this);
+
+  Map<String, dynamic> toJson() => _$TMDBMovieBasicToJson(this);
 }

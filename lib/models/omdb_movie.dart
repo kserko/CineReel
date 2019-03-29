@@ -83,6 +83,7 @@ class OMDBMovie {
       this.response);
 
   factory OMDBMovie.fromJson(Map<String, dynamic> json) => _$OMDBMovieFromJson(json);
+
   Map<String, dynamic> toJson() => _$OMDBMovieToJson(this);
 }
 
@@ -96,5 +97,6 @@ class OMDBRating {
   OMDBRating(this.source, this.value);
 
   factory OMDBRating.fromJson(Map<String, dynamic> json) => _$OMDBRatingFromJson(json);
+
   Map<String, dynamic> toJson() => _$OMDBRatingToJson(this);
 }

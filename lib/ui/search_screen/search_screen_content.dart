@@ -11,22 +11,22 @@ import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:flutter/widgets.dart';
 
 class SearchContentScreen extends StatefulWidget {
-	final TextEditingController textController;
-	final TabKey tabKey;
+  final TextEditingController textController;
+  final TabKey tabKey;
 
-	SearchContentScreen(this.textController, TabKey this.tabKey) {
-	}
+  SearchContentScreen(this.textController, TabKey this.tabKey) {}
 
-	@override
-	SearchContentScreenState createState() {
-		return new SearchContentScreenState();
-	}
+  @override
+  SearchContentScreenState createState() {
+    return new SearchContentScreenState();
+  }
 }
 
-class SearchContentScreenState extends State<SearchContentScreen> with AutomaticKeepAliveClientMixin {
+class SearchContentScreenState extends State<SearchContentScreen>
+    with AutomaticKeepAliveClientMixin {
   SearchMoviesBloc searchMoviesBloc;
   SearchPeopleBloc searchPeopleBloc;
-	BlocBase activeBloc;
+  BlocBase activeBloc;
 
   @override
   void initState() {
@@ -37,15 +37,15 @@ class SearchContentScreenState extends State<SearchContentScreen> with Automatic
 
   @override
   Widget build(BuildContext context) {
-		if (isMoviesTab()) {
-			print("build search movies tab");
-			searchMoviesBloc = BlocProvider.of<SearchMoviesBloc>(context);
-		} else {
-			print("build search people tab");
-			searchPeopleBloc = BlocProvider.of<SearchPeopleBloc>(context);
-		}
+    if (isMoviesTab()) {
+      print("build search movies tab");
+      searchMoviesBloc = BlocProvider.of<SearchMoviesBloc>(context);
+    } else {
+      print("build search people tab");
+      searchPeopleBloc = BlocProvider.of<SearchPeopleBloc>(context);
+    }
 
-		return StreamBuilder(
+    return StreamBuilder(
         stream: isMoviesTab() ? searchMoviesBloc.state : searchPeopleBloc.state,
         builder: (BuildContext context, AsyncSnapshot<SearchState> snapshot) {
           final state = snapshot.data;
@@ -94,12 +94,12 @@ class SearchContentScreenState extends State<SearchContentScreen> with Automatic
   }
 
   void _textChanged() {
-  	if (isMoviesTab()) {
-			searchMoviesBloc.onTextChanged.add(widget.textController.text);
-		} else {
-			searchPeopleBloc.onTextChanged.add(widget.textController.text);
-		}
-	}
+    if (isMoviesTab()) {
+      searchMoviesBloc.onTextChanged.add(widget.textController.text);
+    } else {
+      searchPeopleBloc.onTextChanged.add(widget.textController.text);
+    }
+  }
 
   @override
   bool get wantKeepAlive => true;

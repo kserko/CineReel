@@ -55,15 +55,15 @@ BlocProvider<MovieBloc> getUpcomingProvider(String region) {
 }
 
 BlocProvider<SearchMoviesBloc> getMovieSearchProvider(TextEditingController textController) {
-	return BlocProvider<SearchMoviesBloc>(
-		child: SearchContentScreen(textController, TabKey.kSearchMovies),
-		bloc: SearchMoviesBloc(TMDBApi()),
-	);
+  return BlocProvider<SearchMoviesBloc>(
+    child: SearchContentScreen(textController, TabKey.kSearchMovies),
+    bloc: SearchMoviesBloc(TMDBApi()),
+  );
 }
 
 BlocProvider<SearchPeopleBloc> getPeopleSearchProvider(TextEditingController textController) {
-	return BlocProvider<SearchPeopleBloc>(
-		child: SearchContentScreen(textController, TabKey.kSearchPeople),
-		bloc: SearchPeopleBloc(TMDBApi()),
-	);
+  return BlocProvider<SearchPeopleBloc>(
+    child: SearchContentScreen(textController, TabKey.kSearchPeople),
+    bloc: SearchPeopleBloc(TMDBApi()),
+  );
 }

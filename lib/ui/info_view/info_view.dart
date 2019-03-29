@@ -7,37 +7,36 @@ import 'package:flutter/widgets.dart';
 import 'package:package_info/package_info.dart';
 
 class InfoView extends StatefulWidget {
-
-	@override
+  @override
   InfoViewState createState() {
     return new InfoViewState();
   }
 }
 
 class InfoViewState extends State<InfoView> {
-	PackageInfo _packageInfo = new PackageInfo(
-		appName: 'Unknown',
-		packageName: 'Unknown',
-		version: 'Unknown',
-		buildNumber: 'Unknown',
-	);
+  PackageInfo _packageInfo = new PackageInfo(
+    appName: 'Unknown',
+    packageName: 'Unknown',
+    version: 'Unknown',
+    buildNumber: 'Unknown',
+  );
 
   final TextStyle defaultStyle = TextStyle(fontSize: 16.0);
 
-	@override
-	void initState() {
-		super.initState();
-		_initPackageInfo();
-	}
+  @override
+  void initState() {
+    super.initState();
+    _initPackageInfo();
+  }
 
-	Future<Null> _initPackageInfo() async {
-		final PackageInfo info = await PackageInfo.fromPlatform();
-		setState(() {
-			_packageInfo = info;
-		});
-	}
+  Future<Null> _initPackageInfo() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
 
-	@override
+  @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
         child: Padding(
@@ -99,7 +98,6 @@ class InfoViewState extends State<InfoView> {
   }
 
   Widget buildAppTitle() {
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[

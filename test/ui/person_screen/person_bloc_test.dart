@@ -26,17 +26,17 @@ void main() {
     expect(personBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
   });
 
-	test('emits loading and failed state in order', () {
-		when(mockTMDBApi.getPerson(personId: anyNamed("personId")))
-				.thenAnswer((_) async => emptyPerson);
+  test('emits loading and failed state in order', () {
+    when(mockTMDBApi.getPerson(personId: anyNamed("personId")))
+        .thenAnswer((_) async => emptyPerson);
 
-		expect(personBloc.stream, emitsInOrder([LoadingState, FailedState]));
-	});
+    expect(personBloc.stream, emitsInOrder([LoadingState, FailedState]));
+  });
 
-	test('emits loading and failed state because of exception in order', () {
-		when(mockTMDBApi.getPerson(personId: anyNamed("personId")))
-				.thenAnswer((_) async => Future.error(Exception("error")));
+  test('emits loading and failed state because of exception in order', () {
+    when(mockTMDBApi.getPerson(personId: anyNamed("personId")))
+        .thenAnswer((_) async => Future.error(Exception("error")));
 
-		expect(personBloc.stream, emitsInOrder([LoadingState, FailedState]));
-	});
+    expect(personBloc.stream, emitsInOrder([LoadingState, FailedState]));
+  });
 }

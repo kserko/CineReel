@@ -29,8 +29,8 @@ class MovieDetailsRatingsWidget extends StatelessWidget {
             ],
           ),
         ),
-				buildHorizontalDivider(),
-			],
+        buildHorizontalDivider(),
+      ],
     );
   }
 

@@ -123,8 +123,8 @@ void main() {
 
     Text appBarText = tester.widget(find.byKey(Key("appBarTitle")));
     expect(appBarText.data, genreOne.name);
-		expect(find.byType(Scaffold), findsOneWidget);
-		expect(find.byType(AppBar), findsOneWidget);
+    expect(find.byType(Scaffold), findsOneWidget);
+    expect(find.byType(AppBar), findsOneWidget);
   });
 }
 

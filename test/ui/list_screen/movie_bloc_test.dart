@@ -15,16 +15,16 @@ const NoResultsState = TypeMatcher<MoviesNoResults>();
 const PopulatedState = TypeMatcher<MoviesPopulated>();
 
 void main() {
-	MockTMDBApi mockTMDBApi;
-	MovieBloc movieBloc;
+  MockTMDBApi mockTMDBApi;
+  MovieBloc movieBloc;
 
-	setUp(() {
-		mockTMDBApi = MockTMDBApi();
-		movieBloc = MovieBloc(api: mockTMDBApi, tabKey: TabKey.kNowPlaying);
-	});
+  setUp(() {
+    mockTMDBApi = MockTMDBApi();
+    movieBloc = MovieBloc(api: mockTMDBApi, tabKey: TabKey.kNowPlaying);
+  });
 
   test('emits a loading state and then a populated state', () {
-		setResults(mockTMDBApi);
+    setResults(mockTMDBApi);
     expect(movieBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
   });
 
@@ -38,13 +38,12 @@ void main() {
     expect(movieBloc.stream, emitsInOrder([LoadingState, ErrorState]));
   });
 
-	test('emits existing data if new results are empty but already got data previously', () {
-		setEmptyResults(mockTMDBApi);
-		movieBloc.moviesPopulated = MoviesPopulated(basicMoviesList);
+  test('emits existing data if new results are empty but already got data previously', () {
+    setEmptyResults(mockTMDBApi);
+    movieBloc.moviesPopulated = MoviesPopulated(basicMoviesList);
 
-		expect(movieBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
-
-	});
+    expect(movieBloc.stream, emitsInOrder([LoadingState, PopulatedState]));
+  });
 }
 
 void setResults(MockTMDBApi mockTMDBApi) {

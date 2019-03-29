@@ -28,7 +28,8 @@ class SearchIntro extends StatelessWidget {
   }
 
   Text buildText() {
-  	String text = isSearchingMovies ? "Enter a movie title to begin" : "Enter a person name to begin";
+    String text =
+        isSearchingMovies ? "Enter a movie title to begin" : "Enter a person name to begin";
     return Text(
       text,
       style: TextStyle(

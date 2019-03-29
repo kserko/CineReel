@@ -32,16 +32,16 @@ class Endpoints {
         '&include_adult=false&page=$page';
   }
 
-	static String upcomingMoviesUrl(int page, String region) {
-		return '$TMDB_API_BASE_URL'
-				'/movie/upcoming?api_key='
-				'$TMDB_API_KEY'
-				'&include_adult=false&page=$page&region=$region';
-	}
+  static String upcomingMoviesUrl(int page, String region) {
+    return '$TMDB_API_BASE_URL'
+        '/movie/upcoming?api_key='
+        '$TMDB_API_KEY'
+        '&include_adult=false&page=$page&region=$region';
+  }
 
   static String movieDetailsUrl(int movieId) {
     return '$TMDB_API_BASE_URL/movie/$movieId?api_key=$TMDB_API_KEY&append_to_response=credits,'
-				'images';
+        'images';
   }
 
   static String genresUrl() {
@@ -72,11 +72,11 @@ class Endpoints {
     return "$TMDB_API_BASE_URL/search/movie?query=$query&api_key=$TMDB_API_KEY";
   }
 
-	static String personSearchUrl(String query) {
-		return "$TMDB_API_BASE_URL/search/person?query=$query&api_key=$TMDB_API_KEY";
-	}
+  static String personSearchUrl(String query) {
+    return "$TMDB_API_BASE_URL/search/person?query=$query&api_key=$TMDB_API_KEY";
+  }
 
-	static getPerson(int personId) {
+  static getPerson(int personId) {
     return "$TMDB_API_BASE_URL/person/$personId?api_key=$TMDB_API_KEY&append_to_response=movie_credits";
   }
 }

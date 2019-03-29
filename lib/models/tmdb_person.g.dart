@@ -13,8 +13,7 @@ TMDBPerson _$TMDBPersonFromJson(Map<String, dynamic> json) {
       deathDay: json['death_day'] as String,
       id: json['id'] as int,
       name: json['name'] as String,
-      alsoKnownAs:
-          (json['also_known_as'] as List)?.map((e) => e as String)?.toList(),
+      alsoKnownAs: (json['also_known_as'] as List)?.map((e) => e as String)?.toList(),
       gender: json['gender'] as int,
       biography: json['biography'] as String,
       popularity: (json['popularity'] as num)?.toDouble(),
@@ -25,12 +24,10 @@ TMDBPerson _$TMDBPersonFromJson(Map<String, dynamic> json) {
       homepage: json['homepage'] as String,
       movieCredits: json['movie_credits'] == null
           ? null
-          : TMDBMovieCredits.fromJson(
-              json['movie_credits'] as Map<String, dynamic>));
+          : TMDBMovieCredits.fromJson(json['movie_credits'] as Map<String, dynamic>));
 }
 
-Map<String, dynamic> _$TMDBPersonToJson(TMDBPerson instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$TMDBPersonToJson(TMDBPerson instance) => <String, dynamic>{
       'birthday': instance.birthday,
       'known_for_department': instance.knownForDepartment,
       'death_day': instance.deathDay,

@@ -51,7 +51,7 @@ class MovieDetailsFailureState extends MovieDetailsState {
 
   MovieDetailsFailureState({
     TMDBMovieBasic moveBasic,
-		this.errorMessage,
+    this.errorMessage,
   }) : super(
           movieBasic: moveBasic,
           movieDetails: TMDBMovieDetails()..status_message = errorMessage,

@@ -17,6 +17,7 @@ class MoviesLoading extends MoviesState {}
 
 class MoviesError extends MoviesState {
   final String error;
+
   MoviesError(this.error);
 }
 

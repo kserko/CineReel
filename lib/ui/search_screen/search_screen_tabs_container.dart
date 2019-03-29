@@ -44,12 +44,12 @@ class _SearchScreenTabsContainerState extends State<SearchScreenTabsContainer>
     }
 
     //when changing tabs this notifies each tab to update with the latest text input
-		//We can avoid this warning by adding the ChangeNotifier mixin, but then
-		//the super.dispose call calls the one in ChangeNotifier instead of the state
-		//and throws an exception _SearchScreenTabsContainerState.dispose failed to call super.dispose.
-		//This is probably a bug in Flutter so I raised it https://github.com/flutter/flutter/issues/24293
+    //We can avoid this warning by adding the ChangeNotifier mixin, but then
+    //the super.dispose call calls the one in ChangeNotifier instead of the state
+    //and throws an exception _SearchScreenTabsContainerState.dispose failed to call super.dispose.
+    //This is probably a bug in Flutter so I raised it https://github.com/flutter/flutter/issues/24293
 
-		// ignore: invalid_use_of_protected_member
+    // ignore: invalid_use_of_protected_member
     textController.notifyListeners();
   }
 

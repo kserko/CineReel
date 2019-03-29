@@ -37,8 +37,8 @@ class MovieDetailsBloc extends BlocBase {
 	details object
 	*/
   MovieDetailsState initialData() {
-		return MovieDetailsLoadingState(movieBasic);
-	}
+    return MovieDetailsLoadingState(movieBasic);
+  }
 
   Stream<MovieDetailsState> _fetchMovieDetails(int movieId) async* {
     String year = movieBasic.releaseDate?.split('-')[0];

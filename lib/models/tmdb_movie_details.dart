@@ -72,7 +72,9 @@ class TMDBMovieDetails {
   bool hasData = false;
 
   List<TMDBImage> get backdrops => images?.backdrops ?? [];
+
   List<TMDBImage> get posters => images?.posters ?? [];
+
   List<TMDBImage> get allImages => [backdrops, posters].expand((images) => images).toList();
 
   String get getOverview => movieBasic.overview;
@@ -177,11 +179,16 @@ class Images {
 
 @JsonSerializable()
 class TMDBImage {
-  @JsonKey(name: "aspect_ration") double aspectRatio;
-  @JsonKey(name: "file_path") String filePath;
-  @JsonKey(name: "iso_639_1") String iso6391;
-  @JsonKey(name: "vote_average") double voteAverage;
-  @JsonKey(name: "vote_count") int voteCount;
+  @JsonKey(name: "aspect_ration")
+  double aspectRatio;
+  @JsonKey(name: "file_path")
+  String filePath;
+  @JsonKey(name: "iso_639_1")
+  String iso6391;
+  @JsonKey(name: "vote_average")
+  double voteAverage;
+  @JsonKey(name: "vote_count")
+  int voteCount;
   int height;
   int width;
 

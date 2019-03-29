@@ -16,6 +16,7 @@ import '../../test_utils.dart';
 
 class MockMovieBloc extends Mock implements MovieBloc {
   TabKey tabKey;
+
   MockMovieBloc(MockTMDBApi mockTMDBApi, TabKey this.tabKey);
 }
 
