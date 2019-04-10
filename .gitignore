@@ -12,3 +12,5 @@ build/
 .idea/
 .vscode/
 play_store_graphics/
+flutter_build_runner_command
+notes
