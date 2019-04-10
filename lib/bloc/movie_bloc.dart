@@ -28,7 +28,13 @@ class MovieBloc extends BlocBase {
   TMDBGenre genre;
 
   // This is the stream of movies. Use this to show the contents
-  Stream<MoviesState> get stream => _streamController.stream;
+  Stream<MoviesState> get stream {
+    if (_streamController.isClosed) {
+      print('stream closed, resetting it');
+      _streamController = BehaviorSubject<MoviesState>();
+    }
+    return _streamController.stream;
+  }
 
   final _nextPageController = StreamController();
 
@@ -46,7 +52,6 @@ class MovieBloc extends BlocBase {
 
   void init() {
     print('initialising bloc for $tabKey');
-    _streamController = BehaviorSubject<MoviesState>();
     if (page == 0) {
       fetchNextPage();
     }

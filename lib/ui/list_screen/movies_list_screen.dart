@@ -17,14 +17,36 @@ class MoviesListScreen extends StatefulWidget {
   MoviesListScreen({TMDBGenre this.genre});
 
   @override
-  MoviesListScreenState createState() {
-    return new MoviesListScreenState();
+  _MoviesListScreenState createState() => _MoviesListScreenState();
+}
+
+
+class _MoviesListScreenState extends State<MoviesListScreen> {
+
+  @override
+  Widget build(BuildContext context) {
+      MovieBloc movieBloc = BlocProvider.of<MovieBloc>(context);
+
+    return Column(key: Key("rootColumn"), children: [
+      Flexible(
+        child: buildStreamBuilder(
+          context,
+          movieBloc,
+          movieBloc.tabKey,
+          movieBloc.tabKey.index,
+        ),
+      ),
+    ]);
   }
 
   StreamBuilder<MoviesState> buildStreamBuilder(
       BuildContext context, MovieBloc movieBloc, TabKey tabKey, int tabIndex) {
+
+        print("initial data ${movieBloc.moviesPopulated.movies.length}");
+
     return StreamBuilder(
         key: Key('streamBuilder'),
+        initialData: movieBloc.moviesPopulated,
         stream: movieBloc.stream,
         builder: (context, snapshot) {
           final data = snapshot.data;
@@ -44,14 +66,17 @@ class MoviesListScreen extends StatefulWidget {
                     // Fade in an error if something went wrong when fetching
                     // the results
                     ErrorsWidget(
-                        visible: data is MoviesError, error: data is MoviesError ? data.error : ""),
+                        visible: data is MoviesError,
+                        error: data is MoviesError ? data.error : ""),
 
                     // Fade in the Result if available
                     MovieListWidget(
-                        genre: genre,
+                        genre: widget.genre,
                         movieBloc: movieBloc,
                         tabKey: tabKey,
-                        movies: data is MoviesPopulated ? getMovies(data, movieBloc, tabKey) : []),
+                        movies: data is MoviesPopulated
+                            ? getMovies(data, movieBloc, tabKey)
+                            : []),
                   ],
                 ),
               ),
@@ -60,30 +85,11 @@ class MoviesListScreen extends StatefulWidget {
         });
   }
 
-  List<TMDBMovieBasic> getMovies(MoviesPopulated data, MovieBloc movieBloc, TabKey tabKey) {
+  List<TMDBMovieBasic> getMovies(
+      MoviesPopulated data, MovieBloc movieBloc, TabKey tabKey) {
     if (tabKey == TabKey.kUpcoming) {
       return movieBloc.sortMoviesByReleaseDate();
     }
     return data.movies;
-  }
-}
-
-class MoviesListScreenState extends State<MoviesListScreen> {
-  MovieBloc movieBloc;
-
-  @override
-  Widget build(BuildContext context) {
-    movieBloc = BlocProvider.of<MovieBloc>(context);
-
-    return Column(key: Key("rootColumn"), children: [
-      Flexible(
-        child: widget.buildStreamBuilder(
-          context,
-          movieBloc,
-          movieBloc.tabKey,
-          movieBloc.tabKey.index,
-        ),
-      ),
-    ]);
   }
 }

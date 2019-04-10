@@ -9,3 +9,6 @@ android/key.properties
 build/
 
 .flutter-plugins
+.idea/
+.vscode/
+play_store_graphics/

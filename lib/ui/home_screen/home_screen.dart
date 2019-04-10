@@ -15,7 +15,8 @@ class HomePage extends StatefulWidget {
   _MyTabbedPageState createState() => new _MyTabbedPageState(title);
 }
 
-class _MyTabbedPageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _MyTabbedPageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
   TabBarView tabBarView;
   final String title;
