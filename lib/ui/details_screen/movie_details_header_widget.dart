@@ -9,14 +9,24 @@ class MovieDetailsHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = width * 0.50;
+
     return Column(
       children: <Widget>[
-        ClipPath(
-          clipper: BackdropClipper(),
-          child: ImageLoader(
-            imageType: IMAGE_TYPE.BACKDROP,
-            imagePath: backdropPath,
-            size: BACKDROP_SIZES[SIZE_LARGE],
+        Hero(
+          tag: "$backdropPath",
+          child: SizedBox(
+            width: width,
+            height: height,
+            child: ClipPath(
+              clipper: BackdropClipper(),
+              child: ImageLoader(
+                imageType: IMAGE_TYPE.BACKDROP,
+                imagePath: backdropPath,
+                size: BACKDROP_SIZES[SIZE_LARGE],
+              ),
+            ),
           ),
         ),
       ],
@@ -34,7 +44,8 @@ class BackdropClipper extends CustomClipper<Path> {
     var endPoint = Offset(size.width, size.height - clipHeight);
 
     path.lineTo(startPoint.dx, startPoint.dy);
-    path.quadraticBezierTo(controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+    path.quadraticBezierTo(
+        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
     path.lineTo(size.width, 0.0); //top right corner
     path.close();
 

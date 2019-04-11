@@ -41,7 +41,7 @@ class TMDBMovieBasic {
       } else {
         return getReleaseYear();
       }
-    } on Exception catch (e) {
+    } on Exception {
       return "";
     }
   }

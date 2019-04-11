@@ -21,7 +21,7 @@ class Router {
       BuildContext context, TMDBMovieBasic movie, String backgroundSize) {
     Navigator.push(
       context,
-      RouteTransition(
+      RouteTransition(    
         widget: BlocProvider<MovieDetailsBloc>(
           bloc: MovieDetailsBloc(tmdb: TMDBApi(), omdb: OMDBApi(), movieBasic: movie),
           child: MovieDetailsScreen(backgroundSize: backgroundSize),

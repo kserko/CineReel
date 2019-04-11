@@ -2,8 +2,7 @@ import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/ui/genres/genres_list.dart';
-import 'package:cine_reel/ui/list_screen/movie_row/poster_row.dart';
-import 'package:cine_reel/ui/list_screen/simple_list.dart';
+import 'package:cine_reel/ui/list_screen/new_list.dart';
 import 'package:cine_reel/ui/scroll_controller/list_controller.dart';
 import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +50,7 @@ class MovieListWidgetState extends State<MovieListWidget> {
     _scrollController.unPause();
 
     if (notGenreList()) {
-      return SimpleListWidget(
+      return NewListWidget(
           scrollController: _scrollController, movies: this.widget.movies);
     } else {
       return new GenreList(

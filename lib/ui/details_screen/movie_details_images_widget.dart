@@ -14,7 +14,6 @@ class MovieDetailsImagesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<TMDBImage> backdrops = movieDetails.backdrops;
-    List<TMDBImage> posters = movieDetails.posters;
 
     print("${backdrops.length}");
     if (backdrops.length > 1) {

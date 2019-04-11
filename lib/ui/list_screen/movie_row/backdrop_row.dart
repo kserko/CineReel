@@ -1,20 +1,32 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
-import 'package:cine_reel/utils/image_helper.dart';
+import 'package:cine_reel/navigation/router.dart';
+import 'package:cine_reel/ui/common_widgets/image_loader.dart';
+import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/flutter_advanced_networkimage.dart';
-import 'package:flutter_advanced_networkimage/transition_to_image.dart';
 
-class MovieRow extends StatelessWidget {
+const String POSTER_SIZE = SIZE_LARGE;
+
+class BackdropRow extends StatelessWidget {
   final TMDBMovieBasic movie;
 
-  MovieRow(this.movie);
-
-  final defaultStyle = TextStyle(fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold);
+  BackdropRow({this.movie});
 
   @override
   Widget build(BuildContext context) {
-    return buildMovieRow(movie, context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Material(
+          child: InkWell(
+              onTap: () {
+                Router.goToMovieDetailsScreen(context, movie, POSTER_SIZE);
+              },
+              child: buildListMovieRow(movie, context)),
+        ),
+        // buildHorizontalDivider(height: 0.0, color: Colors.transparent),
+      ],
+    );
   }
 
   BoxDecoration textDecoration() {
@@ -22,87 +34,101 @@ class MovieRow extends StatelessWidget {
       const BoxShadow(
         offset: const Offset(0.0, 0.0),
         blurRadius: 40.0,
-        color: Colors.black,
+        color: Colors.black26,
       )
     ]);
   }
 
-  Widget buildMovieRow(TMDBMovieBasic movie, BuildContext context) {
+  Widget buildListMovieRow(TMDBMovieBasic movie, BuildContext context) {
     return DefaultTextStyle(
-      style: defaultStyle,
-      child: Stack(
-        children: <Widget>[buildMovieBackdrop(movie), buildTitle(movie), buildRating(movie)],
-      ),
-    );
-  }
-
-  Positioned buildRating(TMDBMovieBasic movie) {
-    return Positioned(
-        top: 10.0,
-        right: 10.0,
-        child: Container(
-          decoration: textDecoration(),
-          child: Row(
-            children: <Widget>[
-              Text("${movie.voteAverage}", style: defaultStyle.copyWith(color: Colors.yellow)),
-              Text("/10", style: defaultStyle),
-            ],
-          ),
-        ));
-  }
-
-  Positioned buildTitle(TMDBMovieBasic movie) {
-    return Positioned(
-      right: 0.0,
-      left: 10.0,
-      bottom: 10.0,
-      child: new Container(
-        decoration: textDecoration(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      style: STYLE_TITLE,
+      child: Container(
+        child: Stack(
           children: <Widget>[
-            buildExpansionTile(movie),
+            _buildBackdrop(movie, context),
+            _buildHeader(movie: movie),
+            Positioned(bottom: 0, right: 0, child: _buildRating(movie)),
+            // buildReleaseDate(movie)
           ],
         ),
       ),
     );
   }
 
-  ExpansionTile buildExpansionTile(TMDBMovieBasic movie) {
-    return ExpansionTile(
-        title: Text("${movie.title}", style: TextStyle(fontSize: 30.0, color: Colors.white)),
-        children: [
-          SizedBox(
-            height: 100.0,
-            child: ListTile(
-                title: SingleChildScrollView(
-              child: Text(movie.overview, style: TextStyle(fontSize: 16.0, color: Colors.white)),
-            )),
-          )
-        ]);
-  }
+  Widget _buildBackdrop(TMDBMovieBasic movie, BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = width * 0.50;
 
-  Widget getAdvancedNetworkImage(TMDBMovieBasic movie) {
-    return new TransitionToImage(
-      AdvancedNetworkImage(backdropImagePath(movie)),
-      placeholder: LinearProgressIndicator(),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Hero(
+          tag: "${movie.backdropPath}",
+          child: SizedBox(
+            height: height,
+            width: width,
+            child: ImageLoader(
+                imagePath: movie.backdropPath,
+                imageType: IMAGE_TYPE.BACKDROP,
+                size: BACKDROP_SIZES[SIZE_LARGE],
+                boxFit: BoxFit.fitWidth,
+                animate: true),
+          ),
+        ),
+      ],
     );
   }
 
-  String backdropImagePath(TMDBMovieBasic movie) =>
-      ImageHelper.getImagePath(movie.backdropPath, BACKDROP_SIZES['medium']);
-
-  Widget buildMovieBackdrop(TMDBMovieBasic movie) {
-    if (movie.backdropPath != null && movie.backdropPath.isNotEmpty) {
-      return Column(
-        //makes the image stretch to fill the screen width
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+  Widget _buildRating(TMDBMovieBasic movie) {
+    return Container(
+      padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
+      decoration: textDecoration(),
+      child: Row(
         children: <Widget>[
-          Image.network(backdropImagePath(movie), fit: BoxFit.fill),
+          Text("${movie.voteAverage}", style: TextStyle(color: Colors.yellow)),
+          Text("/10"),
         ],
-      );
-    } else {
-      return SizedBox(height: 200.0);
-    }
+      ),
+    );
+  }
+
+  Widget _buildHeader({TMDBMovieBasic movie, bool showRating = true}) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: Container(
+            decoration: textDecoration(),
+            padding: const EdgeInsets.only(left: 8.0),
+            child: _buildTitle(movie),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTitle(TMDBMovieBasic movie) {
+    return Hero(
+        child: Container(
+          padding: const EdgeInsets.only(left: 4.0, top: 8.0),
+          child: Material(
+              color: Colors.transparent,
+              child: Text(movie.title, style: STYLE_TITLE)),
+        ),
+        tag: "${movie.id}-${movie.title}");
+  }
+
+  Widget buildReleaseDate(TMDBMovieBasic movie) {
+    return Positioned(
+      bottom: 0.0,
+      right: 0.0,
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        child:
+            //extract the year
+            Text(movie.getUpcomingReleaseDate(),
+                style: STYLE_TITLE.copyWith(fontSize: 14.0)),
+      ),
+    );
   }
 }

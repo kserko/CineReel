@@ -8,7 +8,9 @@ class RouteTransition extends PageRouteBuilder {
       : super(pageBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation) {
           return widget;
-        }, transitionsBuilder: (BuildContext context, Animation<double> animation,
+        }, 
+        transitionDuration: Duration(milliseconds: 500),
+        transitionsBuilder: (BuildContext context, Animation<double> animation,
             Animation<double> secondaryAnimation, Widget child) {
           if (fade) {
             return new FadeTransition(opacity: animation, child: child);
