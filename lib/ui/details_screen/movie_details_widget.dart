@@ -30,7 +30,7 @@ class MovieDetailsWidget extends StatelessWidget {
         child: Stack(
       children: <Widget>[
         BlurredImage(
-          imagePath: movieDetails.movieBasic.posterPath,
+          imagePath: movieDetails.movieBasic.backdropPath,
           imageSize: backgroundSize,
         ),
         MovieDetailsContentWidget(movieDetails, movieDetailsBloc, hasFailed)

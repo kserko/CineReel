@@ -23,7 +23,12 @@ class PersonWidget extends StatelessWidget {
   final bool showLoading;
   final String errorMessage;
 
-  PersonWidget({Key key, this.person, this.cast, bool this.showLoading, this.errorMessage})
+  PersonWidget(
+      {Key key,
+      this.person,
+      this.cast,
+      bool this.showLoading,
+      this.errorMessage})
       : super(key: key);
   final loadingWidget = LoadingWidget(
     visible: true,
@@ -31,8 +36,11 @@ class PersonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    widgetsList
-        .addAll([_populateBasicInfo(context), _populateBio(), _populateFilmography(context)]);
+    widgetsList.addAll([
+      _populateBasicInfo(context),
+      _populateBio(),
+      _populateFilmography(context)
+    ]);
 
     if (errorMessage.isNotEmpty) {
       widgetsList.add(ErrorsWidget(
@@ -147,7 +155,7 @@ class PersonWidget extends StatelessWidget {
           child: MaterialIcon("assets/imdb_icon.png", _launchIMDBUrl),
         ),
         childTwo: Container(),
-        showHappyPath: person != null);
+        showChildOne: person != null);
   }
 
   _launchIMDBUrl() {
@@ -157,7 +165,9 @@ class PersonWidget extends StatelessWidget {
 
   Widget _populateBio() {
     return CrossFadeWidgets(
-        childOne: _buildBiographyWidget(), childTwo: Container(), showHappyPath: person != null);
+        childOne: _buildBiographyWidget(),
+        childTwo: Container(),
+        showChildOne: person != null);
   }
 
   Widget _buildBiographyWidget() {
@@ -175,7 +185,9 @@ class PersonWidget extends StatelessWidget {
 
   Widget _populateBirthday(BuildContext context) {
     return CrossFadeWidgets(
-        childOne: _buildBirthdayWidget(), childTwo: Container(), showHappyPath: person != null);
+        childOne: _buildBirthdayWidget(),
+        childTwo: Container(),
+        showChildOne: person != null);
   }
 
   Widget _buildBirthdayWidget() {
@@ -220,7 +232,7 @@ class PersonWidget extends StatelessWidget {
     return CrossFadeWidgets(
       childOne: _buildFilmography(context),
       childTwo: Container(),
-      showHappyPath: person != null,
+      showChildOne: person != null,
     );
   }
 
@@ -245,13 +257,15 @@ class PersonWidget extends StatelessWidget {
     return Container();
   }
 
-  Expanded _buildFilmographyList(List<MovieCreditsAsCast> movieCredits, double movieCreditHeight) {
+  Expanded _buildFilmographyList(
+      List<MovieCreditsAsCast> movieCredits, double movieCreditHeight) {
     return Expanded(
       child: ListView.builder(
         itemCount: movieCredits.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: ((BuildContext context, int index) {
-          return _buildMoviePoster(movieCredits[index], movieCreditHeight, context);
+          return _buildMoviePoster(
+              movieCredits[index], movieCreditHeight, context);
         }),
       ),
     );
@@ -267,8 +281,8 @@ class PersonWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildMoviePoster(
-      MovieCreditsAsCast movieCredit, double movieCreditHeight, BuildContext context) {
+  Widget _buildMoviePoster(MovieCreditsAsCast movieCredit,
+      double movieCreditHeight, BuildContext context) {
     return Column(
       children: <Widget>[
         Expanded(
@@ -279,8 +293,8 @@ class PersonWidget extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () => Router.goToMovieDetailsScreen(
-                      context, movieCredit.convertToTMDBMovieBasic(), MOVIE_POSTER_SIZE),
+                  onTap: () => Router.goToMovieDetailsScreen(context,
+                      movieCredit.convertToTMDBMovieBasic(), MOVIE_POSTER_SIZE),
                   child: PosterWidget(
                     id: movieCredit.id,
                     imagePath: movieCredit.posterPath,

@@ -66,12 +66,12 @@ Widget MaterialIcon(String assetPath, [Function onPressedAction]) {
 }
 
 AnimatedCrossFade CrossFadeWidgets(
-    {@required Widget childOne, @required Widget childTwo, @required bool showHappyPath}) {
+    {@required Widget childOne, @required Widget childTwo, @required bool showChildOne}) {
   return AnimatedCrossFade(
     alignment: Alignment.center,
     firstChild: childOne,
     secondChild: childTwo,
     duration: Duration(milliseconds: 300),
-    crossFadeState: showHappyPath ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+    crossFadeState: showChildOne ? CrossFadeState.showFirst : CrossFadeState.showSecond,
   );
 }

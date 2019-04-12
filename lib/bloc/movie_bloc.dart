@@ -47,7 +47,9 @@ class MovieBloc extends BlocBase {
 
   @override
   void dispose() {
+    print("close streamController for ${this.tabKey}");
     _streamController.close();
+    _streamController = null;
   }
 
   void init() {

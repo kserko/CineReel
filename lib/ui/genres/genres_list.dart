@@ -1,6 +1,6 @@
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
-import 'package:cine_reel/ui/list_screen/movie_row/poster_row.dart';
+import 'package:cine_reel/ui/list_screen/movie_row/backdrop_row.dart';
 import 'package:cine_reel/ui/scroll_controller/list_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +46,7 @@ class GenreList extends StatelessWidget {
       itemCount: movies.length,
       itemBuilder: (context, index) {
         final movie = movies[index];
-        return PosterRow(movie: movie);
+        return BackdropRow(movie: movie);
       },
     );
   }

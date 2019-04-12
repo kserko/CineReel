@@ -23,7 +23,7 @@ class PosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(child: _buildImage(context), tag: "$id-imagePath");
+    return Hero(child: _buildImage(context), tag: "$id-$imagePath");
   }
 
   Widget _buildImage(BuildContext context) {
@@ -36,7 +36,7 @@ class PosterWidget extends StatelessWidget {
 
     if (animate) {
       return CrossFadeWidgets(
-          childOne: image, childTwo: SizedBox(width: 100.0), showHappyPath: image != null);
+          childOne: image, childTwo: SizedBox(width: 100.0), showChildOne: image != null);
     } else {
       return image;
     }

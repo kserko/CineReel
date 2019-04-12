@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 class MovieDetailsHeaderWidget extends StatelessWidget {
   final String backdropPath;
 
-  MovieDetailsHeaderWidget({@required this.backdropPath});
+  final int id;
+
+  MovieDetailsHeaderWidget(
+      {@required this.backdropPath, @required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class MovieDetailsHeaderWidget extends StatelessWidget {
     return Column(
       children: <Widget>[
         Hero(
-          tag: "$backdropPath",
+          tag: "$id-$backdropPath",
           child: SizedBox(
             width: width,
             height: height,

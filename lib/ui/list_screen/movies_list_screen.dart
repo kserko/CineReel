@@ -20,12 +20,10 @@ class MoviesListScreen extends StatefulWidget {
   _MoviesListScreenState createState() => _MoviesListScreenState();
 }
 
-
 class _MoviesListScreenState extends State<MoviesListScreen> {
-
   @override
   Widget build(BuildContext context) {
-      MovieBloc movieBloc = BlocProvider.of<MovieBloc>(context);
+    MovieBloc movieBloc = BlocProvider.of<MovieBloc>(context);
 
     return Column(key: Key("rootColumn"), children: [
       Flexible(
@@ -41,9 +39,6 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
 
   StreamBuilder<MoviesState> buildStreamBuilder(
       BuildContext context, MovieBloc movieBloc, TabKey tabKey, int tabIndex) {
-
-        print("initial data ${movieBloc.moviesPopulated.movies.length}");
-
     return StreamBuilder(
         key: Key('streamBuilder'),
         initialData: movieBloc.moviesPopulated,

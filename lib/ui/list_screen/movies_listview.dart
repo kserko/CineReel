@@ -3,15 +3,17 @@ import 'package:cine_reel/ui/list_screen/movie_row/backdrop_row.dart';
 import 'package:cine_reel/ui/scroll_controller/list_controller.dart';
 import 'package:flutter/material.dart';
 
-class NewListWidget extends StatelessWidget {
-  const NewListWidget(
+
+class MoviesListView extends StatelessWidget {
+  final ListController scrollController;
+  final List<TMDBMovieBasic> movies;
+
+  const MoviesListView(
       {Key key,
       @required ListController this.scrollController,
       @required List<TMDBMovieBasic> this.movies})
       : super(key: key);
 
-  final ListController scrollController;
-  final List<TMDBMovieBasic> movies;
 
   @override
   Widget build(BuildContext context) {

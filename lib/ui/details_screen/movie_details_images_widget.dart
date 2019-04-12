@@ -15,7 +15,6 @@ class MovieDetailsImagesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<TMDBImage> backdrops = movieDetails.backdrops;
 
-    print("${backdrops.length}");
     if (backdrops.length > 1) {
       return Column(
         children: <Widget>[

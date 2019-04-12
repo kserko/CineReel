@@ -34,6 +34,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
       //0.32 is just a magic number that makes things not overlap even in smaller screens
       height: MediaQuery.of(context).size.height * 0.32,
       child: MovieDetailsHeaderWidget(
+        id: movieDetails.movieBasic.id,
         backdropPath: movieDetails.movieBasic.backdropPath,
       ),
     );
@@ -44,7 +45,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
         childOne:
             MovieExtraContentWidget(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
         childTwo: ErrorsWidget(visible: true, error: movieDetails.status_message),
-        showHappyPath: !hasFailed);
+        showChildOne: !hasFailed);
   }
 
   Widget buildMinorDetailsRow() {
@@ -57,7 +58,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
           ],
         ),
         childTwo: Container(),
-        showHappyPath: movieDetails.hasData);
+        showChildOne: movieDetails.hasData);
   }
 
   Widget buildOverview() {
