@@ -13,7 +13,8 @@ class MovieDetailsHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = width * 0.50;
+    //using half of the width as height, makes the backdrop to not overflow on any screen
+    double height = width * 0.50; 
 
     return Column(
       children: <Widget>[

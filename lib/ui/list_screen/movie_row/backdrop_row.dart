@@ -55,6 +55,8 @@ class BackdropRow extends StatelessWidget {
 
   Widget _buildBackdrop(TMDBMovieBasic movie, BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    //using half of the width as height, makes the backdrops just the right size
+    //to fit exactly one after the other without gaps
     double height = width * 0.50;
 
     return Row(
@@ -84,7 +86,8 @@ class BackdropRow extends StatelessWidget {
       decoration: textDecoration(),
       child: Row(
         children: <Widget>[
-          Text("${movie.voteAverage}", style: STYLE_TITLE.copyWith(color: Colors.yellow)),
+          Text("${movie.voteAverage}",
+              style: STYLE_TITLE.copyWith(color: Colors.yellow)),
           Text(
             " / 10",
             style: TextStyle(fontSize: 14.0),
@@ -112,7 +115,9 @@ class BackdropRow extends StatelessWidget {
     return Hero(
         child: Container(
           padding: const EdgeInsets.only(left: 4.0, top: 8.0),
-          child: Material(color: Colors.transparent, child: Text(movie.title, style: STYLE_TITLE)),
+          child: Material(
+              color: Colors.transparent,
+              child: Text(movie.title, style: STYLE_TITLE)),
         ),
         tag: "${movie.id}-${movie.title}");
   }

@@ -31,8 +31,6 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   Widget buildHeaderImage(BuildContext context) {
     return SizedBox(
-      //0.32 is just a magic number that makes things not overlap even in smaller screens
-      height: MediaQuery.of(context).size.height * 0.32,
       child: MovieDetailsHeaderWidget(
         id: movieDetails.movieBasic.id,
         backdropPath: movieDetails.movieBasic.backdropPath,
