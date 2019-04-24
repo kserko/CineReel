@@ -1,7 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/navigation/router.dart';
-import 'package:cine_reel/ui/common_widgets/image_loader.dart';
+import 'package:cine_reel/ui/list_screen/movie_row/backdrop_widget.dart';
 import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -44,39 +44,12 @@ class BackdropRow extends StatelessWidget {
     return Container(
       child: Stack(
         children: <Widget>[
-          _buildBackdrop(movie, context),
+          BackdropWidget(movie: movie, context: context),
           _buildHeader(movie: movie),
           Positioned(bottom: 0, right: 0, child: _buildRating(movie)),
           // buildReleaseDate(movie)
         ],
       ),
-    );
-  }
-
-  Widget _buildBackdrop(TMDBMovieBasic movie, BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    //using half of the width as height, makes the backdrops just the right size
-    //to fit exactly one after the other without gaps
-    double height = width * 0.50;
-
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Hero(
-          tag: "${movie.id}-${movie.backdropPath}",
-          child: SizedBox(
-            height: height,
-            width: width,
-            child: ImageLoader(
-                imagePath: movie.backdropPath,
-                imageType: IMAGE_TYPE.BACKDROP,
-                size: BACKDROP_SIZES[SIZE_LARGE],
-                boxFit: BoxFit.fitWidth,
-                animate: true),
-          ),
-        ),
-      ],
     );
   }
 
@@ -122,3 +95,4 @@ class BackdropRow extends StatelessWidget {
         tag: "${movie.id}-${movie.title}");
   }
 }
+
