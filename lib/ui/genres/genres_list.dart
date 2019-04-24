@@ -30,7 +30,7 @@ class GenreList extends StatelessWidget {
                     "${genre.name}",
                     key: Key("appBarTitle"),
                     style: TextStyle(
-                        fontSize: 23.0, color: Theme.of(context).accentColor),
+                        fontSize: 23.0, color: Colors.white),
                   ),
                 ],
               ),
