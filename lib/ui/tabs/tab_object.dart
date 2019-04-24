@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 enum TabKey { kNowPlaying, kUpcoming, kTopRated, kPopular, kGenres, kSearchMovies, kSearchPeople }
 
 const Map<TabKey, String> tabs = {
-  TabKey.kNowPlaying: "IN THEATERS",
+  TabKey.kNowPlaying: "NOW PLAYING",
   TabKey.kUpcoming: "UPCOMING",
   TabKey.kTopRated: "TOP RATED",
   TabKey.kPopular: "POPULAR",
