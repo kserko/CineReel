@@ -24,7 +24,8 @@ TMDBMovieBasic _$TMDBMovieBasicFromJson(Map<String, dynamic> json) {
       releaseDate: json['release_date'] as String);
 }
 
-Map<String, dynamic> _$TMDBMovieBasicToJson(TMDBMovieBasic instance) => <String, dynamic>{
+Map<String, dynamic> _$TMDBMovieBasicToJson(TMDBMovieBasic instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'video': instance.video,
       'title': instance.title,

@@ -16,8 +16,9 @@ class MovieDetailsRatingsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          margin: const EdgeInsets.symmetric(horizontal: INDENT),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +30,7 @@ class MovieDetailsRatingsWidget extends StatelessWidget {
             ],
           ),
         ),
-        buildHorizontalDivider(),
+        buildHorizontalDivider(context),
       ],
     );
   }

@@ -1,9 +1,12 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
+import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
+import 'package:cine_reel/ui/details_screen/genre_pill_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_header_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
+import 'package:cine_reel/utils/fixtures.dart';
 import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +15,8 @@ class MovieDetailsContentWidget extends StatelessWidget {
   final MovieDetailsBloc movieDetailsBloc;
   final bool hasFailed;
 
-  MovieDetailsContentWidget(this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
+  MovieDetailsContentWidget(
+      this.movieDetails, this.movieDetailsBloc, bool this.hasFailed);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
         buildTitle(),
         buildMinorDetailsRow(),
         buildOverview(),
-        buildHorizontalDivider(),
+        buildGenres(context),
         buildMovieExtraDetailsContainer(),
       ],
     );
@@ -40,28 +44,33 @@ class MovieDetailsContentWidget extends StatelessWidget {
 
   Widget buildMovieExtraDetailsContainer() {
     return CrossFadeWidgets(
-        childOne:
-            MovieExtraContentWidget(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
-        childTwo: ErrorsWidget(visible: true, error: movieDetails.status_message),
+        childOne: MovieExtraContentWidget(
+            movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
+        childTwo:
+            ErrorsWidget(visible: true, error: movieDetails.status_message),
         showChildOne: !hasFailed);
   }
 
   Widget buildMinorDetailsRow() {
-    return CrossFadeWidgets(
-        childOne: Row(
-          children: <Widget>[
-            buildRunningTime(),
-            buildReleaseDate(),
-            buildDirectorName(),
-          ],
-        ),
-        childTwo: Container(),
-        showChildOne: movieDetails.hasData);
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: INDENT * 2),
+      child: CrossFadeWidgets(
+          childOne: Row(
+            children: <Widget>[
+              buildRunningTime(),
+              buildReleaseDate(),
+              buildDirectorName(),
+            ],
+          ),
+          childTwo: Container(),
+          showChildOne: movieDetails.hasData),
+    );
   }
 
   Widget buildOverview() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: INDENT),
       child: Material(
         color: Colors.transparent,
         child: Text(
@@ -120,24 +129,58 @@ class MovieDetailsContentWidget extends StatelessWidget {
   buildReleaseDate() {
     var formattedReleaseDate = movieDetails.getFormattedReleaseDate();
     if (formattedReleaseDate != null && formattedReleaseDate.isNotEmpty) {
-      return Row(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(formattedReleaseDate, style: TextStyle(fontSize: 13.0)),
-          ),
-          getDotSeparator(),
-        ],
+      return Container(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(formattedReleaseDate, style: TextStyle(fontSize: 13.0)),
       );
     }
     return Container();
   }
 
   buildDirectorName() {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("directed by ${movieDetails.getDirector()}", style: TextStyle(fontSize: 13.0)),
+    if (movieDetails.getDirector().isEmpty) {
+      return Container();
+    }
+    return Row(
+      children: <Widget>[
+        getDotSeparator(),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("directed by ${movieDetails.getDirector()}",
+              style: TextStyle(fontSize: 13.0)),
+        ),
+      ],
+    );
+  }
+
+  buildGenres(BuildContext context) {
+    if (movieDetails.genres == null || movieDetails.genres.isEmpty) {
+      return Container();
+    }
+
+    List genres = movieDetails.genres.map((genre) {
+      return new GenrePill(genre: genre);
+    }).toList();
+
+    return Column(
+      children: [
+        buildHorizontalDivider(context),
+        _buildGenrePillsScroller(genres),
+      ],
+    );
+  }
+
+  Container _buildGenrePillsScroller(List genres) {
+    return Container(
+      height: 45.0,
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          Row(
+            children: genres,
+          )
+        ],
+        scrollDirection: Axis.horizontal,
       ),
     );
   }

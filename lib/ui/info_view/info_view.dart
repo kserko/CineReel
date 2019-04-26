@@ -49,7 +49,7 @@ class InfoViewState extends State<InfoView> {
             children: <Widget>[
               buildAppTitle(),
               buildAppUrl(),
-              buildHorizontalDivider(height: 0.0),
+              buildHorizontalDivider(context, height: 0.0),
               buildTmdbAttribution(),
               buildLauncherIconAttribution()
             ],

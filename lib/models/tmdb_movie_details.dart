@@ -1,4 +1,5 @@
 import 'package:cine_reel/models/omdb_movie.dart';
+import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/models/tmdb_reviews_response.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -44,7 +45,7 @@ class TMDBMovieDetails {
   @JsonKey(name: "budget")
   int budget;
   @JsonKey(name: "genres")
-  List<Genre> genres = null;
+  List<TMDBGenre> genres = null;
   @JsonKey(name: "homepage")
   String homepage;
   @JsonKey(name: "id")
@@ -240,17 +241,17 @@ class SpokenLanguage {
   Map<String, dynamic> toJson() => _$SpokenLanguageToJson(this);
 }
 
-@JsonSerializable()
-class Genre {
-  int id;
-  String name;
+// @JsonSerializable()
+// class Genre {
+//   int id;
+//   String name;
 
-  Genre(this.id, this.name);
+//   Genre(this.id, this.name);
 
-  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
+//   factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GenreToJson(this);
-}
+//   Map<String, dynamic> toJson() => _$GenreToJson(this);
+// }
 
 /*
 "credits": {

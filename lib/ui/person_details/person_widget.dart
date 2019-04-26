@@ -38,7 +38,7 @@ class PersonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     widgetsList.addAll([
       _populateBasicInfo(context),
-      _populateBio(),
+      _populateBio(context),
       _populateFilmography(context)
     ]);
 
@@ -93,7 +93,7 @@ class PersonWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         personName(),
-        buildHorizontalDivider(),
+        buildHorizontalDivider(context),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -163,20 +163,20 @@ class PersonWidget extends StatelessWidget {
     return launchURL(url);
   }
 
-  Widget _populateBio() {
+  Widget _populateBio(BuildContext context) {
     return CrossFadeWidgets(
-        childOne: _buildBiographyWidget(),
+        childOne: _buildBiographyWidget(context),
         childTwo: Container(),
         showChildOne: person != null);
   }
 
-  Widget _buildBiographyWidget() {
+  Widget _buildBiographyWidget(context) {
     bool hasBiography = person?.hasBiography() ?? false;
     if (hasBiography) {
       return Column(
         children: <Widget>[
           Text(person.biography),
-          buildHorizontalDivider(),
+          buildHorizontalDivider(context),
         ],
       );
     }
@@ -185,12 +185,12 @@ class PersonWidget extends StatelessWidget {
 
   Widget _populateBirthday(BuildContext context) {
     return CrossFadeWidgets(
-        childOne: _buildBirthdayWidget(),
+        childOne: _buildBirthdayWidget(context),
         childTwo: Container(),
         showChildOne: person != null);
   }
 
-  Widget _buildBirthdayWidget() {
+  Widget _buildBirthdayWidget(BuildContext context) {
     bool hasBirthdayDetails = person?.hasBirthdayDetails() ?? false;
 
     if (hasBirthdayDetails) {
@@ -198,7 +198,7 @@ class PersonWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            buildHorizontalDivider(),
+            buildHorizontalDivider(context),
             Row(
               children: <Widget>[
                 Expanded(
@@ -220,7 +220,7 @@ class PersonWidget extends StatelessWidget {
                 ),
               ),
             ),
-            buildHorizontalDivider(),
+            buildHorizontalDivider(context),
           ],
         ),
       );
@@ -249,7 +249,7 @@ class PersonWidget extends StatelessWidget {
           children: <Widget>[
             _buildFilmographySubtitle(),
             _buildFilmographyList(movieCredits, filmographyHeight),
-            buildHorizontalDivider(),
+            buildHorizontalDivider(context),
           ],
         ),
       );

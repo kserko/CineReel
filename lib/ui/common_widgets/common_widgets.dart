@@ -5,6 +5,8 @@ import 'package:cine_reel/ui/info_view/info_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+const double INDENT = 10.0;
+
 Widget getDotSeparator() {
   return Text("·", style: TextStyle(fontSize: 23.0));
 }
@@ -27,20 +29,27 @@ List<Widget> buildActions(context) {
 }
 
 IconButton searchAction(context) {
-  return IconButton(icon: Icon(Icons.search), onPressed: () => Router.goToSearchScreen(context));
+  return IconButton(
+      icon: Icon(Icons.search),
+      onPressed: () => Router.goToSearchScreen(context));
 }
 
 IconButton infoAction(context) {
   return IconButton(
       icon: Icon(Icons.info_outline),
-      onPressed: () =>
-          showModalBottomSheet(context: context, builder: (BuildContext context) => InfoView()));
+      onPressed: () => showModalBottomSheet(
+          context: context, builder: (BuildContext context) => InfoView()));
 }
 
-Widget buildHorizontalDivider({double height = 22.0, Color color = Colors.white}) {
-  return Divider(
-    height: height,
-    color: color,
+Widget buildHorizontalDivider(context,
+    {double height = 22.0, Color color = Colors.white, double leftIndent = INDENT, double rightIndent = INDENT}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Container(
+        width: MediaQuery.of(context).size.width,
+        color: color,
+        height: 0.3,
+        margin: EdgeInsets.only(left: leftIndent, right: rightIndent)),
   );
 }
 
@@ -66,12 +75,15 @@ Widget MaterialIcon(String assetPath, [Function onPressedAction]) {
 }
 
 AnimatedCrossFade CrossFadeWidgets(
-    {@required Widget childOne, @required Widget childTwo, @required bool showChildOne}) {
+    {@required Widget childOne,
+    @required Widget childTwo,
+    @required bool showChildOne}) {
   return AnimatedCrossFade(
     alignment: Alignment.center,
     firstChild: childOne,
     secondChild: childTwo,
     duration: Duration(milliseconds: 300),
-    crossFadeState: showChildOne ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+    crossFadeState:
+        showChildOne ? CrossFadeState.showFirst : CrossFadeState.showSecond,
   );
 }

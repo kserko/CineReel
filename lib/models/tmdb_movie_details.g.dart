@@ -13,7 +13,8 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       json['belongs_to_collection'],
       json['budget'] as int,
       (json['genres'] as List)
-          ?.map((e) => e == null ? null : Genre.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : TMDBGenre.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['homepage'] as String,
       json['id'] as int,
@@ -24,16 +25,22 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       (json['popularity'] as num)?.toDouble(),
       json['poster_path'] as String,
       (json['production_companies'] as List)
-          ?.map((e) => e == null ? null : ProductionCompany.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null
+              ? null
+              : ProductionCompany.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       (json['production_countries'] as List)
-          ?.map((e) => e == null ? null : ProductionCountry.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null
+              ? null
+              : ProductionCountry.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['release_date'] as String,
       json['revenue'] as int,
       json['runtime'] as int,
       (json['spoken_languages'] as List)
-          ?.map((e) => e == null ? null : SpokenLanguage.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => e == null
+              ? null
+              : SpokenLanguage.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['status'] as String,
       json['tag_line'] as String,
@@ -42,15 +49,18 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
       (json['vote_average'] as num)?.toDouble(),
       json['vote_count'] as int,
       json['status_message'] as String)
-    ..credits =
-        json['credits'] == null ? null : Credits.fromJson(json['credits'] as Map<String, dynamic>)
-    ..images =
-        json['images'] == null ? null : Images.fromJson(json['images'] as Map<String, dynamic>)
+    ..credits = json['credits'] == null
+        ? null
+        : Credits.fromJson(json['credits'] as Map<String, dynamic>)
+    ..images = json['images'] == null
+        ? null
+        : Images.fromJson(json['images'] as Map<String, dynamic>)
     ..omdbMovie = json['omdbMovie'] == null
         ? null
         : OMDBMovie.fromJson(json['omdbMovie'] as Map<String, dynamic>)
     ..movieReviews = (json['movieReviews'] as List)
-        ?.map((e) => e == null ? null : TMDBReview.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : TMDBReview.fromJson(e as Map<String, dynamic>))
         ?.toList()
     ..movieBasic = json['movieBasic'] == null
         ? null
@@ -58,7 +68,8 @@ TMDBMovieDetails _$TMDBMovieDetailsFromJson(Map<String, dynamic> json) {
     ..hasData = json['hasData'] as bool;
 }
 
-Map<String, dynamic> _$TMDBMovieDetailsToJson(TMDBMovieDetails instance) => <String, dynamic>{
+Map<String, dynamic> _$TMDBMovieDetailsToJson(TMDBMovieDetails instance) =>
+    <String, dynamic>{
       'status_message': instance.status_message,
       'backdrop_path': instance.backdropPath,
       'belongs_to_collection': instance.belongsToCollection,
@@ -96,15 +107,19 @@ Map<String, dynamic> _$TMDBMovieDetailsToJson(TMDBMovieDetails instance) => <Str
 Images _$ImagesFromJson(Map<String, dynamic> json) {
   return Images(
       (json['backdrops'] as List)
-          ?.map((e) => e == null ? null : TMDBImage.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : TMDBImage.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       (json['posters'] as List)
-          ?.map((e) => e == null ? null : TMDBImage.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : TMDBImage.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
-Map<String, dynamic> _$ImagesToJson(Images instance) =>
-    <String, dynamic>{'backdrops': instance.backdrops, 'posters': instance.posters};
+Map<String, dynamic> _$ImagesToJson(Images instance) => <String, dynamic>{
+      'backdrops': instance.backdrops,
+      'posters': instance.posters
+    };
 
 TMDBImage _$TMDBImageFromJson(Map<String, dynamic> json) {
   return TMDBImage(
@@ -120,19 +135,20 @@ TMDBImage _$TMDBImageFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$TMDBImageToJson(TMDBImage instance) => <String, dynamic>{
       'aspect_ration': instance.aspectRatio,
       'file_path': instance.filePath,
-      'height': instance.height,
       'iso_639_1': instance.iso6391,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'height': instance.height,
       'width': instance.width
     };
 
 ProductionCompany _$ProductionCompanyFromJson(Map<String, dynamic> json) {
-  return ProductionCompany(
-      json['id'] as int, json['logoPath'], json['name'] as String, json['originCountry'] as String);
+  return ProductionCompany(json['id'] as int, json['logoPath'],
+      json['name'] as String, json['originCountry'] as String);
 }
 
-Map<String, dynamic> _$ProductionCompanyToJson(ProductionCompany instance) => <String, dynamic>{
+Map<String, dynamic> _$ProductionCompanyToJson(ProductionCompany instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'logoPath': instance.logoPath,
       'name': instance.name,
@@ -153,20 +169,15 @@ SpokenLanguage _$SpokenLanguageFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$SpokenLanguageToJson(SpokenLanguage instance) =>
     <String, dynamic>{'iso6391': instance.iso6391, 'name': instance.name};
 
-Genre _$GenreFromJson(Map<String, dynamic> json) {
-  return Genre(json['id'] as int, json['name'] as String);
-}
-
-Map<String, dynamic> _$GenreToJson(Genre instance) =>
-    <String, dynamic>{'id': instance.id, 'name': instance.name};
-
 Credits _$CreditsFromJson(Map<String, dynamic> json) {
   return Credits(
       (json['cast'] as List)
-          ?.map((e) => e == null ? null : Cast.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Cast.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       (json['crew'] as List)
-          ?.map((e) => e == null ? null : Crew.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : Crew.fromJson(e as Map<String, dynamic>))
           ?.toList());
 }
 
@@ -174,8 +185,13 @@ Map<String, dynamic> _$CreditsToJson(Credits instance) =>
     <String, dynamic>{'cast': instance.cast, 'crew': instance.crew};
 
 Cast _$CastFromJson(Map<String, dynamic> json) {
-  return Cast(json['cast_id'] as int, json['character'] as String, json['credit_id'] as String,
-      json['id'] as int, json['name'] as String, json['profile_path'] as String);
+  return Cast(
+      json['cast_id'] as int,
+      json['character'] as String,
+      json['credit_id'] as String,
+      json['id'] as int,
+      json['name'] as String,
+      json['profile_path'] as String);
 }
 
 Map<String, dynamic> _$CastToJson(Cast instance) => <String, dynamic>{

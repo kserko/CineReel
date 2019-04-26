@@ -26,7 +26,7 @@ class PosterRow extends StatelessWidget {
               },
               child: buildListMovieRow(movie, context)),
         ),
-        buildHorizontalDivider(height: 1.0, color: Theme.of(context).accentColor),
+        buildHorizontalDivider(context, height: 1.0, color: Theme.of(context).accentColor),
       ],
     );
   }

@@ -20,7 +20,7 @@ class CastThumbnailWidget extends StatelessWidget {
       children: <Widget>[
         buildSubtitleForDetailsPage("Cast"),
         buildThumbnails(),
-        buildHorizontalDivider(),
+        buildHorizontalDivider(context),
       ],
     );
   }
