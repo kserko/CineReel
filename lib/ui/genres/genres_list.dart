@@ -1,5 +1,6 @@
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
+import 'package:cine_reel/ui/details_screen/genre_pill_widget.dart';
 import 'package:cine_reel/ui/list_screen/movie_row/backdrop_row.dart';
 import 'package:cine_reel/ui/scroll_controller/list_controller.dart';
 import 'package:flutter/material.dart';
@@ -21,21 +22,7 @@ class GenreList extends StatelessWidget {
     return Scaffold(
         body: buildGenreList(),
         appBar: AppBar(
-          title: Hero(
-            child: Material(
-              color: Colors.transparent,
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    "${genre.name}",
-                    key: Key("appBarTitle"),
-                    style: TextStyle(fontSize: 23.0, color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            tag: "${genre.name}",
-          ),
+          title: GenrePill(genre: genre,textSize: 23.0,)
         ));
   }
 
