@@ -159,7 +159,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
     }
 
     List genres = movieDetails.genres.map((genre) {
-      return new GenrePill(genre: genre);
+      return new GenrePill(genre: genre, textSize: 14.0,);
     }).toList();
 
     return Column(

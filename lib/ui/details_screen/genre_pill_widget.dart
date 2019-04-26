@@ -6,9 +6,11 @@ class GenrePill extends StatelessWidget {
   const GenrePill({
     Key key,
     @required this.genre,
+    @required this.textSize,
   }) : super(key: key);
 
   final TMDBGenre genre;
+  final double textSize;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,12 @@ class GenrePill extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.0),
               border: Border.all(color: Colors.white12),
             ),
-            child: Text(
-              genre.name,
-              style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
+            child: FittedBox(
+              child: Text(
+                genre.name,
+                style:
+                    TextStyle(fontSize: textSize, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ),
