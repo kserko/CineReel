@@ -22,7 +22,7 @@ class GenreList extends StatelessWidget {
     return Scaffold(
         body: buildGenreList(),
         appBar: AppBar(
-          title: GenrePill(genre: genre,textSize: 23.0,)
+          title: GenrePill(genre: genre,fontSize: 23.0,)
         ));
   }
 

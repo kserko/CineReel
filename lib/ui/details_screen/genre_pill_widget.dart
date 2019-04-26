@@ -6,11 +6,11 @@ class GenrePill extends StatelessWidget {
   const GenrePill({
     Key key,
     @required this.genre,
-    @required this.textSize,
+    @required this.fontSize,
   }) : super(key: key);
 
   final TMDBGenre genre;
-  final double textSize;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class GenrePill extends StatelessWidget {
               child: Text(
                 genre.name,
                 style:
-                    TextStyle(fontSize: textSize, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
             ),
           ),
