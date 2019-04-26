@@ -1,7 +1,6 @@
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/models/tmdb_person_search_response.dart';
 import 'package:cine_reel/ui/grid_screen/grid_item.dart';
-import 'package:cine_reel/ui/grid_screen/movie_search_result_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

@@ -1,4 +1,5 @@
 import 'package:cine_reel/models/tmdb_genres.dart';
+import 'package:cine_reel/ui/details_screen/genre_pill_widget.dart';
 
 TMDBGenre genreOne = TMDBGenre(1, 'genre1');
 TMDBGenre genreTwo = TMDBGenre(2, 'genre2');

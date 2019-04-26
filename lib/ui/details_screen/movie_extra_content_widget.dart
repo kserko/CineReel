@@ -1,8 +1,10 @@
 import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
+import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/details_screen/cast_thumbnails_widget.dart';
+import 'package:cine_reel/ui/details_screen/movie_details_content_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_images_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_ratings_widget.dart';
 import 'package:cine_reel/utils/styles.dart';
@@ -11,7 +13,9 @@ import 'package:flutter/widgets.dart';
 Container buildSubtitleForDetailsPage(String title) {
   return Container(
       margin: const EdgeInsets.only(left: 8.0, bottom: 18.0),
-      child: Align(alignment: Alignment.topLeft, child: Text(title, style: STYLE_SUBTITLE)));
+      child: Align(
+          alignment: Alignment.topLeft,
+          child: Text(title, style: STYLE_SUBTITLE)));
 }
 
 class MovieExtraContentWidget extends StatelessWidget {
@@ -27,9 +31,10 @@ class MovieExtraContentWidget extends StatelessWidget {
     List<Widget> widgetList = [];
 
     if (movieDetails.hasData) {
-      widgetList.addAll(extraChildren());
+      widgetList.addAll(extraChildren(context));
     } else if (movieDetails.hasErrors()) {
-      widgetList.add(ErrorsWidget(visible: true, error: movieDetails.status_message));
+      widgetList
+          .add(ErrorsWidget(visible: true, error: movieDetails.status_message));
     } else {
       widgetList.add(getLoadingWidget());
     }
@@ -41,9 +46,11 @@ class MovieExtraContentWidget extends StatelessWidget {
     );
   }
 
-  List<Widget> extraChildren() {
+  List<Widget> extraChildren(BuildContext context) {
     return [
-      MovieDetailsRatingsWidget(movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
+      buildHorizontalDivider(context),
+      MovieDetailsRatingsWidget(
+          movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
       CastThumbnailsWidget(movieDetails: movieDetails),
       MovieDetailsImagesWidget(movieDetails: movieDetails),
     ];

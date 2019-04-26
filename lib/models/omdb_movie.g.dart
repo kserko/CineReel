@@ -23,7 +23,8 @@ OMDBMovie _$OMDBMovieFromJson(Map<String, dynamic> json) {
       json['Awards'] as String,
       json['Poster'] as String,
       (json['Ratings'] as List)
-          ?.map((e) => e == null ? null : OMDBRating.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              e == null ? null : OMDBRating.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['Metascore'] as String,
       json['imdbRating'] as String,
