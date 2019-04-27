@@ -3,19 +3,25 @@ import 'package:cine_reel/navigation/router.dart';
 import 'package:flutter/material.dart';
 
 class GenrePill extends StatelessWidget {
+  final TMDBGenre genre;
+  final double fontSize;
+  final bool allowTap;
+
   const GenrePill({
     Key key,
     @required this.genre,
-    @required this.fontSize,
+    this.fontSize = 14.0,
+    this.allowTap = true,
   }) : super(key: key);
-
-  final TMDBGenre genre;
-  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Router.goToMoviesByGenreList(context, genre),
+      onTap: () {
+        if (allowTap) {
+          Router.goToMoviesByGenreList(context, genre);
+        }
+      },
       child: Hero(
         tag: "${genre.name}",
         child: Material(

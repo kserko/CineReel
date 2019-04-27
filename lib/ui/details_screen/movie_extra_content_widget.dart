@@ -4,7 +4,6 @@ import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
 import 'package:cine_reel/ui/common_widgets/loading_widget.dart';
 import 'package:cine_reel/ui/details_screen/cast_thumbnails_widget.dart';
-import 'package:cine_reel/ui/details_screen/movie_details_content_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_images_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_ratings_widget.dart';
 import 'package:cine_reel/utils/styles.dart';
