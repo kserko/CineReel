@@ -2,7 +2,6 @@ import 'package:cine_reel/bloc/movie_details_bloc.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/errors_widget.dart';
-import 'package:cine_reel/ui/details_screen/genre_pill_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_header_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:cine_reel/utils/styles.dart';
@@ -25,8 +24,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
         buildTitle(),
         buildMinorDetailsRow(),
         buildOverview(),
-        buildGenres(context),
-        buildMovieExtraDetailsContainer(),
+        buildMovieExtraDetailsContainer(context),
       ],
     );
   }
@@ -40,7 +38,7 @@ class MovieDetailsContentWidget extends StatelessWidget {
     );
   }
 
-  Widget buildMovieExtraDetailsContainer() {
+  Widget buildMovieExtraDetailsContainer(BuildContext context) {
     return CrossFadeWidgets(
         childOne: MovieExtraContentWidget(
             movieDetails: movieDetails, movieDetailsBloc: movieDetailsBloc),
@@ -148,38 +146,6 @@ class MovieDetailsContentWidget extends StatelessWidget {
               style: TextStyle(fontSize: 13.0)),
         ),
       ],
-    );
-  }
-
-  buildGenres(BuildContext context) {
-    if (movieDetails.genres == null || movieDetails.genres.isEmpty) {
-      return Container();
-    }
-
-    List genres = movieDetails.genres.map((genre) {
-      return new GenrePill(genre: genre, fontSize: 14.0,);
-    }).toList();
-
-    return Column(
-      children: [
-        buildHorizontalDivider(context),
-        _buildGenrePillsScroller(genres),
-      ],
-    );
-  }
-
-  Container _buildGenrePillsScroller(List genres) {
-    return Container(
-      height: 45.0,
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          Row(
-            children: genres,
-          )
-        ],
-        scrollDirection: Axis.horizontal,
-      ),
     );
   }
 }

@@ -16,6 +16,7 @@ class MovieDetailsRatingsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        buildHorizontalDivider(context),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           margin: const EdgeInsets.symmetric(horizontal: INDENT),
@@ -30,7 +31,6 @@ class MovieDetailsRatingsWidget extends StatelessWidget {
             ],
           ),
         ),
-        buildHorizontalDivider(context),
       ],
     );
   }
@@ -56,7 +56,8 @@ class MovieDetailsRatingsWidget extends StatelessWidget {
   Widget buildRottenTomatoesRating() {
     return Row(
       children: <Widget>[
-        MaterialIcon("assets/rotten_tomatoes_icon.png", _launchRottenTomatoesUrl),
+        MaterialIcon(
+            "assets/rotten_tomatoes_icon.png", _launchRottenTomatoesUrl),
         Text(movieDetails.getRatingFor(RATING_SOURCE.ROTTEN_TOMATOES)),
       ],
     );

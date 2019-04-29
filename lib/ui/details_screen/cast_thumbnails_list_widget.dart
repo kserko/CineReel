@@ -7,12 +7,12 @@ import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-const castHeight = 280.0;
+const listHeight = 280.0;
 
-class CastThumbnailsWidget extends StatelessWidget {
+class CastThumbnailsListWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
 
-  CastThumbnailsWidget({TMDBMovieDetails this.movieDetails});
+  CastThumbnailsListWidget({TMDBMovieDetails this.movieDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,6 @@ class CastThumbnailsWidget extends StatelessWidget {
       children: <Widget>[
         buildSubtitleForDetailsPage("Cast"),
         buildThumbnails(),
-        buildHorizontalDivider(context),
       ],
     );
   }
@@ -28,17 +27,25 @@ class CastThumbnailsWidget extends StatelessWidget {
   Container buildThumbnails() {
     return Container(
       child: SizedBox.fromSize(
-        size: const Size.fromHeight(castHeight),
+        size: const Size.fromHeight(listHeight),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: movieDetails.credits != null ? movieDetails.credits.cast.length : 8,
+          itemCount: movieDetails.credits != null
+              ? movieDetails.credits.cast.length
+              : 0,
           itemBuilder: (BuildContext context, int index) {
-            Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
+            Cast cast =
+                movieDetails.hasData ? movieDetails.credits.cast[index] : null;
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Expanded(child: _buildAvatar(context, index, cast)),
+                Flexible(
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 4.0),
+                      height: listHeight * 0.75,
+                      child: _buildAvatar(context, index, cast)),
+                ),
                 _buildCastName(cast),
               ],
             );
@@ -56,13 +63,7 @@ class CastThumbnailsWidget extends StatelessWidget {
         onTap: () => Router.goToPersonDetailsScreen(context, cast),
         child: Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              _buildPhotoThumbnail(cast, index),
-            ],
-          ),
+          child: _buildPhotoThumbnail(cast, index),
         ),
       ),
     ));
@@ -104,23 +105,21 @@ class CastThumbnailsWidget extends StatelessWidget {
   }
 
   Widget _buildPhotoThumbnail(Cast cast, int index) {
-    return Expanded(
-      child: Hero(
-        child: Material(
-          color: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(30.0),
-                child: ImageLoader(
-                  imagePath: cast.profilePath,
-                  imageType: IMAGE_TYPE.PROFILE,
-                  size: PROFILE_SIZES[PROFILE_SIZE],
-                )),
-          ),
+    return Hero(
+      child: Material(
+        color: Colors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(30.0),
+              child: ImageLoader(
+                imagePath: cast.profilePath,
+                imageType: IMAGE_TYPE.PROFILE,
+                size: PROFILE_SIZES[PROFILE_SIZE],
+              )),
         ),
-        tag: "${cast.id}-${cast.name}",
       ),
+      tag: "${cast.id}-${cast.name}",
     );
   }
 }
