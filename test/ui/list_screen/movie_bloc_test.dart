@@ -3,7 +3,7 @@ import 'package:cine_reel/models/tmdb_movies_response.dart';
 import 'package:cine_reel/ui/list_screen/movie_state.dart';
 import 'package:cine_reel/ui/tabs/tab_object.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
+import 'package:test_api/test_api.dart';
 
 import '../../fixtures/common_mocks.dart';
 import '../../fixtures/movie_fixtures.dart';

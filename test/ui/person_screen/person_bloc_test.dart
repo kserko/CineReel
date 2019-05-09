@@ -1,7 +1,7 @@
 import 'package:cine_reel/bloc/person_bloc.dart';
 import 'package:cine_reel/ui/person_details/person_state.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
+import 'package:test_api/test_api.dart';
 
 import '../../fixtures/common_mocks.dart';
 import '../../fixtures/person_fixtures.dart';

@@ -19,7 +19,7 @@ dev_dependencies:
   json_serializable: 1.5.1
   transparent_image: 0.1.0
   flutter_launcher_icons: 0.6.1
-  mockito: 3.0.0
+  mockito: 4.0.0
   flutter_test:
     sdk: flutter
 

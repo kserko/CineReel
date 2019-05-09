@@ -50,7 +50,7 @@ class _MyTabbedPageState extends State<HomePage>
     popularTab = TabObject(TabKey.kPopular, getPopularProvider());
     upcomingTab = TabObject(TabKey.kUpcoming, getUpcomingProvider(deviceLocale.countryCode));
 
-    _tabController = new TabController(vsync: this, length: tabs.length);
+    _tabController = new TabController(vsync: this, length: 5);
     _tabController.addListener(_handleTabSelection);
 
     tabBarView = TabBarView(

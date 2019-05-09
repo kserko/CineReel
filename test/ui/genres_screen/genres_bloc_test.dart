@@ -4,7 +4,7 @@ import 'package:cine_reel/bloc/genres_bloc.dart';
 import 'package:cine_reel/models/tmdb_genres.dart';
 import 'package:cine_reel/ui/genres/genres_state.dart';
 import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
+import 'package:test_api/test_api.dart';
 
 import '../../fixtures/common_mocks.dart';
 import '../../fixtures/genres_fixtures.dart';

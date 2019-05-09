@@ -1,9 +1,7 @@
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
 import 'package:cine_reel/navigation/router.dart';
-import 'package:cine_reel/ui/common_widgets/common_widgets.dart';
 import 'package:cine_reel/ui/common_widgets/image_loader.dart';
-import 'package:cine_reel/ui/details_screen/movie_extra_content_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -16,12 +14,7 @@ class CastThumbnailsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        buildSubtitleForDetailsPage("Cast"),
-        buildThumbnails(),
-      ],
-    );
+    return buildThumbnails();
   }
 
   Container buildThumbnails() {

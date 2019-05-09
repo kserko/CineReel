@@ -7,16 +7,7 @@ import 'package:cine_reel/ui/details_screen/cast_thumbnails_list_widget.dart';
 import 'package:cine_reel/ui/details_screen/genre_pill_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_images_widget.dart';
 import 'package:cine_reel/ui/details_screen/movie_details_ratings_widget.dart';
-import 'package:cine_reel/utils/styles.dart';
 import 'package:flutter/widgets.dart';
-
-Container buildSubtitleForDetailsPage(String title) {
-  return Container(
-      margin: const EdgeInsets.only(left: 8.0, bottom: 18.0),
-      child: Align(
-          alignment: Alignment.topLeft,
-          child: Text(title, style: STYLE_SUBTITLE)));
-}
 
 class MovieExtraContentWidget extends StatelessWidget {
   final TMDBMovieDetails movieDetails;
