@@ -27,20 +27,20 @@ class CastThumbnailsListWidget extends StatelessWidget {
               ? movieDetails.credits.cast.length
               : 0,
           itemBuilder: (BuildContext context, int index) {
-            Cast cast =
-                movieDetails.hasData ? movieDetails.credits.cast[index] : null;
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Flexible(
-                  child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 4.0),
-                      height: listHeight * 0.75,
-                      child: _buildAvatar(context, index, cast)),
-                ),
-                _buildCastName(cast),
-              ],
+            Cast cast = movieDetails.hasData ? movieDetails.credits.cast[index] : null;
+            return Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                        height: listHeight * 0.75,
+                        child: _buildAvatar(context, index, cast)),
+                  ),
+                  _buildCastName(cast),
+                ],
+              ),
             );
           },
         ),
@@ -64,15 +64,15 @@ class CastThumbnailsListWidget extends StatelessWidget {
 
   Widget _buildCastName(Cast cast) {
     return Container(
-      width: 140.0,
-      padding: const EdgeInsets.only(top: 5.0),
-      child: Column(
-        children: <Widget>[
-          _buildName(cast),
-          _buildCharacter(cast),
-        ],
-      ),
-    );
+        width: 140.0,
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
+    child: Column(
+      children: <Widget>[
+        _buildName(cast),
+        _buildCharacter(cast),
+      ],
+    ),
+        );
   }
 
   Widget _buildName(Cast cast) {
@@ -89,6 +89,7 @@ class CastThumbnailsListWidget extends StatelessWidget {
       return Center(
         child: Text(
           "(${cast.character})",
+          overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12.0),
         ),
