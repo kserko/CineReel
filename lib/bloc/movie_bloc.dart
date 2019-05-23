@@ -122,4 +122,13 @@ class MovieBloc extends BlocBase {
     }
     return apiCall;
   }
+
+  String getVoteAverageForMovie(int movieId) {
+    TMDBMovieBasic movie = moviesPopulated.movies.firstWhere((movieBasic) => movieBasic.id == movieId);
+    if (movie.voteAverage > 0) {
+      return movie.voteAverage.toString();
+    } else {
+      return "";
+    }
+  }
 }

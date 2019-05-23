@@ -1,3 +1,5 @@
+import 'package:cine_reel/bloc/bloc_provider.dart';
+import 'package:cine_reel/bloc/movie_bloc.dart';
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_basic.dart';
 import 'package:cine_reel/navigation/router.dart';
@@ -46,28 +48,25 @@ class BackdropRow extends StatelessWidget {
         children: <Widget>[
           BackdropWidget(movie: movie, context: context),
           _buildHeader(movie: movie),
-          Positioned(bottom: 0, right: 0, child: _buildRating(movie)),
+          Positioned(bottom: 0, right: 0, child: _buildRating(movie, context)),
           // buildReleaseDate(movie)
         ],
       ),
     );
   }
 
-  Widget _buildRating(TMDBMovieBasic movie) {
-    return Container(
-      padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-      decoration: textDecoration(),
-      child: Row(
-        children: <Widget>[
-          Text("${movie.voteAverage}",
-              style: STYLE_TITLE.copyWith(color: Colors.yellow)),
-          Text(
-            " / 10",
-            style: TextStyle(fontSize: 14.0),
-          ),
-        ],
-      ),
-    );
+  Widget _buildRating(TMDBMovieBasic movie, BuildContext context) {
+    MovieBloc movieBloc = BlocProvider.of<MovieBloc>(context);
+      return Container(
+        padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
+        decoration: textDecoration(),
+        child: Row(
+          children: <Widget>[
+            Text("${movieBloc.getVoteAverageForMovie(movie.id)}",
+                style: STYLE_TITLE.copyWith(color: Colors.yellow)),
+          ],
+        ),
+      );
   }
 
   Widget _buildHeader({TMDBMovieBasic movie, bool showRating = true}) {
@@ -95,4 +94,3 @@ class BackdropRow extends StatelessWidget {
         tag: "${movie.id}-${movie.title}");
   }
 }
-
