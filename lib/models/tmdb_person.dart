@@ -1,5 +1,4 @@
 import 'package:cine_reel/models/tmdb_movie_credits.dart';
-import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tmdb_person.g.dart';
@@ -9,8 +8,7 @@ class TMDBPerson {
   String birthday;
   @JsonKey(name: "known_for_department")
   String knownForDepartment;
-  @JsonKey(name: "death_day")
-  String deathDay;
+  @JsonKey(name: "deathday")  String deathDay;
   int id;
   String name;
   @JsonKey(name: "also_known_as")
@@ -56,18 +54,6 @@ class TMDBPerson {
 
   bool hasBirthdayDetails() {
     return birthday != null && birthday.isNotEmpty;
-  }
-
-  String getFormattedBirthday() {
-    var parsedBirthDate = DateFormat("yyyy-MM-dd").parse(birthday);
-
-    var birthYear = DateTime.now().year - parsedBirthDate.year;
-
-    if (isDead()) {
-      var parsedDeathDate = DateFormat("yyyy-MM-dd").parse(deathDay);
-      return "${DateFormat('yyyy').format(parsedBirthDate)} - ${parsedDeathDate.year} ($birthYear)";
-    }
-    return "${DateFormat('MMM dd yyyy').format(parsedBirthDate)} ($birthYear)";
   }
 
   String getPlaceOfBirth() {

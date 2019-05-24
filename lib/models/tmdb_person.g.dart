@@ -10,7 +10,7 @@ TMDBPerson _$TMDBPersonFromJson(Map<String, dynamic> json) {
   return TMDBPerson(
       birthday: json['birthday'] as String,
       knownForDepartment: json['known_for_department'] as String,
-      deathDay: json['death_day'] as String,
+      deathDay: json['deathday'] as String,
       id: json['id'] as int,
       name: json['name'] as String,
       alsoKnownAs:
@@ -33,7 +33,7 @@ Map<String, dynamic> _$TMDBPersonToJson(TMDBPerson instance) =>
     <String, dynamic>{
       'birthday': instance.birthday,
       'known_for_department': instance.knownForDepartment,
-      'death_day': instance.deathDay,
+      'deathday': instance.deathDay,
       'id': instance.id,
       'name': instance.name,
       'also_known_as': instance.alsoKnownAs,

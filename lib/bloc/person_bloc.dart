@@ -2,6 +2,7 @@ import 'package:cine_reel/api/tmdb_api.dart';
 import 'package:cine_reel/bloc/bloc_provider.dart';
 import 'package:cine_reel/models/tmdb_person.dart';
 import 'package:cine_reel/ui/person_details/person_state.dart';
+import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PersonBloc extends BlocBase {
@@ -35,5 +36,18 @@ class PersonBloc extends BlocBase {
   @override
   void dispose() {
     _streamController.close();
+  }
+
+  String getFormattedBirthday(TMDBPerson person) {
+    var birthDate = DateFormat("yyyy-MM-dd").parse(person.birthday);
+    var age = DateTime.now().year - birthDate.year;
+
+    if (person.isDead()) {
+      var deathDate = DateFormat("yyyy-MM-dd").parse(person.deathDay);
+      age = deathDate.year - birthDate.year;
+
+      return "${birthDate.year} - ${deathDate.year} ($age)";
+    }
+    return "${DateFormat('MMM dd yyyy').format(birthDate)} ($age)";
   }
 }

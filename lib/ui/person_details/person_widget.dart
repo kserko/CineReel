@@ -1,3 +1,5 @@
+import 'package:cine_reel/bloc/bloc_provider.dart';
+import 'package:cine_reel/bloc/person_bloc.dart';
 import 'package:cine_reel/constants/api_constants.dart';
 import 'package:cine_reel/models/tmdb_movie_credits.dart';
 import 'package:cine_reel/models/tmdb_movie_details.dart';
@@ -191,6 +193,8 @@ class PersonWidget extends StatelessWidget {
   }
 
   Widget _buildBirthdayWidget(BuildContext context) {
+    PersonBloc personBloc = BlocProvider.of<PersonBloc>(context);
+
     bool hasBirthdayDetails = person?.hasBirthdayDetails() ?? false;
 
     if (hasBirthdayDetails) {
@@ -202,7 +206,7 @@ class PersonWidget extends StatelessWidget {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: Text(person.getFormattedBirthday(),
+                  child: Text(personBloc.getFormattedBirthday(person),
                       style: TextStyle(
                         inherit: true,
                         fontSize: 16.0,
