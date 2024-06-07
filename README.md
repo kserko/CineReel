@@ -1,6 +1,7 @@
 # cine_reel
+NOTE: This app is no longer being maintained and cannot be found on the Play store anymore. 
 
-A Flutter TMDB client for Android - https://play.google.com/store/apps/details?id=apps.serko.cinereel
+A Flutter TMDB client for Android 
 
 ![](cineReel.gif)
 
